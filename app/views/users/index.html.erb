@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>email</th>
+      <th>neptun</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.usr_email %></td>
+        <td><%= user.usr_neptun %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
