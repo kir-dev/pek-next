@@ -1,66 +1,65 @@
 <div class="uk-position-cover">
-    			<!-- navigation -->
-				<nav class="uk-navbar">
+	<!-- navigation -->
+	<nav class="uk-navbar">
+		<ul class="uk-navbar-nav uk-hidden-small">
+    		<li class="uk-active"><a href="">Profil</a></li>
+    		<li> <%= link_to('Authentication', '/auth/oauth') %></li>
+    		<li><a href="">menu3</a></li>
+		</ul>
+		<a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+	</nav>
+
+	<div id="my-id" class="uk-offcanvas">
+		<div class="uk-offcanvas-bar">...</div>
+	</div>
+
+
+	<!-- page -->
+	<!-- from 768px width -->
+	<div class="uk-grid uk-grid-small">
+	  <div class="uk-container-center uk-scrollable-box">
+			<div class="uk-panel uk-panel-box uk-width" style="width: 900px;">
+	    		<h3 class="uk-panel-title">Adatlap - <%= @user.nickname %> </h3>
+	    		<nav class="uk-navbar">
 		    		<ul class="uk-navbar-nav uk-hidden-small">
 		        		<li class="uk-active"><a href="">Profil</a></li>
-		        		<li><a href="">menu2</a></li>
-		        		<li><a href="">menu3</a></li>
+		        		<li><a href="">Körök</a></li>
+		        		<li><a href="">Közösségi történet</a></li>
 		    		</ul>
 		    		<a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
 		    	</nav>
 
-		    	<div id="my-id" class="uk-offcanvas">
-		    		<div class="uk-offcanvas-bar">...</div>
-				</div>
+				<img class="uk-thumbnail" src="https://account.socialbakers.com/default_user.png" alt="<%= @user.screen_name %>">
+				<h3 class="uk-h3"><%= @user.screen_name %></h3>
+				<h4 class="uk-h4"><%= @user.email %></h4>
+				<h4 class="uk-h4"><%= @user.dormitory + @user.room %></h4>
+				<h4 class="uk-h4"><%= @user.cell_phone %></h4>
 
+	    	</div>
+	    </div>
+	</div>
 
-				<!-- page -->
-				<!-- from 768px width -->
-				<div class="uk-grid uk-grid-small">
-				  <div class="uk-container-center uk-scrollable-box">
-						<div class="uk-panel uk-panel-box uk-hidden-medium uk-hidden-small uk-width" style="width: 900px;">
-				    		<h3 class="uk-panel-title">Adatlap - BECENÉV</h3>
-				    		<nav class="uk-navbar">
-					    		<ul class="uk-navbar-nav uk-hidden-small">
-					        		<li class="uk-active"><a href="">Profil</a></li>
-					        		<li><a href="">Körök</a></li>
-					        		<li><a href="">Közösségi történet</a></li>
-					    		</ul>
-					    		<a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
-					    	</nav>
-
-							<img class="uk-thumbnail" src="https://account.socialbakers.com/default_user.png" alt="NÉV">
-							<h3 class="uk-h3">NÉV</h3>
-							<h4 class="uk-h4">example@mail.com</h4>
-							<h4 class="uk-h4">SCH0000</h4>
-							<h4 class="uk-h4">+36301234567</h4>
-
-				    	</div>
-				    </div>
-				</div>
-
-				<!-- between 480px - 768px -->
-				<div class="uk-panel uk-panel-box uk-hidden-small uk-hidden-large uk-hidden-xlarge">
-					<div class="uk-panel uk-panel-box uk-width" style="width: 500px;">
-						<h3 class="uk-panel-title">Adatlap - BECENÉV</h3>
-						<img class="uk-thumbnail" src="https://account.socialbakers.com/default_user.png" alt="NÉV">
-						<h3 class="uk-h3">NÉV</h3>
-						<h4 class="uk-h4">example@mail.com</h4>
-						<h4 class="uk-h4">SCH0000</h4>
-						<h4 class="uk-h4">+36301234567</h4>
-					</div>
-				</div>
-
-				<!-- under 480px width-->
-				<div class="uk-panel uk-panel-box uk-hidden-medium uk-hidden-large uk-hidden-xlarge">
-					<h3 class="uk-panel-title">Adatlap - BECENÉV</h3>
-					<img class="uk-thumbnail" src="https://account.socialbakers.com/default_user.png" alt="NÉV">
-					<h3 class="uk-h3">NÉV</h3>
-					<h4 class="uk-h4">example@mail.com</h4>
-					<h4 class="uk-h4">SCH0000</h4>
-					<h4 class="uk-h4">+36301234567</h4>
-				</div>
-
-    		</div>
+	<!-- between 480px - 768px 
+	<div class="uk-panel uk-panel-box uk-hidden-small uk-hidden-large uk-hidden-xlarge">
+		<div class="uk-panel uk-panel-box uk-width" style="width: 500px;">
+			<h3 class="uk-panel-title">Adatlap - BECENÉV</h3>
+			<img class="uk-thumbnail" src="https://account.socialbakers.com/default_user.png" alt="NÉV">
+			<h3 class="uk-h3">NÉV</h3>
+			<h4 class="uk-h4">example@mail.com</h4>
+			<h4 class="uk-h4">SCH0000</h4>
+			<h4 class="uk-h4">+36301234567</h4>
 		</div>
+	</div>
+
+	<!-- under 480px width
+	<div class="uk-panel uk-panel-box uk-hidden-medium uk-hidden-large uk-hidden-xlarge">
+		<h3 class="uk-panel-title">Adatlap - BECENÉV</h3>
+		<img class="uk-thumbnail" src="https://account.socialbakers.com/default_user.png" alt="NÉV">
+		<h3 class="uk-h3">NÉV</h3>
+		<h4 class="uk-h4">example@mail.com</h4>
+		<h4 class="uk-h4">SCH0000</h4>
+		<h4 class="uk-h4">+36301234567</h4>
+	</div>
+-->
+</div>
     	

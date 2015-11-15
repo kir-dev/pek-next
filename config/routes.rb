@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
 
-  root 'users#index'
+  #root 'users#index'
   get '/auth/oauth/callback', to: 'sessions#create'
   resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'profile#show'
+  root 'profile#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
