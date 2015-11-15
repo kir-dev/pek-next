@@ -50,3 +50,4 @@ group :development do
   gem 'binding_of_caller', '~> 0.7.3.pre1'
 end
 
+gem 'will_paginate'
