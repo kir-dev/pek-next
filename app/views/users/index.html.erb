@@ -38,7 +38,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.id %></td>
+        <td><%= link_to user.id, controller: "users", action: "show", id: user.id %></td>
         <td><%= user.email %></td>
         <td><%= user.neptun %></td>
         <td><%= user.firstname %></td>
