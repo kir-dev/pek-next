@@ -3,8 +3,4 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   use OmniAuth::Strategies::Developer
-
-  def application
-  	redirect_to '/auth/oauth'
-  end
 end
