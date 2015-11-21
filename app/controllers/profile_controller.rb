@@ -1,7 +1,11 @@
 class ProfileController < ApplicationController
 
   def show
-    @user = User.find(session[:user])
+  	if session[:user]
+    	@user = User.find(session[:user])
+    else
+    	redirect_to '/auth/oauth'
+    end
   end
   
 end
