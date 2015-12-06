@@ -1,0 +1,9 @@
+<%= form_tag('/auth/register') do %>
+  <%= label_tag :username, "Felhasználónév" %>
+  <%= text_field_tag :username, nil, :required => true %>
+  <%= label_tag :dormitory, "Kollégium" %>
+  <%= select_tag :dormitory, options_from_collection_for_select(@dorms, "to_s", "to_s", ""), :include_blank => true %>
+  <%= label_tag :room, "Szoba" %>
+  <%= number_field(:room, nil) %>
+  <%= submit_tag("Register") %>
+<% end %>
