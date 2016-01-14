@@ -36,7 +36,7 @@ module OmniAuth
       end
 
       def raw_info
-		    access_token.options[:parse] = :json
+        access_token.options[:parse] = :json
 
         url = "/api/profile"
         params = {:params => { :access_token => access_token.token}}
