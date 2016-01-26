@@ -1,0 +1,19 @@
+
+<table class="uk-table uk-table-striped uk-table-hover">
+  <thead>
+    <tr>
+      <th>Név</th>
+      <th>Becenév</th>
+      <th>Betöltött posztok</th>
+      <th>Jogok</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |m| %>
+    <tr>
+      <td> <%= m.usr_lastname %> <%= m.usr_firstname %> </td>
+      <td> <%= m.usr_nickname %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
