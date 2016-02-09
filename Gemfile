@@ -26,6 +26,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'omniauth'
 gem 'omniauth-oauth2'
 
+# Brakeman: security tool
+gem "brakeman", :require => false
+
 gem 'uikit-sass-rails'
 
 # Use ActiveModel has_secure_password

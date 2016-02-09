@@ -44,10 +44,16 @@
     </ul>
 
     <div class="uk-nav-content uk-navbar-flip uk-hidden-small">
-      <form class="uk-form uk-margin-remove uk-display-inline-block">
-        <i class="uk-icon-search"></i><input placeholder="Keresés" type="text">
-      </form>
-    </div>
+ 
+        <%= form_tag("/search", {:method => 'get', :class => 'cuk-form uk-margin-remove uk-display-inline-bloc'}) do %>
+          <p>
+            <%= text_field_tag :query %>
+            <%= button_tag "Search", {:name => nil, class: 'uk-icon-search'} do %>
+            <% end %>
+          </p>
+        <% end %>
+
+  </div>
     <a href="#off-canvas-menu" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
   </nav>
 

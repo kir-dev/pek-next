@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-  <% @users.each do |m| %>
+  <% Array(@users).each do |m| %>
     <tr>
       <td> <%= m.usr_lastname %> <%= m.usr_firstname %> </td>
       <td> <%= m.usr_nickname %> </td>
