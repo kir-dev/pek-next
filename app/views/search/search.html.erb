@@ -4,16 +4,55 @@
     <tr>
       <th>Név</th>
       <th>Becenév</th>
-      <th>Betöltött posztok</th>
-      <th>Jogok</th>
     </tr>
   </thead>
   <tbody>
-  <% Array(@users).each do |m| %>
+  <% Array(@UsersNameFirstX).each do |m| %>
+    <tr>
+      <td> <%= m.usr_lastname %> <%= m.usr_firstname %> </td>
+      <td> <%= m.usr_nickname %> </td>
+    </tr>
+  <% end %>
+  <% Array(@UsersNickFirstX).each do |m| %>
     <tr>
       <td> <%= m.usr_lastname %> <%= m.usr_firstname %> </td>
       <td> <%= m.usr_nickname %> </td>
     </tr>
   <% end %>
   </tbody>
+  <tfoot>
+    <tr>
+      <td><a href="#">Többi megjelenítése</a></td>
+    </tr>
+  </tfoot>
+</table>
+
+<table class="uk-table uk-table-striped uk-table-hover">
+  <thead>
+  <thead>
+    <tr>
+      <th>Név</th>
+      <th>Becenév</th>
+      <th>Kollégium</th>
+      <th>Szobaszám</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% Array(@OthersFirstX).each do |m| %>
+    <tr>
+      <td> <%= m.usr_lastname %> <%= m.usr_firstname %> </td>
+      <td> <%= m.usr_nickname %> </td>
+      <td> <%= m.usr_dormitory %> </td>
+      <td> <%= m.usr_room %> </td>
+      <td> <%= m.usr_email %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td><a href="#">Többi megjelenítése</a></td>
+    </tr>
+  </tfoot>
+
 </table>
