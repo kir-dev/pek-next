@@ -22,13 +22,14 @@
     <tr class="gender_line">
         <td><label for="id43">Nem</label></td>
         <td>
-            <%='select_tag "gender", , {"n/a", "férfi", "nő", "nem megadott"}' %> "FIXME"
-            <select class="gender_radios" name="gender" id="id43">
-                <option value="UNKNOWN">n/a</option>
-                <option selected="selected" value="MALE">férfi</option>
-                <option value="FEMALE">nő</option>
-                <option value="NOTSPECIFIED">nem megadott</option>
-            </select>
+            <%=select_tag(:gender, options_for_select(
+              [
+                ['n/a', "UNKNOWN", { 'selected' => 'selected' }],
+                ['férfi', "MALE"],
+                ['nő', "FEMALE"],
+                ['nem megadott']
+              ], 4), { :class => 'gender_radios' } )
+            %>
         </td>
     </tr>
     <tr>
@@ -39,7 +40,7 @@
         49.gif" title="Elrejt"/></a>
         </td>
     </tr>
-    <tr>  
+    <tr>
         <td><label for="id46">Cím</label></td>
         <td>
             <%=text_field_tag "homeAddress",@user.home_address, class:"class" %>
@@ -90,7 +91,7 @@
             <td><label>IM</label></td>
             <td>
                 <table>
-                    
+
                     <tr>
                         <td colspan="2"><input type="submit" class="btn" value="Új" name="rowPanel:imAdd" id="id36"/>Eh, ezt itt implementálni kell</td>
                     </tr>
