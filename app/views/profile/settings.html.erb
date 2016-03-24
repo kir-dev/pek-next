@@ -24,11 +24,11 @@
         <td>
             <%=select_tag(:gender, options_for_select(
               [
-                ['n/a', "UNKNOWN", { 'selected' => 'selected' }],
+                ['n/a', "UNKNOWN"],
                 ['férfi', "MALE"],
                 ['nő', "FEMALE"],
-                ['nem megadott']
-              ], 4), { :class => 'gender_radios' } )
+                ['nem megadott', "NOTSPECIFIED"]
+              ], selected: @user.gender), { :class => 'gender_radios', :name => 'gender', :id => 'id43'} )
             %>
         </td>
     </tr>
@@ -70,13 +70,19 @@
     </tr>
     <tr>
         <td><label for="id4e">Kollégium</label></td>
-        <td><select name="dormitory" id="id4e">
-                <option selected="selected" value=""></option>
-                <option value="0">Schönherz</option>
-                <option value="1">Tétény</option>
-                <option value="2">Kármán</option>
-                <option value="3">Vásárhelyi</option>
-            </select><a class="lockLink" id="id3a" href="./edit?9-2.ILinkListener-personFormPanel-personForm-roomNumberAttributeLink"><img alt="" class="lock" id="id4f" src="../wicket/resource/hu.sch.web.wicket.components.customlinks.AttributeAjaxFallbackLink/resources/public-ver-C241A6A691EA12AD4181AEE3FB823C49.gif" title="Elrejt"/></a>
+        <td>
+            <%=select_tag(:dormitory, options_for_select(
+              [
+                ['Nem megadott', ""],
+                ['Schönherz', "Schönherz"],
+                ['Tétény', "Tétény"],
+                ['Kármán', "Kármán"],
+                ['Vásárhelyi', "Vásárhelyi"],
+                # jelenleg nincs külsős lehetőség
+                ['Külsős', "Külsős"]
+              ], selected: @user.dormitory), { :name => 'dormitory', :id => 'id4e'} )
+            %>
+            <a class="lockLink" id="id3a" href="./edit?9-2.ILinkListener-personFormPanel-personForm-roomNumberAttributeLink"><img alt="" class="lock" id="id4f" src="../wicket/resource/hu.sch.web.wicket.components.customlinks.AttributeAjaxFallbackLink/resources/public-ver-C241A6A691EA12AD4181AEE3FB823C49.gif" title="Elrejt"/></a>
         </td>
         </tr>
         <tr>
