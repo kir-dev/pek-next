@@ -8,7 +8,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  host: localhost
+  host: db
   username: pek-next
   password: pek-next
 
@@ -21,7 +21,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: pek-next
+  database: pek-next-test
 
 production:
   <<: *default
