@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require uikit
+ *= require_tree ../../../vendor/assets/stylesheets/.
  *= require_tree .
  *= require_self
  */

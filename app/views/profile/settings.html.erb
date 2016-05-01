@@ -88,7 +88,7 @@
         <tr>
             <td><label for="id50">Szobaszám</label></td>
             <td>
-                <%=text_field_tag( "room",@user.room, class:"class") %>
+                <%=text_field_tag("room",@user.room, class:"class") %>
             </td>
         </tr>
     </table>
@@ -99,16 +99,10 @@
                 <table>
 
                     <tr>
-                        <td colspan="2"><input type="submit" class="btn" value="Új" name="rowPanel:imAdd" id="id36"/>Eh, ezt itt implementálni kell</td>
+                        <td colspan="2"><input type="submit" class="btn" value="Új" name="rowPanel:imAdd" id="id36"/></td>
                     </tr>
                 </table>
             </td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td><label>Fotó</label></td>
-            <td><img id="id52" src="./edit?9-IResourceListener-personFormPanel-personForm-photo&amp;antiCache=1456576655784"/><a style="position: relative; top: -5px;" class="photoRemoveLink" id="id37" href="./edit?9-2.ILinkListener-personFormPanel-personForm-photoRemoveLink">Fotó eltávolítása</a><input style="display: block;" class="textinput" type="file" name="fileInput"/></td>
         </tr>
         <tr>
             <td><label>Neptun</label></td>
@@ -116,4 +110,25 @@
         </tr>
     </table>
     <span id="btns"><input class="btn" type="submit" value="Módosítás" name="submitButton" id="id3f"/></span>
+<% end %>
+<%= form_tag({action: :settings}, multipart: true) do %>
+    <table>
+        <tr>
+            <% if @raw_photo %>
+                <div id="cropper-container">
+                    <img src="<%= root_path + "uploads/" + @raw_photo %>" id="cropper-img">
+                </div>
+                <button class="uk-button-primary" onclick="cropDone">Mehet!</button>
+            <% end %>
+        </tr>
+        <tr>
+            <td><label>Fotó</label></td>
+            <td>
+                <%= file_field_tag 'rawPhoto' %>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Feltöltés"></td>
+        </tr>
+    </table>
 <% end %>
