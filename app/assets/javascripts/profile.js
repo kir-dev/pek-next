@@ -29,5 +29,7 @@ function cropDone() {
             timeout : 5000,
             pos     : 'top-center'
         });
+        $('#image-upload-container').fadeOut();
+        setTimeout(function () {$('#back-button-container').fadeIn();}, 400);
     });
 }
