@@ -1,0 +1,57 @@
+<div class="uk-height-viewport uk-responsive-width">
+	<div class="uk-container-center">
+		<div class="uk-panel uk-panel-box">
+			<h3 class="uk-panel-title"><%= @group[:name] %></h3>
+			<div class="uk-width-medium-1-2 uk-container-center">
+				<h2 class="uk-h2">Kör adatai</h2>
+				<table>
+					<tbody>
+						<tr>
+							<th class="group-attr">Név</th>
+							<td><%= @group[:name] %></td>
+						</tr>
+						<tr>
+							<th class="group-attr">Alapítási éve</th>
+							<td><%= @group[:funded] %></td>
+						</tr>
+						<tr>
+							<th class="group-attr">Svie tag</th>
+							<td><%= @group[:issvie] %></td>
+						</tr>
+						<tr>
+							<th class="group-attr">Weboldal</th>
+							<td><%= @group[:webpage] %></td>
+						</tr>
+						<tr>
+							<th class="group-attr">Levelezőlista</th>
+							<td><%= @group[:maillist] %></td>
+						</tr>
+						<tr>
+							<th class="group-attr">Bemutatkozás</th>
+							<td><%= @group[:description] %></td>
+						</tr>
+					</tbody>
+				</table>
+				<h2 class="uk-h2">Aktív tagok</h2>
+				<table class="uk-table uk-table-striped uk-table-hover">
+					<thead>
+						<tr>
+							<th>Felhasználó neve</th>
+							<th>Becenév</th>
+							<th>Betöltött poszt</th>
+							<th>Tagság kezdete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Gulyás Gergely</td>
+							<td>Geri</td>
+							<td>körvezető</td>
+							<td>2013.02.04</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
