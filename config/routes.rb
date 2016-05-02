@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/search', to: 'search#search'
   get '/settings', to: 'profile#settings'
   post '/settings', to: 'profile#settings'
+  post '/settings/upload', to: 'profile#upload'
+  get '/profile/picture/:username', to: 'profile#picture'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
