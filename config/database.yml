@@ -9,7 +9,7 @@ default: &default
   encoding: unicode
   pool: 5
   host: db
-  username: pek-next
+  username: kir
   password: pek-next
 
 development:

@@ -3,7 +3,7 @@ services:
   db:
     build: db
     environment:
-      - POSTGRES_USER=pek-next
+      - POSTGRES_USER=kir
       - POSTGRES_PASSWORD=pek-next
       - POSTGRES_DB=pek-next
   web:
