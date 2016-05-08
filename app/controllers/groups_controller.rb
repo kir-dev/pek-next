@@ -1,5 +1,9 @@
 class GroupsController < ApplicationController
-  before_action :require_login
+  #before_action :require_login
+
+  def index
+    @groups = Group.paginate(:page => params[:page], :per_page => 20)
+  end
 
   def show
     params[:group_id]
