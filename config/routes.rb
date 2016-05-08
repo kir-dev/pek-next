@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
   #root 'users#index'
   get '/auth/oauth/callback', to: 'sessions#create'
-  resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
