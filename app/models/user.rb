@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
   alias_attribute :firstname, :usr_firstname
   alias_attribute :lastname, :usr_lastname
   alias_attribute :nickname, :usr_nickname
-  # TODO: there should be a better way to access all this SVIE stuff
   alias_attribute :svie_state, :usr_svie_state
   alias_attribute :svie_member_type, :usr_svie_member_type
   alias_attribute :svie_primary_membership, :usr_svie_primary_membership
