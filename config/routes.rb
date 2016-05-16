@@ -3,8 +3,12 @@ Rails.application.routes.draw do
   #root 'users#index'
   get '/auth/oauth/callback', to: 'sessions#create'
   get '/groups/show/:group_id', to: 'groups#show'
+  post '/groups/apply/:group_id', to: 'groups#apply'
   resources :users
   resources :groups
+  resources :grp_membership
+  resources :poszttipus
+  resources :poszt
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -2,7 +2,7 @@
 	<div class="uk-container-center">
 		<div class="uk-panel uk-panel-box">
 			<h3 class="uk-panel-title"><%= @group.name %></h3>
-			<div class="uk-width-medium-1-2 uk-container-center">
+			<div class="uk-width-medium-2-3 uk-container-center">
 				<h2 class="uk-h2">Kör adatai</h2>
 				<table>
 					<tbody>
@@ -32,6 +32,11 @@
 						</tr>
 					</tbody>
 				</table>
+				<% if @group.users_can_apply && !@is_member %>
+					<%= form_tag "/groups/apply/" + @group.id.to_s, {method: 'post'} do %>
+						<%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
+					<% end %>
+				<% end %>
 				<h2 class="uk-h2">Aktív tagok</h2>
 				<table class="uk-table uk-table-striped uk-table-hover">
 					<thead>
@@ -40,17 +45,39 @@
 							<th>Becenév</th>
 							<th>Betöltött poszt</th>
 							<th>Tagság kezdete</th>
+							<% if @is_leader %>
+								<th>Módosítás</th>
+								<th></th>
+							<% end %>
 						</tr>
 					</thead>
 					<tbody>
+						<% @members.each_with_index do |m, id| %>
 						<tr>
-							<td>Gulyás Gergely</td>
-							<td>Geri</td>
-							<td>körvezető</td>
-							<td>2013.02.04</td>
+							<td><%= m.lastname %> <%= m.firstname %></td>
+							<td><%= m.nickname %></td>
+							<td>
+								<% @posts[id].each_with_index do |p, p_index| %>
+									<%= p.pttip_name %><%= p_index == @posts[id].length - 1 ? '' : ',' %>
+								<% end %>
+							</td>
+							<td><%= @memberships[id].membership_start %></td>
+							<% if @is_leader %>
+								<td>
+									<%= button_tag "Módosítás", {class: "uk-button uk-button-small"} %>
+								</td>
+								<td>
+									<input type="checkbox">
+								</td>
+							<% end %>
 						</tr>
+						<% end %>
 					</tbody>
 				</table>
+				<% if @is_leader %>
+					<%= button_tag "Kijelöltek öregtaggá avatása", {class: "uk-button uk-button-primary"} %>
+					<%= button_tag "Kijelöltek törlése", {class: "uk-button uk-button-danger"} %>
+				<% end %>
 			</div>
 		</div>
 	</div>
