@@ -16,6 +16,20 @@ class ProfileController < ApplicationController
     	redirect_to '/auth/oauth'
     end
   end
+  
+  def new
+    @user = User.new
+  end
 
+  def save_settings
+    raise
+    @user = User post
+    post[:firstName]
+    post[:lastName]
+    post[:nickName]
+
+    # a fentieket nem lenne egyszerűbb valami osztályon keresztül behúzni? 
+    #  és akkor csak annyi lenne, hogy: User=post
+  end
   
 end
