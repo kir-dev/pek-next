@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/auth/oauth/callback', to: 'sessions#create'
   get '/groups/show/:group_id', to: 'groups#show'
   post '/groups/apply/:group_id', to: 'groups#apply'
+  post '/groups/inactivate/:group_id', to: 'groups#inactivate'
   resources :users
   resources :groups
   resources :grp_membership

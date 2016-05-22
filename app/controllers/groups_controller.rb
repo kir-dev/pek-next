@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
       end
     end
     @is_member = is_member(@group.id, @user.id)
-    @is_leader = @is_member && Poszt.where(grp_member_id: GrpMembership.where(grp_id: @group.id, usr_id: @user.id)[0].id, pttip_id: 3).length > 0
+    @is_leader = is_leader(@group.id, @user.id)
   end
 
   def apply
@@ -34,7 +34,24 @@ class GroupsController < ApplicationController
     redirect_to :back
   end
 
+  def inactivate
+    if !is_leader(params[:group_id], @user.id)
+      raise
+    end
+    params.each do |p|
+      if p[0].include? "check-"
+        inac_id = p[0].sub "check-", ""
+        GrpMembership.update(inac_id, membership_end: Time.now)
+      end
+    end
+    redirect_to :back
+  end
+
   def is_member(grp_id, usr_id)
     return GrpMembership.where(grp_id: grp_id, usr_id: usr_id).length > 0
+  end
+
+  def is_leader(grp_id, usr_id)
+    return is_member(grp_id, usr_id) && Poszt.where(grp_member_id: GrpMembership.where(grp_id: grp_id, usr_id: usr_id)[0].id, pttip_id: 3).length > 0
   end
 end

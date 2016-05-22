@@ -38,6 +38,10 @@
 					<% end %>
 				<% end %>
 				<h2 class="uk-h2">Aktív tagok</h2>
+				<% if @is_leader %>
+					<form action="/groups/inactivate/<%= @group.id %>" method="post">
+					<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+				<% end %>
 				<table class="uk-table uk-table-striped uk-table-hover">
 					<thead>
 						<tr>
@@ -67,7 +71,7 @@
 									<%= button_tag "Módosítás", {class: "uk-button uk-button-small"} %>
 								</td>
 								<td>
-									<input type="checkbox">
+									<input type="checkbox" name="<%= 'check-' + @memberships[id].id.to_s %>">
 								</td>
 							<% end %>
 						</tr>
@@ -75,8 +79,9 @@
 					</tbody>
 				</table>
 				<% if @is_leader %>
-					<%= button_tag "Kijelöltek öregtaggá avatása", {class: "uk-button uk-button-primary"} %>
-					<%= button_tag "Kijelöltek törlése", {class: "uk-button uk-button-danger"} %>
+					<%= submit_tag "Kijelöltek öregtaggá avatása", {class: "uk-button uk-button-primary"} %>
+					<%= submit_tag "Kijelöltek törlése", {class: "uk-button uk-button-danger"} %>
+				</form>
 				<% end %>
 			</div>
 		</div>
