@@ -9,6 +9,6 @@ class ProfileController < ApplicationController
   end
   
   def register
-  	@dorms = [ "Schönherz Zoltán Kollégium", "Nagytétényi úti Kollégium", "Vásárhelyi", "Kármán" ]
+  	@dorms = [ "Schönherz Zoltán Kollégium", "Nagytétényi úti Kollégium", "Vásárhelyi", "Kármán", "Külsős" ]
   end
 end
