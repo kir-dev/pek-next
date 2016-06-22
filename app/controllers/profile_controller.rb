@@ -1,20 +1,10 @@
 class ProfileController < ApplicationController
+  before_action :require_login
 
   def show
-  	if session[:user]
-    	@user = User.find(session[:user])
-    else
-    	redirect_to '/auth/oauth'
-    end
   end
 
   def settings
-  	if session[:user]
-    	@user = User.find(session[:user])
-      @genders = '{"UNKNOWN", "MALE", "FEMALE", "NOTSPECIFIED"}'#FIXME
-    else
-      redirect_to '/auth/oauth'
-    end
     if params[:rawPhoto]
       raw_photo = params[:rawPhoto]
       dircheck(photo_dir(@user.screen_name))
@@ -36,10 +26,6 @@ class ProfileController < ApplicationController
     respond_to do |format|
       format.json {render json: {status: "success"}}
     end
-  end
-
-  def new
-    @user = User.new
   end
 
   def picture
