@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   post '/settings', to: 'profile#settings'
   post '/settings/upload', to: 'profile#upload'
   post '/settings/save', to: 'profile#save_settings'
- get '/profile/picture/:username', to: 'profile#picture'
+  get '/profile/picture/:username', to: 'profile#picture'
  
-# The priority is based upon order of creation: first created -> highest priority.
+  # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
