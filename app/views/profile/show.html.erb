@@ -10,10 +10,10 @@
 				</ul>
 			</nav>
 -->
-			<img class="uk-thumbnail" src="https://account.socialbakers.com/default_user.png" alt="NÉV">
-			<h3 class="uk-h3"><%= @user.screen_name %></h3>
+			<img class="uk-thumbnail" src="/profile/picture/<%= @user.screen_name %>" alt="<%= @user.screen_name %>">
+			<h3 class="uk-h3"><%= @user.lastname %> <%= @user.firstname %></h3>
 			<h4 class="uk-h4"><%= @user.email %></h4>
-			<h4 class="uk-h4"><%= @user.dormitory + @user.room %></h4>
+			<h4 class="uk-h4"><%= @user.dormitory %> <%= @user.room %></h4>
 			<h4 class="uk-h4"><%= @user.cell_phone %></h4>
 
 		</div>

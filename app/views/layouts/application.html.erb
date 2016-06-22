@@ -16,7 +16,7 @@
         <a href=""><i class="uk-icon-user"></i> Profilom</a>
         <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
           <ul class="uk-nav uk-nav-navbar">
-            <li><a href="#">Teljes profil</a></li>
+            <li><a href="/">Teljes profil</a></li>
             <li><a href="#">Közösségi profil</a></li>
             <li><a href="#">Közösségi történet</a></li>
           </ul>
@@ -44,11 +44,11 @@
     </ul>
 
     <div class="uk-nav-content uk-navbar-flip uk-hidden-small">
- 
+
         <%= form_tag("/search", {:method => 'get', :class => 'cuk-form uk-margin-remove uk-display-inline-bloc'}) do %>
           <p>
             <%= text_field_tag :query %>
-            <%= button_tag "Search", {:name => nil, class: 'uk-icon-search'} do %>
+            <%= button_tag "Search", {:name => nil, class: 'uk-button uk-button-primary uk-icon-search'} do %>
             <% end %>
           </p>
         <% end %>
@@ -63,14 +63,22 @@
       <li class="uk-nav-header">PékNext!</li>
 
       <li class="uk-nav-content uk-active">
+        <%= form_tag("/search", {:method => 'get', :class => 'cuk-form uk-margin-remove uk-display-inline-bloc'}) do %>
+          <p>
+            <%= text_field_tag :query %>
+            <%= button_tag "Search", {:name => nil, class: 'uk-button uk-button-primar uk-icon-search'} do %>
+            <% end %>
+          </p>
+        <% end %>
+<!--
         <form class="uk-form uk-margin-remove uk-display-inline-block">
           <input placeholder="Keresés" type="text">
           <button class="uk-button uk-button-primary">Keresés</button>
-        </form>
+        </form>-->
       </li>
       <li aria-expanded="true" class="uk-parent uk-active uk-open"><a href="/"><i class="uk-icon-user"></i> Profil</a>
         <div style="overflow: hidden; height: auto; position: relative;"><ul class="uk-nav-sub">
-          <li><a href="">Teljes profil</a></li>
+          <li><a href="/">Teljes profil</a></li>
           <li><a href="">Közösségi profil</a></li>
           <li><a href="">Közösségi történet</a></li>
         </ul></div>
@@ -89,7 +97,7 @@
       </li>
 
       <li> <%= link_to('Authentication', '/auth/oauth') %></li>
-      
+
     </ul></div>
   </div>
 
