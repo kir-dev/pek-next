@@ -1,5 +1,5 @@
 <div class="uk-width-medium-1-2 uk-container-center">
-    <%=form_tag() do%>
+    <%=form_tag({action: :save_settings}, {:method => 'post'}) do%>
       <table class="uk-table uk-table-striped uk-table-hover">
         <tr>
             <td><label>Vezetéknév *</label></td>
