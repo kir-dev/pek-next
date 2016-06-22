@@ -36,7 +36,8 @@ class ProfileController < ApplicationController
     respond_to do |format|
       format.json {render json: {status: "success"}}
     end
-  
+  end
+
   def new
     @user = User.new
   end
@@ -44,6 +45,7 @@ class ProfileController < ApplicationController
   def picture
     send_file cropped_path(params[:username]), type: 'image/png', disposition: 'inline'
   end
+  
   def save_settings
     raise
     @user = User post
@@ -53,6 +55,7 @@ class ProfileController < ApplicationController
 
     # a fentieket nem lenne egyszerűbb valami osztályon keresztül behúzni? 
     #  és akkor csak annyi lenne, hogy: User=post
+  end
 
   def dircheck (dirname)
     if !Dir.exists?(dirname)
