@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class ProfileController < ApplicationController
   before_action :require_login
 
@@ -11,7 +13,7 @@ class ProfileController < ApplicationController
       File.open(raw_path(@user.screen_name), 'wb') do |file|
         file.write(raw_photo.read)
       end
-      @raw_photo = raw_photo.original_filename
+      @raw_photo = "uploads/" + @user.screen_name[0, 1] + "/" + @user.screen_name + "/raw.png";
     end
   end
 
@@ -30,6 +32,24 @@ class ProfileController < ApplicationController
 
   def picture
     send_file cropped_path(params[:username]), type: 'image/png', disposition: 'inline'
+  end
+
+  def dircheck (dirname)
+    if !Dir.exists?(dirname)
+      FileUtils.mkdir_p(dirname)
+    end
+  end
+
+  def raw_path (screen_name)
+    return photo_dir(screen_name).join('raw.png')
+  end
+
+  def cropped_path (screen_name)
+    return photo_dir(screen_name).join('cropped.png')
+  end
+
+  def photo_dir (screen_name)
+    return Rails.root.join(Rails.configuration.x.photo_path, screen_name[0, 1], screen_name)
   end
 
 end
