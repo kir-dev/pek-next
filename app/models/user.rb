@@ -30,4 +30,7 @@ class User < ActiveRecord::Base
   alias_attribute :password, :usr_password
   alias_attribute :salt, :usr_salt
   alias_attribute :lastlogin, :usr_lastlogin
+
+  has_many :memberships, foreign_key: :usr_id
+  has_many :groups, through: :memberships
 end
