@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
       dormitory: request.params[:dormitory],
       room: request.params[:room])
     session[:user] = user.id
+    session.delete(:oauth_data)
     redirect_to '/'
   end
 end
