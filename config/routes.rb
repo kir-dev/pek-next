@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
   #root 'users#index'
   get '/auth/oauth/callback', to: 'sessions#create'
-  get '/register', to: 'profile#register'
-  post '/auth/register', to: 'sessions#register'
+  get '/register', to: 'registration#new'
+  post '/register/create', to: 'registration#create_user'
   resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
