@@ -9,6 +9,20 @@
 </head>
 <body class="uk-height-1-1">
 
+    <% if defined? @error %>
+        <div class="uk-alert uk-alert-danger uk-container-center uk-width-2-3 uk-margin-top">
+            <p>
+            	<% if !@error[:expected] %>
+            		Hiba!
+            	<% end %>
+	            <%= @error[:message] %>
+	            <% if !@error[:expected] %>
+	            	Kérjük adj fel ticketet a <a href="http://support.sch.bme.hu">support</a> oldalon.
+	            <% end %>
+	        </p>
+        </div>
+    <% end %>
+
 <%= yield %>
 
 </body>
