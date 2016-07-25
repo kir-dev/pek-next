@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       redirect_to action: :new, controller: :registration
     else
       session[:user] = user.id
-      redirect_to '/'
+      redirect_to root_url
     end
   end
 

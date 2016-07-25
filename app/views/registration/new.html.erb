@@ -4,7 +4,7 @@
             <div class="uk-panel uk-panel-box rounded-border">
                 <h2>Regisztráció</h2>
 
-                <%= form_tag('/register/create') do %>
+                <%= form_tag(registration_path) do %>
                     <div class="uk-form-row">
                         <%= text_field_tag :username, nil, :required => true, class: "uk-width-1-1 uk-form-large", placeholder: "Felhasználónév" %>
                     </div>

@@ -30,4 +30,8 @@ class User < ActiveRecord::Base
   alias_attribute :password, :usr_password
   alias_attribute :salt, :usr_salt
   alias_attribute :lastlogin, :usr_lastlogin
+
+  validates :usr_screen_name, uniqueness: true
+  validates :usr_auth_sch_id, uniqueness: true
+  validates :usr_bme_id, uniqueness: true, allow_nil: true
 end
