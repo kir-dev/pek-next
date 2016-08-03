@@ -24,5 +24,6 @@ module PekNext
     config.active_record.raise_in_transactional_callbacks = true
 
     config.x.photo_path = 'public/uploads/'
+    config.x.dorms = [ "Schönherz Zoltán Kollégium", "Nagytétényi úti Kollégium", "Vásárhelyi", "Kármán", "Külsős" ]
   end
 end

@@ -7,6 +7,7 @@ class ProfileController < ApplicationController
   end
 
   def settings
+    @dorms = Rails.configuration.x.dorms
     if params[:rawPhoto]
       raw_photo = params[:rawPhoto]
       dircheck(photo_dir(@user.screen_name))
@@ -56,7 +57,7 @@ class ProfileController < ApplicationController
       raise #TODO
     end
 
-    redirect_to "/settings"
+    redirect_to root_path
     # a fentieket nem lenne egyszerűbb valami osztályon keresztül behúzni? 
     #  és akkor csak annyi lenne, hogy: User=params
   end
