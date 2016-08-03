@@ -35,24 +35,30 @@ class ProfileController < ApplicationController
   end
   
   def save_settings
-    @user.firstname = params['firstName']
-    @user.lastname = params['lastName']
-    @user.nickname = params['nickname']
-    @user.gender = params['gender']
-    @user.date_of_birth = params['dateOfBirth'] #FIXME meg kell nénzni, hohy jó formátumba jön-e
-    @user.home_address = params['homeAddress']
-    @user.email = params['emailAddress']
-    @user.webpage = params['webpage']
-    @user.cell_phone = params['cellPhone']
-    @user.webpage = params['webpage']
-    @user.dormitory = params['dormitory']
-    @user.room = params['room']
-
-    @user.save
     
+    if /^[0-9\+][0-9\-]+$/.match(params['cellPhone']) != nil or params['cellPhone'] == ''
+      @user.firstname = params['firstName']
+      @user.lastname = params['lastName']
+      @user.nickname = params['nickname']
+      @user.gender = params['gender']
+      @user.date_of_birth = params['dateOfBirth'] #FIXME meg kell nénzni, hohy jó formátumba jön-e
+      @user.home_address = params['homeAddress']
+      @user.email = params['emailAddress']
+      @user.webpage = params['webpage']
+
+      @user.cell_phone = /^[0-9\+][0-9\-]+$/.match(params['cellPhone'])
+      @user.webpage = params['webpage']
+      @user.dormitory = params['dormitory']
+      @user.room = params['room']
+
+      @user.save
+    else
+      raise #TODO
+    end
+
     redirect_to "/settings"
     # a fentieket nem lenne egyszerűbb valami osztályon keresztül behúzni? 
-    #  és akkor csak annyi lenne, hogy: User=post
+    #  és akkor csak annyi lenne, hogy: User=params
   end
 
   def dircheck (dirname)
