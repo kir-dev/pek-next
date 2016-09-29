@@ -68,7 +68,7 @@
 							<td><%= @memberships[id].membership_start %></td>
 							<% if @is_leader %>
 								<td>
-									<%= button_tag "Módosítás", {class: "uk-button uk-button-small"} %>
+									<%= link_to  "Módosítás", {action: "change_pos/106/27509"}, class: "uk-button uk-button-small uk-button-primary" %>
 								</td>
 								<td>
 									<input type="checkbox" name="<%= 'check-' + @memberships[id].id.to_s %>">

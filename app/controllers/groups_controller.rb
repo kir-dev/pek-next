@@ -1,12 +1,18 @@
 class GroupsController < ApplicationController
   before_action :require_login
+  before_action :before_action_init
+
+  def before_action_init
+    @group = Group.find(params[:group_id])
+    @is_member = is_member(@group.id, @user.id)
+    @is_leader = is_leader(@group.id, @user.id)
+  end
 
   def index
     @groups = Group.paginate(:page => params[:page], :per_page => 20)
   end
 
   def show
-    @group = Group.find(params[:group_id])
     @memberships = GrpMembership.where(grp_id: @group.id, membership_end: nil)
     @members = []
     @memberships.each do |m|
@@ -20,12 +26,9 @@ class GroupsController < ApplicationController
         @posts[index].push(Poszttipus.find(p.pttip_id))
       end
     end
-    @is_member = is_member(@group.id, @user.id)
-    @is_leader = is_leader(@group.id, @user.id)
   end
 
   def apply
-    @group = Group.find(params[:group_id])
     if !@group.users_can_apply || is_member(@group.id, @user.id)
       raise #TODO: render unathorized exception page
     end
@@ -53,5 +56,12 @@ class GroupsController < ApplicationController
 
   def is_leader(grp_id, usr_id)
     return is_member(grp_id, usr_id) && Poszt.where(grp_member_id: GrpMembership.where(grp_id: grp_id, usr_id: usr_id)[0].id, pttip_id: 3).length > 0
+  end
+
+  def change_pos
+    #raise
+    if @is_leader
+      raise
+    end
   end
 end

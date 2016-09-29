@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
   #root 'users#index'
-  get '/auth/oauth/callback', to: 'sessions#create'
-  get '/groups/show/:group_id', to: 'groups#show'
+  get  '/auth/oauth/callback', to: 'sessions#create'
+  get  '/groups/show/:group_id', to: 'groups#show'
   post '/groups/apply/:group_id', to: 'groups#apply'
   post '/groups/inactivate/:group_id', to: 'groups#inactivate'
+  get  '/groups/change_pos/:group_id/:member_id', to: 'groups#change_pos'
+
   resources :users
   resources :groups
   resources :grp_membership
