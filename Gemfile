@@ -30,6 +30,8 @@ gem 'omniauth-oauth2'
 gem "brakeman", :require => false
 
 gem 'uikit-sass-rails'
+gem 'sidekiq'
+gem 'rufus-scheduler'
 
 # Reactive javascript extension
 gem 'rxjs-rails'
