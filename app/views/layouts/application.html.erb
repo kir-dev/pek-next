@@ -43,6 +43,22 @@
       </li>
     </ul>
 
+    <% if defined? @error %>
+        <div class="uk-alert uk-alert-danger uk-container-center uk-width-2-3 uk-margin-top">
+            <p>
+              <% if !@error[:expected] %>
+                Hiba!
+              <% end %>
+              <%= @error[:message] %>
+              <% if !@error[:expected] %>
+                Kérjük adj fel ticketet a <a href="http://support.sch.bme.hu">support</a> oldalon.
+              <% end %>
+
+	        </p>
+        </div>
+    <% end %>
+
+
     <div class="uk-nav-content uk-navbar-flip uk-hidden-small">
 
         <%= form_tag("/search", {:method => 'get', :class => 'cuk-form uk-margin-remove uk-display-inline-bloc'}) do %>

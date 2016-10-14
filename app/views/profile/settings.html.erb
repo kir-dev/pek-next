@@ -35,31 +35,31 @@
         <tr>
             <td><label for="id44">Születési dátum</label></td>
             <td>
-                <%=text_field_tag( "dateOfBirth",@user.date_of_birth, class:"class", maxlength:40) %>
+                <%=text_field_tag "dateOfBirth", @user.date_of_birth, class:"class", maxlength:40 %>
             </td>
         </tr>
         <tr>
             <td><label>Cím</label></td>
             <td>
-                <%=text_field_tag "homeAddress",@user.home_address, class:"class" %>
+                <%=text_field_tag "homeAddress", @user.home_address, class:"class" %>
             </td>
         </tr>
         <tr>
             <td><label>E-mail *</label></td>
             <td>
-                <%=text_field_tag( "emailAddress", @user.email, class:"class") %>
+                <%=text_field_tag "emailAddress", @user.email, class:"class" %>
             </td>
         </tr>
         <tr>
             <td><label>Mobil</label></td>
             <td>
-                <%=text_field_tag( "cellPhone",@user.cell_phone, class:"class") %>
+                <%=text_field_tag "cellPhone", @user.cell_phone, class:"class" %>
             </td>
         </tr>
         <tr>
             <td><label>Weboldal</label></td>
             <td>
-                <%=text_field_tag("webpage",@user.webpage, class:"class") %>
+                <%=text_field_tag "webpage", @user.webpage, class:"class" %>
             </td>
         </tr>
         <tr>
@@ -81,7 +81,7 @@
             <tr>
                 <td><label>Szobaszám</label></td>
                 <td>
-                    <%=text_field_tag("room",@user.room, class:"class") %>
+                    <%=text_field_tag "room", @user.room, class:"class" %>
                 </td>
             </tr>
         </table>
@@ -90,7 +90,6 @@
                 <td><label>IM</label></td>
                 <td>
                     <table>
-
                         <tr>
                             <td colspan="2"><input type="submit" class="btn" value="Új" name="rowPanel:imAdd"/></td>
                         </tr>
