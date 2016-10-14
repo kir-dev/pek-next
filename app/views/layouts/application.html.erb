@@ -45,7 +45,7 @@
 
     <div class="uk-nav-content uk-navbar-flip uk-hidden-small">
  
-        <%= form_tag("/search", {:method => 'get', :class => 'cuk-form uk-margin-remove uk-display-inline-bloc'}) do %>
+        <%= form_tag("/search", {:method => 'get', :class => 'uk-form uk-margin-remove uk-display-inline-block'}) do %>
           <p>
             <%= text_field_tag :query, "", { placeholder: "Név vagy kör", id: "search-field" } %>
             <%= button_tag "Search", {:name => nil, class: 'uk-icon-search'} do %>
