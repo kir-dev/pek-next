@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="uk-height-1-1">
   <!-- navigation -->
   <nav class="uk-navbar">
     <a class="uk-navbar-brand uk-hidden-small" href="#">PékNext!</a>
@@ -50,6 +50,20 @@
     </div>
     <a href="#off-canvas-menu" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
   </nav>
+
+    <% if defined? @error %>
+      <div class="uk-alert uk-alert-danger uk-container-center uk-width-2-3 uk-margin-top">
+          <p>
+            <% if !@error[:expected] %>
+            		Hiba!
+            	<% end %>
+	            <%= @error[:message] %>
+	            <% if !@error[:expected] %>
+	            	Kérjük adj fel ticketet a <a href="http://support.sch.bme.hu">support</a> oldalon.
+	            <% end %>
+	        </p>
+        </div>
+    <% end %>
 
   <!--left side menu, for mobile view-->
   <div id="off-canvas-menu" class="uk-offcanvas uk-visible-small">

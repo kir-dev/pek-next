@@ -7,7 +7,7 @@ module OmniAuth
         :authorize_url => "/site/login", 
         :token_url => "/oauth2/token"
       }
-      option :authorize_params, {grant_type: 'authorization_code', scope: "basic displayName mail"}
+      option :authorize_params, {grant_type: 'authorization_code', scope: "basic mail displayName sn givenName"}
       option :provider_ignores_state, true
 
       def request_phase

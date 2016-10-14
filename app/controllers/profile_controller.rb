@@ -7,5 +7,5 @@ class ProfileController < ApplicationController
     	redirect_to '/auth/oauth'
     end
   end
-  
+
 end
