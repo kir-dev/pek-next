@@ -26,9 +26,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'omniauth'
 gem 'omniauth-oauth2'
 
-# Brakeman: security tool
-gem "brakeman", :require => false
-
 gem 'uikit-sass-rails'
 
 # Reactive javascript extension
@@ -46,6 +43,9 @@ gem 'rxjs-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  # Brakeman: security tool
+  gem "brakeman", :require => false
 end
 
 group :development do
