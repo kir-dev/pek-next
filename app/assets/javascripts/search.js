@@ -21,7 +21,6 @@ $(document).ready(function () {
 
     function updateSuggestions(query) {
         if(query.length > 0) {
-            console.log(typeof query);
             $('#suggestions').load('/search/suggest', $.param({query: query}), function (resp) {
                 document.title = "Keresés: " + query;
                 window.history.pushState({ "html" : resp.html, "pageTitle" : "Keresés: " + query },"", "/search?query=" + query);
