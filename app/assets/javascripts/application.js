@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require uikit
 
+//= require rx.all
+
 //= require_tree .

@@ -10,7 +10,7 @@
 <body class="uk-height-1-1">
   <!-- navigation -->
   <nav class="uk-navbar">
-    <a class="uk-navbar-brand uk-hidden-small" href="#">PékNext!</a>
+    <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
     <ul class="uk-navbar-nav uk-hidden-small">
       <li aria-expanded="false" aria-haspopup="true" class="uk-parent uk-active" data-uk-dropdown="">
         <a href=""><i class="uk-icon-user"></i> Profilom</a>
@@ -44,10 +44,16 @@
     </ul>
 
     <div class="uk-nav-content uk-navbar-flip uk-hidden-small">
-      <form class="uk-form uk-margin-remove uk-display-inline-block">
-        <i class="uk-icon-search"></i><input placeholder="Keresés" type="text">
-      </form>
-    </div>
+ 
+        <%= form_tag(search_path, :method => 'get', :class => 'uk-form uk-margin-remove uk-display-inline-block') do %>
+          <p>
+            <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
+            <%= button_tag "Search", :name => nil, class: 'uk-icon-search' do %>
+            <% end %>
+          </p>
+        <% end %>
+
+  </div>
     <a href="#off-canvas-menu" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
   </nav>
 
@@ -76,7 +82,8 @@
           <button class="uk-button uk-button-primary">Keresés</button>
         </form>
       </li>
-      <li aria-expanded="true" class="uk-parent uk-active uk-open"><a href="#"><i class="uk-icon-user"></i> Profil</a>
+      <li aria-expanded="true" class="uk-parent uk-active uk-open">
+        <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
         <div style="overflow: hidden; height: auto; position: relative;"><ul class="uk-nav-sub">
           <li><a href="">Teljes profil</a></li>
           <li><a href="">Közösségi profil</a></li>
@@ -101,7 +108,11 @@
     </ul></div>
   </div>
 
-<%= yield %>
+<div id="content-container">
+  <div id="content-main">
+    <%= yield %>
+  </div>
+</div>
 
 </body>
 </html>

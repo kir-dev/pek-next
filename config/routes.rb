@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/register', to: 'registration#new'
   post '/register/create', to: 'registration#create', as: :registration
   resources :users
+  get '/search', to: 'search#search'
+  get '/search/suggest', to: 'search#suggest'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
