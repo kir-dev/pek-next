@@ -4,44 +4,43 @@ class Metascorer
   include Sidekiq::Worker
   sidekiq_options :retry => false
 
+  def initialize
+    @config = Rails.configuration.x.metascoring # Rails config is not threadsafe
+  end
+
   def perform(user_id)
+    Thread.current[:config] = Rails.configuration.x.metascoring
     current_user = User.find(user_id)
     metascore = 0;
     last_sem_point = PointHistory.find_by(usr_id: user_id, semester: SystemAttr.semester.previous.to_s)
     last_year_point = PointHistory.find_by(usr_id: user_id, semester: SystemAttr.semester.previous.previous.to_s)
     if(last_sem_point)
-      metascore += last_sem_point.point * 5
+      metascore += last_sem_point.point * @config[:last_semester_multiplier]
     end
     if(last_year_point)
-      metascore += last_year_point.point * 5
+      metascore += last_year_point.point * @config[:last_year_multiplier]
     end
     if !current_user.photo_path.nil?
-      metascore += 500
+      metascore += @config[:photo_reward]
     end
     if !current_user.lastlogin.nil?
       metascore += last_login_reward(current_user.lastlogin)
     end
     if !current_user.cell_phone.nil?
-      metascore += 300
+      metascore += @config[:phone_number_reward]
     end
     if !current_user.dormitory.nil?
-      metascore += 300
+      metascore += @config[:dormitory_reward]
     end
     if !current_user.email.nil?
-      metascore += 200
+      metascore += @config[:email_reward]
     end
     current_user.metascore = metascore
     current_user.save
   end
 
   def last_login_reward(last_login)
-    login_rewards = [{ time: 7, reward: 650 },
-    { time: 30, reward: 450 },
-    { time: 90, reward: 250 },
-    { time: 180, reward: 100 },
-    { time: 360, reward: 50 }]
-
-    login_rewards.each do |tier|
+    @config[:login_rewards].each do |tier|
       if last_login > Date.today - tier[:time]
         return tier[:reward]
       end
