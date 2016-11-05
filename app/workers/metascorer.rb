@@ -7,6 +7,14 @@ class Metascorer
   def perform(user_id)
     current_user = User.find(user_id)
     metascore = 0;
+    last_sem_point = PointHistory.find_by(usr_id: user_id, semester: SystemAttr.semester.previous.to_s)
+    last_year_point = PointHistory.find_by(usr_id: user_id, semester: SystemAttr.semester.previous.previous.to_s)
+    if(last_sem_point)
+      metascore += last_sem_point.point * 5
+    end
+    if(last_year_point)
+      metascore += last_year_point.point * 5
+    end
     if !current_user.photo_path.nil?
       metascore += 500
     end
