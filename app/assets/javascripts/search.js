@@ -46,3 +46,20 @@ $(document).ready(function () {
         }
     }
 });
+
+var page = 1;
+function showMore() {
+    var query = Helpers.getUrlParameter("query");
+
+    if(query.length > 0) {
+        $.get('/search/suggest', {query: query, page: page++}, function (resp) {
+            $(resp).appendTo($('#suggestions'));
+            if(resp.length === 0){
+                $('#show-more').hide();
+                $('#no-more').show();
+            }
+        });
+
+    }
+
+}
