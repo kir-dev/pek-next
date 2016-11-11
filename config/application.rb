@@ -23,5 +23,20 @@ module PekNext
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.x.results_per_page = 10
+    config.x.metascoring = {
+      last_semester_multiplier: 5,
+      last_year_multiplier: 5,
+      photo_reward: 500,
+      phone_number_reward: 300,
+      dormitory_reward: 300,
+      email_reward: 200,
+      login_rewards: [
+        { time: 7, reward: 650 },
+        { time: 30, reward: 450 },
+        { time: 90, reward: 250 },
+        { time: 180, reward: 100 },
+        { time: 360, reward: 50 }
+      ]
+    }
   end
 end
