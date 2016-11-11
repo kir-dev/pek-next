@@ -8,7 +8,7 @@ class SearchQuery
     count = Rails.configuration.x.results_per_page
     params = term.split.flat_map { |t| ["%#{t}%".downcase] * query_for_one_keyword.count('?') }
     query = ([query_for_one_keyword] * term.split.size).join(' AND ')
-    return User.where(query, *params).offset(page.to_i * count).limit(count)
+    return User.where(query, *params).order(metascore: :desc).offset(page.to_i * count).limit(count)
   end
 
   private
