@@ -1,4 +1,5 @@
 class ProfileController < ApplicationController
+  include ApplicationHelper
 
   def show
     if session[:user]
@@ -9,7 +10,7 @@ class ProfileController < ApplicationController
       end
       @user = User.find(id)
     else
-      redirect_to '/auth/oauth'
+      redirect_to oauth_login_path
     end
   end
 
