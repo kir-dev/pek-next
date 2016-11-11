@@ -53,13 +53,15 @@ class ProfileController < ApplicationController
       @user.room = params['room']
 
       @user.save
-    else
-      raise #TODO
-    end
-
-    redirect_to root_path
     # a fentieket nem lenne egyszerűbb valami osztályon keresztül behúzni? 
     #  és akkor csak annyi lenne, hogy: User=params
+      redirect_to "/settings"
+    else
+      @error = { expected: true }
+      @error[:message] = "Hibás telefonszám formátum. Ellenőrizd, hogy +36201234567 formátumú legyen!"
+      render :settings
+    end
+
   end
 
   def dircheck (dirname)
