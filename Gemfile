@@ -28,7 +28,7 @@ gem 'omniauth-oauth2'
 
 gem 'uikit-sass-rails'
 gem 'sidekiq'
-gem 'rufus-scheduler'
+gem 'sidekiq-cron'
 
 # Reactive javascript extension
 gem 'rxjs-rails'
