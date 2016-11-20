@@ -1,4 +1,4 @@
-var search = (function() {
+var search = (function(Helpers, Rx, $) {
     var page = 1;
     var module = {};
 
@@ -55,18 +55,19 @@ var search = (function() {
     function showMore() {
         var query = Helpers.getUrlParameter("query");
 
-        if(query.length > 0) {
-            $.get('/search/suggest', {query: query, page: page++}, function (resp) {
-                $(resp).appendTo($('#suggestions'));
-                if(resp.length === 0){
-                    $('#show-more').hide();
-                    $('#no-more').show();
-                }
-            });
+        if(query.length === 0) {
+            return;
         }
+        $.get('/search/suggest', {query: query, page: page++}, function (resp) {
+            $(resp).appendTo($('#suggestions'));
+            if(resp.length === 0){
+                $('#show-more').hide();
+                $('#no-more').show();
+            }
+        });
     }
 
     return module;
-}());
+}(Helpers, Rx, jQuery));
 
 $(document).ready(search.init);
