@@ -1,17 +1,13 @@
 class ProfilesController < ApplicationController
-  include ApplicationHelper
+  before_action :require_login
 
   def show
-    if session[:user_id]
-      if params.key?(:number)
-        id = params[:number]
-      else
-        id = session[:user_id]
-      end
-      @user = User.find(id)
+    if params.key?(:number)
+      id = params[:number]
     else
-      redirect_to oauth_login_path
+      id = session[:user_id]
     end
+    @user = User.find(id)
   end
 
 end
