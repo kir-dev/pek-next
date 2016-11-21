@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if session[:user_id]
-      @user = User.find(session[:user_id])
+      @curent_user = User.find(session[:user_id])
     else
       redirect_to oauth_login_path
     end

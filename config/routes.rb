@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :users
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
-  get '/profile/', to: 'profiles#show'
-  get '/profile/:number', to: 'profiles#show', as: 'other_profile'
+  get '/profile/', to: 'profiles#show_self'
+  get '/profile/:id', to: 'profiles#show', as: 'other_profile'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -2,12 +2,12 @@ class ProfilesController < ApplicationController
   before_action :require_login
 
   def show
-    if params.key?(:number)
-      id = params[:number]
-    else
-      id = session[:user_id]
-    end
-    @user = User.find(id)
+    @user = User.find(params[:id])
+  end
+
+  def show_self
+    @user = @curent_user
+    render :show
   end
 
 end
