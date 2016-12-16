@@ -8,22 +8,28 @@ class Semester
   end
 
   def previous
-    if @autumn
+    if autumn
       @starting_year -= 1
-    else
-    @autumn = !@autumn
-    return self
+    end
+    @autumn = !autumn
+    return Semester.new(to_s)
   end
 
   def next
-    if !@autumn
+    if !autumn
       @starting_year += 1
-    else
-    @autumn = !@autumn
-    return self
+    end
+    @autumn = !autumn
+    return Semester.new(to_s)
   end
 
   def to_s
-    @starting_year.to_s + (@starting_year + 1).to_s + (@autumn ? 1 : 0).to_s
+    starting_year.to_s + second_year.to_s + (autumn ? 1 : 0).to_s
+  end
+
+  private
+
+  def second_year
+    starting_year + 1
   end
 end
