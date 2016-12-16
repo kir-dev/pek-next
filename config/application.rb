@@ -22,6 +22,8 @@ module PekNext
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.active_record.schema_format = :sql
+
     config.x.results_per_page = 10
     config.x.metascoring = {
       last_semester_multiplier: 5,
