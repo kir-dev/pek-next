@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>PekNext</title>
@@ -7,98 +8,134 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+
+<body class="uk-height-1-1">
+
   <!-- navigation -->
-  <nav class="uk-navbar">
+  <nav class="data-uk-sticky uk-navbar">
     <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
     <ul class="uk-navbar-nav uk-hidden-small">
+
+      <% if defined? @user %>
       <li aria-expanded="false" aria-haspopup="true" class="uk-parent uk-active" data-uk-dropdown="">
-        <a href=""><i class="uk-icon-user"></i> Profilom</a>
+        <%= link_to "Profilom", root_url %>
         <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
           <ul class="uk-nav uk-nav-navbar">
-            <li><a href="#">Teljes profil</a></li>
-            <li><a href="#">Közösségi profil</a></li>
-            <li><a href="#">Közösségi történet</a></li>
+            <li><%= link_to "Szerkesztés", root_url %></li>
+            <li class="uk-nav-divider"></li>
+            <li><%= link_to "Kijelentkezés", :controller => :sessions, :action => :destroy %></li>
           </ul>
         </div>
       </li>
 
       <li aria-expanded="false" aria-haspopup="true" class="uk-parent" data-uk-dropdown="">
-        <a href=""><i class="uk-icon-institution"></i> Egységek</a>
+        <a>Közösség</a>
         <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
           <ul class="uk-nav uk-nav-navbar">
-            <li><a href="#">Körök</a></li>
-            <li><a href="#">Hierarchia</a></li>
-          </ul>
-        </div>
-      </li>
-      <li aria-expanded="false" aria-haspopup="true" class="uk-parent" data-uk-dropdown="">
-        <a href=""><i class="uk-icon-cog"></i> Fiók beállítások</a>
-        <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
-          <ul class="uk-nav uk-nav-navbar">
-            <li><a href="#">Profil szerkesztése</a></li>
-            <li><a href="#">SVIE tagság</a></li>
+            <li><%= link_to "Közösségi történet", root_url %></li>
+            <li><%= link_to "SVIE tagság", root_url %></li>
+            <li class="uk-nav-divider"></li>
+            <li><%= link_to "Körök", root_url %></li>
+            <li><%= link_to "Hierarchia", root_url %></li>
           </ul>
         </div>
       </li>
     </ul>
 
-    <div class="uk-nav-content uk-navbar-flip uk-hidden-small">
- 
-        <%= form_tag(search_path, :method => 'get', :class => 'uk-form uk-margin-remove uk-display-inline-block') do %>
-          <p>
-            <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
-            <%= button_tag "Search", :name => nil, class: 'uk-icon-search' do %>
-            <% end %>
-          </p>
+    <div class="uk-nav-content uk-navbar-flip ">
+      <%= form_tag(search_path, :method => 'get', :class => 'uk-form uk-margin-remove uk-display-inline-block') do %>
+      <p>
+        <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
+        <%= button_tag "Search", :name => nil, class: 'uk-icon-search' do %>
         <% end %>
+      </p>
+      <% end %>
+    </div>
+    <% else %>
+    <li aria-expanded="false" aria-haspopup="true" class="uk-parent uk-active" data-uk-dropdown="">
+      <%= link_to "Bejelentkezés", '/auth/oauth' %>
+    </li>
+    <% end %>
 
-  </div>
     <a href="#off-canvas-menu" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
   </nav>
 
-  <!--left side menu, for mobile view-->
+  <!--Off-canvas menu-->
   <div id="off-canvas-menu" class="uk-offcanvas uk-visible-small">
-    <div class="uk-offcanvas-bar"><ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-      <li class="uk-nav-header">PékNext!</li>
+    <div class="uk-offcanvas-bar">
+      <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+        <li class="uk-nav-header">PékNext!</li>
 
-      <li class="uk-nav-content uk-active">
-        <form class="uk-form uk-margin-remove uk-display-inline-block">
-          <input placeholder="Keresés" type="text">
-          <button class="uk-button uk-button-primary">Keresés</button>
-        </form>
-      </li>
-      <li aria-expanded="true" class="uk-parent uk-active uk-open">
-        <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
-        <div style="overflow: hidden; height: auto; position: relative;"><ul class="uk-nav-sub">
-          <li><a href="">Teljes profil</a></li>
-          <li><a href="">Közösségi profil</a></li>
-          <li><a href="">Közösségi történet</a></li>
-        </ul></div>
-      </li>
-      <li aria-expanded="false" class="uk-parent"><a href="#"><i class="uk-icon-institution"></i> Egységek</a>
-        <div class="uk-hidden"style="overflow:hidden;height:0;position:relative;"><ul class="uk-nav-sub">
-          <li><a href="">Körök</a></li>
-          <li><a href="">Hierarchia</a></li>
-        </ul></div>
-      </li>
-      <li aria-expanded="false" class="uk-parent"><a href="#"><i class="uk-icon-cog"></i> Fiók beállítások</a>
-        <div class="uk-hidden" style="overflow:hidden;height:0;position:relative;"><ul class="uk-nav-sub">
-          <li><a href="">Profil szerkesztése</a></li>
-          <li><a href="">SVIE tagság</a></li>
-        </ul></div>
-      </li>
+        <% if defined? @user %>
+        <li class="uk-nav-header">Profil</li>
+        <li class="uk-active"><a href="">Profilom</a></li>
+        <li><%= link_to "Szerkesztés", root_url %></li>
 
-      <li> <%= link_to('Authentication', '/auth/oauth') %></li>
-      
-    </ul></div>
+        <li class="uk-nav-header">Közösség</li>
+        <li><%= link_to "Közösségi történet", root_url %></li>
+        <li><%= link_to "SVIE tagság", root_url %></li>
+        <li><%= link_to "Körök", root_url %></li>
+        <li><%= link_to "Hierarchia", root_url %></li>
+
+        <li class="uk-nav-divider"></li>
+        <li><%= link_to "Kijelentkezés", :controller => :sessions, :action => :destroy %></li>
+        <% else %>
+        <li><%= link_to "Bejelentkezés", '/auth/oauth' %></li>
+        <% end %>
+
+        <li class="uk-nav-divider"></li>
+        <li>
+          <div class="uk-container uk-container-center uk-text-center">
+            <img src="kirdev_bw.png" width="70" height="70" title="Kir-Dev" alt="Kir-Dev">
+          </div>
+        </li>
+
+      </ul>
+    </div>
   </div>
 
-<div id="content-container">
-  <div id="content-main" class="uk-width-large-3-5 uk-container-center">
-    <%= yield %>
+  <!--Alert if there is error-->
+  <% if defined? @error %>
+  <div class="uk-alert uk-alert-danger uk-container-center uk-width-2-3 uk-margin-top">
+    <p>
+      <% if !@error[:expected] %>
+      Hiba!
+      <% end %>
+      <%= @error[:message] %>
+      <% if !@error[:expected] %>
+      Kérjük adj fel ticketet a <a href="http://support.sch.bme.hu">support</a> oldalon.
+      <% end %>
+    </p>
   </div>
-</div>
+  <% end %>
+
+  <!--Main content-->
+  <div class="uk-container uk-container-center uk-margin-large" id="content-container">
+    <div id="content-main">
+      <%= yield %>
+    </div>
+  </div>
 
 </body>
+
+<!--Footer content-->
+<footer class="uk-hidden-small">
+  <div class="tm-footer">
+    <div class="uk-container uk-container-center uk-text-center">
+
+      <ul class="uk-subnav uk-subnav-line uk-flex-center">
+        <li><a href="https://twitter.com/KirDev">Twitter</a></li>
+        <li><a href="https://github.com/kir-dev">Github</a></li>
+        <li><a href="http://simonyi.bme.hu">Simonyi</a></li>
+        <li><a href="https://support.sch.bme.hu">Support</a></li>
+      </ul>
+
+      <div class="uk-panel">
+        <p>Made by <a href="http://kir-dev.sch.bme.hu">Kir-Dev</a>. Thanks support for <a href="http://kszk.sch.bme.hu">KSZK</a>.</p>
+        <img src="kirdev_bw.png" width="50" height="50" title="Kir-Dev" alt="Kir-Dev">
+      </div>
+
+    </div>
+  </div>
+</footer>
 </html>
