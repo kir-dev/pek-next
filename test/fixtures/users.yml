@@ -4,7 +4,8 @@ sanyi:
   usr_lastname: Hentes
   usr_nickname: Sanyi
   usr_screen_name: sanyi92
-  usr_auth_sch_id: asdfasdf1234
+  usr_auth_sch_id: asdf-asdf-1234
+  usr_metascore: 1000
 
 bela:
   usr_id: 11
@@ -12,4 +13,16 @@ bela:
   usr_lastname: Kovács
   usr_nickname: Kovibélus
   usr_screen_name: kovibelus
-  usr_auth_sch_id: qwerqwer5678
+  usr_auth_sch_id: qwer-qwer-5678
+  usr_metascore: 5000
+
+<% 100.times do |n| %>
+user_<%= n %>:
+  usr_id: <%= "2#{n}" %>
+  usr_firstname: Júzer <%= n %>
+  usr_lastname: Pék
+  usr_nickname: pék <%= n %>
+  usr_screen_name: <%= "pekuser#{n}" %>
+  usr_auth_sch_id: xcvb-xcvb-xcvb-<%= n %>
+  usr_metascore: <%= n %>
+<% end %>
