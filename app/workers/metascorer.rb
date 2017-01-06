@@ -10,7 +10,7 @@ class Metascorer
 
   def perform(user_id)
     current_user = User.find(user_id)
-    
+
     current_user.update(metascore: calculate_meta_score(current_user))
   end
 
@@ -39,6 +39,7 @@ class Metascorer
     if !user.email.nil?
       metascore += @config[:email_reward]
     end
+    return metascore
   end
 
   def last_login_reward(last_login)

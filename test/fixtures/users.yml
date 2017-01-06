@@ -26,3 +26,23 @@ user_<%= n %>:
   usr_auth_sch_id: xcvb-xcvb-xcvb-<%= n %>
   usr_metascore: <%= n %>
 <% end %>
+
+metascore_1:
+  usr_id: 3000
+  usr_firstname: Béla
+  usr_lastname: Metascore
+  usr_screen_name: metatest
+  usr_auth_sch_id: meta-score-test
+  usr_cell_phone: 06305669234
+  usr_metascore: 0
+
+metascore_2:
+  usr_id: 3001
+  usr_firstname: András
+  usr_lastname: Metascore
+  usr_screen_name: metatest2
+  usr_auth_sch_id: meta-score-test-2
+  usr_photo_path: myphoto.jpg
+  usr_email: mail@sch.bme.hu
+  usr_dormitory: Schönherz
+  usr_metascore: 0
