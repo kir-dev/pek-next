@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
 
-  #root 'users#index'
-  get '/auth/oauth/callback', to: 'sessions#create'
-  resources :users
-  get '/search', to: 'search#search'
-  get '/search/suggest', to: 'search#suggest'
-  get '/profile/', to: 'profiles#show_self'
-  get '/profile/:id', to: 'profiles#show', as: 'other_profile'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+
+  #User handling
+  get '/logout', to: 'sessions#destroy'
+  get '/auth/oauth/callback', to: 'sessions#create'
+  get '/profile/', to: 'profiles#show_self'
+  get '/profile/:id', to: 'profiles#show', as: 'other_profile'
+  resources :users
+
+  # Search
+  get '/search', to: 'search#search'
+  get '/search/suggest', to: 'search#suggest'
 
   # You can have the root of your site routed with "root"
   root :to => redirect('/profile')

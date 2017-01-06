@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     if session[:user_id]
       @curent_user = User.find(session[:user_id])
     else
-      redirect_to oauth_login_path
+      render 'layouts/index'
     end
   end
 end
