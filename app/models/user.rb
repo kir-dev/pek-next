@@ -35,4 +35,8 @@ class User < ActiveRecord::Base
   validates :usr_screen_name, uniqueness: true
   validates :usr_auth_sch_id, uniqueness: true
   validates :usr_bme_id, uniqueness: true, allow_nil: true
+
+  def full_name
+    [lastname, firstname].compact.join(' ')
+  end
 end
