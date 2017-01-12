@@ -3,7 +3,7 @@ require 'test_helper'
 class SearchControllerTest < ActionController::TestCase
 
   setup do
-    login_as_user(10)
+    login_as_user(:sanyi)
   end
 
   test "empty search page" do
@@ -16,28 +16,36 @@ class SearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "search for empty queue" do
+  test "search for empty term" do
     query = SearchQuery.new.search("", nil)
     assert_equal 10, query.size
-    assert_equal 11, query.first.usr_id
+    expected_result = [users(:bela), users(:sanyi)]
+    for result in 2..9 do
+      expected_result.push(users("user_" + (101 - result).to_s))
+    end
+    assert_equal expected_result, query.take(10)
   end
 
   test "search in nickname" do
     query = SearchQuery.new.search("sanyi", nil)
     assert_equal 1, query.size
-    assert_equal 10, query.first.usr_id
+    assert_equal users(:sanyi).id, query.first.id
   end
 
   test "search in last+firstname" do
     query = SearchQuery.new.search("Kovács Béla", nil)
     assert_equal 1, query.size
-    assert_equal 11, query.first.usr_id
+    assert_equal users(:bela).id, query.first.id
   end
 
   test "next search page of generated users" do
     query = SearchQuery.new.search("pék", 1)
     assert_equal 10, query.size
-    assert_equal 289, query.first.usr_id
+    expected_result = []
+    for result in 0..9 do
+      expected_result.push(users("user_" + (89 - result).to_s))
+    end
+    assert_equal expected_result, query.take(10)
   end
 
   test "search for non-existent user" do

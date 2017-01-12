@@ -7,7 +7,14 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  def login_as_user(user_id)
-    session[:user_id] = user_id
+  def login_as_user(user_name)
+    session[:user_id] = users(user_name).id
+  end
+end
+
+class SidekiqTestCase < ActiveSupport::TestCase
+  setup do
+    Sidekiq::Testing.fake!
+    Sidekiq::Worker.clear_all
   end
 end
