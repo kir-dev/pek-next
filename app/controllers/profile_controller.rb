@@ -14,7 +14,7 @@ class ProfileController < ApplicationController
       File.open(raw_path(@user.screen_name), 'wb') do |file|
         file.write(raw_photo.read)
       end
-      @raw_photo = "uploads/" + @user.screen_name[0, 1] + "/" + @user.screen_name + "/raw.png";
+      @raw_photo = raw_path
     end
   end
 
