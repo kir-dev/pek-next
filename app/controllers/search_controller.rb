@@ -1,4 +1,6 @@
 class SearchController < ApplicationController
+  before_action :require_login
+
   def search
   end
 
@@ -6,7 +8,7 @@ class SearchController < ApplicationController
     results = []
 
     if params.key?(:query)
-      results = SearchQuery.new.search(params[:query])
+      results = SearchQuery.new.search(params[:query], params[:page])
     end
 
     render partial: 'suggest', locals: {results: results}
