@@ -6,10 +6,14 @@ class ApplicationController < ActionController::Base
   use OmniAuth::Strategies::Developer
 
   def require_login
-    if session[:user]
-      @user = User.find(session[:user])
+    if ENV['NONAUTH']
+      @user = User.take
     else
-      redirect_to oauth_login_path
+      if session[:user]
+        @user = User.find(session[:user])
+      else
+        redirect_to oauth_login_path
+      end
     end
   end
 end

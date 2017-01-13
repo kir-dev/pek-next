@@ -1,150 +1,92 @@
 <div class="uk-width-medium-1-2 uk-container-center">
-    <%= form_tag({action: :save_settings}, {:method => 'post'}) do%>
+    <%= form_tag({action: :save_settings}, {method: :post}) do %>
       <table class="uk-table uk-table-striped uk-table-hover">
         <tr>
             <td><label>Vezetéknév *</label></td>
             <td colspan="2">
-                <%= text_field_tag "lastName", @user.lastname, class:"class", maxlength:40 %>
+                <%= text_field_tag :lastName, @user.lastname, maxlength: 40 %>
             </td>
         </tr>
         <tr>
             <td><label>Keresztnév *</label></td>
             <td colspan="2">
-                <%= text_field_tag "firstName", @user.firstname, class:"class", maxlength:40 %>
+                <%= text_field_tag :firstName, @user.firstname, maxlength: 40 %>
             </td>
         </tr>
         <tr>
             <td><label>Becenév</label></td>
             <td colspan="2">
-                <%= text_field_tag "nickname", @user.nickname, class:"class", maxlength:40 %>
+                <%= text_field_tag :nickname, @user.nickname, maxlength: 40 %>
             </td>
         </tr>
-        <tr class="gender_line">
+        <tr>
             <td><label>Nem</label></td>
             <td colspan="2">
-                <%= select_tag(:gender, options_for_select(
-                  [
-                    ['n/a', "UNKNOWN"],
-                    ['Férfi', "MALE"],
-                    ['Nő', "FEMALE"],
-                    ['Nem megadott', "NOTSPECIFIED"]
-                  ], selected: @user.gender), { :name => 'gender' } )
-                %>
+                <%= select_tag :gender, options_for_select(Rails.configuration.x.genders, selected: @user.gender) %>
             </td>
         </tr>
         <tr>
             <td><label>Születési dátum</label></td>
             <td>
-                <%= text_field_tag "dateOfBirth", @user.date_of_birth, class:"class", maxlength:40 %>
+                <%= text_field_tag :dateOfBirth, @user.date_of_birth, maxlength: 40 %>
             </td>
             <td>
-                <%= select_tag(:gender, options_for_select(
-                  [
-                    ['nyilvános', "public"],
-                    ['körtagoknak', "forGroupsMember"],
-                    ['privát', "private"],
-                  ], selected: @user.gender), { :class => 'gender_radios', :name => 'gender', :id => 'id43'} )
-                %>
+                <%= visibility_select("dateOfBirth") %>
             </td>
         </tr>
         <tr>
             <td><label>Cím</label></td>
             <td>
-                <%= text_field_tag "homeAddress", @user.home_address, class:"class" %>
+                <%= text_field_tag :homeAddress, @user.home_address %>
             </td>
             <td>
-                <%= select_tag(:gender, options_for_select(
-                   [
-                    ['nyilvános', "public"],
-                    ['körtagoknak', "forGroupsMember"],
-                    ['privát', "private"],
-                   ], selected: @user.gender), { :class => 'gender_radios', :name => 'gender', :id => 'id43'} )
-                %>
+                <%= visibility_select("homeAddress") %>
             </td>
         </tr>
         <tr>
             <td><label>E-mail *</label></td>
             <td>
-                <%= text_field_tag "emailAddress", @user.email, class:"class" %>
+                <%= text_field_tag :emailAddress, @user.email %>
             </td>
             <td>
-                <%= select_tag(:gender, options_for_select(
-                  [
-                    ['nyilvános', "public"],
-                    ['körtagoknak', "forGroupsMember"],
-                    ['privát', "private"],
-                  ], selected: @user.gender), { :class => 'gender_radios', :name => 'gender', :id => 'id43'} )
-                %>
+                <%= visibility_select("emailAddress") %>
             </td>
         </tr>
         <tr>
             <td><label>Mobil</label></td>
             <td>
-                <%= text_field_tag "cellPhone", @user.cell_phone, class:"class" %>
+                <%= text_field_tag :cellPhone, @user.cell_phone %>
             </td>
             <td>
-                <%= select_tag(:gender, options_for_select(
-                  [
-                    ['nyilvános', "public"],
-                    ['körtagoknak', "forGroupsMember"],
-                    ['privát', "private"],
-                  ], selected: @user.gender), { :class => 'gender_radios', :name => 'gender', :id => 'id43'} )
-                %>
+                <%= visibility_select("cellPhone") %>
             </td>
         </tr>
         <tr>
             <td><label>Weboldal</label></td>
             <td>
-                <%= text_field_tag "webpage", @user.webpage, class:"class" %>
+                <%= text_field_tag :webpage, @user.webpage %>
             </td>
             <td>
-                <%= select_tag(:gender, options_for_select(
-                  [
-                    ['nyilvános', "public"],
-                    ['körtagoknak', "forGroupsMember"],
-                    ['privát', "private"],
-                  ], selected: @user.gender), { :class => 'gender_radios', :name => 'gender', :id => 'id43'} )
-                %>
+                <%= visibility_select("webpage") %>
             </td>
         </tr>
         <tr>
             <td><label>Kollégium</label></td>
             <td>
-                <%= select_tag(:dormitory, options_for_select(
-                  [
-                    ['Nem megadott', ""],
-                    ['Schönherz', "Schönherz"],
-                    ['Tétény', "Tétény"],
-                    ['Kármán', "Kármán"],
-                    ['Vásárhelyi', "Vásárhelyi"],
-                    # jelenleg nincs külsős lehetőség
-                    ['Külsős', "Külsős"]
-                  ], selected: @user.dormitory), { :name => 'dormitory', :id => 'id4e'} )
+                <%= select_tag(:dormitory, options_for_select(Rails.configuration.x.dorms, selected: @user.dormitory))
                 %>
             </td>
             <td>
-                <%= select_tag(:gender, options_for_select(
-                  [
-                    ['nyilvános', "public"],
-                    ['körtagoknak', "forGroupsMember"],
-                    ['privát', "private"],
-                  ], selected: @user.gender), { :class => 'gender_radios', :name => 'gender', :id => 'id43'} )
-                %>
+                <%= visibility_select("dormitory") %>
             </td>
         </tr>
         <tr>
             <td><label>Szobaszám</label></td>
             <td>
-                <%= text_field_tag "room", @user.room, class:"class" %>
+                <%= text_field_tag :room, @user.room %>
             </td>
-            <td width="150">
-                <%= select_tag(:gender, options_for_select(
-                  [
-                    ['nyilvános', "public"],
-                    ['körtagoknak', "forGroupsMember"],
-                    ['privát', "private"],
-                  ], selected: @user.gender), { :class => 'gender_radios', :name => 'gender', :id => 'id43'} )
-                %>
+            <td>
+                <%= visibility_select("room") %>
             </td>
         </tr>
         </table>
@@ -153,7 +95,6 @@
                 <td><label>IM</label></td>
                 <td>
                     <table>
-
                         <tr>
                             <td colspan="2"><input type="submit" class="uk-button" value="Új"/></td>
                         </tr>

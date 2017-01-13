@@ -24,6 +24,23 @@ module PekNext
     config.active_record.raise_in_transactional_callbacks = true
 
     config.x.photo_path = 'public/uploads/'
-    config.x.dorms = [ "Schönherz Zoltán Kollégium", "Nagytétényi úti Kollégium", "Vásárhelyi", "Kármán", "Külsős" ]
+    config.x.dorms = [
+      ['Nem megadott', ''],
+      ['Schönherz Zoltán Kollégium', 'Schönherz'],
+      ['Nagytétényi úti Kollégium', 'Tétény'],
+      ['Kármán Tódor Kollégium', 'Kármán'],
+      ['Vásárhelyi Pál Kollégium', 'Vásárhelyi'],
+      ['Külsős', 'Külsős']
+    ]
+    config.x.genders = [
+      ['Nem megadott', 'NOTSPECIFIED'],
+      ['Férfi', 'MALE'],
+      ['Nő', 'FEMALE'],
+      ['Egyéb', 'UNKNOWN']
+    ]
+    config.x.visibility_options = [
+      ['nyilvános', 'public'],
+      ['privát', 'private']
+    ]
   end
 end
