@@ -67,6 +67,7 @@ class ProfileController < ApplicationController
   private
 
   def attributes
+    # Available parameters: type (:text or :select), name, text, required, visibility_settings, options (if type is :select)
     [
       {type: :text, name: "lastname", text: "Vezetéknév", required: true},
       {type: :text, name: "firstname", text: "Keresztnév", required: true},
