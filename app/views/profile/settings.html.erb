@@ -1,94 +1,25 @@
 <div class="uk-width-medium-1-2 uk-container-center">
     <%= form_tag({action: :save_settings}, {method: :post}) do %>
       <table class="uk-table uk-table-striped uk-table-hover">
+      <% for attribute in @attributes do %>
         <tr>
-            <td><label>Vezetéknév *</label></td>
-            <td colspan="2">
-                <%= text_field_tag :lastName, @user.lastname, maxlength: 40 %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Keresztnév *</label></td>
-            <td colspan="2">
-                <%= text_field_tag :firstName, @user.firstname, maxlength: 40 %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Becenév</label></td>
-            <td colspan="2">
-                <%= text_field_tag :nickname, @user.nickname, maxlength: 40 %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Nem</label></td>
-            <td colspan="2">
-                <%= select_tag :gender, options_for_select(Rails.configuration.x.genders, selected: @user.gender) %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Születési dátum</label></td>
+            <td><label><%= attribute[:text] %><%= " *" if attribute[:required] %></label></td>
             <td>
-                <%= text_field_tag :dateOfBirth, @user.date_of_birth, maxlength: 40 %>
-            </td>
-            <td>
-                <%= visibility_select("dateOfBirth") %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Cím</label></td>
-            <td>
-                <%= text_field_tag :homeAddress, @user.home_address %>
-            </td>
-            <td>
-                <%= visibility_select("homeAddress") %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>E-mail *</label></td>
-            <td>
-                <%= text_field_tag :emailAddress, @user.email %>
-            </td>
-            <td>
-                <%= visibility_select("emailAddress") %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Mobil</label></td>
-            <td>
-                <%= text_field_tag :cellPhone, @user.cell_phone %>
-            </td>
-            <td>
-                <%= visibility_select("cellPhone") %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Weboldal</label></td>
-            <td>
-                <%= text_field_tag :webpage, @user.webpage %>
-            </td>
-            <td>
-                <%= visibility_select("webpage") %>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Kollégium</label></td>
-            <td>
-                <%= select_tag(:dormitory, options_for_select(Rails.configuration.x.dorms, selected: @user.dormitory))
+                <%= 
+                    if attribute[:type] == :text
+                        text_field_tag attribute[:name], @user["usr_" + attribute[:name]], required: attribute[:required]
+                    elsif attribute[:type] == :select
+                        select_tag attribute[:name], options_for_select(attribute[:options], selected: @user["usr_" + attribute[:name]])
+                    end
                 %>
             </td>
             <td>
-                <%= visibility_select("dormitory") %>
+            <% if attribute[:visibility_settings] %>
+                <%= visibility_select(attribute[:name]) %>
+            <% end %>
             </td>
         </tr>
-        <tr>
-            <td><label>Szobaszám</label></td>
-            <td>
-                <%= text_field_tag :room, @user.room %>
-            </td>
-            <td>
-                <%= visibility_select("room") %>
-            </td>
-        </tr>
+      <% end %>
         </table>
         <table>
             <tr>

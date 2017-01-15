@@ -7,7 +7,7 @@ class ProfileController < ApplicationController
   end
 
   def settings
-    @dorms = Rails.configuration.x.dorms
+    @attributes = attributes
     if params[:rawPhoto]
       raw_photo = params[:rawPhoto]
       dircheck(photo_dir(@user.screen_name))
@@ -37,17 +37,17 @@ class ProfileController < ApplicationController
   
   def save_settings
     
-    if /^[0-9\+][0-9\-]+$/.match(params['cellPhone']) != nil or params['cellPhone'] == ''
-      @user.firstname = params['firstName']
-      @user.lastname = params['lastName']
+    if /^[0-9\+][0-9\-]+$/.match(params['cell_phone']) != nil or params['cell_phone'] == ''
+      @user.firstname = params['firstname']
+      @user.lastname = params['lastname']
       @user.nickname = params['nickname']
       @user.gender = params['gender']
-      @user.date_of_birth = params['dateOfBirth'] #FIXME meg kell nénzni, hohy jó formátumba jön-e
-      @user.home_address = params['homeAddress']
-      @user.email = params['emailAddress']
+      @user.date_of_birth = params['date_of_birth'] #FIXME meg kell nénzni, hohy jó formátumba jön-e
+      @user.home_address = params['home_address']
+      @user.email = params['email']
       @user.webpage = params['webpage']
 
-      @user.cell_phone = /^[0-9\+][0-9\-]+$/.match(params['cellPhone'])
+      @user.cell_phone = /^[0-9\+][0-9\-]+$/.match(params['cell_phone'])
       @user.webpage = params['webpage']
       @user.dormitory = params['dormitory']
       @user.room = params['room']
@@ -62,6 +62,24 @@ class ProfileController < ApplicationController
       render :settings
     end
 
+  end
+
+  private
+
+  def attributes
+    [
+      {type: :text, name: "lastname", text: "Vezetéknév", required: true},
+      {type: :text, name: "firstname", text: "Keresztnév", required: true},
+      {type: :text, name: "nickname", text: "Becenév", required: false},
+      {type: :select, name: "gender", text: "Nem", required: false, options: Rails.configuration.x.genders},
+      {type: :text, name: "date_of_birth", text: "Születési dátum", required: false, visibility_settings: true},
+      {type: :text, name: "home_address", text: "Cím", required: false, visibility_settings: true},
+      {type: :text, name: "email", text: "E-mail", required: true, visibility_settings: true},
+      {type: :text, name: "cell_phone", text: "Mobil", required: false, visibility_settings: true},
+      {type: :text, name: "webpage", text: "Weboldal", required: false, visibility_settings: true},
+      {type: :select, name: "dormitory", text: "Kollégium", options: Rails.configuration.x.dorms, visibility_settings: true},
+      {type: :text, name: "room", text: "Szobaszám", required: false, visibility_settings: true},
+    ]
   end
 
   def dircheck (dirname)
