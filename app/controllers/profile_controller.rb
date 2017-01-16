@@ -36,32 +36,20 @@ class ProfileController < ApplicationController
   end
   
   def save_settings
-    
-    if /^[0-9\+][0-9\-]+$/.match(params['cell_phone']) != nil or params['cell_phone'] == ''
-      @user.firstname = params['firstname']
-      @user.lastname = params['lastname']
-      @user.nickname = params['nickname']
-      @user.gender = params['gender']
-      @user.date_of_birth = params['date_of_birth'] #FIXME meg kell nénzni, hohy jó formátumba jön-e
-      @user.home_address = params['home_address']
-      @user.email = params['email']
-      @user.webpage = params['webpage']
+    @user.update(params.permit(:firstname, :lastname, :nickname, :gender, :date_of_birth, :home_address, :email, :webpage, :dormitory, :room))
 
-      @user.cell_phone = /^[0-9\+][0-9\-]+$/.match(params['cell_phone'])
-      @user.webpage = params['webpage']
-      @user.dormitory = params['dormitory']
-      @user.room = params['room']
+    phone_regex = /^[0-9\+][0-9\-]+$/.match(params['cell_phone'])
 
+    if phone_regex or params['cell_phone'] == ''
+      @user.cell_phone = phone_regex
       @user.save
-    # a fentieket nem lenne egyszerűbb valami osztályon keresztül behúzni? 
-    #  és akkor csak annyi lenne, hogy: User=params
       redirect_to "/settings"
     else
       @error = { expected: true }
-      @error[:message] = "Hibás telefonszám formátum. Ellenőrizd, hogy +36201234567 formátumú legyen!"
+      @error[:message] = I18n.t 'error.wrong_phone_number'
+      @attributes = attributes
       render :settings
     end
-
   end
 
   private

@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+
+hu:
+  error:
+    wrong_phone_number: Hibás telefonszám formátum. Ellenőrizd, hogy +36201234567 formátumú legyen!
