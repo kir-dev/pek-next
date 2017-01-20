@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   post '/settings/save', to: 'profile#save_settings'
   get '/profile/picture/:username', to: 'profile#picture'
 
-  resources :privacy
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

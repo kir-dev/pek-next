@@ -1,7 +1,7 @@
 <div class="uk-width-medium-1-2 uk-container-center">
     <%= form_tag({action: :save_settings}, {method: :post}) do %>
         <table class="uk-table uk-table-striped uk-table-hover">
-            <% for attribute in @attributes do %>
+            <% for attribute in attributes do %>
                 <tr>
                     <td><label><%= attribute[:text] %><%= " *" if attribute[:required] %></label></td>
                     <td>

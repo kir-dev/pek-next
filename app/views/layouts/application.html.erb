@@ -44,30 +44,29 @@
     </ul>
 
     <% if defined? @error %>
-        <div class="uk-alert uk-alert-danger uk-container-center uk-width-2-3 uk-margin-top">
-            <p>
-              <% if !@error[:expected] %>
-                Hiba!
-              <% end %>
-              <%= @error[:message] %>
-              <% if !@error[:expected] %>
-                Kérjük adj fel ticketet a <a href="http://support.sch.bme.hu">support</a> oldalon.
-              <% end %>
-
-          </p>
-        </div>
+      <div class="uk-alert uk-alert-danger uk-container-center uk-width-2-3 uk-margin-top">
+        <p>
+          <% if !@error[:expected] %>
+            Hiba!
+          <% end %>
+          <%= @error[:message] %>
+          <% if !@error[:expected] %>
+            Kérjük adj fel ticketet a <a href="http://support.sch.bme.hu">support</a> oldalon.
+          <% end %>
+        </p>
+      </div>
     <% end %>
 
 
     <div class="uk-nav-content uk-navbar-flip uk-hidden-small">
  
-        <%= form_tag(search_path, :method => 'get', :class => 'uk-form uk-margin-remove uk-display-inline-block') do %>
-          <p>
-            <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
-            <%= button_tag "Search", :name => nil, class: 'uk-icon-search' do %>
-            <% end %>
-          </p>
-        <% end %>
+      <%= form_tag(search_path, :method => 'get', :class => 'uk-form uk-margin-remove uk-display-inline-block') do %>
+        <p>
+          <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
+          <%= button_tag "Search", :name => nil, class: 'uk-icon-search' do %>
+          <% end %>
+        </p>
+      <% end %>
 
   </div>
     <a href="#off-canvas-menu" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>

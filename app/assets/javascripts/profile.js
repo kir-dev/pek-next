@@ -1,4 +1,3 @@
-
 var settings = (function() {
     var module = {};
     var cropper;
@@ -9,7 +8,6 @@ var settings = (function() {
                 aspectRatio: 1/1,
                 zoomable: false,
                 movable: false,
-
             });
         }
         
@@ -29,10 +27,10 @@ var settings = (function() {
             }
         }).done(function (data) {
             UIkit.notify({
-                message : 'Sikeres feltöltés!',
-                status  : 'info',
-                timeout : 5000,
-                pos     : 'top-center'
+                message: 'Sikeres feltöltés!',
+                status: 'info',
+                timeout: 5000,
+                pos: 'top-center'
             });
             $('#image-upload-container').fadeOut();
             setTimeout(function () {$('#back-button-container').fadeIn();}, 400);
