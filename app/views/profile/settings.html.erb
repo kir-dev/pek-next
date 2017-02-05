@@ -7,9 +7,9 @@
                     <td>
                         <%=
                             if attribute[:type] == :text
-                                text_field_tag attribute[:name], @user["usr_" + attribute[:name]], required: attribute[:required]
+                                text_field_tag attribute[:name], current_user["usr_" + attribute[:name]], required: attribute[:required]
                             elsif attribute[:type] == :select
-                                select_tag attribute[:name], options_for_select(attribute[:options], selected: @user["usr_" + attribute[:name]])
+                                select_tag attribute[:name], options_for_select(attribute[:options], selected: current_user["usr_" + attribute[:name]])
                             end
                         %>
                     </td>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td><label>Neptun</label></td>
-                <td><span><%= @user.neptun %> </span></td>
+                <td><span><%= current_user.neptun %> </span></td>
             </tr>
         </table>
         <div class="uk-text-center">

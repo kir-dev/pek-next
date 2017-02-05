@@ -1,7 +1,7 @@
 <div class="uk-height-viewport uk-responsive-width">
 	<div class="uk-container-center"><!-- uk-scrollable-box uk-height-viewport uk-responsive-width">-->
 		<div class="uk-panel uk-panel-box">
-			<h3 class="uk-panel-title">Adatlap - <%= @user.nickname %></h3>
+			<h3 class="uk-panel-title">Adatlap - <%= current_user.nickname %></h3>
 			<!--<nav class="uk-navbar uk-hidden-small uk-width" style="width:282px;">
 				<ul class="uk-navbar-nav">
 					<li class="uk-active"><a href="">Profil</a></li>
@@ -10,11 +10,11 @@
 				</ul>
 			</nav>
 -->
-			<img class="uk-thumbnail" src="/profile/picture/<%= @user.screen_name %>" alt="<%= @user.screen_name %>">
-			<h3 class="uk-h3"><%= @user.lastname %> <%= @user.firstname %></h3>
-			<h4 class="uk-h4"><%= @user.email %></h4>
-			<h4 class="uk-h4"><%= @user.dormitory %> <%= @user.room %></h4>
-			<h4 class="uk-h4"><%= @user.cell_phone %></h4>
+			<img class="uk-thumbnail" src="/profile/picture/<%= current_user.screen_name %>" alt="<%= current_user.screen_name %>">
+			<h3 class="uk-h3"><%= current_user.lastname %> <%= current_user.firstname %></h3>
+			<h4 class="uk-h4"><%= current_user.email %></h4>
+			<h4 class="uk-h4"><%= current_user.dormitory %> <%= current_user.room %></h4>
+			<h4 class="uk-h4"><%= current_user.cell_phone %></h4>
 
 		</div>
 	</div>

@@ -9,8 +9,8 @@ class ProfileController < ApplicationController
   def settings
     if params[:rawPhoto]
       raw_photo = params[:rawPhoto]
-      dircheck(photo_dir(@user.screen_name))
-      File.open(raw_path(@user.screen_name), 'wb') do |file|
+      dircheck(photo_dir(current_user.screen_name))
+      File.open(raw_path(current_user.screen_name), 'wb') do |file|
         file.write(raw_photo.read)
       end
       @raw_photo = raw_path
@@ -18,10 +18,10 @@ class ProfileController < ApplicationController
   end
 
   def upload
-    @user = User.find(session[:user])
-    dircheck(photo_dir(@user.screen_name))
+    current_user = User.find(session[:user])
+    dircheck(photo_dir(current_user.screen_name))
 
-    File.open(cropped_path(@user.screen_name), 'wb') do |file|
+    File.open(cropped_path(current_user.screen_name), 'wb') do |file|
       file.write(Base64.decode64(params[:croppedData].split(',')[1]))
     end
 
@@ -35,13 +35,13 @@ class ProfileController < ApplicationController
   end
   
   def save_settings
-    @user.update(params.permit(:firstname, :lastname, :nickname, :gender, :date_of_birth, :home_address, :email, :webpage, :dormitory, :room))
+    current_user.update(params.permit(:firstname, :lastname, :nickname, :gender, :date_of_birth, :home_address, :email, :webpage, :dormitory, :room))
 
     phone_regex = /^[0-9\+][0-9\-]+$/.match(params['cell_phone'])
 
     if phone_regex or params['cell_phone'] == ''
-      @user.cell_phone = phone_regex
-      @user.save
+      current_user.cell_phone = phone_regex
+      current_user.save
       redirect_to "/settings"
     else
       @error = { expected: true }
