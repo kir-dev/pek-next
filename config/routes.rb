@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   get '/search/suggest', to: 'search#suggest'
   get '/profile/', to: 'profiles#show_self'
   get '/profile/:id', to: 'profiles#show', as: 'other_profile'
-  get '/settings', to: 'profile#settings'
-  post '/settings', to: 'profile#settings'
-  post '/settings/upload', to: 'profile#upload'
-  post '/settings/save', to: 'profile#save_settings'
-  get '/profile/picture/:username', to: 'profile#picture'
+  get '/settings', to: 'profiles#settings'
+  post '/settings', to: 'profiles#settings'
+  post '/settings/upload', to: 'profiles#upload'
+  post '/settings/save', to: 'profiles#save_settings'
+  get '/profile/picture/:username', to: 'profiles#picture'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
