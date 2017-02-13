@@ -1,3 +1,6 @@
 hu:
+  username_taken: "Ez a felhasználónév már foglalt!"
+  auth_sch_id_taken: "Ezzel az auth.sch id-val már regisztráltak!"
+  bme_id_taken: "Ezzel a BME id-val már regisztráltak!"
   error:
     wrong_phone_number: Hibás telefonszám formátum. Ellenőrizd, hogy +36201234567 formátumú legyen!
