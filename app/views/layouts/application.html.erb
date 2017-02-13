@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="uk-height-1-1">
   <!-- navigation -->
   <nav class="uk-navbar">
     <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
@@ -110,7 +110,7 @@
   </div>
 
 <div id="content-container">
-  <div id="content-main">
+  <div id="content-main" class="uk-width-large-3-5 uk-container-center">
     <%= yield %>
   </div>
 </div>

@@ -1,0 +1,48 @@
+sanyi:
+  usr_id: 10
+  usr_firstname: Sándor
+  usr_lastname: Hentes
+  usr_nickname: Sanyi
+  usr_screen_name: sanyi92
+  usr_auth_sch_id: asdf-asdf-1234
+  usr_metascore: 1000
+
+bela:
+  usr_id: 11
+  usr_firstname: Béla
+  usr_lastname: Kovács
+  usr_nickname: Kovibélus
+  usr_screen_name: kovibelus
+  usr_auth_sch_id: qwer-qwer-5678
+  usr_metascore: 5000
+
+<% 100.times do |n| %>
+user_<%= n %>:
+  usr_id: <%= "2#{n}" %>
+  usr_firstname: Júzer <%= n %>
+  usr_lastname: Pék
+  usr_nickname: pék <%= n %>
+  usr_screen_name: <%= "pekuser#{n}" %>
+  usr_auth_sch_id: xcvb-xcvb-xcvb-<%= n %>
+  usr_metascore: <%= n %>
+<% end %>
+
+metascore_1:
+  usr_id: 3000
+  usr_firstname: Béla
+  usr_lastname: Metascore
+  usr_screen_name: metatest
+  usr_auth_sch_id: meta-score-test
+  usr_cell_phone: 06305669234
+  usr_metascore: 0
+
+metascore_2:
+  usr_id: 3001
+  usr_firstname: András
+  usr_lastname: Metascore
+  usr_screen_name: metatest2
+  usr_auth_sch_id: meta-score-test-2
+  usr_photo_path: myphoto.jpg
+  usr_email: mail@sch.bme.hu
+  usr_dormitory: Schönherz
+  usr_metascore: 0

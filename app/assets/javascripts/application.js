@@ -16,4 +16,6 @@
 //= require uikit
 //= require_tree ../../../vendor/assets/javascripts/.
 
+//= require rx.all
+
 //= require_tree .
