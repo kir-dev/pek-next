@@ -10,7 +10,7 @@
 				</ul>
 			</nav>
 -->
-			<img class="uk-thumbnail" src="/profile/picture/<%= @user.screen_name %>" alt="<%= @user.screen_name %>">
+			<%= image_tag "/profile/picture/#{@user.screen_name}", class: "uk-thumbnail", alt: @user.screen_name %>
 			<h3 class="uk-h3"><%= @user.full_name %></h3>
 			<h4 class="uk-h4"><%= @user.email %></h4>
 			<h4 class="uk-h4"><%= @user.dormitory %> <%= @user.room %></h4>

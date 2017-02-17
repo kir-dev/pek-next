@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/settings/upload', to: 'profiles#upload'
   post '/settings/save', to: 'profiles#save_settings'
   get '/profile/picture/:username', to: 'profiles#picture'
+  get '/profile/picture/leszezmegrestapi/raw', to: 'profiles#raw_picture'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

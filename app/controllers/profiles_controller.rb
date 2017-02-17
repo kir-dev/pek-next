@@ -19,7 +19,7 @@ class ProfilesController < ApplicationController
       File.open(raw_path(current_user.screen_name), 'wb') do |file|
         file.write(raw_photo.read)
       end
-      @raw_photo = raw_path
+      @raw_photo_path = raw_path(current_user.screen_name)
     end
   end
 
@@ -38,6 +38,10 @@ class ProfilesController < ApplicationController
 
   def picture
     send_file cropped_path(params[:username]), type: 'image/png', disposition: 'inline'
+  end
+
+  def raw_picture
+	send_file raw_path(current_user.screen_name), type: 'image/png', disposition: 'inline'
   end
 
   def save_settings

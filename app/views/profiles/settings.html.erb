@@ -49,11 +49,11 @@
     <!-- Profile picture upload and cropping -->
     <div class="uk-margin-large-top uk-margin" id="image-upload-container">
         <%= form_tag({action: :settings}, multipart: true) do %>
-            <% if @raw_photo %>
+            <% if @raw_photo_path %>
                 <div class="uk-text-center">
                     <div class="inline-block">
                         <div id="cropper-container">
-                            <img src="<%= root_path + @raw_photo %>" id="cropper-img">
+                            <%= image_tag profile_picture_leszezmegrestapi_raw_path, id: "cropper-img" %>
                         </div>
                         <button id="crop-finish-button" type="button" class="uk-button uk-button-primary uk-margin">Mehet!</button>
                     </div>
