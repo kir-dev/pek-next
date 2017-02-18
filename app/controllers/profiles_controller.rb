@@ -13,35 +13,6 @@ class ProfilesController < ApplicationController
   end
 
   def settings
-    if params[:rawPhoto]
-      raw_photo = params[:rawPhoto]
-      dircheck(photo_dir(current_user.screen_name))
-      File.open(raw_path(current_user.screen_name), 'wb') do |file|
-        file.write(raw_photo.read)
-      end
-      @raw_photo_path = raw_path(current_user.screen_name)
-    end
-  end
-
-  def upload
-    current_user = User.find(session[:user])
-    dircheck(photo_dir(current_user.screen_name))
-
-    File.open(cropped_path(current_user.screen_name), 'wb') do |file|
-      file.write(Base64.decode64(params[:croppedData].split(',')[1]))
-    end
-
-    respond_to do |format|
-      format.json {render json: {status: "success"}}
-    end
-  end
-
-  def picture
-    send_file cropped_path(params[:username]), type: 'image/png', disposition: 'inline'
-  end
-
-  def raw_picture
-	send_file raw_path(current_user.screen_name), type: 'image/png', disposition: 'inline'
   end
 
   def save_settings
@@ -58,26 +29,6 @@ class ProfilesController < ApplicationController
       @error[:message] = I18n.t 'error.wrong_phone_number'
       render :settings
     end
-  end
-
-  private
-
-  def dircheck (dirname)
-    if !Dir.exists?(dirname)
-      FileUtils.mkdir_p(dirname)
-    end
-  end
-
-  def raw_path (screen_name)
-    return photo_dir(screen_name).join('raw.png')
-  end
-
-  def cropped_path (screen_name)
-    return photo_dir(screen_name).join('cropped.png')
-  end
-
-  def photo_dir (screen_name)
-    return Rails.root.join(Rails.configuration.x.photo_path, screen_name[0, 1], screen_name)
   end
 
 end

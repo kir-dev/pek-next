@@ -4,17 +4,30 @@ Rails.application.routes.draw do
   get '/auth/oauth/callback', to: 'sessions#create'
   get '/register', to: 'registration#new'
   post '/register/create', to: 'registration#create', as: :registration
-  resources :users
+ # resources :users
+ # resources :settings, only: :update
+  resources :photos, only: [:show, :update, :edit]
+  get '/photo/raw', to: 'raw_photos#show'
+  post '/photo/raw', to: 'raw_photos#update'
+
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
   get '/profile/', to: 'profiles#show_self'
   get '/profile/:id', to: 'profiles#show', as: 'other_profile'
   get '/settings', to: 'profiles#settings'
+# get '/settings/edit'
   post '/settings', to: 'profiles#settings'
-  post '/settings/upload', to: 'profiles#upload'
+# post '/settings/update'
   post '/settings/save', to: 'profiles#save_settings'
-  get '/profile/picture/:username', to: 'profiles#picture'
-  get '/profile/picture/leszezmegrestapi/raw', to: 'profiles#raw_picture'
+
+  # REST api
+  #  index
+  #  show
+  #  new
+  #  edit
+  #  create
+  #  update
+  #  destroy
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

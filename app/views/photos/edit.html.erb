@@ -1,0 +1,11 @@
+<div class="uk-text-center">
+    <div class="inline-block">
+        <div id="cropper-container">
+            <%= image_tag photo_raw_path, id: "cropper-img" %>
+        </div>
+        <button id="crop-finish-button" type="button" class="uk-button uk-button-primary uk-margin">Mehet!</button>
+    </div>
+</div>
+<div class="uk-margin-large-top uk-margin uk-text-center hidden" id="back-button-container">
+    <a class="uk-button uk-button-primary uk-button-large" type="button" href="<%= root_path %>">Vissza</a>
+</div>

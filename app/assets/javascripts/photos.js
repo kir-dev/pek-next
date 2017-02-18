@@ -20,8 +20,8 @@ var settings = (function() {
             height: 300
         }).toDataURL();
         $.ajax({
-            type: "POST",
-            url: "/settings/upload",
+            type: "PUT",
+            url: "/photos/fixme",
             data: {
                 croppedData: croppedData
             }
