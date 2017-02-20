@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
     redirect_to oauth_login_path unless session[:user] || ENV['NONAUTH']
   end
 
+  def correct_user
+    @user = User.find_by(screen_name: params[:id])
+    redirect_to(root_url) unless @user == current_user
+  end
+
   def current_user
     if ENV['NONAUTH']
       return impersonate_user

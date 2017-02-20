@@ -1,5 +1,5 @@
 <div class="uk-width-medium-1-2 uk-container-center">
-    <%= form_tag({action: :save_settings}, {method: :post}) do %>
+    <%= form_tag({action: :update}, {method: :put}) do %>
         <table class="uk-table uk-table-striped uk-table-hover">
             <% for attribute in attributes do %>
                 <tr>
@@ -7,9 +7,9 @@
                     <td>
                         <%=
                             if attribute[:type] == :text
-                                text_field_tag attribute[:name], current_user["usr_" + attribute[:name]], required: attribute[:required]
+                                text_field_tag attribute[:name], @user["usr_" + attribute[:name]], required: attribute[:required]
                             elsif attribute[:type] == :select
-                                select_tag attribute[:name], options_for_select(attribute[:options], selected: current_user["usr_" + attribute[:name]])
+                                select_tag attribute[:name], options_for_select(attribute[:options], selected: @user["usr_" + attribute[:name]])
                             end
                         %>
                     </td>

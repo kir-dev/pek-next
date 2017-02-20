@@ -13,7 +13,7 @@
     <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
     <ul class="uk-navbar-nav uk-hidden-small">
       <li aria-expanded="false" aria-haspopup="true" class="uk-parent uk-active" data-uk-dropdown="">
-        <a href=""><i class="uk-icon-user"></i> Profilom</a>
+        <a href=<%= profiles_me_path %> > <i class="uk-icon-user"></i> Profilom</a>
         <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
           <ul class="uk-nav uk-nav-navbar">
             <li><a href="#">Teljes profil</a></li>
@@ -36,7 +36,7 @@
         <a href=""><i class="uk-icon-cog"></i> Fiók beállítások</a>
         <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
           <ul class="uk-nav uk-nav-navbar">
-            <li><%= link_to "Profil szerkesztése", settings_path %></li>
+            <li><%= link_to "Profil szerkesztése", edit_profile_path(current_user.screen_name) %></li>
             <li><a href="#">SVIE tagság</a></li>
           </ul>
         </div>
@@ -99,7 +99,7 @@
       </li>
       <li aria-expanded="false" class="uk-parent"><a href="#"><i class="uk-icon-cog"></i> Fiók beállítások</a>
         <div class="uk-hidden" style="overflow:hidden;height:0;position:relative;"><ul class="uk-nav-sub">
-          <li><%= link_to "Profil szerkesztése", settings_path %></li>
+          <li><%= link_to "Profil szerkesztése", edit_profile_path(current_user.screen_name) %></li>
           <li><a href="">SVIE tagság</a></li>
         </ul></div>
       </li>

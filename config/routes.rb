@@ -7,18 +7,15 @@ Rails.application.routes.draw do
  # resources :users
  # resources :settings, only: :update
   resources :photos, only: [:show, :update, :edit]
+  get '/profiles/me/', to: 'profiles#show_self'
+  #get '/profiles/edit/', to: 'profiles#edit', as: :edit_profile
+  resources :profiles, only: [:show, :update, :edit]
+
   get '/photo/raw', to: 'raw_photos#show'
   post '/photo/raw', to: 'raw_photos#update'
 
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
-  get '/profile/', to: 'profiles#show_self'
-  get '/profile/:id', to: 'profiles#show', as: 'other_profile'
-  get '/settings', to: 'profiles#settings'
-# get '/settings/edit'
-  post '/settings', to: 'profiles#settings'
-# post '/settings/update'
-  post '/settings/save', to: 'profiles#save_settings'
 
   # REST api
   #  index
@@ -33,7 +30,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root :to => redirect('/profile')
+  root :to => redirect('/profiles/me')
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
