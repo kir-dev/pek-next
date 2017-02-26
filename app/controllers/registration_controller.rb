@@ -12,7 +12,7 @@ class RegistrationController < ApplicationController
       lastname: oauth_data["sn"],
       screen_name: request.params[:username],
       dormitory: request.params[:dormitory],
-      room: request.params[:room])
+      room: request.params[:room][0])
     if(!user.valid?)
       @error = { expected: true }
       if user.errors.messages[:usr_screen_name]

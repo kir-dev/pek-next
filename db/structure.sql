@@ -420,7 +420,8 @@ CREATE TABLE users (
     usr_lastlogin timestamp without time zone,
     usr_auth_sch_id character varying,
     usr_bme_id character varying,
-    usr_created_at timestamp without time zone
+    usr_created_at timestamp without time zone,
+    usr_metascore integer
 );
 
 

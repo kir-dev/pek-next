@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   use OmniAuth::Strategies::Developer
 
   def require_login
-    redirect_to oauth_login_path unless session[:user] || ENV['NONAUTH']
+    redirect_to oauth_login_path unless session[:user_id] || ENV['NONAUTH']
   end
 
   def correct_user
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     if ENV['NONAUTH']
       return impersonate_user
     end
-    @user ||= User.find(session[:user])
+    @user ||= User.find(session[:user_id])
   end
   helper_method :current_user
 
