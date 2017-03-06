@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(screen_name: params[:id])
   end
 
   def show_self

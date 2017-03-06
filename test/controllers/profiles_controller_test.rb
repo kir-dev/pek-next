@@ -13,7 +13,15 @@ class ProfilesControllerTest < ActionController::TestCase
   end
 
   test "show some other users' profile" do
-    get :show, id: users(:bela).id
+    get :show, id: users(:bela).screen_name
+
+    assert_response :success
+    assert_equal users(:bela).id, assigns(:user).id
+  end
+
+  test "rendering edit page is successful" do
+    get :edit, id: users(:bela).screen_name
+
     assert_response :success
     assert_equal users(:bela).id, assigns(:user).id
   end
