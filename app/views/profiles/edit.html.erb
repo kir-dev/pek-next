@@ -1,5 +1,14 @@
 <div class="uk-width-medium-1-2 uk-container-center">
     <%= form_tag({action: :update}, {method: :put}) do %>
+        <% if @user.errors.any? %>
+          <div class="uk-alert uk-alert-danger">
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
         <table class="uk-table uk-table-striped uk-table-hover">
             <% for attribute in attributes do %>
                 <tr>
