@@ -1,7 +1,6 @@
 class RegistrationController < ApplicationController
   
   def new
-    @dorms = Rails.configuration.x.dorms
   end
 
   def create
