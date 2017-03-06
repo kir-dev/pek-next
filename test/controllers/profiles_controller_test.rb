@@ -29,7 +29,7 @@ class ProfilesControllerTest < ActionController::TestCase
   test "update user is successful" do
     user = users(:sanyi)
 
-    patch :update, id: user.screen_name, firstname: "Happy"
+    patch :update, id: user.screen_name, profile: { firstname: "Happy" }
 
     assert_equal "Happy", user.reload.firstname
   end
@@ -37,7 +37,7 @@ class ProfilesControllerTest < ActionController::TestCase
   test "successful update redirects to profile" do
     user = users(:sanyi)
 
-    patch :update, id: user.screen_name, firstname: "Happy"
+    patch :update, id: user.screen_name, profile: { firstname: "Happy" }
 
     assert_redirected_to profiles_me_path
   end

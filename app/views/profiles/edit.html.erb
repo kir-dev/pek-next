@@ -1,34 +1,37 @@
 <div class="uk-width-medium-1-2 uk-container-center">
-    <%= form_tag({action: :update}, {method: :put}) do %>
-        <% if @user.errors.any? %>
+    <%= form_for(@user, as: :profile, url: profile_path(@user.screen_name)) do |f| %>
+        <% if f.object.errors.any? %>
           <div class="uk-alert uk-alert-danger">
             <ul>
-              <% @user.errors.full_messages.each do |message| %>
+              <% f.object.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
               <% end %>
             </ul>
           </div>
         <% end %>
+
         <table class="uk-table uk-table-striped uk-table-hover">
-            <% for attribute in attributes do %>
-                <tr>
-                    <td><label><%= attribute[:text] %><%= " *" if attribute[:required] %></label></td>
-                    <td>
-                        <%=
-                            if attribute[:type] == :text
-                                text_field_tag attribute[:name], @user["usr_" + attribute[:name]], required: attribute[:required]
-                            elsif attribute[:type] == :select
-                                select_tag attribute[:name], options_for_select(attribute[:options], selected: @user["usr_" + attribute[:name]])
-                            end
-                        %>
-                    </td>
-                    <td>
-                    <% if attribute[:visibility_settings] %>
-                        <%= visibility_select(attribute[:name]) %>
-                    <% end %>
-                    </td>
-                </tr>
-            <% end %>
+          <tr>
+            <td><%= f.label :lastname, class: "form-label-required" %></td>
+            <td><%= f.text_field :lastname, required: true %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :firstname, class: "form-label-required" %></td>
+            <td><%= f.text_field :firstname, required: true %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :nickname %></td>
+            <td><%= f.text_field :nickname %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :gender %></td>
+            <td><%= f.select :gender,
+                      options_for_select(Rails.configuration.x.genders.invert, f.object.gender) %>
+            </td>
+          </tr>
         </table>
 
         <!-- IM accounts -->

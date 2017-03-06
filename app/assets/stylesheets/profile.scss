@@ -10,3 +10,8 @@
 img {
 	max-width: 100%;
 }
+
+.form-label-required::after {
+  content: "*";
+  padding-left: 3px;
+}

@@ -1,11 +1,4 @@
 module ProfileHelper
-  def visibility_select(attribute)
-    select_tag(
-      "visibility_" + attribute,
-      options_for_select(Rails.configuration.x.visibility_options)
-    )
-  end
-
   def attributes
     # Available parameters: type (:text or :select), name, text, required, visibility_settings, options (if type is :select)
     [

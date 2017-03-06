@@ -49,12 +49,13 @@ module PekNext
       ['Vásárhelyi Pál Kollégium', 'Vásárhelyi'],
       ['Külsős', 'Külsős']
     ]
-    config.x.genders = [
-      ['Nem megadott', 'NOTSPECIFIED'],
-      ['Férfi', 'MALE'],
-      ['Nő', 'FEMALE'],
-      ['Egyéb', 'UNKNOWN']
-    ]
+    config.x.genders = {
+      'NOTSPECIFIED' => 'Nem megadott',
+      'MALE'         => 'Férfi',
+      'FEMALE'       => 'Nő',
+      'UNKNOWN'      => 'Egyéb'
+    }
+
     config.x.visibility_options = [
       ['nyilvános', 'public'],
       ['privát', 'private']
