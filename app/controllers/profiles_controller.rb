@@ -1,5 +1,3 @@
-require 'fileutils'
-
 class ProfilesController < ApplicationController
   before_action :require_login
   before_action :correct_user, only: [:edit, :update]
@@ -18,31 +16,19 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    current_user.update(
-      params.permit(
-        :firstname,
-        :lastname,
-        :nickname,
-        :gender,
-        :date_of_birth,
-        :home_address,
-        :email,
-        :webpage,
-        :dormitory,
-        :room
-      )
-    )
+    @user = current_user
 
-    phone_regex = /^[0-9\+][0-9\-]+$/.match(params['cell_phone'])
-
-    if phone_regex or params['cell_phone'] == ''
-      current_user.cell_phone = phone_regex
-      current_user.save
-      redirect_to edit_profile_path
+    if @user.update(update_params)
+      redirect_to profiles_me_path
     else
-      @error = { expected: true }
-      @error[:message] = I18n.t 'error.wrong_phone_number'
       render :edit
     end
+  end
+
+  private
+
+  def update_params
+    params.permit(:firstname, :lastname, :nickname, :gender, :date_of_birth,
+      :home_address, :email, :webpage, :dormitory, :room, :cell_phone)
   end
 end
