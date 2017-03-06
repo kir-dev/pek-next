@@ -11,7 +11,7 @@
  * file per style scope.
  *
  *= require uikit
- *= require_tree ../../../vendor/assets/stylesheets/.
+ *= require cropper.min
  *= require_tree .
  *= require_self
  */

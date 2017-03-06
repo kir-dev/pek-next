@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require uikit
-//= require_tree ../../../vendor/assets/javascripts/.
+//= require cropper.min
 
 //= require rx.all
 
