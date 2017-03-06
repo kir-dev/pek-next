@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
   validates :usr_auth_sch_id, uniqueness: true
   validates :usr_bme_id, uniqueness: true, allow_nil: true
 
+  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
+
   def full_name
     [lastname, firstname].compact.join(' ')
   end
