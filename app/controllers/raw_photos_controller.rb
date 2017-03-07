@@ -7,7 +7,6 @@ class RawPhotosController < ApplicationController
 
   def update
     PhotoService.upload_raw(current_user.screen_name, params[:rawPhoto])
-    @raw_photo_path = "egy"
 
     redirect_to edit_photo_path(current_user.screen_name)
   end

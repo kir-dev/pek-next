@@ -1,14 +1,10 @@
 Rails.application.routes.draw do
 
-  #root 'users#index'
   get '/auth/oauth/callback', to: 'sessions#create'
   get '/register', to: 'registration#new'
   post '/register/create', to: 'registration#create', as: :registration
- # resources :users
- # resources :settings, only: :update
   resources :photos, only: [:show, :update, :edit]
   get '/profiles/me/', to: 'profiles#show_self'
-  #get '/profiles/edit/', to: 'profiles#edit', as: :edit_profile
   resources :profiles, only: [:show, :update, :edit]
 
   get '/photo/raw', to: 'raw_photos#show'
@@ -16,15 +12,6 @@ Rails.application.routes.draw do
 
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
-
-  # REST api
-  #  index
-  #  show
-  #  new
-  #  edit
-  #  create
-  #  update
-  #  destroy
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

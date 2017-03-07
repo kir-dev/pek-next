@@ -95,19 +95,9 @@
         </div>
     <% end %>
 
-    <!-- Profile picture upload and cropping -->
+    <!-- Profile picture upload -->
     <div class="uk-margin-large-top uk-margin" id="image-upload-container">
         <%= form_tag(photo_raw_path, multipart: true) do %>
-            <% if @raw_photo_path %>
-                <div class="uk-text-center">
-                    <div class="inline-block">
-                        <div id="cropper-container">
-                            <%= image_tag photo_raw_path, id: "cropper-img" %>
-                        </div>
-                        <button id="crop-finish-button" type="button" class="uk-button uk-button-primary uk-margin">Mehet!</button>
-                    </div>
-                </div>
-            <% else %>
             <div class="uk-text-center">
                 <div class="uk-container-center">
                     <label>Fotó: </label>
@@ -117,7 +107,6 @@
                     <input class="uk-button uk-button-success" type="submit" value="Feltöltés" name="submitButton"/>
                 </div>
             </div>
-            <% end %>
         <% end %>
     </div>
 </div>
