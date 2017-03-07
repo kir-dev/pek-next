@@ -41,14 +41,14 @@ module PekNext
         { time: 360, reward: 50 }
       ]
     }
-    config.x.dorms = [
-      ['Nem megadott', ''],
-      ['Schönherz Zoltán Kollégium', 'Schönherz'],
-      ['Nagytétényi úti Kollégium', 'Tétény'],
-      ['Kármán Tódor Kollégium', 'Kármán'],
-      ['Vásárhelyi Pál Kollégium', 'Vásárhelyi'],
-      ['Külsős', 'Külsős']
-    ]
+    config.x.dorms = {
+      'Nem megadott' => '',
+      'Schönherz'    => 'Schönherz Zoltán Kollégium',
+      'Tétény'       => 'Nagytétényi úti Kollégium',
+      'Kármán'       => 'Kármán Tódor Kollégium',
+      'Vásárhelyi'   => 'Vásárhelyi Pál Kollégium',
+      'Külsős'       => 'Külsős'
+    }
     config.x.genders = {
       'NOTSPECIFIED' => 'Nem megadott',
       'MALE'         => 'Férfi',
