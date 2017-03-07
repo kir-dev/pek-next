@@ -6,7 +6,17 @@ hu:
   activerecord:
     attributes:
       user:
+        lastname: Vezetéknév
+        firstname: Keresztnév
+        nickname: Becenév
+        gender: Nem
+        date_of_birth: Születési dátum
+        home_address: Cím
+        email: E-mail
         cell_phone: Telefonszám
+        webpage: Weboldal
+        dormitory: Kollégium
+        room: Szobaszám
     errors:
       models:
         user:
