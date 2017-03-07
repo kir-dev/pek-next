@@ -18,7 +18,7 @@ class RegistrationController < ApplicationController
     else
       session[:user_id] = user.id
       session.delete(:oauth_data)
-      redirect_to root_url
+      redirect_to root_url, notice: t(:register_successful)
     end
   end
 

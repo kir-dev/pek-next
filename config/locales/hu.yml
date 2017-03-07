@@ -1,4 +1,6 @@
 hu:
+  edit_successful: Sikeres mentés!
+  register_successful: Sikeres regisztráció!
   activerecord:
     attributes:
       user:
