@@ -55,10 +55,6 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
-
-    config.x.visibility_options = [
-      ['nyilvános', 'public'],
-      ['privát', 'private']
-    ]
+    
   end
 end

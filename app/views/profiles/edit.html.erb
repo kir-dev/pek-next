@@ -1,14 +1,6 @@
 <div class="uk-width-medium-1-2 uk-container-center">
     <%= form_for(@user, as: :profile, url: profile_path(@user.screen_name)) do |f| %>
-        <% if f.object.errors.any? %>
-          <div class="uk-alert uk-alert-danger">
-            <ul>
-              <% f.object.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+        <%= render 'form_errors', errors: f.object.errors %>
 
         <table class="uk-table uk-table-striped uk-table-hover">
           <tr>
