@@ -31,10 +31,12 @@ class User < ActiveRecord::Base
   alias_attribute :salt, :usr_salt
   alias_attribute :lastlogin, :usr_lastlogin
   alias_attribute :metascore, :usr_metascore
+  alias_attribute :auth_sch_id, :usr_auth_sch_id
+  alias_attribute :bme_id, :usr_bme_id
 
-  validates :usr_screen_name, uniqueness: true
-  validates :usr_auth_sch_id, uniqueness: true, allow_nil: true
-  validates :usr_bme_id, uniqueness: true, allow_nil: true
+  validates :screen_name, uniqueness: true
+  validates :auth_sch_id, uniqueness: true, allow_nil: true
+  validates :bme_id, uniqueness: true, allow_nil: true
 
   validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
 
