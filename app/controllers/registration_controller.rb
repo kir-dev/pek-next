@@ -5,29 +5,27 @@ class RegistrationController < ApplicationController
 
   def create
     oauth_data = session[:oauth_data]
-    user = User.create(usr_auth_sch_id: oauth_data["internal_id"],
+    oauth_params = {
+      usr_auth_sch_id: oauth_data["internal_id"],
       email: oauth_data["mail"],
       firstname: oauth_data["givenName"], 
-      lastname: oauth_data["sn"],
-      screen_name: request.params[:username],
-      dormitory: request.params[:dormitory],
-      room: request.params[:room][0])
+      lastname: oauth_data["sn"]
+    }
+    user = User.create(create_params.merge(oauth_params))
     if(!user.valid?)
-      @error = { expected: true }
-      if user.errors.messages[:usr_screen_name]
-        @error[:message] = t(:username_taken)
-      elsif user.errors.messages[:usr_auth_sch_id]
-        @error[:message] = t(:auth_sch_id_taken)
-      elsif euser.errors.messages[:usr_bme_id]
-        @error[:message] = t(:bme_id_taken)
-      end
-      new
+      @errors = user.errors
       render :new
     else
-      session[:user] = user.id
+      session[:user_id] = user.id
       session.delete(:oauth_data)
       redirect_to root_url
     end
+  end
+
+  private
+
+  def create_params
+    params.require(:user).permit(:screen_name, :dormitory, :room)
   end
 
 end

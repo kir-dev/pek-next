@@ -1,8 +1,4 @@
 hu:
-  username_taken: "Ez a felhasználónév már foglalt!"
-  auth_sch_id_taken: "Ezzel az auth.sch id-val már regisztráltak!"
-  bme_id_taken: "Ezzel a BME id-val már regisztráltak!"
-
   activerecord:
     attributes:
       user:
@@ -17,9 +13,18 @@ hu:
         webpage: Weboldal
         dormitory: Kollégium
         room: Szobaszám
+        usr_screen_name: Felhasználónév
+        usr_auth_sch_id: Auth.sch azonosító
+        usr_bme_id: BME azonosító
     errors:
       models:
         user:
           attributes:
             cell_phone:
               invalid: formátuma hibás. Ellenőrizd, hogy +36201234567 formátumú legyen!
+            usr_screen_name:
+              taken: már foglalt!
+            usr_auth_sch_id:
+              taken: már regisztrálva van!
+            usr_bme_id:
+              taken: már regisztrálva van!
