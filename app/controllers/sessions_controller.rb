@@ -1,8 +1,13 @@
 class SessionsController < ApplicationController
   def create
-    @user = request.env['omniauth.auth']['extra']['raw_info']
-    user = User.find_by(usr_auth_sch_id: @user['internal_id'])
-    session[:user] = user.id
-    redirect_to root_path
+    raw_user = request.env['omniauth.auth']['extra']['raw_info']
+    user = User.find_by(usr_auth_sch_id: raw_user['internal_id'])
+    if user
+      session[:user_id] = user.id
+      redirect_to root_path
+    else
+      session[:oauth_data] = raw_user
+      redirect_to register_path
+    end
   end
 end

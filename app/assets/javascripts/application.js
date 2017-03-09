@@ -14,5 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require uikit
+//= require cropper.min
+
+//= require rx.all
 
 //= require_tree .

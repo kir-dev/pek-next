@@ -11,6 +11,15 @@
  * file per style scope.
  *
  *= require uikit
+ *= require cropper.min
  *= require_tree .
  *= require_self
  */
+
+.inline-block {
+	display: inline-block;
+}
+
+.hidden {
+	display: none;
+}

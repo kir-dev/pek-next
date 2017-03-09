@@ -1,22 +1,28 @@
 Rails.application.routes.draw do
 
-  #root 'users#index'
-  get  '/auth/oauth/callback', to: 'sessions#create'
+  get '/auth/oauth/callback', to: 'sessions#create'
+  get '/register', to: 'registration#new'
+  post '/register/create', to: 'registration#create', as: :registration
+  resources :photos, only: [:show, :update, :edit]
+  get '/profiles/me/', to: 'profiles#show_self'
+  resources :profiles, only: [:show, :update, :edit]
+
+  get '/photo/raw', to: 'raw_photos#show'
+  post '/photo/raw', to: 'raw_photos#update'
+
+  get '/search', to: 'search#search'
+  get '/search/suggest', to: 'search#suggest'
+
   get  '/groups/show/:group_id', to: 'groups#show'
   post '/groups/apply/:group_id', to: 'groups#apply'
   post '/groups/inactivate/:group_id', to: 'groups#inactivate'
   get  '/groups/change_pos/:group_id/:member_id', to: 'groups#change_pos'
 
-  resources :users
-  resources :groups
-  resources :grp_membership
-  resources :poszttipus
-  resources :poszt
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'profile#show'
+  root :to => redirect('/profiles/me')
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

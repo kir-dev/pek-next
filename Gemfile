@@ -27,6 +27,11 @@ gem 'omniauth'
 gem 'omniauth-oauth2'
 
 gem 'uikit-sass-rails'
+gem 'sidekiq'
+gem 'sidekiq-cron'
+
+# Reactive javascript extension
+gem 'rxjs-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -40,6 +45,9 @@ gem 'uikit-sass-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  # Brakeman: security tool
+  gem "brakeman", :require => false
 end
 
 group :development do
@@ -51,5 +59,3 @@ group :development do
   gem 'better_errors', '~> 1.1.0'
   gem 'binding_of_caller', '~> 0.7.3.pre1'
 end
-
-gem 'will_paginate'

@@ -30,7 +30,20 @@ class User < ActiveRecord::Base
   alias_attribute :password, :usr_password
   alias_attribute :salt, :usr_salt
   alias_attribute :lastlogin, :usr_lastlogin
+  alias_attribute :metascore, :usr_metascore
+  alias_attribute :auth_sch_id, :usr_auth_sch_id
+  alias_attribute :bme_id, :usr_bme_id
 
   has_many :memberships, foreign_key: :usr_id
   has_many :groups, through: :memberships
+
+  validates :screen_name, uniqueness: true
+  validates :auth_sch_id, uniqueness: true, allow_nil: true
+  validates :bme_id, uniqueness: true, allow_nil: true
+
+  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
+
+  def full_name
+    [lastname, firstname].compact.join(' ')
+  end
 end

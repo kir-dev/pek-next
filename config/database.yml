@@ -21,7 +21,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: pek-next
+  database: pek-next-test
 
 production:
   <<: *default
