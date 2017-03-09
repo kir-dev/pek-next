@@ -4,8 +4,8 @@ class GroupsController < ApplicationController
 
   def before_action_init
     @group = Group.find(params[:group_id])
-    @is_member = is_member(@group.id, @user.id)
-    @is_leader = is_leader(@group.id, @user.id)
+    @is_member = is_member(@group.id, current_user.id)
+    @is_leader = is_leader(@group.id, current_user.id)
   end
 
   def index
@@ -29,16 +29,16 @@ class GroupsController < ApplicationController
   end
 
   def apply
-    if !@group.users_can_apply || is_member(@group.id, @user.id)
+    if !@group.users_can_apply || is_member(@group.id, current_user.id)
       raise #TODO: render unathorized exception page
     end
-    membership = GrpMembership.create(grp_id: @group.id, usr_id: @user.id)
+    membership = GrpMembership.create(grp_id: @group.id, usr_id: current_user.id)
     Poszt.create(grp_member_id: membership.id, pttip_id: 6)
     redirect_to :back
   end
 
   def inactivate
-    if !is_leader(params[:group_id], @user.id)
+    if !is_leader(params[:group_id], current_user.id)
       raise
     end
     params.each do |p|
