@@ -13,12 +13,12 @@ class RegistrationController < ApplicationController
       lastname: oauth_data["sn"]
     }
     @user = User.create(create_params.merge(oauth_params))
-    if(!@user.valid?)
-      render :new
-    else
+    if @user.valid?
       session[:user_id] = @user.id
       session.delete(:oauth_data)
       redirect_to root_url, notice: t(:register_successful)
+    else
+      render :new
     end
   end
 
