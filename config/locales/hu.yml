@@ -1,0 +1,32 @@
+hu:
+  edit_successful: Sikeres mentés!
+  register_successful: Sikeres regisztráció!
+  activerecord:
+    attributes:
+      user:
+        lastname: Vezetéknév
+        firstname: Keresztnév
+        nickname: Becenév
+        gender: Nem
+        date_of_birth: Születési dátum
+        home_address: Cím
+        email: E-mail
+        cell_phone: Telefonszám
+        webpage: Weboldal
+        dormitory: Kollégium
+        room: Szobaszám
+        screen_name: Felhasználónév
+        auth_sch_id: Auth.sch azonosító
+        bme_id: BME azonosító
+    errors:
+      models:
+        user:
+          attributes:
+            cell_phone:
+              invalid: formátuma hibás. Ellenőrizd, hogy +36201234567 formátumú legyen!
+            screen_name:
+              taken: már foglalt!
+            auth_sch_id:
+              taken: már regisztrálva van!
+            bme_id:
+              taken: már regisztrálva van!

@@ -3,13 +3,25 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  use OmniAuth::Strategies::Developer
 
   def require_login
-    if session[:user_id]
-      @curent_user = User.find(session[:user_id])
-    else
-      redirect_to oauth_login_path
+    redirect_to oauth_login_path unless session[:user_id] || ENV['NONAUTH']
+  end
+
+  def correct_user
+    @user = User.find_by(screen_name: params[:id])
+    redirect_to(root_url) unless @user == current_user
+  end
+
+  def current_user
+    if ENV['NONAUTH']
+      return impersonate_user
     end
+    @user ||= User.find(session[:user_id])
+  end
+  helper_method :current_user
+
+  def impersonate_user
+    @user ||= User.first
   end
 end
