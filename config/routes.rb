@@ -13,10 +13,9 @@ Rails.application.routes.draw do
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
 
-  get  '/groups/show/:group_id', to: 'groups#show'
-  post '/groups/apply/:group_id', to: 'groups#apply'
-  post '/groups/inactivate/:group_id', to: 'groups#inactivate'
-  get  '/groups/change_pos/:group_id/:member_id', to: 'groups#change_pos'
+  resources :groups, only: [:show, :index] do
+    resources :membership, only: [:new, :create, :destroy, :edit]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

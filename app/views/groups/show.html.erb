@@ -32,7 +32,7 @@
         </tbody>
       </table>
       <% if @group.users_can_apply && !@is_member %>
-        <%= form_tag "/groups/apply/" + @group.id.to_s, {method: 'post'} do %>
+        <%= form_tag group_membership_index_path(@group), {method: 'post'} do %>
           <%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
         <% end %>
       <% end %>
@@ -67,7 +67,7 @@
             <td><%= @memberships[id].membership_start %></td>
             <% if @is_leader %>
               <td>
-                <%= link_to  "Módosítás", {action: "change_pos/106/27509"}, class: "uk-button uk-button-small uk-button-primary" %>
+                <%= link_to  "Módosítás", edit_group_membership_path(@group, m), class: "uk-button uk-button-small uk-button-primary" %>
               </td>
               <td>
                 <input type="checkbox" name="<%= 'check-' + @memberships[id].id.to_s %>">

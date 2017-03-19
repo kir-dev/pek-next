@@ -3,7 +3,7 @@
   <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
   <ul class="uk-navbar-nav uk-hidden-small">
     <li aria-expanded="false" aria-haspopup="true" class="uk-parent uk-active" data-uk-dropdown="">
-      <a href=<%= profiles_me_path %> > <i class="uk-icon-user"></i> Profilom</a>
+      <%= link_to "Profilom", profiles_me_path , class:"uk-icon-user" %>
       <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
         <ul class="uk-nav uk-nav-navbar">
           <li><a href="#">Teljes profil</a></li>
@@ -17,7 +17,7 @@
       <a href=""><i class="uk-icon-institution"></i> Egységek</a>
       <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
         <ul class="uk-nav uk-nav-navbar">
-          <li><a href="#">Körök</a></li>
+          <li><%= link_to "Körök", groups_path %></li>
           <li><a href="#">Hierarchia</a></li>
         </ul>
       </div>
@@ -67,10 +67,12 @@
       </ul></div>
     </li>
     <li aria-expanded="false" class="uk-parent"><a href="#"><i class="uk-icon-institution"></i> Egységek</a>
-      <div class="uk-hidden"style="overflow:hidden;height:0;position:relative;"><ul class="uk-nav-sub">
-        <li><a href="">Körök</a></li>
-        <li><a href="">Hierarchia</a></li>
-      </ul></div>
+      <div class="uk-hidden"style="overflow:hidden;height:0;position:relative;">
+        <ul class="uk-nav-sub">
+          <li><%= link_to "Körök", groups_path %></li>
+          <li><a href="">Hierarchia</a></li>
+        </ul>
+      </div>
     </li>
     <li aria-expanded="false" class="uk-parent"><a href="#"><i class="uk-icon-cog"></i> Fiók beállítások</a>
       <div class="uk-hidden" style="overflow:hidden;height:0;position:relative;"><ul class="uk-nav-sub">
