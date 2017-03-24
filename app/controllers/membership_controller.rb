@@ -22,7 +22,7 @@ class MembershipController < ApplicationController
     redirect_to :back
   end
 
-  # DELETE /groups/:group_id/membership/:id(
+  # DELETE /groups/:group_id/membership/:id
   def destroy ## inactivate
     if !is_leader(params[:group_id], current_user.id)
       raise

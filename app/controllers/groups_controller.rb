@@ -8,6 +8,11 @@ class GroupsController < ApplicationController
     @is_leader = MembershipController.new.is_leader(@group.id, current_user.id)
   end
 
+  # GET /groups
+  def index
+    @groups = Group.page(params[:page]).per(20)
+  end
+
   # GET /groups/:id
   def show
     @memberships = GroupMembership.where(grp_id: @group.id, membership_end: nil)
