@@ -17,8 +17,8 @@ class MembershipController < ApplicationController
     if !@group.users_can_apply || is_member(@group.id, current_user.id)
       raise #TODO: render unathorized exception page
     end
-    membership = GrpMembership.create(grp_id: @group.id, usr_id: current_user.id)
-    Poszt.create(grp_member_id: membership.id, pttip_id: 6)
+    membership = GroupMembership.create(grp_id: @group.id, usr_id: current_user.id)
+    Post.create(grp_member_id: membership.id, pttip_id: 6)
     redirect_to :back
   end
 
@@ -30,7 +30,7 @@ class MembershipController < ApplicationController
     params.each do |p|
       if p[0].include? "check-"
         inac_id = p[0].sub "check-", ""
-        GrpMembership.update(inac_id, membership_end: Time.now)
+        GroupMembership.update(inac_id, membership_end: Time.now)
       end
     end
     redirect_to :back
@@ -45,10 +45,10 @@ class MembershipController < ApplicationController
   end
 
   def is_member(grp_id, usr_id)
-    return GrpMembership.where(grp_id: grp_id, usr_id: usr_id).length > 0
+    return GroupMembership.where(grp_id: grp_id, usr_id: usr_id).length > 0
   end
 
   def is_leader(grp_id, usr_id)
-    return is_member(grp_id, usr_id) && Poszt.where(grp_member_id: GrpMembership.where(grp_id: grp_id, usr_id: usr_id)[0].id, pttip_id: 3).length > 0
+    return is_member(grp_id, usr_id) && Post.where(grp_member_id: GroupMembership.where(grp_id: grp_id, usr_id: usr_id)[0].id, pttip_id: 3).length > 0
   end
 end
