@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get '/search/suggest', to: 'search#suggest'
 
   resources :groups, only: [:show, :index] do
-    resources :membership, only: [:new, :create, :destroy, :edit] do
+    resources :membership, only: [:create, :destroy] do
       get '/inactivate', to: 'membership#inactivate'
     end
   end

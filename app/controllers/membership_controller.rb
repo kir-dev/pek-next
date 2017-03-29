@@ -1,15 +1,11 @@
 class MembershipController < ApplicationController
   before_action :require_login
-  before_action :before_action_init, only: [:edit, :destroy, :create, :inactivate]
+  before_action :before_action_init, only: [:destroy, :create, :inactivate]
 
   def before_action_init
     @group = Group.find(params[:group_id])
     @is_member = is_member(@group.id, current_user.id)
     @is_leader = is_leader(@group.id, current_user.id)
-  end
-
-  def new
-    raise
   end
 
   # POST /groups/:group_id/membership
@@ -36,14 +32,6 @@ class MembershipController < ApplicationController
       GroupMembership.update(params[:membership_id], membership_end: Time.now)
     end
     redirect_to group_path(@group.id)
-  end
-
-  # GET /groups/:group_id/membership/:id/edit
-  def edit ##change_pos
-    #raise
-    if @is_leader
-      raise
-    end
   end
 
   def is_member(grp_id, usr_id)
