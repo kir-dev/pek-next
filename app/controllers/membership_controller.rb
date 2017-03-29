@@ -1,6 +1,6 @@
 class MembershipController < ApplicationController
   before_action :require_login
-  before_action :before_action_init, only: [:edit, :destroy]
+  before_action :before_action_init, only: [:edit, :destroy, :create, :inactivate]
 
   def before_action_init
     @group = Group.find(params[:group_id])
@@ -18,22 +18,24 @@ class MembershipController < ApplicationController
       raise #TODO: render unathorized exception page
     end
     membership = GroupMembership.create(grp_id: @group.id, usr_id: current_user.id)
-    Post.create(grp_member_id: membership.id, pttip_id: 6)
+    Post.create(grp_member_id: membership.id, pttip_id: GroupMembership::DEFAULT_POST_ID)
     redirect_to :back
   end
 
   # DELETE /groups/:group_id/membership/:id
   def destroy ## inactivate
-    if !is_leader(params[:group_id], current_user.id)
-      raise
+    raise
+    if @is_leader
+      GroupMembership.delete(params[:membership_id])
     end
-    params.each do |p|
-      if p[0].include? "check-"
-        inac_id = p[0].sub "check-", ""
-        GroupMembership.update(inac_id, membership_end: Time.now)
-      end
+  end
+
+  def inactivate
+#    raise
+    if @is_leader
+      GroupMembership.update(params[:membership_id], membership_end: Time.now)
     end
-    redirect_to :back
+    redirect_to group_path(@group.id)
   end
 
   # GET /groups/:group_id/membership/:id/edit
@@ -49,6 +51,8 @@ class MembershipController < ApplicationController
   end
 
   def is_leader(grp_id, usr_id)
-    return is_member(grp_id, usr_id) && Post.where(grp_member_id: GroupMembership.where(grp_id: grp_id, usr_id: usr_id)[0].id, pttip_id: 3).length > 0
+    return is_member(grp_id, usr_id) && Post.where(
+      grp_member_id: GroupMembership.where(
+        grp_id: grp_id, usr_id: usr_id)[0].id, pttip_id: GroupMembership::LEADER_POST_ID).length > 0
   end
 end
