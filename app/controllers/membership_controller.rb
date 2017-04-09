@@ -1,9 +1,9 @@
 class MembershipController < ApplicationController
   before_action :require_login
-  before_action :initialize, only: [:destroy, :create, :inactivate]
+  before_action :init, only: [:destroy, :create, :inactivate]
   before_action :check_leader, only: [:inactivate, :destroy, :reactivate]
 
-  def initialize
+  def init
     @group = Group.find(params[:group_id])
     @own_membership = current_user.memberships.find { |m| m.group == @group }
   end

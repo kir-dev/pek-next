@@ -58,14 +58,12 @@
             <td><%= member.lastname %> <%= member.firstname %></td>
             <td><%= member.nickname %></td>
             <td>
-              <% membership.post_types.each_with_index do |post, p_index| %>
-                <%= post.pttip_name %><%= p_index == membership.posts.length - 1 ? '' : ',' %>
-              <% end %>
+              <%= membership.post_types.join(',') %>
             </td>
             <td><%= membership.start %></td>
             <% if @own_membership && @own_membership.is_leader %>
               <td>
-                <%= link_to "Legyen öreg", group_membership_inactivate_path(@group.id, member.id),
+                <%= link_to "Öreggé avatás", group_membership_inactivate_path(@group.id, member.id),
                   class: "uk-button uk-button-small uk-button-primary" %>
               </td>
               <td>
@@ -96,9 +94,7 @@
             <td><%= member.lastname %> <%= member.firstname %></td>
             <td><%= member.nickname %></td>
             <td>
-              <% membership.post_types.each_with_index do |post, p_index| %>
-                <%= post.pttip_name %><%= p_index == membership.posts.length - 1 ? '' : ',' %>
-              <% end %>
+              <%= membership.post_types.join(',') %>
             </td>
             <td><%= membership.start %></td>
             <td><%= membership.end %></td>
