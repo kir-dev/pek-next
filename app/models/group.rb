@@ -16,5 +16,5 @@ class Group < ActiveRecord::Base
   alias_attribute :users_can_apply, :grp_users_can_apply
 
   has_many :memberships, foreign_key: :grp_id
-  has_many :users, through: :memberships
+  has_many :members, through: :memberships, source: :user
 end

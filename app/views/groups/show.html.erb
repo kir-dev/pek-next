@@ -52,27 +52,28 @@
           </tr>
         </thead>
         <tbody>
-          <% @members.each_with_index do |m, id| %>
+          <% @group.memberships.each do |membership| %>
+          <% member = membership.user %>
           <tr>
-            <td><%= m.lastname %> <%= m.firstname %></td>
-            <td><%= m.nickname %></td>
+            <td><%= member.lastname %> <%= member.firstname %></td>
+            <td><%= member.nickname %></td>
             <td>
-              <% @posts[id].each_with_index do |p, p_index| %>
-                <%= p.pttip_name %><%= p_index == @posts[id].length - 1 ? '' : ',' %>
+              <% membership.post_types.each_with_index do |post, p_index| %>
+                <%= post.pttip_name %><%= p_index == membership.posts.length - 1 ? '' : ',' %>
               <% end %>
             </td>
-            <td><%= @memberships[id].membership_start %></td>
+            <td><%= membership.start %></td>
             <% if @is_leader %>
               <td>
-                <%= link_to  "Módosítás", 'edit_group_membership_post_path(@group, m)', class: "uk-button uk-button-small uk-button-primary" %>
+                <%= link_to  "Módosítás", 'edit_group_membership_post_path(@group, membership)', class: "uk-button uk-button-small uk-button-primary" %>
               </td>
               <td>
-                <%= link_to "Legyen öreg", group_membership_inactivate_path(@group.id, @memberships[id].id),
+                <%= link_to "Legyen öreg", group_membership_inactivate_path(@group.id, member.id),
                   class: "uk-button uk-button-small uk-button-primary" %>
               </td>
               <td>
-                <%= link_to "Törlés", group_membership_path(@group.id, @memberships[id].id),
-                 class: "uk-button uk-button-small uk-button-danger", method: :delete, data: {confirm: "You Sure?"} %>
+                <%= link_to "Törlés", group_membership_path(@group.id, member.id),
+                 class: "uk-button uk-button-small uk-button-danger", method: :delete, data: {confirm: "Biztos vagy benne?"} %>
               </td>
             <% end %>
           </tr>

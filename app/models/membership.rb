@@ -9,4 +9,9 @@ class Membership < ActiveRecord::Base
 
   belongs_to :group, foreign_key: :grp_id
   belongs_to :user, foreign_key: :usr_id
+  has_many :posts, foreign_key: :grp_member_id
+  has_many :post_types, through: :posts
+
+  LEADER_POST_ID = 3
+  DEFAULT_POST_ID = 6
 end
