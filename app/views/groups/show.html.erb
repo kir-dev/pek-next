@@ -40,11 +40,11 @@
       <table class="uk-table uk-table-striped uk-table-hover">
         <thead>
           <tr>
-            <th>Felhasználó neve</th>
+            <th>Név</th>
             <th>Becenév</th>
             <th>Betöltött poszt</th>
             <th>Tagság kezdete</th>
-            <% if @is_leader %>
+            <% if @own_membership && @own_membership.is_leader %>
               <th>Módosítás</th>
               <th>Öregtaggá avatás</th>
               <th>Törlés</th>
@@ -52,7 +52,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @group.memberships.each do |membership| %>
+          <% @group.memberships.select{ |m| !m.end }.each do |membership| %>
           <% member = membership.user %>
           <tr>
             <td><%= member.lastname %> <%= member.firstname %></td>
@@ -66,6 +66,45 @@
             <% if @own_membership && @own_membership.is_leader %>
               <td>
                 <%= link_to "Legyen öreg", group_membership_inactivate_path(@group.id, member.id),
+                  class: "uk-button uk-button-small uk-button-primary" %>
+              </td>
+              <td>
+                <%= link_to "Törlés", group_membership_path(@group.id, member.id),
+                 class: "uk-button uk-button-small uk-button-danger", method: :delete, data: {confirm: "Biztos vagy benne?"} %>
+              </td>
+            <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <h2 class="uk-h2">Öregtagok</h2>
+      <table class="uk-table uk-table-striped uk-table-hover">
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Becenév</th>
+            <th>Betöltött poszt</th>
+            <th>Tagság kezdete</th>
+            <th>Tagság vége</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @group.memberships.select{ |m| m.end }.each do |membership| %>
+          <% member = membership.user %>
+          <tr>
+            <td><%= member.lastname %> <%= member.firstname %></td>
+            <td><%= member.nickname %></td>
+            <td>
+              <% membership.post_types.each_with_index do |post, p_index| %>
+                <%= post.pttip_name %><%= p_index == membership.posts.length - 1 ? '' : ',' %>
+              <% end %>
+            </td>
+            <td><%= membership.start %></td>
+            <td><%= membership.end %></td>
+            <% if @own_membership && @own_membership.is_leader %>
+              <td>
+                <%= link_to "Fiatallá avatás", group_membership_inactivate_path(@group.id, member.id),
                   class: "uk-button uk-button-small uk-button-primary" %>
               </td>
               <td>
