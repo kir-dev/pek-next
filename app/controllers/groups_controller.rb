@@ -1,8 +1,8 @@
 class GroupsController < ApplicationController
   before_action :require_login
-  before_action :before_action_init, only: [:show]
+  before_action :initialize, only: [:show]
 
-  def before_action_init
+  def initialize
     @group = Group.find(params[:id])
     @own_membership = current_user.memberships.find { |m| m.group == @group }
   end

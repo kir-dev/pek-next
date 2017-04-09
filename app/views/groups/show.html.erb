@@ -104,7 +104,7 @@
             <td><%= membership.end %></td>
             <% if @own_membership && @own_membership.is_leader %>
               <td>
-                <%= link_to "Fiatallá avatás", group_membership_inactivate_path(@group.id, member.id),
+                <%= link_to "Fiatallá avatás", group_membership_reactivate_path(@group.id, member.id),
                   class: "uk-button uk-button-small uk-button-primary" %>
               </td>
               <td>
