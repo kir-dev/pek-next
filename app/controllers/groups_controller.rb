@@ -4,8 +4,7 @@ class GroupsController < ApplicationController
 
   def before_action_init
     @group = Group.find(params[:id])
-    @is_member = MembershipController.new.is_member(@group.id, current_user.id)
-    @is_leader = MembershipController.new.is_leader(@group.id, current_user.id)
+    @own_membership = current_user.memberships.find { |m| m.group == @group }
   end
 
   def index

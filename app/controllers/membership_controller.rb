@@ -4,8 +4,7 @@ class MembershipController < ApplicationController
 
   def before_action_init
     @group = Group.find(params[:group_id])
-    @is_member = is_member(@group.id, current_user.id)
-    @is_leader = is_leader(@group.id, current_user.id)
+    @own_membership = current_user.memberships.find { |m| m.group == @group }
   end
 
   # POST /groups/:group_id/membership
@@ -21,26 +20,17 @@ class MembershipController < ApplicationController
   # DELETE /groups/:group_id/membership/:id
   def destroy ## inactivate
     raise
-    if @is_leader
+    if @own_membership.is_leader
       Membership.delete(params[:membership_id])
     end
   end
 
   def inactivate
 #    raise
-    if @is_leader
+    if @own_membership.is_leader
       Membership.update(params[:membership_id], membership_end: Time.now)
     end
     redirect_to group_path(@group.id)
   end
 
-  def is_member(grp_id, usr_id)
-    return Membership.where(grp_id: grp_id, usr_id: usr_id).length > 0
-  end
-
-  def is_leader(grp_id, usr_id)
-    return is_member(grp_id, usr_id) && Post.where(
-      grp_member_id: Membership.where(
-        grp_id: grp_id, usr_id: usr_id)[0].id, pttip_id: Membership::LEADER_POST_ID).length > 0
-  end
 end

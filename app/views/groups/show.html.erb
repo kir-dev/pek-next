@@ -31,7 +31,7 @@
           </tr>
         </tbody>
       </table>
-      <% if @group.users_can_apply && !@is_member %>
+      <% if @group.users_can_apply && !@own_membership %>
         <%= form_tag group_membership_index_path(@group), {method: 'post'} do %>
           <%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
         <% end %>
@@ -63,10 +63,7 @@
               <% end %>
             </td>
             <td><%= membership.start %></td>
-            <% if @is_leader %>
-              <td>
-                <%= link_to  "Módosítás", 'edit_group_membership_post_path(@group, membership)', class: "uk-button uk-button-small uk-button-primary" %>
-              </td>
+            <% if @own_membership && @own_membership.is_leader %>
               <td>
                 <%= link_to "Legyen öreg", group_membership_inactivate_path(@group.id, member.id),
                   class: "uk-button uk-button-small uk-button-primary" %>
