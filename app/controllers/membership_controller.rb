@@ -9,28 +9,37 @@ class MembershipController < ApplicationController
 
   # POST /groups/:group_id/membership
   def create  ## apply
-    if !@group.users_can_apply || is_member(@group.id, current_user.id)
-      raise #TODO: render unathorized exception page
+    if !@group.users_can_apply || @own_membership
+      unauthorized_page
+    else
+      membership = Membership.create(grp_id: @group.id, usr_id: current_user.id)
+      Post.create(grp_member_id: membership.id, pttip_id: Membership::DEFAULT_POST_ID)
+      redirect_to :back
     end
-    membership = Membership.create(grp_id: @group.id, usr_id: current_user.id)
-    Post.create(grp_member_id: membership.id, pttip_id: Membership::DEFAULT_POST_ID)
-    redirect_to :back
   end
 
-  # DELETE /groups/:group_id/membership/:id
-  def destroy ## inactivate
-    raise
-    if @own_membership.is_leader
+  def destroy
+    if is_leader
       Membership.delete(params[:membership_id])
+      redirect_to group_path(@group.id)
+    else
+      unauthorized_page
     end
   end
 
   def inactivate
-#    raise
-    if @own_membership.is_leader
+    if is_leader
       Membership.update(params[:membership_id], membership_end: Time.now)
+      redirect_to group_path(@group.id)
+    else
+      unauthorized_page
     end
-    redirect_to group_path(@group.id)
+  end
+
+  private
+
+  def is_leader
+    @own_membership && @own_membership.is_leader
   end
 
 end

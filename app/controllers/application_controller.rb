@@ -24,4 +24,8 @@ class ApplicationController < ActionController::Base
   def impersonate_user
     @user ||= User.first
   end
+
+  def unauthorized_page
+    render 'application/401'
+  end
 end
