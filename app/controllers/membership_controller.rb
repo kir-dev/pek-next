@@ -1,7 +1,7 @@
 class MembershipController < ApplicationController
   before_action :require_login
   before_action :init, only: [:destroy, :create, :inactivate]
-  before_action :check_leader, only: [:inactivate, :destroy, :reactivate]
+  before_action :require_leader, only: [:inactivate, :destroy, :reactivate]
 
   def init
     @group = Group.find(params[:group_id])
@@ -35,7 +35,7 @@ class MembershipController < ApplicationController
 
   private
 
-  def check_leader
+  def require_leader
     unauthorized_page unless @own_membership && @own_membership.is_leader
   end
 

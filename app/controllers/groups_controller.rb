@@ -13,4 +13,10 @@ class GroupsController < ApplicationController
 
   def show
   end
+
+  def is_leader
+    @own_membership && @own_membership.is_leader
+  end
+  helper_method :is_leader
+
 end

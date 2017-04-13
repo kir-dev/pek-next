@@ -44,7 +44,7 @@
             <th>Becenév</th>
             <th>Betöltött poszt</th>
             <th>Tagság kezdete</th>
-            <% if @own_membership && @own_membership.is_leader %>
+            <% if is_leader %>
               <th>Módosítás</th>
               <th>Öregtaggá avatás</th>
               <th>Törlés</th>
@@ -58,10 +58,10 @@
             <td><%= member.lastname %> <%= member.firstname %></td>
             <td><%= member.nickname %></td>
             <td>
-              <%= membership.post_types.join(',') %>
+              <%= membership.post_types.map(&:pttip_name).join(', ') %>
             </td>
             <td><%= membership.start %></td>
-            <% if @own_membership && @own_membership.is_leader %>
+            <% if is_leader %>
               <td>
                 <%= link_to "Öreggé avatás", group_membership_inactivate_path(@group.id, member.id),
                   class: "uk-button uk-button-small uk-button-primary" %>
@@ -94,11 +94,11 @@
             <td><%= member.lastname %> <%= member.firstname %></td>
             <td><%= member.nickname %></td>
             <td>
-              <%= membership.post_types.join(',') %>
+              <%= membership.post_types.map(&:pttip_name).join(', ') %>
             </td>
             <td><%= membership.start %></td>
             <td><%= membership.end %></td>
-            <% if @own_membership && @own_membership.is_leader %>
+            <% if is_leader %>
               <td>
                 <%= link_to "Fiatallá avatás", group_membership_reactivate_path(@group.id, member.id),
                   class: "uk-button uk-button-small uk-button-primary" %>
