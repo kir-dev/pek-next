@@ -18,12 +18,13 @@ module PekNext
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.default_locale = :hu
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.active_record.schema_format = :sql
 
+    config.x.photo_path = 'public/uploads/'
     config.x.results_per_page = 10
     config.x.metascoring = {
       last_semester_multiplier: 5,
@@ -40,5 +41,20 @@ module PekNext
         { time: 360, reward: 50 }
       ]
     }
+    config.x.dorms = {
+      'Nem megadott' => '',
+      'Schönherz'    => 'Schönherz Zoltán Kollégium',
+      'Tétény'       => 'Nagytétényi úti Kollégium',
+      'Kármán'       => 'Kármán Tódor Kollégium',
+      'Vásárhelyi'   => 'Vásárhelyi Pál Kollégium',
+      'Külsős'       => 'Külsős'
+    }
+    config.x.genders = {
+      'NOTSPECIFIED' => 'Nem megadott',
+      'MALE'         => 'Férfi',
+      'FEMALE'       => 'Nő',
+      'UNKNOWN'      => 'Egyéb'
+    }
+    
   end
 end

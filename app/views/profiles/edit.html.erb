@@ -1,0 +1,104 @@
+<div class="uk-width-medium-1-2 uk-container-center">
+    <%= form_for(@user, as: :profile, url: profile_path(@user.screen_name)) do |f| %>
+        <%= render 'form_errors', errors: f.object.errors %>
+
+        <table class="uk-table uk-table-striped uk-table-hover">
+          <tr>
+            <td><%= f.label :lastname, class: "form-label-required" %></td>
+            <td><%= f.text_field :lastname, required: true %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :firstname, class: "form-label-required" %></td>
+            <td><%= f.text_field :firstname, required: true %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :nickname %></td>
+            <td><%= f.text_field :nickname %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :gender %></td>
+            <td><%= f.select :gender,
+                      options_for_select(Rails.configuration.x.genders.invert, f.object.gender) %>
+            </td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :date_of_birth %></td>
+            <td><%= f.text_field :date_of_birth %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :home_address %></td>
+            <td><%= f.text_field :home_address %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :email %></td>
+            <td><%= f.text_field :email %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :cell_phone %></td>
+            <td><%= f.text_field :cell_phone %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :webpage %></td>
+            <td><%= f.text_field :webpage %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :dormitory %></td>
+            <td><%= f.select :dormitory,
+                      options_for_select(Rails.configuration.x.dorms.invert, f.object.dormitory) %>
+            </td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :room %></td>
+            <td><%= f.text_field :room %></td>
+          </tr>
+        </table>
+
+        <!-- IM accounts -->
+        <table>
+            <tr>
+                <td><label>IM</label></td>
+                <td>
+                    <table>
+                        <tr>
+                            <td colspan="2"><input type="submit" class="uk-button" value="Új"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Neptun</label></td>
+                <td><span><%= current_user.neptun %> </span></td>
+            </tr>
+        </table>
+        <div class="uk-text-center">
+            <div class="inline-block">
+                <input class="uk-button uk-button-success" type="submit" value="Módosítás" name="submitButton"/>
+            </div>
+        </div>
+    <% end %>
+
+    <!-- Profile picture upload -->
+    <div class="uk-margin-large-top uk-margin" id="image-upload-container">
+        <%= form_tag(photo_raw_path, multipart: true) do %>
+            <div class="uk-text-center">
+                <div class="uk-container-center">
+                    <label>Fotó: </label>
+                    <%= file_field_tag 'rawPhoto' %>
+                </div>
+                <div class="inline-block uk-margin-top">
+                    <input class="uk-button uk-button-success" type="submit" value="Feltöltés" name="submitButton"/>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

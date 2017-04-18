@@ -8,8 +8,8 @@
         <% end %>
       </h3>
 
-      <img class="uk-thumbnail" src="/default_user.png" alt="<%= @user.lastname + ' ' + @user.firstname %>" >
-      <h3 class="uk-h3"><%= @user.lastname + ' ' + @user.firstname %></h3>
+      <%= image_tag photo_path(@user.screen_name), class: "uk-thumbnail", alt: @user.screen_name %>
+      <h3 class="uk-h3"><%= @user.full_name %></h3>
 
       <% if not @user.email.nil? || @user.email.empty? %>
         <h4 class="uk-h4"><%= @user.email %></h4>
@@ -55,8 +55,6 @@
             </tr>
         </tfoot>
       </table-->
-
-
     </div>
   </div>
 </div>

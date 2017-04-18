@@ -59,5 +59,3 @@ group :development do
   gem 'better_errors', '~> 1.1.0'
   gem 'binding_of_caller', '~> 0.7.3.pre1'
 end
-
-gem 'will_paginate'

@@ -1,48 +1,36 @@
 require 'sidekiq/testing'
 
-class MetascoreTest < ActionController::TestCase
-
-  setup do
-    Sidekiq::Testing.fake!
-  end
-
-  test "metascoring jobs are queued" do
-    Metascorer.jobs.clear
-    Metascorer.perform_async(11)
-    assert_equal 1, Metascorer.jobs.size
-  end
+class MetascoreTest < SidekiqTestCase
 
   test "every user is sent for metascoring" do
-    Metascorer.jobs.clear
-    MetascoreEveryone.perform_async
-    MetascoreEveryone.drain
+    MetascoreEveryone.new.perform
     assert_equal User.all.size, Metascorer.jobs.size
   end
 
   test "a test user gets 0 metascore" do
     Sidekiq::Testing.inline! do
-      Metascorer.perform_async(240)
-      assert_equal 0, User.find(240).metascore
+      Metascorer.perform_async(users(:user_40).id)
+      assert_equal 0, User.find(users(:user_40).id).metascore
     end
   end
 
   test "metascore algorithm testing for only phone number" do
     Sidekiq::Testing.inline! do
-      Metascorer.perform_async(3000)
-      assert_equal Rails.configuration.x.metascoring[:phone_number_reward], User.find(3000).metascore
+      Metascorer.perform_async(users(:metascore_1).id)
+      assert_equal Rails.configuration.x.metascoring[:phone_number_reward], User.find(users(:metascore_1).id).metascore
     end
-    User.find(3000).update(metascore: 0)
+    User.find(users(:metascore_1).id).update(metascore: 0)
   end
 
   test "metascore algorithm testing for profile" do
     Sidekiq::Testing.inline! do
-      Metascorer.perform_async(3001)
+      Metascorer.perform_async(users(:metascore_2).id)
       profile_rewards = Rails.configuration.x.metascoring[:photo_reward] +
         Rails.configuration.x.metascoring[:dormitory_reward] +
         Rails.configuration.x.metascoring[:email_reward]
-      assert_equal profile_rewards, User.find(3001).metascore
+      assert_equal profile_rewards, User.find(users(:metascore_2).id).metascore
     end
-    User.find(3001).update(metascore: 0)
+    User.find(users(:metascore_2).id).update(metascore: 0)
   end
 
 end
