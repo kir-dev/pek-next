@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def require_login
-    redirect_to oauth_login_path unless session[:user_id] || ENV['NONAUTH']
+    redirect_to login_path unless session[:user_id] || ENV['NONAUTH']
   end
 
   def correct_user

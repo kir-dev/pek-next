@@ -11,7 +11,7 @@
 
 <body class="uk-height-1-1">
 
-  <%= render 'navbar' unless controller_name == 'registration' %>
+  <%= render 'navbar' unless (controller_name == 'registration') || (controller_name == 'login') %>
 
   <% if flash.alert %>
     <script>
