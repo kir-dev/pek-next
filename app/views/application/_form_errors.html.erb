@@ -1,0 +1,7 @@
+<% if errors.any? %>
+  <% errors.full_messages.each do |message| %>
+    <script>
+      UIkit.notify("<%= message %>", {status:'danger'});
+    </script>
+  <% end %>
+<% end %>

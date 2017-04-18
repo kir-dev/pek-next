@@ -11,10 +11,71 @@
  * file per style scope.
  *
  *= require uikit
+ *= require cropper.min
  *= require_tree .
  *= require_self
  */
 
+.inline-block {
+	display: inline-block;
+}
+
 .hidden {
 	display: none;
+}
+
+.navbar {
+	position: fixed;
+	right: 0;
+	left: 0;
+	top: 0;
+	height: 40px;
+	z-index: 1030;
+}
+
+.page-wrap {
+	min-height: 100%;
+	margin-bottom: -80px;
+}
+
+.search {
+	margin-top: 5px;
+}
+
+.notification {
+	z-index: 1020;
+}
+
+.page-wrap:after {
+	content: "";
+	display: block;
+}
+
+html, body {
+	height: 100%;
+}
+
+.tm-footer, .page-wrap:after {
+	height: 80px;
+}
+
+.tm-footer {
+	background-color: #000;
+	font-size: 10px !important;
+	color: #fff;
+	width: 100%;
+	position: absolute;
+	letter-spacing: 3px;
+}
+
+.tm-footer a {
+	color: #fff;
+}
+
+.tm-footer a :hover {
+	color: #000;
+}
+
+.tm-footer p, .tm-footer ul {
+	margin: 0;
 }
