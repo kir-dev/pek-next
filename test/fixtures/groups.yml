@@ -1,26 +1,26 @@
 parent:
   grp_id: 15
-  grp_name: csakSzülŐ
-  grp_type: eziskell
+  grp_name: SVIE
+  grp_type: csoport
 
 babhamozo:
   grp_id: 1
   grp_name: Babhámozó
-  grp_type: dunno
+  grp_type: szakmai kör
   grp_parent: 15
   grp_state: active
   grp_description: vietnámiak
-  grp_webpage: webpage
-  grp_maillist: maillist
-  grp_head: 2
+  grp_webpage: http://babhamozo.sch.bme.hu
+  grp_maillist: babhamozo@sch.bme.hu
+  grp_head: főhámozó
   grp_founded: 1998
   grp_issvie: true
-  grp_svie_delegate_nr: ezmi
+  grp_svie_delegate_nr: 2
   grp_users_can_apply: true
 
 <% 40.times do |i| %>
 group<%= i %>:
   grp_id: <%= "2#{i}" %>
   grp_name: group<% i %>
-  grp_type: simatipus
+  grp_type: kör
 <% end %>

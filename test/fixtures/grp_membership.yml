@@ -1,0 +1,9 @@
+babhamozo_leader_into_group:
+  id: 1
+  grp_id: 1
+  usr_id: 4001
+
+babhamozo_member_into_group:
+  id: 2
+  grp_id: 1
+  usr_id: 4002

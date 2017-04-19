@@ -45,7 +45,7 @@
             <th>Betöltött poszt</th>
             <th>Tagság kezdete</th>
             <% if is_leader %>
-              <th>Módosítás</th>
+              <th>Posztok állítása</th>
               <th>Öregtaggá avatás</th>
               <th>Törlés</th>
             <% end %>
@@ -62,6 +62,7 @@
             </td>
             <td><%= membership.start %></td>
             <% if is_leader %>
+              <td></td>
               <td>
                 <%= link_to "Öreggé avatás", group_membership_inactivate_path(@group.id, member.id),
                   class: "uk-button uk-button-small uk-button-primary" %>

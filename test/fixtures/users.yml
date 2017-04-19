@@ -47,3 +47,24 @@ metascore_2:
   usr_email: mail@sch.bme.hu
   usr_dormitory: Schönherz
   usr_metascore: 0
+
+babhamozo_leader:
+  usr_id: 4001
+  usr_firstname: Babhámozó
+  usr_lastname: Vezető
+  usr_screen_name: babham123
+  usr_metascore: 0
+
+babhamozo_member:
+  usr_id: 4002
+  usr_firstname: Babos
+  usr_lastname: Lajos
+  usr_screen_name: lali
+  usr_metascore: 0
+
+non_babhamozo_member:
+  usr_id: 4003
+  usr_firstname: Borsó
+  usr_lastname: Lajos
+  usr_screen_name: bori
+  usr_metascore: 0
