@@ -1,3 +1,7 @@
 leader:
   pttip_id: 3
   pttip_name: körvezető
+
+newbie:
+  pttip_id: 6
+  pttip_name: feldolgozás alatt
