@@ -3,23 +3,23 @@
     <div class="uk-panel uk-panel-box">
       <h3 class="uk-panel-title">
         Adatlap
-        <% if not @user.nickname.nil? || @user.nickname.empty? %>
+        <% if not @user.nickname.blank? %>
           - <%= @user.nickname %>
         <% end %>
       </h3>
 
-      <%= image_tag photo_path(@user.screen_name), class: "uk-thumbnail", alt: @user.screen_name %>
+      <%= image_tag photo_path(@user.screen_name), class: "uk-thumbnail", alt: @user.full_name %>
       <h3 class="uk-h3"><%= @user.full_name %></h3>
 
-      <% if not @user.email.nil? || @user.email.empty? %>
+      <% if not @user.email.blank? %>
         <h4 class="uk-h4"><%= @user.email %></h4>
       <% end %>
 
-      <% if not @user.dormitory.nil? || @user.dormitory.empty? %>
+      <% if not @user.dormitory.blank? %>
         <h4 class="uk-h4"><%= @user.dormitory + ' ' + @user.room %></h4>
       <% end %>
 
-      <% if not @user.cell_phone.nil? || @user.cell_phone.empty? %>
+      <% if not @user.cell_phone.blank? %>
         <h4 class="uk-h4"><%= @user.cell_phone %></h4>
       <% end %>
 
