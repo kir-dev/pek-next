@@ -28,25 +28,12 @@
     </li>
   </ul>
 
-  <div class="uk-nav-content uk-navbar-flip search">
-    <%= form_tag(search_path, method: 'get', class: 'uk-form uk-margin-remove uk-display-inline-block') do %>
-      <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
-      <%= button_tag "Search", name: nil, class: 'uk-icon-search' do %>
-      <% end %>
-    <% end %>
-  </div>
-
+  <%= render 'search' %>
 </nav>
 
 <nav class="data-uk-sticky uk-navbar uk-visible-small">
-  <div class="uk-nav-content uk-navbar-flip search">
-    <%= form_tag(search_path, method: 'get', class: 'uk-form uk-margin-remove uk-vertical-align-middle uk-display-inline-block') do %>
-      <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
-      <%= button_tag "Search", name: nil, class: 'uk-icon-search' do %>
-      <% end %>
-    <% end %>
-  </div>
-
+  <%= render 'search' %>
+  
   <a href="#off-canvas-menu" class="uk-navbar-toggle" data-uk-offcanvas></a>
 </nav>
 
