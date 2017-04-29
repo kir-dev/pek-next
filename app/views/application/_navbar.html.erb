@@ -9,7 +9,7 @@
         <ul class="uk-nav uk-nav-navbar">
           <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
           <li class="uk-nav-divider"></li>
-          <li><%= link_to "Kijelentkezés", controller: :login, action: :logout %></li>
+          <li><%= link_to "Kijelentkezés", logout_path %></li>
         </ul>
       </div>
     </li>
@@ -67,7 +67,7 @@
       <li><%= link_to "Hierarchia", root_url %></li>
 
       <li class="uk-nav-divider"></li>
-      <li><%= link_to "Kijelentkezés", controller: :login, action: :logout %></li>
+      <li><%= link_to "Kijelentkezés", logout_path %></li>
 
       <li class="uk-nav-divider"></li>
       <li>

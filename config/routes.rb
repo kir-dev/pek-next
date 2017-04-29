@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  get '/logout', to: 'login#logout'
-  get '/login', to: 'login#login', as: :login
+  get '/logout', to: 'sessions#destroy', as: :logout
+  get '/login', to: 'sessions#new', as: :login
   get '/auth/oauth/callback', to: 'sessions#create'
   get '/register', to: 'registration#new'
   post '/register/create', to: 'registration#create', as: :registration
