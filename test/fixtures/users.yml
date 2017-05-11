@@ -53,25 +53,21 @@ babhamozo_leader:
   usr_firstname: Babhámozó
   usr_lastname: Vezető
   usr_screen_name: babham123
-  usr_metascore: 0
 
 babhamozo_member:
   usr_id: 4002
   usr_firstname: Babos
   usr_lastname: Lajos
   usr_screen_name: lali
-  usr_metascore: 0
 
 non_babhamozo_member:
   usr_id: 4003
   usr_firstname: Borsó
   usr_lastname: Lajos
   usr_screen_name: bori
-  usr_metascore: 0
 
 past_babhamozo_member:
   usr_id: 4004
   usr_firstname: Öreg
   usr_lastname: Csilis
   usr_screen_name: chili
-  usr_metascore: 0
