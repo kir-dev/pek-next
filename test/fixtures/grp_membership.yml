@@ -7,3 +7,9 @@ babhamozo_member_into_group:
   id: 2
   grp_id: 1
   usr_id: 4002
+
+inactive_babhamozo_member:
+  id: 3
+  grp_id: 1
+  usr_id: 4004
+  membership_end: <%= Time.now %>

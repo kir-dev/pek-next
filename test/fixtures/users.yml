@@ -68,3 +68,10 @@ non_babhamozo_member:
   usr_lastname: Lajos
   usr_screen_name: bori
   usr_metascore: 0
+
+past_babhamozo_member:
+  usr_id: 4004
+  usr_firstname: Öreg
+  usr_lastname: Csilis
+  usr_screen_name: chili
+  usr_metascore: 0

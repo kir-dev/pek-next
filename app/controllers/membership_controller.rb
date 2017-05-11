@@ -1,6 +1,6 @@
 class MembershipController < ApplicationController
   before_action :require_login
-  before_action :init, only: [:destroy, :create, :inactivate]
+  before_action :init, only: [:destroy, :create, :inactivate, :reactivate]
   before_action :require_leader, only: [:inactivate, :destroy, :reactivate]
 
   def init
@@ -19,7 +19,7 @@ class MembershipController < ApplicationController
   end
 
   def destroy
-    Membership.delete(params[:membership_id])
+    Membership.delete(params[:id])
     redirect_to group_path(@group.id)
   end
 
