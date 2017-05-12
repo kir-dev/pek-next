@@ -20,17 +20,14 @@ class MembershipController < ApplicationController
 
   def destroy
     Membership.delete(params[:id])
-    redirect_to group_path(@group.id)
   end
 
   def inactivate
     Membership.update(params[:membership_id], membership_end: Time.now)
-    redirect_to group_path(@group.id)
   end
 
   def reactivate
     Membership.update(params[:membership_id], membership_end: nil)
-    redirect_to group_path(@group.id)
   end
 
   private

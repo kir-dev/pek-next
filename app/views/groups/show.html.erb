@@ -64,12 +64,12 @@
             <% if is_leader %>
               <td></td>
               <td>
-                <%= link_to "Öreggé avatás", group_membership_inactivate_path(@group.id, member.id),
-                  class: "uk-button uk-button-small uk-button-primary" %>
+                <%= link_to "Öreggé avatás", group_membership_inactivate_path(@group.id, membership.id),
+                  class: "uk-button uk-button-small uk-button-primary", remote: true %>
               </td>
               <td>
-                <%= link_to "Törlés", group_membership_path(@group.id, member.id),
-                 class: "uk-button uk-button-small uk-button-danger", method: :delete, data: {confirm: "Biztos vagy benne?"} %>
+                <%= link_to "Törlés", group_membership_path(@group.id, membership.id),
+                 class: "uk-button uk-button-small uk-button-danger", method: :delete, data: {confirm: "Biztos vagy benne?"}, remote: true %>
               </td>
             <% end %>
           </tr>
@@ -101,12 +101,12 @@
             <td><%= membership.end %></td>
             <% if is_leader %>
               <td>
-                <%= link_to "Fiatallá avatás", group_membership_reactivate_path(@group.id, member.id),
-                  class: "uk-button uk-button-small uk-button-primary" %>
+                <%= link_to "Fiatallá avatás", group_membership_reactivate_path(@group.id, membership.id),
+                  class: "uk-button uk-button-small uk-button-primary", remote: true %>
               </td>
               <td>
-                <%= link_to "Törlés", group_membership_path(@group.id, member.id),
-                 class: "uk-button uk-button-small uk-button-danger", method: :delete, data: {confirm: "Biztos vagy benne?"} %>
+                <%= link_to "Törlés", group_membership_path(@group.id, membership.id),
+                 class: "uk-button uk-button-small uk-button-danger", method: :delete, data: {confirm: "Biztos vagy benne?"}, remote: true %>
               </td>
             <% end %>
           </tr>
