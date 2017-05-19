@@ -25,10 +25,10 @@ class MembershipControllerTest < ActionController::TestCase
 
   test "deleting member of group" do
     assert_difference('Membership.count', -1) do
-      delete :destroy, group_id: groups(:babhamozo).id, id: grp_membership(:babhamozo_member_into_group).id
+      delete :destroy, format: :js, group_id: groups(:babhamozo).id, id: grp_membership(:babhamozo_member_into_group).id
     end
 
-    assert_redirected_to group_path(groups(:babhamozo).id)
+    assert_response :success
   end
 
   test "unauthorized deletion of member" do
@@ -43,16 +43,18 @@ class MembershipControllerTest < ActionController::TestCase
   test "inactivation of a group member" do
     membership = grp_membership(:babhamozo_member_into_group)
     Timecop.freeze do
-      get :inactivate, group_id: groups(:babhamozo).id, membership_id: membership.id
+      xhr :get, :inactivate, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
 
       assert membership.reload.membership_end.today?
     end
+    assert_response :success
   end
 
   test "reactivation of an inactive member" do
     membership = grp_membership(:inactive_babhamozo_member)
-    get :reactivate, group_id: groups(:babhamozo).id, membership_id: membership.id
+    xhr :get, :reactivate, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
 
     assert_nil membership.reload.membership_end
+    assert_response :success
   end
 end
