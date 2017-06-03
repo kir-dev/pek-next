@@ -1,4 +1,4 @@
-# PéK-next
+# PéK-Next
 
 **The administration system for Schönherz Zoltán Student Hostel and [SVIE](http://svie.hu/)**
 
@@ -47,6 +47,8 @@ $ rake db:structure:load
 $ rake db:migrate
 ```
 
+Create a `.env` file using `.env.example` and replace the values with real ones
+
 **Starting the server**
 
 ```bash
@@ -65,4 +67,4 @@ $ bundle exec sidekiq
 $ rake test
 ```
 
-[Kir-Dev](http://kir-dev.sch.bme.hu/)
+by [Kir-Dev Team](http://kir-dev.sch.bme.hu/)
