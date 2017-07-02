@@ -55,7 +55,7 @@
           <% @group.memberships.select{ |m| !m.end }.each do |membership| %>
           <% member = membership.user %>
           <tr>
-            <td><%= member.lastname %> <%= member.firstname %></td>
+            <td><%= member.full_name %></td>
             <td><%= member.nickname %></td>
             <td>
               <%= membership.post_types.map(&:pttip_name).join(', ') %>
@@ -101,7 +101,7 @@
             <td><%= membership.end %></td>
             <% if is_leader %>
               <td>
-                <%= link_to "Fiatallá avatás", group_membership_reactivate_path(@group.id, membership.id),
+                <%= link_to "Újraaktiválás", group_membership_reactivate_path(@group.id, membership.id),
                   class: "uk-button uk-button-small uk-button-primary", remote: true %>
               </td>
               <td>

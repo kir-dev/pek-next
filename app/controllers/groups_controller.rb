@@ -4,11 +4,11 @@ class GroupsController < ApplicationController
 
   def init
     @group = Group.find(params[:id])
-    @own_membership = current_user.memberships.find { |m| m.group == @group }
+    @own_membership = current_user.membership_for(@group)
   end
 
   def index
-    @groups = Group.order(:name).page(params[:page]).per(20)
+    @groups = Group.order(:name).page(params[:page]).per(params[:per])
   end
 
   def show

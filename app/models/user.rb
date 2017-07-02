@@ -46,4 +46,8 @@ class User < ActiveRecord::Base
   def full_name
     [lastname, firstname].compact.join(' ')
   end
+
+  def membership_for(group)
+    memberships.find { |m| m.group == group }
+  end
 end

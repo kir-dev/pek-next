@@ -5,11 +5,11 @@ class MembershipController < ApplicationController
 
   def init
     @group = Group.find(params[:group_id])
-    @own_membership = current_user.memberships.find { |m| m.group == @group }
+    @own_membership = current_user.membership_for(@group)
   end
 
   def create
-    if !@group.users_can_apply || @own_membership
+    if @group.user_can_join?(current_user)
       unauthorized_page
     else
       membership = Membership.create(grp_id: @group.id, usr_id: current_user.id)
