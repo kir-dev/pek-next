@@ -1,4 +1,11 @@
 hu:
+  date:
+    formats:
+      default: "%Y.%m.%d."
+  time:
+    formats:
+      default: "%Y.%m.%d. %H:%M"
+
   edit_successful: Sikeres mentés!
   register_successful: Sikeres regisztráció!
   activerecord:
