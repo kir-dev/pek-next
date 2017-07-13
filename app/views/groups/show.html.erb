@@ -60,7 +60,7 @@
             <td>
               <%= membership.post_types.map(&:pttip_name).join(', ') %>
             </td>
-            <td><%= membership.start %></td>
+            <td><%=l membership.start %></td>
             <% if is_leader %>
               <td></td>
               <td>
@@ -97,8 +97,8 @@
             <td>
               <%= membership.post_types.map(&:pttip_name).join(', ') %>
             </td>
-            <td><%= membership.start %></td>
-            <td><%= membership.end %></td>
+            <td><%=l membership.start %></td>
+            <td><%=l membership.end %></td>
             <% if is_leader %>
               <td>
                 <%= link_to "Újraaktiválás", group_membership_reactivate_path(@group.id, membership.id),
