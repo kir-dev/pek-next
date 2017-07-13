@@ -7,7 +7,7 @@ class RegistrationController < ApplicationController
   def create
     oauth_data = session[:oauth_data]
     oauth_params = {
-      auth_sch_id: oauth_data["internal_id"],
+      usr_auth_sch_id: oauth_data["internal_id"],
       email: oauth_data["mail"],
       firstname: oauth_data["givenName"], 
       lastname: oauth_data["sn"]

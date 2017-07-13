@@ -6,10 +6,9 @@ class GroupsControllerTest < ActionController::TestCase
   end
 
   test "show groups list" do
-    result_per_page = 20
-    get :index, per: result_per_page
+    get :index
 
-    assert_equal result_per_page, assigns(:groups).size
+    assert_equal 20, assigns(:groups).size
     assert_equal groups(:babhamozo).id, assigns(:groups).first.id
   end
 

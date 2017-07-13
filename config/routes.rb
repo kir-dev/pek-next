@@ -15,8 +15,8 @@ Rails.application.routes.draw do
 
   resources :groups, only: [:show, :index] do
     resources :membership, only: [:create, :destroy] do
-      post '/inactivate', to: 'membership#inactivate'
-      post '/reactivate', to: 'membership#reactivate'
+      get '/inactivate', to: 'membership#inactivate'
+      get '/reactivate', to: 'membership#reactivate'
     end
   end
 
