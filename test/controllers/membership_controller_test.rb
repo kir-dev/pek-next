@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MembershipControllerTest < ActionController::TestCase
+class MembershipsControllerTest < ActionController::TestCase
   setup do
     login_as_user(:babhamozo_leader)
     request.env['HTTP_REFERER'] = "http://test.host/groups/1"

@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   get '/search/suggest', to: 'search#suggest'
 
   resources :groups, only: [:show, :index] do
-    resources :membership, only: [:create, :destroy] do
-      post '/inactivate', to: 'membership#inactivate'
-      post '/reactivate', to: 'membership#reactivate'
+    resources :memberships, only: [:create, :destroy] do
+      post '/inactivate', to: 'memberships#inactivate'
+      post '/reactivate', to: 'memberships#reactivate'
     end
   end
 

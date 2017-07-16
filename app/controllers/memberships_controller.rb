@@ -1,4 +1,4 @@
-class MembershipController < ApplicationController
+class MembershipsController < ApplicationController
   before_action :require_login
   before_action :init, only: [:destroy, :create, :inactivate, :reactivate]
   before_action :require_leader, only: [:inactivate, :destroy, :reactivate]
