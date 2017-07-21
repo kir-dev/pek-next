@@ -7,6 +7,11 @@ class Privacy < ActiveRecord::Base
   belongs_to :user, foreign_key: :usr_id
 
   def self.for(user, attribute)
-    find_by(attribute_name: attribute, user: user.id)
+    find_by(attribute_name: attribute, user: user) ||
+      Privacy.create(attribute_name: attribute, user: user, visible: default_value(attribute))
+  end
+
+  def self.default_value(attribute)
+    ['WEBPAGE', 'CELL_PHONE'].include?(attribute)
   end
 end
