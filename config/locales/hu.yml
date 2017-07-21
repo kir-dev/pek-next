@@ -25,6 +25,13 @@ hu:
         screen_name: Felhasználónév
         auth_sch_id: Auth.sch azonosító
         bme_id: BME azonosító
+      group:
+        name: Név
+        description: Leírás
+        webpage: Weboldal
+        founded: Alapítva
+        maillist: Levelezőlista
+        users_can_apply: Körbe jelentkezés megengedett
     errors:
       models:
         user:

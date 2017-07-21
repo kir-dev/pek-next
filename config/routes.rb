@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
 
-  resources :groups, only: [:show, :index] do
+  resources :groups, only: [:show, :index, :edit, :update] do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
