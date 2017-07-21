@@ -49,6 +49,8 @@
           <tr>
             <td><%= f.label :cell_phone %></td>
             <td><%= f.text_field :cell_phone %></td>
+            <td><%= check_box_tag 'private', 'CELL_PHONE', Privacy.for(@user, 'CELL_PHONE').visible, 
+            class: 'privacy-setting', user: @user.id %></td>
           </tr>
 
           <tr>
