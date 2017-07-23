@@ -31,6 +31,9 @@
           </tr>
         </tbody>
       </table>
+      <% if is_leader %>
+        <%= link_to 'Adatok szerkesztése', edit_group_path(@group), class: 'uk-button uk-button-primary' %>
+      <% end %>
       <% if @group.users_can_apply && !@own_membership %>
         <%= form_tag group_memberships_path(@group), {method: 'post'} do %>
           <%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
