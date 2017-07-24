@@ -44,6 +44,8 @@
           <tr>
             <td><%= f.label :email %></td>
             <td><%= f.text_field :email %></td>
+            <td><%= check_box_tag 'private', 'GENDER', Privacy.for(@user, 'EMAIL').visible, 
+            class: 'privacy-setting', user: @user.id %></td>
           </tr>
 
           <tr>
@@ -65,6 +67,8 @@
             <td><%= f.select :dormitory,
                       options_for_select(Rails.configuration.x.dorms.invert, f.object.dormitory) %>
             </td>
+            <td><%= check_box_tag 'private', 'GENDER', Privacy.for(@user, 'ROOM_NUMBER').visible, 
+            class: 'privacy-setting', user: @user.id %></td>
           </tr>
 
           <tr>

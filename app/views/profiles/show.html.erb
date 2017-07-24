@@ -12,9 +12,15 @@
 -->
 			<%= image_tag photo_path(@user.screen_name), class: "uk-thumbnail", alt: @user.screen_name %>
 			<h3 class="uk-h3"><%= @user.full_name %></h3>
-			<h4 class="uk-h4"><%= @user.email %></h4>
-			<h4 class="uk-h4"><%= @user.dormitory %> <%= @user.room %></h4>
-			<h4 class="uk-h4"><%= @user.cell_phone %></h4>
+			<% if Privacy.for(@user, 'EMAIL').visible %>
+				<h4 class="uk-h4"><%= @user.email %></h4>
+			<% end %>
+			<% if Privacy.for(@user, 'ROOM_NUMBER').visible %>
+				<h4 class="uk-h4"><%= @user.dormitory %> <%= @user.room %></h4>
+			<% end %>
+			<% if Privacy.for(@user, 'CELL_PHONE').visible %>
+				<h4 class="uk-h4"><%= @user.cell_phone %></h4>
+			<% end %>
 
 		</div>
 	</div>

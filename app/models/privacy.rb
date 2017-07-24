@@ -12,6 +12,6 @@ class Privacy < ActiveRecord::Base
   end
 
   def self.default_value(attribute)
-    ['WEBPAGE', 'CELL_PHONE'].include?(attribute)
+    ['WEBPAGE', 'CELL_PHONE', 'EMAIL', 'ROOM_NUMBER'].include?(attribute)
   end
 end
