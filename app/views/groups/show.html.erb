@@ -29,6 +29,10 @@
             <th class="group-attr">Bemutatkozás</th>
             <td><%= @group.description %></td>
           </tr>
+          <tr>
+            <th class="group-attr">Leader</th>
+            <td><%= @group.leader.user.full_name %></td>
+          </tr>
         </tbody>
       </table>
       <% if @group.users_can_apply && !@own_membership %>
