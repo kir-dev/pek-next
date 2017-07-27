@@ -33,7 +33,7 @@ class MembershipsController < ApplicationController
   private
 
   def require_leader
-    unauthorized_page unless @own_membership && @own_membership.is_leader
+    unauthorized_page unless @own_membership && @own_membership.leader?
   end
 
 end
