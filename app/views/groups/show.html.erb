@@ -1,38 +1,38 @@
 <div class="uk-height-viewport uk-responsive-width">
   <div class="uk-container-center">
     <div class="uk-panel uk-panel-box">
-      <h3 class="uk-panel-title"><%= @group.name %></h3>
+      <h3 class="uk-panel-title"><%= @viewmodel.group.name %></h3>
       <h2 class="uk-h2">Kör adatai</h2>
       <table>
         <tbody>
           <tr>
             <th class="group-attr">Név</th>
-            <td><%= @group.name %></td>
+            <td><%= @viewmodel.group.name %></td>
           </tr>
           <tr>
             <th class="group-attr">Alapítási éve</th>
-            <td><%= @group.founded %></td>
+            <td><%= @viewmodel.group.founded %></td>
           </tr>
           <tr>
             <th class="group-attr">Svie tag</th>
-            <td><%= @group.issvie ? "Igen" : "Nem" %></td>
+            <td><%= @viewmodel.group.issvie ? "Igen" : "Nem" %></td>
           </tr>
           <tr>
             <th class="group-attr">Weboldal</th>
-            <td><%= @group.webpage %></td>
+            <td><%= @viewmodel.group.webpage %></td>
           </tr>
           <tr>
             <th class="group-attr">Levelezőlista</th>
-            <td><%= @group.maillist %></td>
+            <td><%= @viewmodel.group.maillist %></td>
           </tr>
           <tr>
             <th class="group-attr">Bemutatkozás</th>
-            <td><%= @group.description %></td>
+            <td><%= @viewmodel.group.description %></td>
           </tr>
         </tbody>
       </table>
-      <% if @group.users_can_apply && !@own_membership %>
-        <%= form_tag group_memberships_path(@group), {method: 'post'} do %>
+      <% if @viewmodel.group.users_can_apply && !@own_membership %>
+        <%= form_tag group_memberships_path(@viewmodel.group), {method: 'post'} do %>
           <%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
         <% end %>
 
@@ -45,7 +45,7 @@
             <th>Becenév</th>
             <th>Betöltött poszt</th>
             <th>Tagság kezdete</th>
-            <% if is_leader %>
+            <% if @viewmodel.leader? %>
               <th>Posztok állítása</th>
               <th>Öregtaggá avatás</th>
               <th>Törlés</th>
@@ -53,7 +53,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @group.memberships.select{ |m| !m.end }.each do |membership| %>
+          <% @viewmodel.group.memberships.select{ |m| !m.end }.each do |membership| %>
           <% member = membership.user %>
           <tr>
             <td><%= member.full_name %></td>
@@ -62,14 +62,14 @@
               <%= membership.post_types.map(&:pttip_name).join(', ') %>
             </td>
             <td><%= l membership.start %></td>
-            <% if is_leader %>
+            <% if @viewmodel.leader? %>
               <td></td>
               <td>
-                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@group.id, membership.id),
+                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, membership.id),
                  method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
               </td>
               <td>
-                <%= button_to "Törlés", group_membership_path(@group.id, membership.id),
+                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, membership.id),
                 method: :delete, data: {confirm: "Biztos vagy benne?"},
                 class: "uk-button-small uk-button-danger uk-button", remote: true %>
               </td>
@@ -91,7 +91,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @group.memberships.select{ |m| m.end }.each do |membership| %>
+          <% @viewmodel.group.memberships.select{ |m| m.end }.each do |membership| %>
           <% member = membership.user %>
           <tr>
             <td><%= member.lastname %> <%= member.firstname %></td>
@@ -101,13 +101,13 @@
             </td>
             <td><%=l membership.start %></td>
             <td><%=l membership.end %></td>
-            <% if is_leader %>
+            <% if @viewmodel.leader? %>
               <td>
-                <%= button_to "Újraaktiválás", group_membership_reactivate_path(@group.id, membership.id),
+                <%= button_to "Újraaktiválás", group_membership_reactivate_path(@viewmodel.group.id, membership.id),
                  method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
               </td>
               <td>
-                <%= button_to "Törlés", group_membership_path(@group.id, membership.id),
+                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, membership.id),
                 method: :delete, data: {confirm: "Biztos vagy benne?"},
                 class: "uk-button-small uk-button-danger uk-button", remote: true %>
               </td>
