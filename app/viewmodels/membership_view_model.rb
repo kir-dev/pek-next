@@ -8,6 +8,6 @@ class MembershipViewModel
 
   def leader?
     membership = user.membership_for(group)
-    return membership.is_leader if membership
+    return membership.leader? if membership
   end
 end

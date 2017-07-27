@@ -15,7 +15,7 @@ class Membership < ActiveRecord::Base
   LEADER_POST_ID = 3
   DEFAULT_POST_ID = 6
 
-  def is_leader
+  def leader?
     posts.any? { |post| post.post_type.id == LEADER_POST_ID }
   end
 end
