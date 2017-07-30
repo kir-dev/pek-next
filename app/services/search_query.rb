@@ -16,7 +16,7 @@ class SearchQuery
     count = Rails.configuration.x.results_per_page
     query = 'lower(grp_name) LIKE ?'
     param = "%#{term}%"
-    return = Group.where(query, param).order(grp_name: :desc).offset(page.to_i * count).limit(count)
+    return Group.where(query, param).order(grp_name: :desc).offset(page.to_i * count).limit(count)
   end
 
   private
