@@ -5,13 +5,14 @@ class SearchController < ApplicationController
   end
 
   def suggest
-    results = []
+    user_results = []
 
     if params.key?(:query)
-      results = SearchQuery.new.search(params[:query], params[:page])
+      group_results = SearchQuery.new.group_search(params[:query], params[:page])
+      count = Rails.configuration.x.results_per_page - group_results.count
+      user_results = SearchQuery.new.user_search(params[:query], params[:page], count)
     end
 
-    render partial: 'suggest', locals: {results: results}
-
+    render partial: 'suggest', locals: {users: user_results ||= [], groups: group_results ||= []}
   end
 end

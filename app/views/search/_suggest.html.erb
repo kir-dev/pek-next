@@ -1,4 +1,10 @@
-<% results.each do |user| %>
+<% groups.each do |group| %>
+  <tr>
+    <td> <%= link_to group.name, group_path(group.id) %> </td>
+    <td> <%= group.description %> </td>
+  </tr>
+<% end %>
+<% users.each do |user| %>
   <tr>
     <td> <%= link_to user.full_name, profile_path(user.screen_name) %> </td>
     <td> <%= user.nickname %> </td>
