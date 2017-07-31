@@ -38,6 +38,12 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal users(:bela).id, query.first.id
   end
 
+  test "search in groups name" do
+    query = SearchQuery.new.group_search("Bab", nil)
+    assert_equal 1, query.size
+    assert_equal groups(:babhamozo).id, query.first.id
+  end
+
   test "next search page of generated users" do
     query = SearchQuery.new.user_search("pék", 1, 10)
     assert_equal 10, query.size
