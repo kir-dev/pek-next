@@ -17,8 +17,14 @@ class Group < ActiveRecord::Base
 
   has_many :memberships, foreign_key: :grp_id
   has_many :members, through: :memberships, source: :user
+  has_many :post_types, foreign_key: :grp_id
+  alias :own_post_types :post_types
 
   def user_can_join?(current_user)
     !users_can_apply || current_user.membership_for(self)
+  end
+
+  def post_types
+    own_post_types + PostType.where(group: nil)
   end
 end

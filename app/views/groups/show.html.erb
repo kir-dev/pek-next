@@ -63,7 +63,10 @@
             </td>
             <td><%= l membership.start %></td>
             <% if @viewmodel.leader? %>
-              <td></td>
+              <td>
+                <%= button_to "Posztok szerkesztése", group_membership_posts_path(@viewmodel.group.id, membership.id),
+                method: :get, class: "uk-button uk-button-primary uk-button-small" %>
+              </td>
               <td>
                 <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, membership.id),
                  method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
@@ -92,27 +95,27 @@
         </thead>
         <tbody>
           <% @viewmodel.group.memberships.select{ |m| m.end }.each do |membership| %>
-          <% member = membership.user %>
-          <tr>
-            <td><%= member.lastname %> <%= member.firstname %></td>
-            <td><%= member.nickname %></td>
-            <td>
-              <%= membership.post_types.map(&:pttip_name).join(', ') %>
-            </td>
-            <td><%=l membership.start %></td>
-            <td><%=l membership.end %></td>
-            <% if @viewmodel.leader? %>
+            <% member = membership.user %>
+            <tr>
+              <td><%= member.lastname %> <%= member.firstname %></td>
+              <td><%= member.nickname %></td>
               <td>
-                <%= button_to "Újraaktiválás", group_membership_reactivate_path(@viewmodel.group.id, membership.id),
-                 method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
+                <%= membership.post_types.map(&:pttip_name).join(', ') %>
               </td>
-              <td>
-                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, membership.id),
-                method: :delete, data: {confirm: "Biztos vagy benne?"},
-                class: "uk-button-small uk-button-danger uk-button", remote: true %>
-              </td>
-            <% end %>
-          </tr>
+              <td><%=l membership.start %></td>
+              <td><%=l membership.end %></td>
+              <% if @viewmodel.leader? %>
+                <td>
+                  <%= button_to "Újraaktiválás", group_membership_reactivate_path(@viewmodel.group.id, membership.id),
+                   method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
+                </td>
+                <td>
+                  <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, membership.id),
+                  method: :delete, data: {confirm: "Biztos vagy benne?"},
+                  class: "uk-button-small uk-button-danger uk-button", remote: true %>
+                </td>
+              <% end %>
+            </tr>
           <% end %>
         </tbody>
       </table>
