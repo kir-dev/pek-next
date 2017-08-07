@@ -7,4 +7,13 @@ class PostsController < ApplicationController
     @membership = Membership.find(params[:membership_id])
   end
 
+  def create
+    @membership = Membership.find(params[:membership_id])
+    Post.create(grp_member_id: @membership.id, post_type_id: params[:post_type_id])
+  end
+
+  def destroy
+    Post.delete(params[:id])
+  end
+
 end

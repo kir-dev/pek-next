@@ -1,9 +1,16 @@
 <h1><%= @membership.user.full_name %> posztjai</h1>
 
 <% @group.post_types.each do |post_type| %>
-  <div>
-    <input type="checkbox" name="<%= post_type.id %>"
-      <%= "checked" if @membership.posts.any? {|post| post.post_type == post_type} %>>
-    <%= post_type.name %>
-  </div>
+  <% if @membership.posts.any? { |post| post.post_type == post_type } %>
+    <%= button_to "Poszt elvétele", group_membership_post_path(@group.id, @membership.id, 
+      @membership.posts.find { |post| post.post_type == post_type }.id ),
+      method: :delete, class: "uk-button uk-button-danger uk-button-mini",
+      form: {style: 'display:inline-block;'}, remote: true %>
+  <% else %>
+    <%= button_to "Poszt adása", group_membership_posts_path(@group.id, @membership.id),
+      method: :post, params: { post_type_id: post_type.id },
+      class: "uk-button uk-button-success uk-button-mini",
+      form: {style: 'display:inline-block;'}, remote: true %>
+  <% end %>
+  <%= post_type.name %>
 <% end %>
