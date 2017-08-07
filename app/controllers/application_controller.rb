@@ -13,6 +13,16 @@ class ApplicationController < ActionController::Base
     redirect_to(root_url) unless @user == current_user
   end
 
+  def require_leader
+    if params[:group_id]
+      @group = Group.find(params[:group_id])
+    else
+      @group = Group.find(params[:id])
+    end
+    @own_membership = current_user.membership_for(@group)
+    unauthorized_page unless @own_membership && @own_membership.leader?
+  end
+
   def current_user
     if ENV['NONAUTH']
       return impersonate_user
