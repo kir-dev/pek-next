@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find_by(screen_name: params[:id])
+    redirect_to profiles_me_path unless @user
   end
 
   def show_self
