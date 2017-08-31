@@ -57,9 +57,9 @@ class User < ActiveRecord::Base
 
   validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
 
-  def svie_primary_membership
+  def primary_membership
     ## Maybe the commented rows hide the better way
-    memberships.find { |m| m.id == usr_svie_primary_membership }
+    memberships.find(usr_svie_primary_membership)
   end
 
   def full_name
