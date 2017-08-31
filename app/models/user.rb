@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
 
   def primary_membership
     ## Maybe the commented rows hide the better way
-    memberships.find(usr_svie_primary_membership)
+    memberships.find(usr_svie_primary_membership) if usr_svie_primary_membership
   end
 
   def full_name

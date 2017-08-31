@@ -13,3 +13,8 @@ inactive_babhamozo_member:
   grp_id: 1
   usr_id: 4004
   membership_end: <%= Time.now %>
+
+user_with_primary_membership:
+  id: 4
+  grp_id: 1
+  usr_id: 5000

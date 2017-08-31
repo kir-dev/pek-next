@@ -71,3 +71,10 @@ past_babhamozo_member:
   usr_firstname: Öreg
   usr_lastname: Csilis
   usr_screen_name: chili
+
+user_with_primary_membership:
+  usr_id: 5000
+  usr_firstname: GoFor
+  usr_lastname: SVIE
+  usr_screen_name: csakasvie
+  usr_svie_primary_membership: 4
