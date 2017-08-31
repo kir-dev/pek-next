@@ -34,33 +34,16 @@ class User < ActiveRecord::Base
   alias_attribute :auth_sch_id, :usr_auth_sch_id
   alias_attribute :bme_id, :usr_bme_id
 
-  has_many :memberships, foreign_key: :usr_id
+  has_many :memberships, class_name: "Membership", foreign_key: :usr_id
   has_many :groups, through: :memberships
 
-  #has_one :membership, foreign_key: :svie_primary_membership, as: :alma
-  #has_one :primary_membership, through: :svie_primary_membership, source: :memberships
-  #has_one :primary_membership, through: :svie_primary_membership, inverse_of: :memberships
-  #has_one :usr_svie_primary_membership, class_name: "Membership", foreign_key: :membership_id
-  #has_one :usr_svie_primary_membership, class_name: "Membership", primary_key: :membership_id
-  #belongs_to :usr_svie_primary_membership, class_name: "Membership", foreign_key: :membership_id
-  #belongs_to :usr_svie_primary_membership, class_name: "Membership"
-
-  #has_many :svie_primary_membership, through: :usr_svie_primary_membership, foreign_key: :membership_id
-
-  #has_one :usr_svie_primary_membership, dependent: :memberships
-  #has_one :svie_primary_membership, inverse_of: :memberships
-
+  has_one :primary_membership, class_name: "Membership", foreign_key: :id, primary_key: :usr_svie_primary_membership
 
   validates :screen_name, uniqueness: true
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
 
   validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
-
-  def primary_membership
-    ## Maybe the commented rows hide the better way
-    memberships.find(usr_svie_primary_membership) if usr_svie_primary_membership
-  end
 
   def full_name
     [lastname, firstname].compact.join(' ')
