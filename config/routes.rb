@@ -14,8 +14,7 @@ Rails.application.routes.draw do
   get '/search/suggest', to: 'search#suggest'
 
   get '/svie/edit', to: 'svie#edit'
-  put '/svie/update', to: 'svie#update'
-  patch '/svie/update', to: 'svie#update'
+  post '/svie/update', to: 'svie#update'
 
   resources :groups, only: [:show, :index] do
     resources :memberships, only: [:create, :destroy] do

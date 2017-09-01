@@ -1,7 +1,9 @@
 <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
 
-<%= form_tag(svie_update_path) do |f| %>
-  <%= f.select :primary_membership,
-    options_for_select(@svie_memberships, current_user.primary_membership) %>
+<%= form_tag(svie_update_path, name: 'membershipform') do %>
+<!-- Form name should always be given: https://stackoverflow.com/questions/4831848/firefox-ignores-option-selected-selected -->
+  <%= select :svie, :primary_membership, @svie_memberships.map { |m| [m.group.name, m.id] },
+    selected: current_user.svie_primary_membership, autocomplete: :off %>
+  <%= submit_tag "Mentés" %>
 <% end %>
 </div>
