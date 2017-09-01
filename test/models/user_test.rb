@@ -38,4 +38,18 @@ class UserTest < ActionController::TestCase
     membership = users(:sanyi).primary_membership
     assert_nil membership
   end
+
+  test "non-svie primary membership should be forbidden" do
+    user = users(:user_with_primary_membership)
+    user.svie_primary_membership = grp_membership(:non_svie_membership).id
+    refute user.valid?
+    refute_empty user.errors[:svie_primary_membership]
+  end
+
+  test "primary membership should be forbidden for newbies" do
+    user = users(:user_with_primary_membership)
+    user.svie_primary_membership = grp_membership(:newbie_membership).id
+    refute user.valid?
+    refute_empty user.errors[:svie_primary_membership]
+  end
 end
