@@ -1,0 +1,7 @@
+<div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
+
+<%= form_tag(svie_update_path) do |f| %>
+  <%= f.select :primary_membership,
+    options_for_select(@svie_memberships, current_user.primary_membership) %>
+<% end %>
+</div>
