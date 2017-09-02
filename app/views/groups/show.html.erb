@@ -53,23 +53,22 @@
           </tr>
         </thead>
         <tbody>
-          <% @viewmodel.group.memberships.select{ |m| !m.end }.each do |membership| %>
-          <% member = membership.user %>
+          <% active_users do |active_user| %>
           <tr>
-            <td><%= member.full_name %></td>
-            <td><%= member.nickname %></td>
+            <td><%= active_user.full_name %></td>
+            <td><%= active_user.nickname %></td>
             <td>
-              <%= membership.post_types.map(&:pttip_name).join(', ') %>
+              <%= active_user.posts %>
             </td>
-            <td><%= l membership.start %></td>
+            <td><%= l active_user.membership_start %></td>
             <% if @viewmodel.leader? %>
               <td></td>
               <td>
-                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, membership.id),
+                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, active_user.membership_id),
                  method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
               </td>
               <td>
-                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, membership.id),
+                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, active_user.membership_id),
                 method: :delete, data: {confirm: "Biztos vagy benne?"},
                 class: "uk-button-small uk-button-danger uk-button", remote: true %>
               </td>
