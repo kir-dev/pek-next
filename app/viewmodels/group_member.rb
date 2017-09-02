@@ -1,4 +1,4 @@
-class ActiveUser
+class GroupMember
 
   def initialize(membership)
     @membership = membership
@@ -18,6 +18,10 @@ class ActiveUser
 
   def membership_start
     @membership.start
+  end
+
+  def membership_end
+    @membership.end
   end
 
   def membership_id
