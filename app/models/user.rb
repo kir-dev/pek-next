@@ -50,4 +50,9 @@ class User < ActiveRecord::Base
   def membership_for(group)
     memberships.find { |m| m.group == group }
   end
+
+  def leader_of(group)
+    membership = membership_for(group)
+    membership && membership.leader?
+  end
 end
