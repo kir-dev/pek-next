@@ -13,7 +13,7 @@
 Postgresql packages
 
 ```bash
-$ sudo apt-get install postgres libpq-dev nodejs
+$ sudo apt-get install postgresql libpq-dev nodejs
 ```
 
 Ruby 2.2.3 environment
@@ -28,8 +28,11 @@ The source code and dependencies
 ```bash
 $ git clone https://github.com/kir-dev/pek-next.git
 $ cd pek-next
+$ gem install bundler
 $ bundle install
 ```
+
+Create a `.env` file using `.env.example` and replace the values with real ones
 
 Setting up the database
 
@@ -42,12 +45,18 @@ $ psql -c 'create database "pek-next-test";' -U postgres
 
 Creating the schema
 
+_As your own user_
+
 ```bash
 $ rake db:structure:load
 $ rake db:migrate
 ```
 
-Create a `.env` file using `.env.example` and replace the values with real ones
+If you start developing with a clean database
+
+```bash
+$ rake db:seed
+```
 
 **Starting the server**
 
@@ -65,6 +74,22 @@ $ bundle exec sidekiq
 
 ```bash
 $ rake test
+```
+
+### Problems you may encounter and the solutions
+
+Ruby cannot build the native extensions
+
+```bash
+$ sudo apt-get install ruby-dev
+```
+
+After setting from RVM the ruby version is still not correct
+
+_RVM sometimes needs an interactive shell_
+
+```bash
+$ bash --login
 ```
 
 by [Kir-Dev Team](http://kir-dev.sch.bme.hu/)
