@@ -12,8 +12,7 @@ class MembershipsController < ApplicationController
     if @group.user_can_join?(current_user)
       unauthorized_page
     else
-      membership = Membership.create(grp_id: @group.id, usr_id: current_user.id)
-      Post.create(grp_member_id: membership.id, pttip_id: Membership::DEFAULT_POST_ID)
+      CreateMembership.call(@group, current_user)
       redirect_to :back
     end
   end
