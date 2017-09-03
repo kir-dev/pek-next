@@ -21,7 +21,10 @@ Rails.application.routes.draw do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
     end
+    get '/delegates', to: 'groups#delegates'
   end
+
+  resources :delegates, only: [:index]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

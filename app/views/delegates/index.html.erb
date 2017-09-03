@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Küldöttek listázása</h1>
+
+<table border="1" >
+  <thead>
+    <tr>
+      <th>név</th>
+      <th>Kör</th>
+      <th width="300" height="50">Aláírás</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @all_fckin_user.each do |u| %>
+      <tr>
+        <td><%= u.full_name %></td>
+        <td><%= u.primary_membership.group.name %></td>
+        <td height="40"></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @all_fckin_user %>
