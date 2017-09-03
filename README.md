@@ -10,20 +10,20 @@
 
 **To run PéK you will need the following:**
 
-Postgresql packages
+###### Postgresql packages
 
 ```bash
 $ sudo apt-get install postgresql libpq-dev nodejs
 ```
 
-Ruby 2.2.3 environment
+###### Ruby 2.2.3 environment
 
 ```bash
 $ \curl -sSL https://get.rvm.io | bash -s stable
 $ rvm install 2.2.3
 ```
 
-The source code and dependencies
+###### The source code and dependencies
 
 ```bash
 $ git clone https://github.com/kir-dev/pek-next.git
@@ -34,7 +34,7 @@ $ bundle install
 
 Create a `.env` file using `.env.example` and replace the values with real ones
 
-Setting up the database
+###### Setting up the database
 
 ```bash
 $ sudo su postgres
@@ -43,7 +43,7 @@ $ psql -c 'create database "pek-next";' -U postgres
 $ psql -c 'create database "pek-next-test";' -U postgres
 ```
 
-Creating the schema
+###### Creating the schema
 
 _As your own user_
 
@@ -52,7 +52,7 @@ $ rake db:structure:load
 $ rake db:migrate
 ```
 
-If you start developing with a clean database
+###### If you start developing with a clean database
 
 ```bash
 $ rake db:seed
@@ -64,7 +64,7 @@ $ rake db:seed
 $ rails s
 ```
 
-And in a separate shell:
+_And in a separate shell:_
 
 ```bash
 $ bundle exec sidekiq
@@ -78,13 +78,13 @@ $ rake test
 
 ### Problems you may encounter and the solutions
 
-Ruby cannot build the native extensions
+##### Ruby cannot build the native extensions
 
 ```bash
 $ sudo apt-get install ruby-dev
 ```
 
-After setting from RVM the ruby version is still not correct
+##### After setting from RVM the ruby version is still not correct
 
 _RVM sometimes needs an interactive shell_
 
