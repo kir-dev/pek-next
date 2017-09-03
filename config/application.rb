@@ -55,6 +55,7 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
+    config.x.roles = ['mezei_user', 'group_leader', 'rvt_member', 'svie_admin', 'pek_admin']
     
   end
 end
