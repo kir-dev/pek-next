@@ -9,7 +9,7 @@ class MembershipsController < ApplicationController
   end
 
   def create
-    if @group.user_can_join?(current_user)
+    if @group.user_can_join?(current_user) ## ennek nem fordítva kéne lennie?
       unauthorized_page
     else
       membership = Membership.create(grp_id: @group.id, usr_id: current_user.id)
