@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       post '/reactivate', to: 'memberships#reactivate'
     end
     get '/delegates', to: 'groups#delegates'
+    post '/delegate', to: 'groups#set_delegate'
+    delete '/delegate', to: 'groups#delete_delegate'
   end
 
   resources :delegates, only: [:index]

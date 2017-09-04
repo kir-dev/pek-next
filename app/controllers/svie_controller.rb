@@ -7,6 +7,7 @@ class SvieController < ApplicationController
 
   def update
     current_user.update(svie_primary_membership: params[:svie][:primary_membership])
+    current_user.update(delegated: false)
     redirect_to profiles_me_path
   end
 
