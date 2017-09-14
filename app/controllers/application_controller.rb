@@ -9,15 +9,15 @@ class ApplicationController < ActionController::Base
   end
 
   def correct_user
-    @user = User.find_by(screen_name: params[:id])
-    redirect_to(root_url) unless @user == current_user
+    user = User.find_by(screen_name: params[:id])
+    redirect_to(root_url) unless user == current_user
   end
 
   def current_user
     if ENV['NONAUTH']
       return impersonate_user
     end
-    @user ||= User.find(session[:user_id])
+    @current_user ||= User.find(session[:user_id])
   end
   helper_method :current_user
 
