@@ -25,7 +25,7 @@ class Group < ActiveRecord::Base
   end
 
   def leader
-    memberships.find { |membership| membership.is_leader }
+    memberships.find { |membership| membership.leader? }
   end
 
   def post_types

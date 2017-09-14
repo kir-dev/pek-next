@@ -69,14 +69,11 @@
             <td><%= l member.membership_start %></td>
             <% if @viewmodel.leader? %>
               <td>
-                <%= button_to "Posztok szerkesztése", group_membership_posts_path(@viewmodel.group.id, membership.id),
+                <%= button_to "Posztok szerkesztése", group_membership_posts_path(@viewmodel.group.id, member.membership_id),
                 method: :get, class: "uk-button uk-button-primary uk-button-small" %>
               </td>
               <td>
-                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id) %>
-              </td>
-              <td>
-                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, membership.id),
+                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
                  method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
               </td>
               <td>
