@@ -5,7 +5,12 @@ class GroupMember
   end
 
   def posts
+    if @membership.post_types.empty?
+      return 'Tag'
+    end
+    
     @membership.post_types.map(&:pttip_name).join(', ')
+    
   end
 
   def full_name
