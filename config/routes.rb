@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get '/search/suggest', to: 'search#suggest'
 
   root to: redirect('/profiles/me')
-  resources :groups, only: [:show, :index] do
+  resources :groups, only: [:show, :index, :edit, :update] do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
