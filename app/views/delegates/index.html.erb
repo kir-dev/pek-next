@@ -7,6 +7,7 @@
     <tr>
       <th>Név</th>
       <th>Kör</th>
+      <th>E-mail cím</th>
       <th width="300" height="50">Aláírás</th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
       <tr>
         <td><%= u.full_name %></td>
         <td><%= u.primary_membership.group.name %></td>
+        <td><%= u.email %></td>
         <td height="40"></td>
       </tr>
     <% end %>
