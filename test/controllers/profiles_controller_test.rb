@@ -9,14 +9,14 @@ class ProfilesControllerTest < ActionController::TestCase
     get :show_self
 
     assert_response :success
-    assert_equal users(:sanyi).id, assigns(:user).id
+    assert_equal users(:sanyi).id, assigns(:user_presenter).id
   end
 
   test "show some other users' profile" do
     get :show, id: users(:bela).screen_name
 
     assert_response :success
-    assert_equal users(:bela).id, assigns(:user).id
+    assert_equal users(:bela).id, assigns(:user_presenter).id
   end
 
   test "rendering edit page is successful" do
