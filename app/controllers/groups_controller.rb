@@ -1,6 +1,12 @@
 class GroupsController < ApplicationController
   before_action :require_login
+  before_action :init, only: [:show, :edit, :update]
   before_action :require_leader, only: [:edit, :update]
+
+  def init
+    @group = Group.find(params[:id])
+    @own_membership = current_user.membership_for(@group)
+  end
 
   def index
     @groups = Group.order(:name).page(params[:page]).per(params[:per])
@@ -11,11 +17,9 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find(params[:id])
   end
 
   def update
-    @group = Group.find(params[:id])
     if @group.update(update_params)
       redirect_to @group, notice: t(:edit_successful)
     else
@@ -24,7 +28,7 @@ class GroupsController < ApplicationController
   end
 
   def is_leader
-    @own_membership && @own_membership.is_leader
+    current_user.leader_of(Group.find(params[:id]))
   end
   helper_method :is_leader
 

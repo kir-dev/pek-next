@@ -12,15 +12,9 @@
         <%= @user_presenter.full_name %>
       </h3>
 
-      <% if Privacy.for(@user_presenter, 'EMAIL').visible %>
-          <%= @user_presenter.email %>
-      <% end %>
-      <% if Privacy.for(@user_presenter, 'ROOM_NUMBER').visible %>
-          <%= @user_presenter.room %>
-      <% end %>
-      <% if Privacy.for(@user_presenter, 'CELL_PHONE').visible %>
-          <%= @user_presenter.cell_phone %>
-      <% end %>
+      <%= @user_presenter.email %>
+      <%= @user_presenter.room %>
+      <%= @user_presenter.cell_phone %>
 
     </div>
   </div>
