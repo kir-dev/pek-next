@@ -1,4 +1,4 @@
-<div class="uk-width-medium-1-2 uk-container-center">
+<div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
     <%= form_for(@user, as: :profile, url: profile_path(@user.screen_name)) do |f| %>
         <%= render 'form_errors', errors: f.object.errors %>
 

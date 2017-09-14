@@ -1,0 +1,119 @@
+<div class="uk-height-viewport uk-responsive-width">
+  <div class="uk-container-center">
+    <div class="uk-panel uk-panel-box">
+      <h3 class="uk-panel-title"><%= @viewmodel.group.name %></h3>
+      <h2 class="uk-h2">Kör adatai</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th class="group-attr">Név</th>
+            <td><%= @viewmodel.group.name %></td>
+          </tr>
+          <tr>
+            <th class="group-attr">Alapítási éve</th>
+            <td><%= @viewmodel.group.founded %></td>
+          </tr>
+          <tr>
+            <th class="group-attr">Svie tag</th>
+            <td><%= @viewmodel.group.issvie ? "Igen" : "Nem" %></td>
+          </tr>
+          <tr>
+            <th class="group-attr">Weboldal</th>
+            <td><%= @viewmodel.group.webpage %></td>
+          </tr>
+          <tr>
+            <th class="group-attr">Levelezőlista</th>
+            <td><%= @viewmodel.group.maillist %></td>
+          </tr>
+          <tr>
+            <th class="group-attr">Bemutatkozás</th>
+            <td><%= @viewmodel.group.description %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% if @viewmodel.group.users_can_apply && !@own_membership %>
+        <%= form_tag group_memberships_path(@viewmodel.group), {method: 'post'} do %>
+          <%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
+        <% end %>
+
+      <% end %>
+      <h2 class="uk-h2">Aktív tagok</h2>
+      <table class="uk-table uk-table-striped uk-table-hover">
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Becenév</th>
+            <th>Betöltött poszt</th>
+            <th>Tagság kezdete</th>
+            <% if @viewmodel.leader? %>
+              <th>Posztok állítása</th>
+              <th>Öregtaggá avatás</th>
+              <th>Törlés</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% active_users do |member| %>
+          <tr>
+            <td><%= member.full_name %></td>
+            <td><%= member.nickname %></td>
+            <td>
+              <%= member.posts %>
+            </td>
+            <td><%= l member.membership_start %></td>
+            <% if @viewmodel.leader? %>
+              <td></td>
+              <td>
+                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
+                 method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
+              </td>
+              <td>
+                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, member.membership_id),
+                method: :delete, data: {confirm: "Biztos vagy benne?"},
+                class: "uk-button-small uk-button-danger uk-button", remote: true %>
+              </td>
+            <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <h2 class="uk-h2">Öregtagok</h2>
+      <table class="uk-table uk-table-striped uk-table-hover">
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Becenév</th>
+            <th>Betöltött poszt</th>
+            <th>Tagság kezdete</th>
+            <th>Tagság vége</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% inactive_users do |member| %>
+          <tr>
+            <td><%= member.full_name %></td>
+            <td><%= member.nickname %></td>
+            <td>
+              <%= member.posts %>
+            </td>
+            <td><%=l member.membership_start %></td>
+            <td><%=l member.membership_end %></td>
+            <% if @viewmodel.leader? %>
+              <td>
+                <%= button_to "Újraaktiválás", group_membership_reactivate_path(@viewmodel.group.id, member.membership_id),
+                 method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
+              </td>
+              <td>
+                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, member.membership_id),
+                method: :delete, data: {confirm: "Biztos vagy benne?"},
+                class: "uk-button-small uk-button-danger uk-button", remote: true %>
+              </td>
+            <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

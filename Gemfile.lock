@@ -55,7 +55,7 @@ GEM
       slim (>= 1.3.6, < 4.0)
       terminal-table (~> 1.4)
     builder (3.2.2)
-    byebug (6.0.2)
+    byebug (9.0.6)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -97,6 +97,18 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.5.1)
+    kaminari (1.0.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.1)
+      kaminari-activerecord (= 1.0.1)
+      kaminari-core (= 1.0.1)
+    kaminari-actionview (1.0.1)
+      actionview
+      kaminari-core (= 1.0.1)
+    kaminari-activerecord (1.0.1)
+      activerecord
+      kaminari-core (= 1.0.1)
+    kaminari-core (1.0.1)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -201,8 +213,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
-    turbolinks (2.5.3)
-      coffee-rails
+    timecop (0.8.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -224,6 +235,7 @@ DEPENDENCIES
   draper
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   omniauth
   omniauth-oauth2
   pg
@@ -234,7 +246,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-cron
   spring
-  turbolinks
+  timecop
   uglifier (>= 1.3.0)
   uikit-sass-rails
 
