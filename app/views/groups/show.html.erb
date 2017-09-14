@@ -30,8 +30,8 @@
             <td><%= @viewmodel.group.description %></td>
           </tr>
           <tr>
-            <th class="group-attr">Leader</th>
-            <td><%= @group.leader.user.full_name %></td>
+            <th class="group-attr">Körvezető</th>
+            <td><%= @viewmodel.group.leader.user.full_name %></td>
           </tr>
         </tbody>
       </table>
@@ -68,9 +68,15 @@
             </td>
             <td><%= l member.membership_start %></td>
             <% if @viewmodel.leader? %>
-              <td></td>
               <td>
-                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
+                <%= button_to "Posztok szerkesztése", group_membership_posts_path(@viewmodel.group.id, membership.id),
+                method: :get, class: "uk-button uk-button-primary uk-button-small" %>
+              </td>
+              <td>
+                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id) %>
+              </td>
+              <td>
+                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, membership.id),
                  method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
               </td>
               <td>

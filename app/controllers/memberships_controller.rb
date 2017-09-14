@@ -23,11 +23,4 @@ class MembershipsController < ApplicationController
   def reactivate
     Membership.update(params[:membership_id], membership_end: nil)
   end
-
-  private
-
-  def require_leader
-    unauthorized_page unless current_user.leader_of(Group.find(params[:group_id]))
-  end
-
 end

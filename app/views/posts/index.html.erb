@@ -1,0 +1,36 @@
+<h1><%= @membership.user.full_name %> posztjai</h1>
+
+<% @group.post_types.each do |post_type| %>
+  <p>
+    <% active_post = @membership.posts.any? { |post| post.post_type == post_type } %>
+
+    <% if active_post %>
+
+      <%= button_to "Poszt elvétele", group_membership_post_path(@group.id, @membership.id, 
+        @membership.posts.find { |post| post.post_type == post_type }.id),
+        method: :delete, class: "uk-button uk-button-danger uk-button-mini post-button",
+        form: {style: active_post ? 'display:inline-block;' : 'display:none'}, remote: true %>
+
+    <% else %>
+
+      <%= button_to "Poszt adása", group_membership_posts_path(@group.id, @membership.id),
+        method: :post, params: { post_type_id: post_type.id },
+        class: "uk-button uk-button-success uk-button-mini post-button",
+        form: {style: !active_post ? 'display:inline-block;' : 'display:none'}, remote: true %>
+
+    <% end %>
+    <%= post_type.name %>
+  </p>
+<% end %>
+
+Új poszt létrehozása:
+<%= form_for :post_type, url: group_post_types_path(@group.id) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.hidden_field :group_id, value: @group.id %>
+  <%= f.submit("Mehet!", class: "uk-button uk-button-primary") %>
+<% end %>
+
+<div class="uk-margin-large-top uk-margin uk-text-center" id="back-button-container">
+    <%= button_to "Vissza", group_path(@group.id), method: :get,
+      class: "uk-button uk-button-primary uk-button-large" %>
+</div>
