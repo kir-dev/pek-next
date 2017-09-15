@@ -16,12 +16,16 @@
  *= require_self
  */
 
-.inline-block {
-	display: inline-block;
+html {
+	background-color: #f7f7f7;
 }
 
-.hidden {
-	display: none;
+body {
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
 }
 
 .navbar {
@@ -29,17 +33,46 @@
 	right: 0;
 	left: 0;
 	top: 0;
-	height: 40px;
 	z-index: 1030;
 }
 
+
+.uk-navbar {
+	border-bottom: 1px solid #dcdcdc;
+}
+.uk-navbar {
+	background: #ffffff;
+	height: 64px;
+}
+.uk-navbar-toggle {
+	margin-top: 10px;
+}
+.uk-navbar-nav > li > a {
+	height: 64px;
+	padding: 0 15px;
+	line-height: 64px;
+}
+.uk-navbar-brand {
+	height: 64px;
+}
+.uk-dropdown {
+	padding: 0;
+	top: 64px;
+	border-right: 1px solid rgb(220, 220, 220);
+	border-bottom: 1px solid rgb(220, 220, 220);
+	border-left: 1px solid rgb(220, 220, 220);
+}
+
+.uk-dropdown .uk-nav {
+	margin: 0px;
+}
 .page-wrap {
 	min-height: 100%;
 	margin-bottom: -80px;
 }
 
 .search {
-	margin-top: 5px;
+	margin-top: 15px;
 }
 
 .notification {
@@ -49,10 +82,6 @@
 .page-wrap:after {
 	content: "";
 	display: block;
-}
-
-html, body {
-	height: 100%;
 }
 
 .tm-footer, .page-wrap:after {
@@ -78,4 +107,23 @@ html, body {
 
 .tm-footer p, .tm-footer ul {
 	margin: 0;
+}
+
+.uk-panel-box {
+	padding: 15px;
+	background-color: #ffffff;
+}
+
+#content-main {
+	background-color: #ffffff;
+	border: 1px solid #dcdcdc;
+	color: #444444;
+	box-shadow: rgb(235, 235, 235) 0px 0px 3px 0px;
+	padding: 20px;
+}
+
+@media all and (min-width:758px) {
+	.uk-margin-large {
+		margin-top: 90px;
+	}
 }
