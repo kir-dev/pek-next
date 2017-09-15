@@ -5,27 +5,27 @@
         <table class="uk-table uk-table-striped uk-table-hover">
           <tr>
             <td><%= f.label :name, class: "form-label-required" %></td>
-            <td><%= f.text_field :name, required: true %></td>
+            <td><%= f.text_field :name, class: 'uk-input', required: true %></td>
           </tr>
 
           <tr>
             <td><%= f.label :description %></td>
-            <td><%= f.text_area :description, cols: 35, rows: 5 %></td>
+            <td><%= f.text_area :description, class: 'uk-textarea', cols: 35, rows: 5 %></td>
           </tr>
 
           <tr>
             <td><%= f.label :webpage %></td>
-            <td><%= f.text_field :webpage %></td>
+            <td><%= f.text_field :webpage, class: 'uk-input' %></td>
           </tr>
 
           <tr>
             <td><%= f.label :founded %></td>
-            <td><%= f.text_field :founded %></td>
+            <td><%= f.text_field :founded, class: 'uk-input' %></td>
           </tr>
 
           <tr>
             <td><%= f.label :maillist %></td>
-            <td><%= f.text_field :maillist %>
+            <td><%= f.text_field :maillist, class: 'uk-input' %>
             </td>
           </tr>
 

@@ -127,3 +127,13 @@ html, body {
 		margin-top: 90px;
 	}
 }
+
+.uk-input, uk-textarea, .uk-select {
+    width: 90%;
+    height: 40px;
+    vertical-align: middle;
+    padding: 0 5%;
+    background: #fff;
+    color: #666;
+    border: 1px solid #e5e5e5;
+}
