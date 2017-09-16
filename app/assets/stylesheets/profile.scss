@@ -12,6 +12,21 @@ img {
 }
 
 .form-label-required::after {
-  content: "*";
-  padding-left: 3px;
+	content: "*";
+	padding-left: 3px;
+}
+
+.profile-container {
+	background-color: rgba(184, 185, 221, 0.8);
+}
+
+.uk-panel-box {
+	background: none;
+}
+
+#profile-picture {
+	border-radius: 10px;
+	border-color: rgb(185, 186, 230);
+	border-width: 8px;
+	padding: 0px;
 }

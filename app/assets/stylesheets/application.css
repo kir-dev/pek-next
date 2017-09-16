@@ -17,7 +17,9 @@
  */
 
 html {
-	background-color: #f7f7f7;
+	background-image: url("/img/bg_1.png");
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 body {
@@ -34,6 +36,7 @@ html, body {
 	left: 0;
 	top: 0;
 	z-index: 1030;
+	background-color: rgb(231, 232, 234);
 }
 
 
@@ -41,7 +44,6 @@ html, body {
 	border-bottom: 1px solid #dcdcdc;
 }
 .uk-navbar {
-	background: #ffffff;
 	height: 64px;
 }
 .uk-navbar-toggle {
@@ -111,14 +113,11 @@ html, body {
 
 .uk-panel-box {
 	padding: 15px;
-	background-color: #ffffff;
 }
 
 #content-main {
-	background-color: #ffffff;
-	border: 1px solid #dcdcdc;
 	color: #444444;
-	box-shadow: rgb(235, 235, 235) 0px 0px 3px 0px;
+	box-shadow: rgb(150, 150, 150) 0px 0px 3px 0px;
 	padding: 20px;
 }
 
@@ -129,11 +128,15 @@ html, body {
 }
 
 .uk-input, uk-textarea, .uk-select {
-    width: 90%;
-    height: 40px;
-    vertical-align: middle;
-    padding: 0 5%;
-    background: #fff;
-    color: #666;
-    border: 1px solid #e5e5e5;
+	width: 90%;
+	height: 40px;
+	vertical-align: middle;
+	padding: 0 5%;
+	background: #fff;
+	color: #666;
+	border: 1px solid #e5e5e5;
+}
+
+hr {
+	border-color: rgb(170, 170, 170);
 }

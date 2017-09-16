@@ -23,7 +23,7 @@ class UserDecorator < Draper::Decorator
 
   def nickname
     return if user.nickname.blank?
-    ['-', user.nickname].join(' ')
+    user.nickname
   end
 
 end
