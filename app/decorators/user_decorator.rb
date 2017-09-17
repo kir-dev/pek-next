@@ -26,4 +26,9 @@ class UserDecorator < Draper::Decorator
     user.nickname
   end
 
+  def compact_name
+    return user.full_name if user.nickname.blank?
+    [user.full_name, ' (', user.nickname, ')'].join
+  end
+
 end

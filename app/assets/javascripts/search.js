@@ -48,6 +48,7 @@ var search = (function(Helpers, Rx, $) {
                 document.title = "Keresés";
                 window.history.pushState({ "html" : resp.html, "pageTitle" : "Keresés"},"", "/search?query=" + query);
                 updateSuggestions(query);
+                $("#show-more").click(showMore);
             });
         }
     }

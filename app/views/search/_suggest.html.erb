@@ -1,12 +1,12 @@
 <% groups.each do |group| %>
-  <tr>
-    <td> <%= link_to group.name, group_path(group.id) %> </td>
-    <td> <%= group.description %> </td>
-  </tr>
+  <div class="search-result result-group">
+    <div> <%= link_to group.name, group_path(group.id), class: 'result-name' %> </div>
+    <div class="result-group-desc"> <%= group.description %> </div>
+  </div>
 <% end %>
 <% users.each do |user| %>
-  <tr>
-    <td> <%= link_to user.full_name, profile_path(user.screen_name) %> </td>
-    <td> <%= user.nickname %> </td>
-  </tr>
+  <div class="search-result result-user">
+    <div> <%= link_to user.compact_name, profile_path(user.screen_name), class: 'result-name' %> </div>
+    <div class="result-user-nick"> <%= user.room %> </div>
+  </div>
 <% end %>

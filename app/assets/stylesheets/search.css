@@ -1,0 +1,21 @@
+.search-result {
+	border-radius: 8px;
+	min-height: 70px;
+	clear: both;
+	margin: 8px;
+	padding: 7px 0px 7px 24px;
+}
+
+.result-group {
+	background-color: rgba(184, 201, 185, 0.8);
+}
+
+.result-user {
+	background-color: rgba(184, 185, 221, 0.8);
+}
+
+.result-name, a.result-name:hover {
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+}

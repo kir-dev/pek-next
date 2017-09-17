@@ -5,12 +5,8 @@ class GroupMember
   end
 
   def posts
-    if @membership.post_types.empty?
-      return 'tag'
-    end
-    unless @membership.end.nil?
-      return 'öregtag'
-    end
+    return 'tag' if @membership.post_types.empty?
+    return 'öregtag' unless @membership.end.nil?
     @membership.post_types.map(&:pttip_name).join(', ')
   end
 

@@ -182,3 +182,7 @@ input#search-field {
 .white-text, a.white-text:hover {
 	color: white;
 }
+
+.hidden {
+	display: none;
+}
