@@ -28,7 +28,8 @@ class GroupsController < ApplicationController
   end
 
   def delegates
-    @eligible_members = Group.find(params[:group_id]).members.where(svie_member_type: 'RENDESTAG')
+    @group = Group.find(params[:group_id])
+    @eligible_members = @group.members.where(svie_member_type: 'RENDESTAG')
       .select { |user| user.primary_membership.group_id == params[:group_id].to_i && user.primary_membership.end.nil? }
   end
 
