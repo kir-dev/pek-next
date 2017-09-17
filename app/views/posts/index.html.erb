@@ -9,13 +9,13 @@
 
       <%= button_to "Poszt elvétele", group_membership_post_path(@group.id, @membership.id, 
         @membership.posts.find { |post| post.post_type == post_type }.id),
-        method: :delete, class: "uk-button uk-button-danger uk-button-mini post-button",
+        action: :destroy, method: :delete, class: "uk-button uk-button-danger uk-button-mini post-button",
         form: {style: active_post ? 'display:inline-block;' : 'display:none'}, remote: true %>
 
     <% else %>
 
       <%= button_to "Poszt adása", group_membership_posts_path(@group.id, @membership.id),
-        method: :post, params: { post_type_id: post_type.id },
+        action: :create, params: { post_type_id: post_type.id },
         class: "uk-button uk-button-success uk-button-mini post-button",
         form: {style: !active_post ? 'display:inline-block;' : 'display:none'}, remote: true %>
 
