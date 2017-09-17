@@ -39,6 +39,20 @@ html, body {
 	background-color: rgb(231, 232, 234);
 }
 
+.navbar-item {
+	border-left: 2px solid rgb(210, 210, 210);
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.uk-navbar-nav {
+	text-align: center;
+}
+
+
+#pek-logo {
+	margin-top: 11px;
+}
 
 .uk-navbar {
 	border-bottom: 1px solid #dcdcdc;
@@ -53,9 +67,11 @@ html, body {
 	height: 64px;
 	padding: 0 15px;
 	line-height: 64px;
+	font-size: 16px;
 }
 .uk-navbar-brand {
-	height: 64px;
+	vertical-align: center;
+	height: 40px;
 }
 .uk-dropdown {
 	padding: 0;
@@ -139,4 +155,17 @@ html, body {
 
 hr {
 	border-color: rgb(170, 170, 170);
+}
+
+input#search-field {
+	background-color: rgb(197, 198, 200);
+	border-radius: 5px;
+	height: 35px;
+	text-align: right;
+}
+
+#search-button {
+	background-color: rgb(207, 208, 210);
+	border-radius: 5px;
+	height: 35px;
 }

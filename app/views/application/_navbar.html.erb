@@ -1,10 +1,12 @@
 <nav class="navbar data-uk-sticky uk-navbar uk-hidden-small">
   <div class="uk-container uk-container-center">
-    <%= link_to "PékNext!", root_url, class:"uk-navbar-brand" %>
+
+    <%= link_to image_tag('/img/pek_logo.png', class:'uk-navbar-brand', id: 'pek-logo'), root_url %>
     <ul class="uk-navbar-nav">
 
-      <li aria-expanded="false" aria-haspopup="true" class="uk-parent" data-uk-dropdown="">
-        <%= link_to "Profilom", root_url %>
+
+      <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="">
+        <%= link_to "Profilom", root_url, class: "nav-button" %>
         <div style="top: 64px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
           <ul class="uk-nav uk-nav-navbar">
             <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
@@ -14,8 +16,8 @@
         </div>
       </li>
 
-      <li aria-expanded="false" aria-haspopup="true" class="uk-parent" data-uk-dropdown="">
-        <a>Közösség</a>
+      <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="">
+        <a class="nav-button">Közösség</a>
         <div style="top: 64px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
           <ul class="uk-nav uk-nav-navbar">
             <li><%= link_to "Közösségi történet", root_url %></li>
