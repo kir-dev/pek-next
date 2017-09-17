@@ -24,4 +24,32 @@ class UserTest < ActionController::TestCase
     assert user.valid?
     assert_empty user.errors[:cell_phone]
   end
+
+  test "membership for group" do
+    assert true #TODO
+  end
+
+  test "primary membership" do
+    membership = users(:user_with_primary_membership).primary_membership
+    assert_equal grp_membership(:user_with_primary_membership), membership
+  end
+
+  test "when primary membership id not definied" do
+    membership = users(:sanyi).primary_membership
+    assert_nil membership
+  end
+
+  test "non-svie primary membership should be forbidden" do
+    user = users(:user_with_primary_membership)
+    user.svie_primary_membership = grp_membership(:non_svie_membership).id
+    refute user.valid?
+    refute_empty user.errors[:svie_primary_membership]
+  end
+
+  test "primary membership should be forbidden for newbies" do
+    user = users(:user_with_primary_membership)
+    user.svie_primary_membership = grp_membership(:newbie_membership).id
+    refute user.valid?
+    refute_empty user.errors[:svie_primary_membership]
+  end
 end

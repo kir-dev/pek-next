@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
 
+  get '/svie/edit', to: 'svie#edit'
+  post '/svie/update', to: 'svie#update'
+
   root to: redirect('/profiles/me')
   resources :groups, only: [:show, :index, :edit, :update] do
     resources :memberships, only: [:create, :destroy] do
@@ -23,9 +26,14 @@ Rails.application.routes.draw do
       resources :posts, only: [:index, :create, :destroy]
     end
     resources :post_types, only: [:create]
+    get '/delegates', to: 'groups#delegates'
+    post '/delegate', to: 'groups#set_delegate'
+    delete '/delegate', to: 'groups#delete_delegate'
   end
 
   post '/privacies/update', to: 'privacies#update'
+
+  resources :delegates, only: [:index]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

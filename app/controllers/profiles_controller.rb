@@ -14,7 +14,10 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+
+  ## Ez kell ide? a correct_user nem ezt csinálja meg?
     @user = User.find_by(screen_name: params[:id])
+
   end
 
   def update
