@@ -12,7 +12,7 @@ class Group < ActiveRecord::Base
   alias_attribute :head, :grp_head
   alias_attribute :founded, :grp_founded
   alias_attribute :issvie, :grp_issvie
-  alias_attribute :svie_delegate_nr, :grp_svie_delegate_nr
+  alias_attribute :delegate_count, :grp_svie_delegate_nr
   alias_attribute :users_can_apply, :grp_users_can_apply
 
   has_many :memberships, foreign_key: :grp_id
