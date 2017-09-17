@@ -178,3 +178,7 @@ input#search-field {
 #registration-container {
 	background-color: white;
 }
+
+.white-text, a.white-text:hover {
+	color: white;
+}

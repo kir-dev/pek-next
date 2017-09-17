@@ -32,7 +32,7 @@
           </tr>
           <tr>
             <th class="group-attr">Körvezető</th>
-            <td><%= @viewmodel.group.leader.user.full_name %></td>
+            <td><%= @viewmodel.group.leader.user.full_name if @viewmodel.group.leader %></td>
           </tr>
         </tbody>
       </table>

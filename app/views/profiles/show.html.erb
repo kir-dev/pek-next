@@ -7,7 +7,7 @@
           <%= image_tag photo_path(@user_presenter.screen_name), class: "uk-thumbnail", alt: @user_presenter.full_name, id: 'profile-picture' %>
           </div>
           <div class="uk-width-2-3">
-            <h1 class="uk-h1">
+            <h1 class="uk-h1 uk-text-bold">
               <%= @user_presenter.full_name %>
             </h1>
             <h3 class="uk-h3">
@@ -20,6 +20,21 @@
             <hr>
           </div>
         </div>
+
+        <% own_memberships do |membership| %>
+          <div class="profile-membership">
+            <div class="profile-membership-name">
+              <%= link_to membership.group_name, group_path(membership.group_id), class: 'white-text' %>
+            </div>
+            <div class="profile-membership-post white-text">
+              <%= membership.posts %>
+            </div>
+            <div class="profile-membership-start white-text">
+              <%= membership.membership_timer %>
+            </div>
+          </div>
+        <% end %>
+
       </div>
     </div>
   </div>

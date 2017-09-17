@@ -6,11 +6,12 @@ class GroupMember
 
   def posts
     if @membership.post_types.empty?
-      return 'Tag'
+      return 'tag'
     end
-    
+    unless @membership.end.nil?
+      return 'öregtag'
+    end
     @membership.post_types.map(&:pttip_name).join(', ')
-    
   end
 
   def full_name
@@ -31,6 +32,22 @@ class GroupMember
 
   def membership_id
     @membership.id
+  end
+
+  def group_id
+    @membership.group.id
+  end
+
+  def group_name
+    @membership.group.name
+  end
+
+  def membership_timer
+    if @membership.end
+      [@membership.start, @membership.end].join(' - ')
+    else
+      "#{@membership.start}-től"
+    end
   end
 
 end
