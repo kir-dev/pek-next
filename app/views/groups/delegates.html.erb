@@ -1,36 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tagok listázása</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>név</th>
-        <th>Becenév</th>
-        <th>Küldött-e?</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @eligible_members.each do |member| %>
+<div id="content-main" class="neutral-content">
+  <h1>Körtagok</h1>
+  <h5>Akik aktív SVIE tagok és elsődleges körük a <%= @group.name %></h5>
+  <h5><%= @group.delegate_count %> tagot kell delegálnod.</h5>
+  <div class="uk-width-1-2 uk-container-center">
+  
+    <table class="uk-table uk-table-striped uk-table-hover">
+      <thead>
         <tr>
-          <td><%= member.full_name %></td>
-          <td><%= member.nickname %></td>
-          <td>
-            <% if member.delegated %>
-              <%= button_to "Küldés", group_delegate_path(params[:group_id]), 
-                params: { member_id: member.id}, method: :delete,
-                class: "uk-button uk-button-success uk-button-mini post-button",
-                form: {style: member.delegated ? 'display:inline-block;' : 'display:none'}, remote: false %>
-
-            <% else %>
-              <%= button_to "Visszahívás", group_delegate_path(params[:group_id]),
-                method: :post, params: { member_id: member.id},
-                class: "uk-button uk-button-danger uk-button-mini post-button",
-                form: {style: !member.delegated ? 'display:inline-block;' : 'display:none'}, remote: false %>
-
-            <% end %>
-
-           </td>
+          <th>Név</th>
+          <th>Becenév</th>
+          <th>Küldöttség</th>
         </tr>
-      <% end %>
-    </tbody>
-</table>
+      </thead>
+      <tbody>
+        <% @eligible_members.each do |member| %>
+          <tr>
+            <td><%= member.full_name %></td>
+            <td><%= member.nickname %></td>
+            <td>
+              <% if member.delegated %>
+                <%= button_to "Visszahívás", group_delegate_path(params[:group_id]),
+                  method: :delete, params: { member_id: member.id},
+                  class: "uk-button uk-button-danger uk-button-mini post-button", remote: false %>
+
+              <% else %>
+                <%= button_to "Küldés", group_delegate_path(params[:group_id]), 
+                  params: { member_id: member.id}, method: :post,
+                  class: "uk-button uk-button-success uk-button-mini post-button", remote: false %>
+
+              <% end %>
+
+             </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
