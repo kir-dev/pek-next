@@ -169,3 +169,12 @@ input#search-field {
 	border-radius: 5px;
 	height: 35px;
 }
+
+.neutral-content {
+	background-color: white;
+	margin-top: 60px;
+}
+
+#registration-container {
+	background-color: white;
+}

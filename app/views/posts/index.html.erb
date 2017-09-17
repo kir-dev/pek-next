@@ -1,3 +1,4 @@
+<div id="content-main" class="neutral-content">
 <h1><%= @membership.user.full_name %> posztjai</h1>
 
 <% @group.post_types.each do |post_type| %>
@@ -33,4 +34,5 @@
 <div class="uk-margin-large-top uk-margin uk-text-center" id="back-button-container">
     <%= button_to "Vissza", group_path(@group.id), method: :get,
       class: "uk-button uk-button-primary uk-button-large" %>
+</div>
 </div>

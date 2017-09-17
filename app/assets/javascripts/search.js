@@ -43,7 +43,7 @@ var search = (function(Helpers, Rx, $) {
                 url: '/search',
                 data: {query: query}
             }).done(function (resp) {
-                $('#content-main').html($(resp).find("#content-main").html());
+                $('#content-container').html($(resp).filter("#content-container").html());
 
                 document.title = "Keresés";
                 window.history.pushState({ "html" : resp.html, "pageTitle" : "Keresés"},"", "/search?query=" + query);
