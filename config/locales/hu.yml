@@ -8,6 +8,7 @@ hu:
 
   edit_successful: Sikeres mentés!
   register_successful: Sikeres regisztráció!
+  too_many_delegates: Túl sok küldöttet szeretnél beállítani!
   activerecord:
     attributes:
       user:
