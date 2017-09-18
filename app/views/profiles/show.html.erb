@@ -24,12 +24,12 @@
         <% own_memberships do |membership| %>
           <div class="profile-membership">
             <div class="profile-membership-name">
-              <%= link_to membership.group_name, group_path(membership.group_id), class: 'white-text' %>
+              <%= link_to membership.group_name, group_path(membership.group_id), class: 'dark-text' %>
             </div>
-            <div class="profile-membership-post white-text">
+            <div class="profile-membership-post dark-text">
               <%= membership.posts %>
             </div>
-            <div class="profile-membership-start white-text">
+            <div class="profile-membership-start dark-text">
               <%= membership.membership_timer %>
             </div>
           </div>

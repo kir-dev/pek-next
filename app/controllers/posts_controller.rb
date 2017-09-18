@@ -10,10 +10,12 @@ class PostsController < ApplicationController
   def create
     @membership = Membership.find(params[:membership_id])
     Post.create(grp_member_id: @membership.id, post_type_id: params[:post_type_id])
+    redirect_to :back
   end
 
   def destroy
     Post.delete(params[:id])
+    redirect_to :back
   end
 
 end

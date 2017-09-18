@@ -3,7 +3,7 @@
     <%= form_for(@group) do |f| %>
         <%= render 'form_errors', errors: f.object.errors %>
 
-        <table class="uk-table uk-table-striped uk-table-hover">
+        <table class="uk-table uk-table-striped uk-table-hover white-bg">
           <tr>
             <td><%= f.label :name, class: "form-label-required" %></td>
             <td><%= f.text_field :name, class: 'uk-input', required: true %></td>

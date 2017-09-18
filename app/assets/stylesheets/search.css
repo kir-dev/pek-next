@@ -1,9 +1,9 @@
 .search-result {
 	border-radius: 8px;
-	min-height: 70px;
+	min-height: 65px;
 	clear: both;
 	margin: 8px;
-	padding: 7px 0px 7px 24px;
+	padding: 15px 0px 7px 24px;
 }
 
 .result-group {
@@ -18,4 +18,13 @@
 	font-size: 20px;
 	font-weight: bold;
 	color: black;
+}
+
+.search-container {
+	background-color: rgba(255, 255, 255, 0.7);
+	margin-top: 60px;
+}
+
+#show-more {
+	background-color: #BBB;
 }

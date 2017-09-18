@@ -3,7 +3,7 @@
     <%= form_for(@user, as: :profile, url: profile_path(@user.screen_name)) do |f| %>
         <%= render 'form_errors', errors: f.object.errors %>
 
-        <table class="uk-table uk-table-striped uk-table-hover">
+        <table class="uk-table uk-table-striped uk-table-hover white-bg">
           <tr>
             <td><%= f.label :lastname, class: "form-label-required" %></td>
             <td><%= f.text_field :lastname, class: 'uk-input', required: true %></td>

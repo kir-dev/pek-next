@@ -171,18 +171,18 @@ input#search-field {
 }
 
 .neutral-content {
-	background-color: white;
+	background-color: rgba(255, 255, 255, 0.8);
 	margin-top: 60px;
 }
 
-#registration-container {
-	background-color: white;
-}
-
-.white-text, a.white-text:hover {
-	color: white;
+.dark-text, a.dark-text:hover {
+	color: #272727;
 }
 
 .hidden {
 	display: none;
+}
+
+.white-bg {
+	background-color: white;
 }
