@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @all_fckin_user.each do |u| %>
+    <% @delegates.each do |u| %>
       <tr>
         <td><%= u.full_name %></td>
         <td><%= u.primary_membership.group.name %></td>
@@ -23,4 +23,4 @@
   </tbody>
 </table>
 
-<%= paginate @all_fckin_user %>
+<%= paginate @delegates %>

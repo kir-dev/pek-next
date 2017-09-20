@@ -21,4 +21,10 @@ class Group < ActiveRecord::Base
   def user_can_join?(current_user)
     !users_can_apply || current_user.membership_for(self)
   end
+
+  def can_delegate_more
+    delegates = members.where(delegated: true)
+     .select { |user| user.primary_membership.group == self && user.primary_membership.end.nil? }
+    delegates.length < delegate_count
+  end
 end
