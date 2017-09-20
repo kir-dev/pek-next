@@ -26,9 +26,9 @@ Rails.application.routes.draw do
       resources :posts, only: [:index, :create, :destroy]
     end
     resources :post_types, only: [:create]
-    get '/delegates', to: 'groups#delegates'
-    post '/delegate', to: 'groups#set_delegate'
-    delete '/delegate', to: 'groups#delete_delegate'
+    get '/delegates', to: 'delegates#show'
+    post '/delegate', to: 'delegates#create'
+    delete '/delegate', to: 'delegates#destroy'
   end
 
   post '/privacies/update', to: 'privacies#update'

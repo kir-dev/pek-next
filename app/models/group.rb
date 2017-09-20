@@ -31,4 +31,10 @@ class Group < ActiveRecord::Base
   def post_types
     own_post_types + PostType.where(group: nil)
   end
+
+  def can_delegate_more
+    delegates = members.where(delegated: true)
+     .select { |user| user.primary_membership.group == self && user.primary_membership.end.nil? }
+    delegates.length < delegate_count
+  end
 end
