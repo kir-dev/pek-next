@@ -23,12 +23,12 @@
               <% if member.delegated %>
                 <%= button_to "Visszahívás", group_delegate_path(params[:group_id]),
                   method: :delete, params: { member_id: member.id},
-                  class: "uk-button uk-button-danger uk-button-mini post-button", remote: false %>
+                  class: "uk-button uk-button-danger uk-button-mini", remote: false %>
 
               <% else %>
                 <%= button_to "Küldés", group_delegate_path(params[:group_id]), 
                   params: { member_id: member.id}, method: :post,
-                  class: "uk-button uk-button-success uk-button-mini post-button", remote: false %>
+                  class: "uk-button uk-button-success uk-button-mini", remote: false %>
 
               <% end %>
 
