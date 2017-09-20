@@ -58,4 +58,8 @@ class User < ActiveRecord::Base
     membership = membership_for(group)
     membership && membership.leader?
   end
+
+  def roles
+    @roles ||= UserRole.new(self)
+  end
 end

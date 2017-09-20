@@ -1,9 +1,13 @@
 <div id="content-main" class="neutral-content">
-<div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
+  <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
+  <h1>Profil szerkesztése</h1>
     <%= form_for(@user, as: :profile, url: profile_path(@user.screen_name)) do |f| %>
         <%= render 'form_errors', errors: f.object.errors %>
 
         <table class="uk-table uk-table-striped uk-table-hover white-bg">
+        <th></th>
+        <th></th>
+        <th>Láthatóság</th>
           <tr>
             <td><%= f.label :lastname, class: "form-label-required" %></td>
             <td><%= f.text_field :lastname, class: 'uk-input', required: true %></td>
@@ -99,5 +103,5 @@
             </div>
         <% end %>
     </div>
-</div>
+  </div>
 </div>

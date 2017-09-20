@@ -28,6 +28,18 @@
           </ul>
         </div>
       </li>
+
+      <% if current_user.roles.svie_admin? %>
+        <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="">
+          <a class="nav-button">SVIE admin</a>
+          <div style="top: 64px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
+            <ul class="uk-nav uk-nav-navbar">
+              <li><%= link_to "Küldöttek export", delegates_path %></li>
+            </ul>
+          </div>
+        </li>
+      <% end %>
+
     </ul>
 
     <%= render 'search' %>
