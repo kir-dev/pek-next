@@ -128,7 +128,13 @@ GEM
     omniauth-oauth2 (1.3.1)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
+    pdf-core (0.7.0)
     pg (0.18.3)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -208,6 +214,7 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.1)
     timecop (0.8.1)
+    ttfunk (1.5.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -232,6 +239,7 @@ DEPENDENCIES
   omniauth
   omniauth-oauth2
   pg
+  prawn-table
   rails (= 4.2.4)
   rxjs-rails
   sass-rails (~> 5.0)
@@ -244,4 +252,4 @@ DEPENDENCIES
   uikit-sass-rails
 
 BUNDLED WITH
-   1.10.6
+   1.15.4

@@ -28,6 +28,8 @@ gem 'uikit-sass-rails'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
+gem 'prawn-table'
+
 # Reactive javascript extension
 gem 'rxjs-rails'
 
