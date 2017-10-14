@@ -15,7 +15,7 @@ class DetailedPointHistory
   end
 
   def semester
-    Semester.new(@evaluation.date)
+    Semester.new(@evaluation.date).to_readable
   end
 
   def point
