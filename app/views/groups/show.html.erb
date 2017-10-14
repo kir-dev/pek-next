@@ -53,7 +53,7 @@
           </tr>
         </thead>
         <tbody>
-          <% active_users do |member| %>
+          <% active_users(@viewmodel.group) do |member| %>
           <tr>
             <td><%= member.full_name %></td>
             <td><%= member.nickname %></td>
@@ -90,7 +90,7 @@
           </tr>
         </thead>
         <tbody>
-          <% inactive_users do |member| %>
+          <% inactive_users(@viewmodel.group) do |member| %>
           <tr>
             <td><%= member.full_name %></td>
             <td><%= member.nickname %></td>
