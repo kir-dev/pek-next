@@ -38,7 +38,7 @@
 
       <% end %>
       <h2 class="uk-h2">Aktív tagok</h2>
-      <table class="uk-table uk-table-striped uk-table-hover">
+      <table class="uk-table uk-table-striped uk-table-hover" id="active_users">
         <thead>
           <tr>
             <th>Név</th>
@@ -77,6 +77,7 @@
           <% end %>
         </tbody>
       </table>
+      <%= paginate @active_users, :param_name => 'active_users_page' %>
 
       <h2 class="uk-h2">Öregtagok</h2>
       <table class="uk-table uk-table-striped uk-table-hover">
@@ -114,6 +115,8 @@
           <% end %>
         </tbody>
       </table>
+      <%= paginate @inactive_users, :param_name => 'inactive_users_page' %>
+
     </div>
   </div>
 </div>
