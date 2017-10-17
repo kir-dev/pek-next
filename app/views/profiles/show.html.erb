@@ -47,24 +47,23 @@
             <% end %>
           </li>
           <li>
-            <table class="profile-history uk-table uk-table-striped">
-              <thead>
-                <tr>
-                  <th>Kör</th>
-                  <th>Pont</th>
-                  <th>Félév</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% user_detailed_point_history do |point_history| %>
-                  <tr>
-                    <td><%= link_to point_history.group_name, group_path(point_history.group_id) %></td>
-                    <td><%= point_history.semester %></td>
-                    <td><%= point_history.point %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+            <% years_with_points(@user_presenter.pointrequests) do |year| %>
+              <div class="uk-accordion" data-uk-accordion="{collapse:true, showfirst:false}">
+                <h3 class="uk-accordion-title"><%= year.to_readable %></h3>
+                <div class="uk-accordion-content">
+                  <table class="profile-history uk-table uk-table-striped white-bg">
+                    <tbody>
+                      <% user_detailed_point_history(@user_presenter.pointrequests, year) do |point_history| %>
+                        <tr>
+                          <td><%= link_to point_history.group_name, group_path(point_history.group_id) %></td>
+                          <td><%= point_history.point %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            <% end %>
           </li>
         </ul>
 
