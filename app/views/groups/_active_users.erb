@@ -1,0 +1,40 @@
+<table class="uk-table uk-table-striped uk-table-hover" id="active_users">
+<thead>
+  <tr>
+    <th>Név</th>
+    <th>Becenév</th>
+    <th>Betöltött poszt</th>
+    <th>Tagság kezdete</th>
+    <% if @viewmodel.leader? %>
+      <th>Posztok állítása</th>
+      <th>Öregtaggá avatás</th>
+      <th>Törlés</th>
+    <% end %>
+  </tr>
+</thead>
+<tbody>
+  <% active_users(@viewmodel.group) do |member| %>
+  <tr>
+    <td><%= member.full_name %></td>
+    <td><%= member.nickname %></td>
+    <td>
+      <%= member.posts %>
+    </td>
+    <td><%= l member.membership_start %></td>
+    <% if @viewmodel.leader? %>
+      <td></td>
+      <td>
+        <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
+         method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
+      </td>
+      <td>
+        <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, member.membership_id),
+        method: :delete, data: {confirm: "Biztos vagy benne?"},
+        class: "uk-button-small uk-button-danger uk-button", remote: true %>
+      </td>
+    <% end %>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+
