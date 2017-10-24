@@ -41,90 +41,22 @@
           <%= link_to 'Küldöttek', group_delegates_path(@group), class: 'uk-button uk-button-primary' %>
       <% end %>
       <% if @viewmodel.group.users_can_apply && !@own_membership %>
-        <%= form_tag group_memberships_path(@viewmodel.group), {method: 'post'} do %>
-          <%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
-        <% end %>
+          <%= form_tag group_memberships_path(@viewmodel.group), {method: 'post'} do %>
+              <%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
+          <% end %>
+
       <% end %>
       <h2 class="uk-h2">Aktív tagok</h2>
-      <table class="uk-table uk-table-striped uk-table-hover white-bg">
-        <thead>
-          <tr>
-            <th>Név</th>
-            <th>Becenév</th>
-            <th>Betöltött poszt</th>
-            <th>Tagság kezdete</th>
-            <% if @viewmodel.leader? %>
-              <th>Posztok állítása</th>
-              <th>Öregtaggá avatás</th>
-              <th>Törlés</th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% active_users do |member| %>
-          <tr>
-            <td><%= member.full_name %></td>
-            <td><%= member.nickname %></td>
-            <td>
-              <%= member.posts %>
-            </td>
-            <td><%= l member.membership_start %></td>
-            <% if @viewmodel.leader? %>
-              <td>
-                <%= button_to "Posztok szerkesztése", group_membership_posts_path(@viewmodel.group.id, member.membership_id),
-                method: :get, class: "uk-button uk-button-primary uk-button-small" %>
-              </td>
-              <td>
-                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
-                 method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
-              </td>
-              <td>
-                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, member.membership_id),
-                method: :delete, data: {confirm: "Biztos vagy benne?"},
-                class: "uk-button-small uk-button-danger uk-button", remote: true %>
-              </td>
-            <% end %>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= render "active_users" %>
+      <div id="active_users_paginate">
+        <%= paginate @active_users, :param_name => 'active_users_page', :remote => true %>
+      </div>
 
       <h2 class="uk-h2">Öregtagok</h2>
-      <table class="uk-table uk-table-striped uk-table-hover white-bg">
-        <thead>
-          <tr>
-            <th>Név</th>
-            <th>Becenév</th>
-            <th>Betöltött poszt</th>
-            <th>Tagság kezdete</th>
-            <th>Tagság vége</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% inactive_users do |member| %>
-          <tr>
-            <td><%= member.full_name %></td>
-            <td><%= member.nickname %></td>
-            <td>
-              <%= member.posts %>
-            </td>
-            <td><%=l member.membership_start %></td>
-            <td><%=l member.membership_end %></td>
-            <% if @viewmodel.leader? %>
-              <td>
-                <%= button_to "Újraaktiválás", group_membership_reactivate_path(@viewmodel.group.id, member.membership_id),
-                 method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
-              </td>
-              <td>
-                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, member.membership_id),
-                method: :delete, data: {confirm: "Biztos vagy benne?"},
-                class: "uk-button-small uk-button-danger uk-button", remote: true %>
-              </td>
-            <% end %>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= render "inactive_users" %>
+      <div id="inactive_users_paginate">
+        <%= paginate @inactive_users, :param_name => 'inactive_users_page', :remote => true %>
+      </div>
     </div>
   </div>
 </div>
