@@ -45,3 +45,10 @@ hu:
               taken: már regisztrálva van!
             bme_id:
               taken: már regisztrálva van!
+  views:
+    pagination:
+      first: "Első"
+      previous: "&laquo; Előző"
+      next: "Következő &raquo;"
+      last: "Utolsó"
+      truncate: "..."

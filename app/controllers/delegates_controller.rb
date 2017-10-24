@@ -1,6 +1,7 @@
 class DelegatesController < ApplicationController
   before_action :require_login
   before_action :require_leader, only: [:show, :create, :destroy]
+  before_action :require_svie_admin, only: [:index, :export]
 
   def index
     @delegates = User.where(delegated: true).order(:firstname).page(params[:page]).per(params[:per])
