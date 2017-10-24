@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     unauthorized_page unless @own_membership && @own_membership.leader?
   end
 
+  def require_svie_admin
+    redirect_to root_url unless current_user.roles.svie_admin?
+  end
+
   def current_user
     if ENV['NONAUTH']
       return impersonate_user
