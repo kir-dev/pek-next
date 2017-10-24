@@ -1,12 +1,20 @@
 <% groups.each do |group| %>
-  <div class="search-result result-group">
-    <div> <%= link_to group.name, group_path(group.id), class: 'result-name' %> </div>
-    <div class="result-group-desc"> <%= group.description %> </div>
-  </div>
+    <div class="uk-grid uk-grid-collapse uk-panel uk-panel-box dark uk-margin-small-top uk-margin-small-bottom uk-width-1-1 group-search">
+      <div class="uk-width-1-1">
+        <%= link_to group.name, group_path(group.id), class: 'result-name uk-h3' %>
+      </div>
+      <div class="uk-width-1-1 uk-text-break">
+        <%= truncate group.description, length: 200 %>
+      </div>
+    </div>
 <% end %>
 <% users.each do |user| %>
-  <div class="search-result result-user">
-    <div> <%= link_to user.compact_name, profile_path(user.screen_name), class: 'result-name' %> </div>
-    <div class="result-user-nick"> <%= user.room %> </div>
-  </div>
+    <div class="uk-grid uk-grid-collapse uk-panel uk-panel-box dark uk-margin-small-top uk-margin-small-bottom uk-width-1-1 user-search">
+      <div class="uk-width-1-1">
+        <%= link_to user.compact_name, profile_path(user.screen_name), class: 'result-name uk-h3' %>
+      </div>
+      <div class="uk-width-1-1">
+        <%= user.room %>
+      </div>
+    </div>
 <% end %>

@@ -12,89 +12,51 @@
  *
  *= require uikit
  *= require cropper.min
- *= require_tree .
+ *= require search
  *= require_self
  */
 
-html {
-	background-image: url("/img/bg_1.png");
-	background-size: cover;
-	background-attachment: fixed;
+.notification {
+	z-index: 1020;
 }
 
-body {
-	margin: 0;
+.uk-dropdown {
+	background-color: #fff;
+}
+
+.uk-dropdown, .uk-panel-box {
+	outline: 1px solid #d4d4d4;
+}
+
+.uk-light {
+	color: #fff !important;
+}
+
+.dark {
+	background-color: #f5f5f5 !important;
 }
 
 html, body {
 	height: 100%;
+	background-color: #f5f5f5;
 }
 
-.navbar {
-	position: fixed;
-	right: 0;
-	left: 0;
-	top: 0;
-	z-index: 1030;
-	background-color: rgb(231, 232, 234);
-}
-
-.navbar-item {
-	border-left: 2px solid rgb(210, 210, 210);
-	padding-left: 30px;
-	padding-right: 30px;
-}
-
-.uk-navbar-nav {
-	text-align: center;
-}
-
-
-#pek-logo {
-	margin-top: 11px;
+.uk-panel-box {
+	background-color: #fff;
 }
 
 .uk-navbar {
-	border-bottom: 1px solid #dcdcdc;
-}
-.uk-navbar {
-	height: 64px;
-}
-.uk-navbar-toggle {
-	margin-top: 10px;
-}
-.uk-navbar-nav > li > a {
-	height: 64px;
-	padding: 0 15px;
-	line-height: 64px;
-	font-size: 16px;
-}
-.uk-navbar-brand {
-	vertical-align: center;
-	height: 40px;
-}
-.uk-dropdown {
-	padding: 0;
-	top: 64px;
-	border-right: 1px solid rgb(220, 220, 220);
-	border-bottom: 1px solid rgb(220, 220, 220);
-	border-left: 1px solid rgb(220, 220, 220);
+	background-color: #000;/*rgb(58, 58, 58);/*rgba(204, 204, 204, 0.83);
+	border-top: 6px solid #b4b4b4;*/
 }
 
-.uk-dropdown .uk-nav {
-	margin: 0px;
+.uk-navbar-nav>li>a {
+	color: #f5f5f5;
 }
+
 .page-wrap {
 	min-height: 100%;
 	margin-bottom: -80px;
-}
-
-.search {
-	margin-top: 15px;
-}
-
-.notification {
-	z-index: 1020;
 }
 
 .page-wrap:after {
@@ -125,64 +87,4 @@ html, body {
 
 .tm-footer p, .tm-footer ul {
 	margin: 0;
-}
-
-.uk-panel-box {
-	padding: 15px;
-}
-
-#content-main {
-	color: #444444;
-	box-shadow: rgb(150, 150, 150) 0px 0px 3px 0px;
-	padding: 20px;
-}
-
-@media all and (min-width:758px) {
-	.uk-margin-large {
-		margin-top: 90px;
-	}
-}
-
-.uk-input, uk-textarea, .uk-select {
-	width: 90%;
-	height: 40px;
-	vertical-align: middle;
-	padding: 0 5%;
-	background: #fff;
-	color: #666;
-	border: 1px solid #e5e5e5;
-}
-
-hr {
-	border-color: rgb(170, 170, 170);
-}
-
-input#search-field {
-	background-color: rgb(197, 198, 200);
-	border-radius: 5px;
-	height: 35px;
-	text-align: right;
-}
-
-#search-button {
-	background-color: rgb(207, 208, 210);
-	border-radius: 5px;
-	height: 35px;
-}
-
-.neutral-content {
-	background-color: rgba(255, 255, 255, 0.8);
-	margin-top: 60px;
-}
-
-.dark-text, a.dark-text:hover {
-	color: #272727;
-}
-
-.hidden {
-	display: none;
-}
-
-.white-bg {
-	background-color: white;
 }

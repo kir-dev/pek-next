@@ -1,3 +1,5 @@
+<% stylesheet 'admin' %>
+
 <div id="content-main" class="neutral-content">
 <h1><%= @membership.user.full_name %> posztjai</h1>
 
@@ -7,7 +9,7 @@
 
     <% if active_post %>
 
-      <%= button_to "Poszt elvétele", group_membership_post_path(@group.id, @membership.id, 
+      <%= button_to "Poszt elvétele", group_membership_post_path(@group.id, @membership.id,
         @membership.posts.find { |post| post.post_type == post_type }.id),
         action: :destroy, method: :delete, class: "uk-button uk-button-danger uk-button-mini" %>
 

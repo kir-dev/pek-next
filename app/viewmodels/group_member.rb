@@ -18,6 +18,10 @@ class GroupMember
     @membership.user.nickname
   end
 
+  def screen_name
+    @membership.user.screen_name
+  end
+
   def membership_start
     @membership.start
   end
@@ -42,7 +46,7 @@ class GroupMember
     if @membership.end
       [@membership.start, @membership.end].join(' - ')
     else
-      "#{@membership.start}-től"
+      "#{@membership.start} -"
     end
   end
 

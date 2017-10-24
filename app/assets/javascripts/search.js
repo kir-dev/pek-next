@@ -21,7 +21,7 @@ var search = (function(Helpers, Rx, $) {
 
             inputStream.subscribe(inputChange);
         }
-        
+
         $("#show-more").click(showMore);
     }
 
@@ -62,8 +62,8 @@ var search = (function(Helpers, Rx, $) {
         $.get('/search/suggest', {query: query, page: page++}, function (resp) {
             $(resp).appendTo($('#suggestions'));
             if(resp.length === 0){
-                $('#show-more').hide();
-                $('#no-more').show();
+                $('#show-more').addClass( 'uk-hidden' );
+                $('#no-more').removeClass( 'uk-hidden' );
             }
         });
     }

@@ -1,6 +1,4 @@
-<div class="uk-nav-content uk-navbar-flip search">
-  <%= form_tag(search_path, method: 'get', class: 'uk-form uk-margin-remove uk-vertical-align-middle uk-display-inline-block') do %>
-    <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
-    <%= button_tag "Search", name: nil, class: 'uk-icon-search uk-button', id: "search-button" do %><% end %>
-  <% end %>
-</div>
+<%= form_tag(search_path, method: 'get', class: 'uk-form uk-margin-small-top uk-display-inline-block uk-width-expand') do %>
+  <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field", class: "uk-width-4-5" %>
+  <%= button_tag "Search", name: nil, class: 'uk-icon-search uk-button', id: "search-button" do %><% end %>
+<% end %>

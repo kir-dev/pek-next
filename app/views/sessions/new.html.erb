@@ -1,11 +1,22 @@
 <div id="content-main" class="neutral-content">
-<div class="uk-container-center">
-  <div class="uk-panel uk-panel-box uk-margin-large-top">
-    <span class="uk-text uk-text-large uk-align-center">
+<div class="uk-container-center uk-panel uk-panel-box uk-margin-large-top">
+  <div class="uk-grid">
+    <div class="uk-width-1-1 uk-text-large uk-text-center uk-margin">
       Üdvözlünk a megújult PékNext! bejelentkező oldalán!
-    </span>
-    <%= button_to "Bejelentkezés", oauth_login_path, class:"uk-button uk-button-large uk-button-primary uk-width-1-4 uk-margin-small-bottom uk-align-center uk-hidden-small" %>
-    <%= button_to "Bejelentkezés", oauth_login_path, class:"uk-button uk-button-primary uk-margin-small-bottom uk-align-center uk-visible-small" %>
+    </div>
+    <div class="uk-width-1-1 uk-text-danger uk-text-center">
+      Disclaimer
+    </div>
+    <div class="uk-width-medium-2-3 uk-text-center uk-container-center">
+      Hosszú idő munkájának gyümölcse ez az oldal, viszont még nincsen teljesen kész. Mi is tudunk több hiányosságáról, illetve merre lehet még fejleszteni, viszont mivel több szem többet lát, így szeretnénk, ha a segítségedre is számíthatnánk ezen hiányosságok felfedezésében. Ehhez <a href="https://goo.gl/forms/0pP8bDKAD7jzprPK2">itt</a> találsz egy gyors hibabejelentőt.
+    </div>
+    <div class="uk-width-medium-2-3 uk-text-center uk-container-center uk-text-small uk-margin">
+        (Ezen felül ha kedvet kaptál a webfejlesztéshez <a href="mailto:kir-dev@sch.bme.hu">itt</a> jelentkezhetsz csapatunkba.)
+    </div>
+    <div class="uk-width-1-1">
+      <%= button_to "Bejelentkezés", oauth_login_path, class:"uk-button uk-button-large uk-button-primary uk-width-1-4 uk-margin-small-bottom uk-align-center uk-hidden-small" %>
+      <%= button_to "Bejelentkezés", oauth_login_path, class:"uk-button uk-button-primary uk-margin-small-bottom uk-align-center uk-visible-small" %>
+    </div>
   </div>
 </div>
 </div>

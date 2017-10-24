@@ -4,9 +4,10 @@
 <head>
   <meta charset="utf-8">
   <title>PekNext</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <%= yield(:head) %>
 </head>
 
 <body class="uk-height-1-1">
@@ -25,8 +26,8 @@
     </script>
   <% end %>
 
-  <div class="uk-container uk-container-center page-wrap" id="content-container">
-      <%= yield %>
+  <div class="uk-container uk-container-center uk-padding-remove uk-margin-top uk-margin-small-bottom page-wrap" id="content-container">
+    <%= yield %>
   </div>
 
   <%= render 'footer' %>
