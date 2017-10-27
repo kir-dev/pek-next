@@ -6,7 +6,8 @@ class SearchQuery
   def user_search(term, page, count)
     page = 0 unless page
     offset = page.to_i * Rails.configuration.x.results_per_page
-    params = term.split.flat_map { |t| ["%#{t}%".downcase] * user_query_for_one_keyword.count('?') }
+    params = term.split.flat_map { |t| ["%#{t}%".mb_chars.downcase.to_s] * 
+      user_query_for_one_keyword.count('?') }
     query = ([user_query_for_one_keyword] * term.split.size).join(' AND ')
     return User.where(query, *params).order(metascore: :desc).offset(offset).limit(count)
   end
@@ -15,7 +16,7 @@ class SearchQuery
     page = 0 unless page
     count = Rails.configuration.x.results_per_page
     query = 'lower(grp_name) LIKE ?'
-    param = "%#{term}%".downcase
+    param = "%#{term}%".mb_chars.downcase.to_s
     return Group.where(query, param).order(grp_name: :desc).offset(page.to_i * count).limit(count)
   end
 
