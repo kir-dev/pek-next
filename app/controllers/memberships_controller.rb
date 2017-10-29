@@ -13,7 +13,7 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
-    Membership.delete(params[:id])
+    Membership.find(params[:id]).destroy
   end
 
   def inactivate
