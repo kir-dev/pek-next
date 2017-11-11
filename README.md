@@ -23,6 +23,11 @@ $ \curl -sSL https://get.rvm.io | bash -s stable
 $ rvm install 2.2.3
 ```
 
+###### Rails 4.2.10 
+```bash
+$ install rails --version=4.2.10
+```
+
 ###### The source code and dependencies
 
 ```bash
