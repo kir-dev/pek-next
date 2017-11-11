@@ -18,4 +18,14 @@ class Membership < ActiveRecord::Base
   def leader?
     posts.any? { |post| post.post_type.id == LEADER_POST_ID }
   end
+
+  def inactivate!
+    self.end = Time.now
+    save
+  end
+
+  def reactivate!
+    self.end = nil
+    save
+  end
 end

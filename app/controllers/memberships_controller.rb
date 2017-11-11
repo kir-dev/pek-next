@@ -17,11 +17,11 @@ class MembershipsController < ApplicationController
   end
 
   def inactivate
-    Membership.update(params[:membership_id], membership_end: Time.now)
+    Membership.find(params[:membership_id]).inactivate!
   end
 
   def reactivate
-    Membership.update(params[:membership_id], membership_end: nil)
+    Membership.find(params[:membership_id]).reactivate!
   end
 
   private
