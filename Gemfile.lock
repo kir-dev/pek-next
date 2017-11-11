@@ -196,8 +196,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    uikit-sass-rails (1.4.1)
-      sass-rails (>= 3.1)
 
 PLATFORMS
   ruby
@@ -226,7 +224,6 @@ DEPENDENCIES
   spring
   timecop
   uglifier (~> 3.2.0)
-  uikit-sass-rails
 
 BUNDLED WITH
    1.15.4

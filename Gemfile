@@ -24,7 +24,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'omniauth'
 gem 'omniauth-oauth2'
 
-gem 'uikit-sass-rails'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
