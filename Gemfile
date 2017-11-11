@@ -28,6 +28,8 @@ gem 'uikit-sass-rails'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
+gem 'draper'
+
 # Reactive javascript extension
 gem 'rxjs-rails'
 
