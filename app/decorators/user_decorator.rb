@@ -31,4 +31,8 @@ class UserDecorator < Draper::Decorator
     [user.full_name, ' (', user.nickname, ')'].join
   end
 
+  def messaging_accounts
+    im_accounts.decorate.each
+  end
+
 end

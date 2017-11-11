@@ -15,6 +15,9 @@
           <%= @user_presenter.room %>
           <%= @user_presenter.cell_phone %>
           <%= @user_presenter.email %>
+          <% @user_presenter.messaging_accounts.each do |im_account| %>
+            <%= im_account.account %>
+          <% end %>
         </div>
 
         <div class="uk-width-1-1 uk-margin-top">

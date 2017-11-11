@@ -33,6 +33,11 @@ hu:
         founded: Alapítva
         maillist: Levelezőlista
         users_can_apply: Körbe jelentkezés megengedett
+      im_account/protocol:
+        skype: Skype
+        gtalk: Google Hangouts
+        jabber: Jabber
+        irc: IRC
     errors:
       models:
         user:
