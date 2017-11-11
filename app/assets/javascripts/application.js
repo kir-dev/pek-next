@@ -12,9 +12,22 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require uikit
+
+//= require uikit/uikit.min
+//= require_tree ./uikit/core
+//= require uikit/components/accordion.min
+//= require uikit/components/form-password.min
+//= require uikit/components/form-select.min
+//= require uikit/components/grid-parallax.min
+//= require uikit/components/grid.min
+//= require uikit/components/notify.min
+//= require uikit/components/pagination.min
+//= require uikit/components/search.min
+//= require uikit/components/sticky.min
+
 //= require cropper.min
 
 //= require rx.all
 
-//= require_tree .
+//= require_self
+//= require_tree ./application/

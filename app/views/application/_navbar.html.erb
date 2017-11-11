@@ -32,6 +32,8 @@
           <% end %>
           <div class="uk-dropdown uk-dropdown-navbar">
             <ul class="uk-nav uk-nav-navbar">
+              <li><%= link_to "Profilom", root_url %></li>
+              <li class="uk-nav-divider"></li>
               <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
               <li><%= link_to "SVIE tagság", svie_edit_path %></li>
               <li class="uk-nav-divider"></li>
@@ -47,7 +49,7 @@
 
 <script type="text/javascript">
   UIkit.notify({
-    message : 'Ez egy beta oldal, <a href="https://goo.gl/forms/0pP8bDKAD7jzprPK2">itt</a> tudod jelezni az észrevételeidet.',
+    message : '<a target="_blank" href="https://goo.gl/forms/0pP8bDKAD7jzprPK2">Ez egy beta oldal, itt tudod jelezni az észrevételeidet.</a>',
     status  : 'danger',
     timeout : 0,
     pos     : 'bottom-right'

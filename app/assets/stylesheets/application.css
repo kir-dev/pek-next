@@ -10,7 +10,15 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require uikit
+ *= require uikit/font-awesome.min
+ *= require uikit/uikit.min
+ *= require uikit/components/accordion.min
+ *= require uikit/components/form-password.min
+ *= require uikit/components/form-select.min
+ *= require uikit/components/notify.min
+ *= require uikit/components/search.min
+ *= require uikit/components/sticky.min
+
  *= require cropper.min
  *= require search
  *= require_self
@@ -46,8 +54,7 @@ html, body {
 }
 
 .uk-navbar {
-	background-color: #000;/*rgb(58, 58, 58);/*rgba(204, 204, 204, 0.83);
-	border-top: 6px solid #b4b4b4;*/
+	background-color: #000;
 }
 
 .uk-navbar-nav>li>a {

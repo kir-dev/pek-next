@@ -55,6 +55,7 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
-    
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
   end
 end
