@@ -1,13 +1,15 @@
 module GroupsHelper
   def active_users(group)
-    @active_users = group.memberships.where(end: nil).page(params[:active_users_page]).includes(:user)
+    @active_users = Kaminari.paginate_array(group.memberships.where(end: nil).includes(:user).
+      sort { |a, b| a.user.lastname <=> b.user.lastname }).page(params[:active_users_page])
     @active_users.each do |membership|
       yield GroupMember.new(membership)
     end
   end
 
   def inactive_users(group)
-    @inactive_users = group.memberships.where.not(end: nil).page(params[:inactive_users_page]).includes(:user)
+    @inactive_users = Kaminari.paginate_array(group.memberships.where.not(end: nil).includes(:user).
+      sort { |a, b| a.user.lastname <=> b.user.lastname }).page(params[:inactive_users_page])
     @inactive_users.each do |membership|
       yield GroupMember.new(membership)
     end
