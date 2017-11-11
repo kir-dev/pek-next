@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                   <th class="uk-text-left">Weboldal</th>
-                  <td><%= @viewmodel.group.webpage %></td>
+                  <td><%= link_to @viewmodel.group.webpage, @viewmodel.group.webpage if @viewmodel.group.webpage %></td>
                 </tr>
                 <tr>
                   <th class="uk-text-left">Levelezőlista</th>
@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                   <th class="uk-text-left">Körvezető</th>
-                  <td><%= @viewmodel.group.leader.user.full_name if @viewmodel.group.leader %></td>
+                  <td><%= link_to @viewmodel.group.leader.user.full_name, profile_path(@viewmodel.group.leader.user.screen_name) if @viewmodel.group.leader %></td>
                 </tr>
                 <tr>
                   <th class="uk-text-left">Bemutatkozás</th>
