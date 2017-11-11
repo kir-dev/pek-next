@@ -6,6 +6,11 @@ class RawPhotosController < ApplicationController
   end
 
   def update
+    unless params[:rawPhoto]
+      redirect_to :back, alert: 'Nincs kép kiválasztva!'
+      return
+    end
+
     PhotoService.upload_raw(current_user.screen_name, params[:rawPhoto])
 
     redirect_to edit_photo_path(current_user.screen_name)
