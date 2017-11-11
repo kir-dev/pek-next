@@ -17,6 +17,7 @@
  *= require uikit/components/form-select.min
  *= require uikit/components/notify.min
  *= require uikit/components/search.min
+ *= require uikit/components/sticky.min
 
  *= require cropper.min
  *= require search

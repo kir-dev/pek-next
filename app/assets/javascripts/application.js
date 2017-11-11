@@ -23,13 +23,11 @@
 //= require uikit/components/notify.min
 //= require uikit/components/pagination.min
 //= require uikit/components/search.min
+//= require uikit/components/sticky.min
 
 //= require cropper.min
 
 //= require rx.all
 
-//= require application
-//= require helpers
-//= require photos
-//= require profiles
-//= require search
+//= require_self
+//= require_tree ./application/
