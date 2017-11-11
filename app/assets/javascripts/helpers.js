@@ -1,8 +1,8 @@
 var Helpers = (function () {
-	var helpers = {};
+    var helpers = {};
 
     helpers.getUrlParameter = function(sParam) {
-        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)).replace(/\+/g, ' '),
             sURLVariables = sPageURL.split('&'),
             sParameterName,
             i;
