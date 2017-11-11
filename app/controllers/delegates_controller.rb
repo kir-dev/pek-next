@@ -8,8 +8,10 @@ class DelegatesController < ApplicationController
   end
 
   def show
+    #There are 68 active svie members without a primary group
     @eligible_members = @group.members.where(svie_member_type: 'RENDESTAG').order(:lastname)
-      .select { |user| user.primary_membership.group_id == params[:group_id].to_i && user.primary_membership.end.nil? }
+      .select { |user| !user.primary_membership.nil? &&
+        user.primary_membership.group_id == params[:group_id].to_i && user.primary_membership.end.nil? }
   end
 
   def create
