@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   get '/auth/oauth/callback', to: 'sessions#create'
   get '/register', to: 'registration#new'
   post '/register/create', to: 'registration#create', as: :registration
-  resources :photos, only: [:show, :update, :edit]
+  resources :photos, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
   get '/profiles/me/', to: 'profiles#show_self'
-  resources :profiles, only: [:show, :update, :edit]
+  resources :profiles, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
 
   get '/photo/raw', to: 'raw_photos#show'
   post '/photo/raw', to: 'raw_photos#update'
