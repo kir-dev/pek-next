@@ -12,7 +12,7 @@ module ProfilesHelper
   end
 
   def user_detailed_point_history(pointrequests, semester)
-    pointrequests.select{|c| c.evaluation.point_request_status == 'ELFOGADVA' &&
+    pointrequests.select{|c| c.evaluation.accepted &&
       c.evaluation.date == semester.to_s}.each do |pointrequest|
       yield DetailedPointHistory.new(pointrequest)
     end
