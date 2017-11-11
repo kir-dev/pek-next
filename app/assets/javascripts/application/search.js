@@ -59,7 +59,10 @@ var search = (function(Helpers, Rx, $) {
         if(query.length === 0) {
             return;
         }
-        $.get('/search/suggest', {query: query, page: page++}, function (resp) {
+        var group_count = $('.group-result').length;
+        var user_count = $('.user-result').length;
+        $.get('/search/suggest', { query: query, group_count: group_count, 
+          user_count: user_count }, function (resp) {
             $(resp).appendTo($('#suggestions'));
             if(resp.length === 0){
                 $('#show-more').addClass( 'uk-hidden' );
