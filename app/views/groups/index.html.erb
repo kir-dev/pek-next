@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Körök listázása</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>név</th>
+      <th>leírás</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.id %></td>
+        <td><%= link_to group.name, group_path(group.id) %></td>
+        <td><%= group.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @groups %>

@@ -1,6 +1,6 @@
 <% results.each do |user| %>
   <tr>
-    <td> <%= link_to user.full_name, profile_path(user.usr_screen_name) %> </td>
-    <td> <%= user.usr_nickname %> </td>
+    <td> <%= link_to user.full_name, profile_path(user.screen_name) %> </td>
+    <td> <%= user.nickname %> </td>
   </tr>
 <% end %>

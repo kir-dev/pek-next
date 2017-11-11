@@ -15,6 +15,15 @@ Rails.application.routes.draw do
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
 
+  resources :groups, only: [:show, :index] do
+    resources :memberships, only: [:create, :destroy] do
+      post '/inactivate', to: 'memberships#inactivate'
+      post '/reactivate', to: 'memberships#reactivate'
+    end
+  end
+
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
   root to: redirect('/profiles/me')
 
 end
