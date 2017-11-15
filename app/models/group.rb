@@ -17,4 +17,8 @@ class Group < ActiveRecord::Base
 
   has_many :memberships, foreign_key: :grp_id
   has_many :members, through: :memberships, source: :user
+
+  def user_can_join?(current_user)
+    !users_can_apply || current_user.membership_for(self)
+  end
 end

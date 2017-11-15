@@ -46,4 +46,13 @@ class User < ActiveRecord::Base
   def full_name
     [lastname, firstname].compact.join(' ')
   end
+
+  def membership_for(group)
+    memberships.find { |m| m.group == group }
+  end
+
+  def leader_of(group)
+    membership = membership_for(group)
+    membership && membership.leader?
+  end
 end
