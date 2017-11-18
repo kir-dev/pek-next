@@ -8,7 +8,7 @@ class SearchQuery
     params = term.split.flat_map { |t| ["%#{t}%".mb_chars.downcase.to_s] * 
       user_query_for_one_keyword.count('?') }
     query = ([user_query_for_one_keyword] * term.split.size).join(' AND ')
-    return User.where(query, *params).order(metascore: :desc).offset(offset).limit(count)
+    return User.where(query, *params).order('usr_metascore DESC NULLS LAST').offset(offset).limit(count)
   end
 
   def group_search(term, offset)
