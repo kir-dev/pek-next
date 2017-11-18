@@ -17,13 +17,14 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   test "search for empty term" do
-    query = SearchQuery.new.user_search("", nil, 10)
-    assert_equal 10, query.size
+    page_size = 10
+    query = SearchQuery.new.user_search("", nil, page_size)
+    assert_equal page_size, query.size
     expected_result = [users(:bela), users(:sanyi)]
     for result in 2..9 do
       expected_result.push(users("user_" + (101 - result).to_s))
     end
-    assert_equal expected_result, query.take(10)
+    assert_equal expected_result, query.take(page_size)
   end
 
   test "search in nickname" do
@@ -45,13 +46,14 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   test "next search page of generated users" do
-    query = SearchQuery.new.user_search("pék", 1, 10)
-    assert_equal 10, query.size
+    page_size = 10
+    query = SearchQuery.new.user_search("pék", page_size, page_size)
+    assert_equal page_size, query.size
     expected_result = []
     for result in 0..9 do
       expected_result.push(users("user_" + (89 - result).to_s))
     end
-    assert_equal expected_result, query.take(10)
+    assert_equal expected_result, query.take(page_size)
   end
 
   test "search for non-existent user" do
