@@ -1,5 +1,5 @@
 <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
-    <%= form_for(@group) do |f| %>
+    <%= form_for(current_group) do |f| %>
         <%= render 'form_errors', errors: f.object.errors %>
 
         <table class="uk-table uk-table-striped uk-table-hover">

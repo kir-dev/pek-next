@@ -19,6 +19,6 @@ class Group < ActiveRecord::Base
   has_many :members, through: :memberships, source: :user
 
   def user_can_join?(current_user)
-    !users_can_apply || current_user.membership_for(self)
+    users_can_apply && !current_user.membership_for(self)
   end
 end

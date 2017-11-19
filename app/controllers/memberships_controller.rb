@@ -4,7 +4,7 @@ class MembershipsController < ApplicationController
 
   def create
     @group = Group.find(params[:group_id])
-    if @group.user_can_join?(current_user)
+    unless @group.user_can_join?(current_user)
       unauthorized_page
     else
       CreateMembership.call(@group, current_user)

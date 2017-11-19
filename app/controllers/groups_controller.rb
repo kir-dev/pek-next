@@ -14,8 +14,8 @@ class GroupsController < ApplicationController
   end
 
   def update
-    if @group.update(update_params)
-      redirect_to @group, notice: t(:edit_successful)
+    if current_group.update(update_params)
+      redirect_to current_group, notice: t(:edit_successful)
     else
       render :edit
     end
