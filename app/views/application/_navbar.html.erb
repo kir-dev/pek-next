@@ -1,87 +1,68 @@
-<!--desktop navbar-->
-<nav class="uk-navbar">
-  <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
-  <ul class="uk-navbar-nav uk-hidden-small">
-    <li aria-expanded="false" aria-haspopup="true" class="uk-parent uk-active" data-uk-dropdown="">
-      <%= link_to "Profilom", profiles_me_path , class:"uk-icon-user" %>
+<nav class="data-uk-sticky uk-navbar uk-hidden-small navbar">
+
+  <%= link_to "PékNext!", root_url, class:"uk-navbar-brand" %>
+  <ul class="uk-navbar-nav">
+
+    <li aria-expanded="false" aria-haspopup="true" class="uk-parent" data-uk-dropdown="">
+      <%= link_to "Profilom", root_url %>
       <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
         <ul class="uk-nav uk-nav-navbar">
-          <li><a href="#">Teljes profil</a></li>
-          <li><a href="#">Közösségi profil</a></li>
-          <li><a href="#">Közösségi történet</a></li>
+          <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
+          <li class="uk-nav-divider"></li>
+          <li><%= link_to "Kijelentkezés", logout_path %></li>
         </ul>
       </div>
     </li>
 
     <li aria-expanded="false" aria-haspopup="true" class="uk-parent" data-uk-dropdown="">
-      <a href=""><i class="uk-icon-institution"></i> Egységek</a>
+      <a>Közösség</a>
       <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
         <ul class="uk-nav uk-nav-navbar">
+          <li><%= link_to "Közösségi történet", root_url %></li>
+          <li><%= link_to "SVIE tagság", root_url %></li>
+          <li class="uk-nav-divider"></li>
           <li><%= link_to "Körök", groups_path %></li>
-          <li><a href="#">Hierarchia</a></li>
-        </ul>
-      </div>
-    </li>
-    <li aria-expanded="false" aria-haspopup="true" class="uk-parent" data-uk-dropdown="">
-      <a href=""><i class="uk-icon-cog"></i> Fiók beállítások</a>
-      <div style="top: 40px; left: 0px;" class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom">
-        <ul class="uk-nav uk-nav-navbar">
-          <li><%= link_to "Profil szerkesztése", edit_profile_path(current_user.screen_name) %></li>
-          <li><a href="#">SVIE tagság</a></li>
+          <li><%= link_to "Hierarchia", root_url %></li>
         </ul>
       </div>
     </li>
   </ul>
 
-  <div class="uk-nav-content uk-navbar-flip uk-hidden-small">
-
-    <%= form_tag(search_path, :method => 'get', :class => 'uk-form uk-margin-remove uk-display-inline-block') do %>
-      <p>
-        <%= text_field_tag :query, "", placeholder: "Név vagy kör", id: "search-field" %>
-        <%= button_tag "Search", :name => nil, class: 'uk-icon-search' do %>
-        <% end %>
-      </p>
-    <% end %>
-
-  </div>
-  <a href="#off-canvas-menu" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+  <%= render 'search' %>
 </nav>
 
-<!--left side menu, for mobile view-->
+<nav class="data-uk-sticky uk-navbar uk-visible-small">
+  <%= render 'search' %>
+
+  <a href="#off-canvas-menu" class="uk-navbar-toggle" data-uk-offcanvas></a>
+</nav>
+
+<!--Off-canvas menu-->
 <div id="off-canvas-menu" class="uk-offcanvas uk-visible-small">
-  <div class="uk-offcanvas-bar"><ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-    <li class="uk-nav-header">PékNext!</li>
+  <div class="uk-offcanvas-bar">
+    <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+      <li class="uk-nav-header">PékNext!</li>
 
-    <li class="uk-nav-content uk-active">
-      <form class="uk-form uk-margin-remove uk-display-inline-block">
-        <input placeholder="Keresés" type="text">
-        <button class="uk-button uk-button-primary">Keresés</button>
-      </form>
-    </li>
-    <li aria-expanded="true" class="uk-parent uk-active uk-open">
-      <%= link_to "PékNext!", root_url, class:"uk-navbar-brand uk-hidden-small" %>
-      <div style="overflow: hidden; height: auto; position: relative;"><ul class="uk-nav-sub">
-        <li><a href="">Teljes profil</a></li>
-        <li><a href="">Közösségi profil</a></li>
-        <li><a href="">Közösségi történet</a></li>
-      </ul></div>
-    </li>
-    <li aria-expanded="false" class="uk-parent"><a href="#"><i class="uk-icon-institution"></i> Egységek</a>
-      <div class="uk-hidden"style="overflow:hidden;height:0;position:relative;">
-        <ul class="uk-nav-sub">
-          <li><%= link_to "Körök", groups_path %></li>
-          <li><a href="">Hierarchia</a></li>
-        </ul>
-      </div>
-    </li>
-    <li aria-expanded="false" class="uk-parent"><a href="#"><i class="uk-icon-cog"></i> Fiók beállítások</a>
-      <div class="uk-hidden" style="overflow:hidden;height:0;position:relative;"><ul class="uk-nav-sub">
-        <li><%= link_to "Profil szerkesztése", edit_profile_path(current_user.screen_name) %></li>
-        <li><a href="">SVIE tagság</a></li>
-      </ul></div>
-    </li>
+      <li class="uk-nav-header">Profil</li>
+      <li><%= link_to "Profilom", root_url %></li>
+      <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
 
-    <li> <%= link_to('Authentication', '/auth/oauth') %></li>
-    
-  </ul></div>
+      <li class="uk-nav-header">Közösség</li>
+      <li><%= link_to "Közösségi történet", root_url %></li>
+      <li><%= link_to "SVIE tagság", root_url %></li>
+      <li><%= link_to "Körök", groups_path %></li>
+      <li><%= link_to "Hierarchia", root_url %></li>
+
+      <li class="uk-nav-divider"></li>
+      <li><%= link_to "Kijelentkezés", logout_path %></li>
+
+      <li class="uk-nav-divider"></li>
+      <li>
+        <div class="uk-container uk-container-center uk-text-center">
+          <img src="/kirdev_bw.png" width="70" height="70" title="Kir-Dev" alt="Kir-Dev">
+        </div>
+      </li>
+
+    </ul>
+  </div>
 </div>

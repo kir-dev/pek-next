@@ -17,6 +17,6 @@ class GroupsControllerTest < ActionController::TestCase
     get :show, id: groups(:babhamozo).id
 
     assert_response :success
-    assert_equal groups(:babhamozo).id, assigns(:group).id
+    assert_equal groups(:babhamozo).id, assigns(:viewmodel).group.id
   end
 end
