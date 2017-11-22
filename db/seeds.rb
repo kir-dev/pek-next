@@ -13,6 +13,8 @@ PostType.create([
   { id: 6, name: 'feldolgozás alatt' }
   ])
 
+# These are not necessary to run the application, but required for full operation
+
 Group.create([
   { id: 369, name: 'SVIE', type: 'bizottság' },
   { id: 146, name: 'Reszortvezetők Tanácsa', type: 'csoport', parent: 369 },
