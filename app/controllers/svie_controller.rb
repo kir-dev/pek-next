@@ -2,9 +2,7 @@ class SvieController < ApplicationController
   before_action :require_login
 
   def new
-    # redirect_to svie_edit_path
-
-    # then redirect back to here
+    redirect_to svie_edit_path unless current_user.primary_membership
   end
 
   def create
@@ -19,7 +17,11 @@ class SvieController < ApplicationController
   def update
     current_user.update(svie_primary_membership: params[:svie][:primary_membership])
     current_user.update(delegated: false)
-    redirect_to profiles_me_path, notice: t(:edit_successful)
+    if current_user.not_membember_of_svie?
+      redirect_to new_svie_path
+    else
+      redirect_to profiles_me_path, notice: t(:edit_successful)
+    end
   end
 
   def index
