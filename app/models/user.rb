@@ -70,4 +70,12 @@ class User < ActiveRecord::Base
   def not_member_of_svie?
     svie_state == 'NEMTAG'
   end
+
+  def member_of_svie?
+    svie_state == 'ELFOGADVA'
+  end
+
+  def svie_state_is_in_processing?
+    svie_state == 'FELDOLGOZASALATT'
+  end
 end
