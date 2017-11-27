@@ -22,4 +22,7 @@ class SvieController < ApplicationController
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 
+  def index
+    @not_svie_members = User.where(svie_state: [:FELDOLGOZASALATT, :ELFOGADASALATT])
+  end
 end

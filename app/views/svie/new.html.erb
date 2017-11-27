@@ -1,0 +1,30 @@
+<% stylesheet 'profile' %>
+
+<div id="content-main" class="neutral-container">
+  <div class="uk-height-viewport uk-responsive-width">
+    <h1 class="uk-h1">Jelentkezés leadása</h1>
+    <div class="uk-container-center uk-panel uk-panel-box">
+      <%= form_tag svie_index_path, method: :post, html: {class: 'uk-form'} do %>
+
+        <div class="uk-text-center">
+          <div class="uk-grid">
+            <div class="uk-width-1-1">
+              <p>
+              Alulírott <%= current_user.full_name %>
+              (lakcím: <%= text_field_tag :home_address, current_user.home_address %>
+                <%= label_tag :mother_name, 'Anyja neve:' %>
+                <%= text_field_tag :mother_name %>
+                <%= label_tag :email, 'Email cím:' %>
+                <%= text_field_tag :email, current_user.email %>
+                ) jelen nyilatkozat aláírásával kifejezem belépési szándékom!
+              </p>    
+            </div>
+            <div class="inline-block uk-width-1-1">
+              <%= submit_tag 'Jelentkezés', class: 'uk-button'  %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
