@@ -66,4 +66,8 @@ class User < ActiveRecord::Base
   def roles
     @roles ||= UserRole.new(self)
   end
+
+  def applied_to_svie?
+    svie_state != 'NEMTAG'
+  end
 end

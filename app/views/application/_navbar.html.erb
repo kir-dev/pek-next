@@ -35,7 +35,11 @@
               <li><%= link_to "Profilom", root_url %></li>
               <li class="uk-nav-divider"></li>
               <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
-              <li><%= link_to "SVIE tagság", svie_edit_path %></li>
+              <% if current_user.applied_to_svie? %>
+                <li><%= link_to "SVIE tagság", svie_edit_path %></li>
+              <% else %>
+                <li><%= link_to "SVIE-be jelentkezés", new_svie_path %></li>
+              <% end %>
               <li class="uk-nav-divider"></li>
               <li><%= link_to "Kijelentkezés", logout_path %></li>
             </ul>

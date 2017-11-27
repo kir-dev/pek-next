@@ -55,6 +55,14 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
+    config.x.svie_states = {
+      'ELFOGADVA'        => 'Elfogadva'
+# Meg van a papírja, az RVT elfogadására vár :
+      'FELDOLGOZASALATT' => 'Feldolgozás alatt'
+# A papírja leadás alatt van (ide esik, ha a user letölti a belépési nyilatkozatát) :
+      'ELFOGADASALATT'   => 'Elfogadás alatt'
+      'NEMTAG'           => 'Nem tag'
+    }
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
   end
