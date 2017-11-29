@@ -1,10 +1,8 @@
-<% stylesheet 'groups' %>
+<% stylesheet 'admin' %>
 
 <div class="uk-height-viewport uk-responsive-width uk-margin-large">
 <h1 class="uk-h1">SVIE-be jelentkezett felhasználók</h1>
 <div class="uk-container-center uk-panel uk-panel-box">
-  <p id="notice"><%= notice %></p>
-
 
   <div class="uk-grid uk-grid-medium" data-uk-grid="{gutter: 20}">
     <% @not_svie_members.each do |user| %>
@@ -16,6 +14,8 @@
           <div class="uk-panel-body">
             <%= user.svie_state %>
           </div>
+          <%= button_to "Elfogadás", svie_approve_path(user.id), method: :post,
+            class: "uk-button uk-button-danger uk-width-1-1 uk-align-center", remote: false %>
         </div>
       </div>
     <% end %>

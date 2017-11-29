@@ -10,6 +10,7 @@ hu:
   register_successful: Sikeres regisztráció!
   too_many_delegates: Túl sok küldöttet szeretnél beállítani!
   applied_succesful: Sikeres jelentkezés!
+  accept_application: SVIE tag lett!
   activerecord:
     attributes:
       user:

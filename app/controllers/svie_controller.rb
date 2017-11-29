@@ -27,4 +27,10 @@ class SvieController < ApplicationController
   def index
     @not_svie_members = User.where(svie_state: [:FELDOLGOZASALATT, :ELFOGADASALATT])
   end
+
+  def approve
+    user = User.find(params[:id])
+    user.update(svie_state: :ELFOGADVA)
+    redirect_to :back, notice: user.full_name + ' ' + t(:accept_application)
+  end
 end
