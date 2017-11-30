@@ -78,4 +78,16 @@ class User < ActiveRecord::Base
   def svie_state_is_in_processing?
     svie_state == 'FELDOLGOZASALATT'
   end
+
+  def inside_svie_member?
+    svie_member_type == 'RENDESTAG'
+  end
+
+  def outside_svie_member?
+    svie_member_type == 'PARTOLOTAG'
+  end
+
+  def inactive_svie_member?
+    svie_member_type == 'OREGTAG'
+  end
 end

@@ -35,6 +35,6 @@ class SvieController < ApplicationController
   end
 
   def application_pdf
-    send_data GenerateMembershipPdf.call, filename: 'szerzodes.pdf', type: 'application/pdf'
+    send_data GenerateMembershipPdf.call(current_user), filename: 'szerzodes.pdf', type: 'application/pdf'
   end
 end
