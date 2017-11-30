@@ -25,6 +25,8 @@ class SvieController < ApplicationController
   end
 
   def index
+    unauthorized_page unless current_user.roles.rvt_member?
+
     @not_svie_members = User.where(svie_state: [:FELDOLGOZASALATT, :ELFOGADASALATT])
   end
 
