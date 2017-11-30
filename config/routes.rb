@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   post '/svie/update', to: 'svie#update'
   resources :svie, only: [:index, :new, :create] # :edit, :update]
   post '/svie/approve/:id', to: 'svie#approve', as: :svie_approve # has need refactor
+  get '/svie/pdf', to: 'svie#application_pdf'
 
   root to: redirect('/profiles/me')
   resources :groups, only: [:show, :index, :edit, :update] do

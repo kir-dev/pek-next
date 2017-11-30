@@ -33,4 +33,8 @@ class SvieController < ApplicationController
     user.update(svie_state: :ELFOGADVA)
     redirect_to :back, notice: user.full_name + ' ' + t(:accept_application)
   end
+
+  def application_pdf
+    send_data GenerateMembershipPdf.call, filename: 'szerzodes.pdf', type: 'application/pdf'
+  end
 end

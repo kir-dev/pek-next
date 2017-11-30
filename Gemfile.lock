@@ -122,7 +122,11 @@ GEM
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
+    pdf-core (0.7.0)
     pg (0.20.0)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
     puma (3.8.2)
     rack (1.6.8)
     rack-protection (2.0.0)
@@ -194,6 +198,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.7)
     timecop (0.8.1)
+    ttfunk (1.5.1)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
@@ -216,6 +221,7 @@ DEPENDENCIES
   omniauth
   omniauth-oauth2
   pg
+  prawn
   puma
   rails (= 4.2.5)
   rollbar
@@ -229,4 +235,4 @@ DEPENDENCIES
   uglifier (~> 3.2.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
