@@ -1,5 +1,6 @@
 class SvieController < ApplicationController
   before_action :require_login
+  before_action :require_privileges_of_rvt, only: [:index, :approve]
 
   def new
     redirect_to svie_edit_path unless current_user.primary_membership
@@ -25,8 +26,6 @@ class SvieController < ApplicationController
   end
 
   def index
-    unauthorized_page unless current_user.roles.rvt_member?
-
     @not_svie_members = User.where(svie_state: [:FELDOLGOZASALATT, :ELFOGADASALATT])
   end
 
