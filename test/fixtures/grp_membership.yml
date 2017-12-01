@@ -33,3 +33,8 @@ newbie_membership:
   id: 7
   grp_id: 4
   usr_id: 5000
+
+rvt_membership:
+  id: 8
+  grp_id: 146
+  usr_id: 6000
