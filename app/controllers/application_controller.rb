@@ -40,6 +40,6 @@ class ApplicationController < ActionController::Base
   end
 
   def unauthorized_page
-    render 'application/401'
+    render 'application/401', status: :unauthorized
   end
 end
