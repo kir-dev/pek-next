@@ -8,7 +8,7 @@
     <% @not_svie_members.each do |user| %>
       <div class="dark uk-width-1-1 uk-panel uk-panel-box uk-margin-top-remove uk-grid uk-margin-bottom">
         <div class="uk-width-1-3">
-          <%= link_to user.full_name, profile_path(user.id),
+          <%= link_to user.full_name, profile_path(user.screen_name),
             class: "uk-text-primary" %>
         </div>
         <div class="uk-width-1-3">
