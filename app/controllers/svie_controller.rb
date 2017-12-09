@@ -13,6 +13,7 @@ class SvieController < ApplicationController
 
   def edit
     @svie_memberships = current_user.memberships.select { |m| m.group.issvie && !m.newbie? }
+    redirect_to :back, alert: t(:svie_group_needed) if @svie_memberships.empty?
   end
 
   def update

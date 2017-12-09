@@ -11,6 +11,7 @@ hu:
   too_many_delegates: Túl sok küldöttet szeretnél beállítani!
   applied_succesful: Sikeres jelentkezés!
   accept_application: SVIE tag lett!
+  svie_group_needed: SVIE jelentkezéshez legalább egy SVIE körben tagnak kell lenned!
   activerecord:
     attributes:
       user:
