@@ -4,6 +4,7 @@ class DelegatesController < ApplicationController
 
   def index
     @delegates = User.where(delegated: true).order(:lastname).page(params[:page]).per(params[:per])
+     .select{ |user| user.primary_membership.group.issvie }
   end
 
   def export
