@@ -7,8 +7,10 @@ class SvieController < ApplicationController
   end
 
   def create
-    current_user.update(svie_state: :ELFOGADASALATT)
-    redirect_to profiles_me_path, notice: t(:applied_succesful)
+    update_params = params.permit(:home_address, :mother_name, :svie_member_type)
+    params[:svie_state] = :ELFOGADASALATT
+    current_user.update(update_params)
+    redirect_to svie_successful_path
   end
 
   def edit
@@ -34,6 +36,9 @@ class SvieController < ApplicationController
     user = User.find(params[:id])
     user.update(svie_state: :ELFOGADVA)
     redirect_to :back, notice: user.full_name + ' ' + t(:accept_application)
+  end
+
+  def successful_application
   end
 
   def application_pdf

@@ -63,6 +63,11 @@ module PekNext
       'ELFOGADASALATT'   => 'Elfogadás alatt',
       'NEMTAG'           => 'Nem tag'
     }
+    config.x.svie_member_types = {
+      'RENDESTAG' => 'Rendes tag',
+      'KULSOSTAG' => 'Külsős tag',
+      'OREGTAG' => 'Öregtag'
+    }
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
   end

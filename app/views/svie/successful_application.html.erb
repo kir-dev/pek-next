@@ -1,0 +1,21 @@
+<% stylesheet 'profile' %>
+
+<div id="content-main" class="neutral-container">
+  <div class="uk-height-viewport uk-responsive-width">
+    <h1 class="uk-h1">Jelentkezés leadása</h1>
+    <div class="uk-container-center uk-panel uk-panel-box">
+      <h2 class="uk-h2"><%= current_user.full_name %></h2>
+      <p>A regisztrációs folyamat befejezéséhez két lehetőséged van: Ha ki tudod nyomtatni, akkor aláírod a kérvényt és leadod Katalinnak a Schönherz 1719-es irodájában (megtehetitek, hogy többet adtok le egyszerre, nem kell személyesen jelen lenni).
+      Ha nem tudod vagy nem akarod kinyomtatni, akkor keresd Katalint a Schönherz 1719-es irodájában, ő kinyomtatja helyetted, ekkor viszont ott kell lenned személyesen, hogy alá tudd írni. 
+
+      Ha megszünteted az Egyesületi tagságodat, akkor csak következő félévben tudsz újra belépni. 
+
+      Pártoló taggá kell minősítened magadat, ha az összes körből kiléptél vagy BME-VIK-es aktív, nappali hallgatói jogviszonyod megszűnt. 
+
+      További információk: http://kb.sch.bme.hu</p>
+      
+      <%= button_to "Kérvény letöltése", svie_pdf_path, method: :get, class: "uk-button uk-button-success uk-align-center"%>
+      <%= button_to "Vissza", root_path, method: :get, class: "uk-button uk-align-center"%>
+    </div>
+  </div>
+</div>
