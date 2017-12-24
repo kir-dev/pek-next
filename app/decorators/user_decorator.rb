@@ -35,4 +35,9 @@ class UserDecorator < Draper::Decorator
     im_accounts.decorate.each
   end
 
+  def delegated_for
+    return unless user.delegated
+
+    content_tag(:h4, "Küldött itt: " + user.primary_membership.group.name, class: 'uk-h4')
+  end
 end

@@ -18,6 +18,7 @@
           <% @user_presenter.messaging_accounts.each do |im_account| %>
             <%= im_account.account %>
           <% end %>
+          <%= @user_presenter.delegated_for %>
         </div>
 
         <div class="uk-width-1-1 uk-margin-top">
