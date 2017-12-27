@@ -5,7 +5,8 @@ class GroupMember
   end
 
   def posts
-    return 'öregtag' unless @membership.end.nil?
+    return 'öregtag' unless @membership.end.nil? || @membership.archived
+    return 'archivált' if @membership.end && @membership.archived
     return 'tag' if @membership.post_types.empty?
     @membership.post_types.map(&:pttip_name).join(', ')
   end

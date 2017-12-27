@@ -33,6 +33,7 @@ hu:
         founded: Alapítva
         maillist: Levelezőlista
         users_can_apply: Körbe jelentkezés megengedett
+        archived_members_visible: Archívált tagok láthatóak
       im_account/protocol:
         skype: Skype
         gtalk: Google Hangouts

@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
+      put '/archive', to: 'memberships#archive'
+      put '/unarchive', to: 'memberships#unarchive'
       resources :posts, only: [:index, :create, :destroy]
     end
     resources :post_types, only: [:create]

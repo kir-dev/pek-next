@@ -33,3 +33,16 @@ newbie_membership:
   id: 7
   grp_id: 4
   usr_id: 5000
+
+inactive_archived_babhamozo_member:
+  id: 8
+  grp_id: 1
+  usr_id: 4005
+  archived: <%= Time.now %>
+  membership_end: <%= Time.now %>
+
+active_archived_babhamozo_member:
+  id: 9
+  grp_id: 1
+  usr_id: 4006
+  archived: <%= Time.now %>

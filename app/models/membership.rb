@@ -37,4 +37,15 @@ class Membership < ActiveRecord::Base
     self.end = nil
     save
   end
+
+  def archive!
+    self.archived = Time.now
+    save
+  end
+
+  def unarchive!
+    self.archived = nil
+    save
+  end
+
 end

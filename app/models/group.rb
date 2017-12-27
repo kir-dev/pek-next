@@ -14,6 +14,7 @@ class Group < ActiveRecord::Base
   alias_attribute :issvie, :grp_issvie
   alias_attribute :delegate_count, :grp_svie_delegate_nr
   alias_attribute :users_can_apply, :grp_users_can_apply
+  alias_attribute :archived_members_visible, :grp_archived_members_visible
 
   has_many :memberships, foreign_key: :grp_id
   has_many :members, through: :memberships, source: :user

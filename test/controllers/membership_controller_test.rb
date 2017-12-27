@@ -23,19 +23,50 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_template 'application/401'
   end
 
-  test "deleting member of group" do
-    assert_difference('Membership.count', -1) do
-      delete :destroy, format: :js, group_id: groups(:babhamozo).id, id: grp_membership(:babhamozo_member_into_group).id
-    end
+  test "archive active_member of group" do
+    membership = grp_membership(:newbie_membership)
+    Timecop.freeze do
+      xhr :put, :archive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
 
+      assert membership.reload.archived.today?
+    end
     assert_response :success
   end
 
-  test "unauthorized deletion of member" do
-    login_as_user(:non_babhamozo_member)
-    assert_difference('Membership.count', 0) do
-      delete :destroy, group_id: groups(:babhamozo).id, id: grp_membership(:babhamozo_leader_into_group).id
+  test "archive inactive_member of group" do
+    membership = grp_membership(:inactive_babhamozo_member)
+    Timecop.freeze do
+      xhr :put, :archive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+
+      assert membership.reload.archived.today?
     end
+    assert_response :success
+  end
+
+  test "unarchive active_member of group" do
+    membership = grp_membership(:active_archived_babhamozo_member)
+    Timecop.freeze do
+      xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+
+      assert_nil membership.reload.archived
+    end
+    assert_response :success
+  end
+
+  test "unarchive inactive_member of group" do
+    membership = grp_membership(:inactive_archived_babhamozo_member)
+    Timecop.freeze do
+      xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+
+      assert_nil membership.reload.archived
+    end
+    assert_response :success
+  end
+
+  test "unauthorized archive of member" do
+    login_as_user(:non_babhamozo_member)
+
+    xhr :get, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id:  grp_membership(:babhamozo_leader_into_group).id
 
     assert_template 'application/401'
   end
