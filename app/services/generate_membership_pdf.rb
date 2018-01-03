@@ -41,7 +41,7 @@ class GenerateMembershipPdf
   end
 
   def self.generate_user_specific_paragraph(pdf, user)
-    paragraph(pdf, "Alulírott #{user.full_name} (lakcím: #{'nil'}, anyja neve: #{'nil'}, e-mail cím: #{user.email}) jelen nyilatkozat aláírásával kifejezem belépési szándékom a Schönherzes Villamosmérnökök és Informatikusok Egyesületébe (székhely: 1115 Budapest, Bartók Béla út 152/H. Kelen Irodaház, fszt./a., továbbiakban Egyesület). Kijelentem, hogy az Egyesületbe #{user.svie_member_type} ként kívánok belépni.")
+    paragraph(pdf, "Alulírott #{user.full_name} (lakcím: #{user.home_address}, anyja neve: #{user.mother_name}, e-mail cím: #{user.email}) jelen nyilatkozat aláírásával kifejezem belépési szándékom a Schönherzes Villamosmérnökök és Informatikusok Egyesületébe (székhely: 1115 Budapest, Bartók Béla út 152/H. Kelen Irodaház, fszt./a., továbbiakban Egyesület). Kijelentem, hogy az Egyesületbe #{user.svie_member_type} ként kívánok belépni.")
   end
 
   def self.paragraph(pdf, text)

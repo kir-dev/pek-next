@@ -8,7 +8,7 @@ class SvieController < ApplicationController
 
   def create
     update_params = params.permit(:home_address, :mother_name, :svie_member_type)
-    params[:svie_state] = :ELFOGADASALATT
+    update_params[:svie_state] = :ELFOGADASALATT
     current_user.update(update_params)
     redirect_to svie_successful_path
   end
