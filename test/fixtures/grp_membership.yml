@@ -38,3 +38,8 @@ babhamozo_member_who_delegated:
   id: 8
   grp_id: 1
   usr_id: 4005
+
+rvt_membership:
+  id: 9
+  grp_id: 146
+  usr_id: 6000

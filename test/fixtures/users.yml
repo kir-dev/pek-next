@@ -86,3 +86,16 @@ user_with_primary_membership:
   usr_lastname: SVIE
   usr_screen_name: csakasvie
   usr_svie_primary_membership: 4
+  usr_svie_state: ELFOGADVA
+
+not_rvt_member:
+  usr_id: 6000
+  usr_firstname: Melegvíz
+  usr_lastname: Fogyasztó
+  usr_screen_name: szobanövény
+
+rvt_member:
+  usr_id: 6001
+  usr_firstname: Rvts
+  usr_lastname: Pistike
+  usr_screen_name: pityuka

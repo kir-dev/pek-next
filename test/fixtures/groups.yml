@@ -36,3 +36,9 @@ svie_group_with_newbies:
   grp_name: Hambis
   grp_type: szolgáltató
   grp_issvie: true
+
+rvt:
+  grp_id: 146
+  grp_name: RVT
+  grp_type: csak_az_elvek
+  grp_issvie: false

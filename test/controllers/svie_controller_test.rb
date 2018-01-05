@@ -18,6 +18,19 @@ class SvieControllerTest < ActionController::TestCase
     post :update, svie: { primary_membership: grp_membership(:not_primary_membership).id}
 
     assert_redirected_to profiles_me_path
-    assert_equal grp_membership(:not_primary_membership).id, users(:user_with_primary_membership).reload.svie_primary_membership
+    assert_equal grp_membership(:not_primary_membership).id,
+      users(:user_with_primary_membership).reload.svie_primary_membership
+  end
+
+  test "applications page enabled for rvt members" do
+    login_as_user(:not_rvt_member)
+    get :index
+    assert_response :success
+  end
+
+  test "applications page unauthorized for not rvt members" do
+    login_as_user(:rvt_member)
+    get :index
+    assert_response :unauthorized
   end
 end

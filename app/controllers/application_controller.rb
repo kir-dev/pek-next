@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user.roles.svie_admin?
   end
 
+  def require_privileges_of_rvt
+    unauthorized_page unless current_user.roles.rvt_member?
+  end
+
   def current_user
     if ENV['NONAUTH']
       return impersonate_user
@@ -40,6 +44,6 @@ class ApplicationController < ActionController::Base
   end
 
   def unauthorized_page
-    render 'application/401'
+    render 'application/401', status: :unauthorized
   end
 end

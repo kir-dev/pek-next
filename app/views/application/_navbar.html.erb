@@ -21,6 +21,18 @@
           </li>
         <% end %>
 
+        <% if current_user.roles.rvt_member? %>
+          <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="{pos:'bottom-right'}">
+            <a class="nav-button">RVT funkciók</a>
+
+            <div class="uk-dropdown uk-dropdown-navbar">
+              <ul class="uk-nav uk-nav-navbar"></li>
+                <li><%= link_to "SVIE-be jelentkezettek", svie_index_path %></li>
+              </ul>
+            </div>
+          </li>
+        <% end %>
+
         <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="">
           <%= link_to "Körök", groups_url, class: "nav-button" %>
         </li>
@@ -35,7 +47,11 @@
               <li><%= link_to "Profilom", root_url %></li>
               <li class="uk-nav-divider"></li>
               <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
-              <li><%= link_to "SVIE tagság", svie_edit_path %></li>
+              <% if current_user.not_member_of_svie? %>
+                <li><%= link_to "SVIE-be jelentkezés", new_svie_path %></li>
+              <% else %>
+                <li><%= link_to "SVIE tagság", svie_edit_path %></li>
+              <% end %>
               <li class="uk-nav-divider"></li>
               <li><%= link_to "Kijelentkezés", logout_path %></li>
             </ul>
@@ -77,6 +93,11 @@
 
       <li class="uk-nav-header">Közösség</li>
       <li><%= link_to "Körök", groups_path %></li>
+
+      <% if current_user.roles.rvt_member? %>
+      <li class="uk-nav-header">RVT felület</li>
+      <li><%= link_to "SVIE-be jelentkezettek", svie_index_path %></li>
+      <% end %>
 
       <% if current_user.roles.svie_admin? %>
       <li class="uk-nav-header">SVIE admin</li>
