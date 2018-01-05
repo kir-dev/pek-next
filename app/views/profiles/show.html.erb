@@ -54,7 +54,12 @@
             <li>
               <% years_with_points(@user_presenter.pointrequests) do |year| %>
               <div class="uk-accordion" data-uk-accordion="{collapse:true, showfirst:false}">
-                <h3 class="uk-accordion-title uk-margin-small-bottom"><%= year.to_readable %></h3>
+                <h3 class="uk-accordion-title">
+                  <%= year.to_readable %>
+                  <span class="uk-align-right">
+                    Felvételipont: <%= PointHistory.find_by(semester: year.to_s, user: @user_presenter.id).point %>
+                  </span>
+                </h3>
                 <div class="uk-accordion-content">
                   <table class="profile-history uk-table uk-table-striped white-bg">
                     <tbody>
