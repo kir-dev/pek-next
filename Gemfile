@@ -29,6 +29,8 @@ gem 'sidekiq-cron'
 
 gem 'draper'
 
+gem 'prawn-table'
+
 # Reactive javascript extension
 gem 'rxjs-rails'
 

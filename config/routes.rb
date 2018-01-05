@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   post '/privacies/update', to: 'privacies#update'
 
   resources :delegates, only: [:index]
+  get '/delegates/export', to: 'delegates#export'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
