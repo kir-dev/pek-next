@@ -57,4 +57,18 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_nil membership.reload.membership_end
     assert_response :success
   end
+
+  test "delegation became false when inactivate a group member who delegated that group" do
+    membership = grp_membership(:babhamozo_member_who_delegated)
+
+    assert membership.user.delegated
+    assert_equal(membership.user.primary_membership, membership)
+
+    Timecop.freeze do
+      xhr :get, :inactivate, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+
+      assert_not membership.reload.user.delegated
+    end
+    assert_response :success
+  end
 end

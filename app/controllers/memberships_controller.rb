@@ -13,11 +13,24 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
-    Membership.delete(params[:id])
+    membership_id = params[:id]
+
+    membership = Membership.find(membership_id)
+    if membership.user.delegated && membership.user.primary_membership == membership
+      Membership.find(membership_id).user.update(delegated: false)
+    end
+
+    Membership.delete(membership_id)
   end
 
   def inactivate
-    Membership.update(params[:membership_id], membership_end: Time.now)
+    membership_id = params[:membership_id]
+    Membership.update(membership_id, membership_end: Time.now)
+
+    membership = Membership.find(membership_id)
+    if membership.user.delegated && membership.user.primary_membership == membership
+      Membership.find(membership_id).user.update(delegated: false)
+    end
   end
 
   def reactivate

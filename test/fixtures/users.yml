@@ -72,6 +72,14 @@ past_babhamozo_member:
   usr_lastname: Csilis
   usr_screen_name: chili
 
+delegated_babhamozo_member:
+  usr_id: 4005
+  usr_firstname: Delegált
+  usr_lastname: Csilis
+  usr_screen_name: kuldott
+  usr_delegated: true
+  usr_svie_primary_membership: 8
+
 user_with_primary_membership:
   usr_id: 5000
   usr_firstname: GoFor
