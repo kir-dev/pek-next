@@ -17,4 +17,8 @@ module ProfilesHelper
       yield DetailedPointHistory.new(pointrequest)
     end
   end
+
+  def sum_yearly_points(user, year)
+    PointHistory.find_by(semester: year.to_s, user: @user_presenter.id).point
+  end
 end
