@@ -31,6 +31,6 @@ class Evaluation < ActiveRecord::Base
   end
 
   def accepted
-    point_request_accepted && (entry_request_accepted || no_entry_request)
+    point_request_accepted && !next_version
   end
 end
