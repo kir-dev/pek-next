@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def impersonate_user
-    @user ||= User.find(33114)
+    @user ||= User.first
   end
 
   def unauthorized_page
