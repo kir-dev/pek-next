@@ -27,4 +27,25 @@ class Membership < ActiveRecord::Base
   def post(post_type)
     posts.find_by(post_type_id: post_type)
   end
+
+  def inactivate!
+    self.end = Time.now
+    save
+  end
+
+  def reactivate!
+    self.end = nil
+    save
+  end
+
+  def archive!
+    self.archived = Time.now
+    save
+  end
+
+  def unarchive!
+    self.archived = nil
+    save
+  end
+
 end

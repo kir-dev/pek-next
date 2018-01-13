@@ -1,4 +1,4 @@
-<% active_users(@viewmodel.group) do |member| %>
+<% archived_users(@viewmodel.group) do |member| %>
 <div class="uk-width-1-1 uk-width-medium-1-3">
   <div class="uk-panel uk-panel-box dark">
 
@@ -24,11 +24,7 @@
         <div class="uk-width-1-3 uk-text-bold uk-text-right"><%= member.membership_start %> -</div>
         <% if @viewmodel.leader? %>
           <div class="uk-width-1-2 uk-padding-small">
-            <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
-                        method: :post, class: "uk-button uk-button-primary uk-button-small uk-width-auto", remote: true %>
-          </div>
-          <div class="uk-width-1-2 uk-padding-small">
-            <%= button_to "Archiválás", group_membership_archive_path(@viewmodel.group.id, member.membership_id),
+            <%= button_to "Archiválás visszavonása", group_membership_unarchive_path(@viewmodel.group.id, member.membership_id),
                         method: :put, class: "uk-button uk-button-danger uk-button-small uk-width-auto", remote: true %>
           </div>
         <% end %>

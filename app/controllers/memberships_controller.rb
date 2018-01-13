@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :require_login
-  before_action :require_leader, only: [:inactivate, :destroy, :reactivate]
+  before_action :require_leader, only: [:inactivate, :destroy, :reactivate, :archive, :unarchive]
 
   def create
     @group = Group.find(params[:group_id])
@@ -12,28 +12,19 @@ class MembershipsController < ApplicationController
     end
   end
 
-  def destroy
-    membership_id = params[:id]
+  def archive
+    Membership.find(params[:membership_id]).archive!
+  end
 
-    membership = Membership.find(membership_id)
-    if membership.user.delegated && membership.user.primary_membership == membership
-      Membership.find(membership_id).user.update(delegated: false)
-    end
-
-    Membership.delete(membership_id)
+  def unarchive
+    Membership.find(params[:membership_id]).unarchive!
   end
 
   def inactivate
-    membership_id = params[:membership_id]
-    Membership.update(membership_id, membership_end: Time.now)
-
-    membership = Membership.find(membership_id)
-    if membership.user.delegated && membership.user.primary_membership == membership
-      Membership.find(membership_id).user.update(delegated: false)
-    end
+    Membership.find(params[:membership_id]).inactivate!
   end
 
   def reactivate
-    Membership.update(params[:membership_id], membership_end: nil)
+    Membership.find(params[:membership_id]).reactivate!
   end
 end

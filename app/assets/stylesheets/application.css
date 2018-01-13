@@ -57,6 +57,10 @@ html, body {
 	background-color: #000;
 }
 
+.uk-padding-small {
+    padding: 5px;
+}
+
 .uk-navbar-nav>li>a {
 	color: #f5f5f5;
 }

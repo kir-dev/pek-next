@@ -88,6 +88,18 @@ user_with_primary_membership:
   usr_svie_primary_membership: 4
   usr_svie_state: ELFOGADVA
 
+archived_active_babhamozo_member:
+  usr_id: 5005
+  usr_firstname: Archi
+  usr_lastname: János
+  usr_screen_name: ajani
+
+archived_inactive__babhamozo_member:
+  usr_id: 5006
+  usr_firstname: Öreg Archi
+  usr_lastname: János
+  usr_screen_name: oldjani
+
 not_rvt_member:
   usr_id: 6000
   usr_firstname: Melegvíz

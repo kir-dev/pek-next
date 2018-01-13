@@ -39,7 +39,7 @@ class GroupsController < ApplicationController
   end
 
   def update_params
-    params.require(:group).permit(:name, :description, :webpage, :founded, :maillist, :users_can_apply)
+    params.require(:group).permit(:name, :description, :webpage, :founded, :maillist, :users_can_apply, :archived_members_visible)
   end
 
 end
