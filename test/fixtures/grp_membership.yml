@@ -35,14 +35,14 @@ newbie_membership:
   usr_id: 5000
 
 inactive_archived_babhamozo_member:
-  id: 8
+  id: 10
   grp_id: 1
   usr_id: 5005
   archived: <%= Time.now %>
   membership_end: <%= Time.now %>
 
 active_archived_babhamozo_member:
-  id: 9
+  id: 11
   grp_id: 1
   usr_id: 5006
   archived: <%= Time.now %>
