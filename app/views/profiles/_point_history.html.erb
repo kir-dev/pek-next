@@ -1,0 +1,36 @@
+<div class="uk-clearfix">
+  <div class="uk-float-left uk-margin-left">
+    <h3>Félév</h3>
+  </div>
+  <div class="uk-float-right uk-margin-right">
+    <h3>Felvételi pont</h3>
+  </div>
+</div>
+
+<div class="uk-accordion" data-uk-accordion="{collapse:false, showfirst:false}">
+  <% years_with_points(@user_presenter.pointrequests) do |year| %>
+  <div class="uk-accordion-title uk-clearfix">
+    <div class="uk-float-left">
+      <%= year.to_readable %>
+    </div>
+    <div class="uk-float-right uk-text-center" style="width: 110px">
+      <%= PointHistory.find_by(semester: year.to_s, user: @user_presenter.id).point %>
+    </div>
+  </div>
+
+  <div class="uk-accordion-content">
+    <ul class="uk-list uk-list-line">
+      <% user_detailed_point_history(@user_presenter.pointrequests, year) do |point_history| %>
+      <li class="uk-clearfix">
+        <div class="uk-float-left">
+          <%= link_to point_history.group_name, group_path(point_history.group_id) %>
+        </div>
+        <div class="uk-float-right uk-text-center" style="width: 110px">
+          <%= point_history.point %>
+        </div>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+</div>
