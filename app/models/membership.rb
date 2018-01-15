@@ -30,6 +30,11 @@ class Membership < ActiveRecord::Base
 
   def inactivate!
     self.end = Time.now
+
+    if self.user.delegated && self.user.primary_membership == self
+      self.user.update(delegated: false)
+    end
+
     save
   end
 
@@ -40,6 +45,11 @@ class Membership < ActiveRecord::Base
 
   def archive!
     self.archived = Time.now
+
+    if self.user.delegated && self.user.primary_membership == self
+      self.user.update(delegated: false)
+    end
+
     save
   end
 

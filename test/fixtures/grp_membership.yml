@@ -34,6 +34,11 @@ newbie_membership:
   grp_id: 4
   usr_id: 5000
 
+babhamozo_member_who_delegated:
+  id: 8
+  grp_id: 1
+  usr_id: 4005
+
 inactive_archived_babhamozo_member:
   id: 10
   grp_id: 1
