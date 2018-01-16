@@ -55,6 +55,15 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
+    config.x.im_accounts = {
+      'call_sign'    => 'Hívójel',
+      'gtalk'        => 'Google Hangouts',
+      'skype'        => 'Skype',
+      'irc'          => 'IRC',
+      'twitter'      => 'Twitter',
+      'facebook'     => 'Facebook',
+      'jabber'       => 'Jabber'
+    }
     config.x.svie_states = {
       'ELFOGADVA'        => 'Elfogadva',
 # Meg van a papírja, az RVT elfogadására vár :

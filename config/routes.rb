@@ -39,6 +39,8 @@ Rails.application.routes.draw do
 
   post '/privacies/update', to: 'privacies#update'
 
+  resources :im_accounts, only: [:create, :update, :destroy]
+
   resources :delegates, only: [:index]
   get '/delegates/export', to: 'delegates#export'
 
