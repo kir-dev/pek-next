@@ -45,21 +45,19 @@ class MembershipsControllerTest < ActionController::TestCase
 
   test "unarchive active_member of group" do
     membership = grp_membership(:active_archived_babhamozo_member)
-    Timecop.freeze do
-      xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
 
-      assert_nil membership.reload.archived
-    end
+    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+    assert_nil membership.reload.archived
+
     assert_response :success
   end
 
   test "unarchive inactive_member of group" do
     membership = grp_membership(:inactive_archived_babhamozo_member)
-    Timecop.freeze do
-      xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
 
-      assert_nil membership.reload.archived
-    end
+    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+    assert_nil membership.reload.archived
+
     assert_response :success
   end
 
