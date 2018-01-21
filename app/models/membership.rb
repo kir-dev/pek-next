@@ -13,10 +13,19 @@ class Membership < ActiveRecord::Base
   has_many :post_types, through: :posts
 
   LEADER_POST_ID = 3
+  PAST_LEADER_ID = 4
   DEFAULT_POST_ID = 6
   PEK_ADMIN_ID = 66
 
   def leader?
     posts.any? { |post| post.post_type.id == LEADER_POST_ID }
+  end
+
+  def newbie?
+    posts.any? { |post| post.post_type.id == DEFAULT_POST_ID }
+  end
+
+  def post(post_type)
+    posts.find_by(post_type_id: post_type)
   end
 end

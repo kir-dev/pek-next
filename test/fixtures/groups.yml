@@ -24,3 +24,21 @@ group<%= i %>:
   grp_name: group<% i %>
   grp_type: kör
 <% end %>
+
+svie_group:
+  grp_id: 3
+  grp_name: Pizzás
+  grp_type: szolgáltató
+  grp_issvie: true
+
+svie_group_with_newbies:
+  grp_id: 4
+  grp_name: Hambis
+  grp_type: szolgáltató
+  grp_issvie: true
+
+rvt:
+  grp_id: 146
+  grp_name: RVT
+  grp_type: csak_az_elvek
+  grp_issvie: false

@@ -8,6 +8,10 @@ hu:
 
   edit_successful: Sikeres mentés!
   register_successful: Sikeres regisztráció!
+  too_many_delegates: Túl sok küldöttet szeretnél beállítani!
+  applied_succesful: Sikeres jelentkezés!
+  accept_application: SVIE tag lett!
+  svie_group_needed: SVIE jelentkezéshez legalább egy SVIE körben tagnak kell lenned!
   activerecord:
     attributes:
       user:
@@ -25,6 +29,18 @@ hu:
         screen_name: Felhasználónév
         auth_sch_id: Auth.sch azonosító
         bme_id: BME azonosító
+      group:
+        name: Név
+        description: Leírás
+        webpage: Weboldal
+        founded: Alapítva
+        maillist: Levelezőlista
+        users_can_apply: Körbe jelentkezés megengedett
+      im_account/protocol:
+        skype: Skype
+        gtalk: Google Hangouts
+        jabber: Jabber
+        irc: IRC
     errors:
       models:
         user:
@@ -37,3 +53,10 @@ hu:
               taken: már regisztrálva van!
             bme_id:
               taken: már regisztrálva van!
+  views:
+    pagination:
+      first: "Első"
+      previous: "&laquo; Előző"
+      next: "Következő &raquo;"
+      last: "Utolsó"
+      truncate: "..."

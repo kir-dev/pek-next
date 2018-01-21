@@ -1,21 +1,85 @@
-<div class="uk-height-viewport uk-responsive-width">
-	<div class="uk-container-center"><!-- uk-scrollable-box uk-height-viewport uk-responsive-width">-->
-		<div class="uk-panel uk-panel-box">
-			<h3 class="uk-panel-title">Adatlap - <%= @user.full_name %></h3>
-			<!--<nav class="uk-navbar uk-hidden-small uk-width" style="width:282px;">
-				<ul class="uk-navbar-nav">
-					<li class="uk-active"><a href="">Profil</a></li>
-					<li><a href="">Közösségi profil</a></li>
-					<li><a href="">Közösségi történet</a></li>
-				</ul>
-			</nav>
--->
-			<%= image_tag photo_path(@user.screen_name), class: "uk-thumbnail", alt: @user.screen_name %>
-			<h3 class="uk-h3"><%= @user.full_name %></h3>
-			<h4 class="uk-h4"><%= @user.email %></h4>
-			<h4 class="uk-h4"><%= @user.dormitory %> <%= @user.room %></h4>
-			<h4 class="uk-h4"><%= @user.cell_phone %></h4>
+<% stylesheet 'profile' %>
 
-		</div>
-	</div>
+<div id="content-main" class="profile-container">
+  <div class="uk-height-viewport uk-responsive-width">
+    <h1 class="uk-h1"><%= @user_presenter.compact_name %></h1>
+    <div class="uk-container-center uk-panel uk-panel-box">
+      <div class="uk-grid uk-flex-middle">
+
+        <div class="uk-width-medium-1-3 uk-flex-center uk-padding-large">
+          <%= image_tag photo_path(@user_presenter.screen_name), class: "uk-thumbnail uk-width-expand", alt: @user_presenter.full_name, id: 'profile-picture' %>
+        </div>
+
+        <div class="uk-width-medium-1-3 uk-flex-center">
+          <h2 class="uk-h2">Adatlap</h2>
+          <%= @user_presenter.room %>
+          <%= @user_presenter.cell_phone %>
+          <%= @user_presenter.email %>
+          <% @user_presenter.messaging_accounts.each do |im_account| %>
+            <%= im_account.account %>
+          <% end %>
+          <%= @user_presenter.delegated_for %>
+        </div>
+
+        <div class="uk-width-1-1 uk-margin-top">
+          <h2 class="uk-h2">Közösség</h2>
+          <ul class="uk-tab uk-margin" data-uk-tab="{connect:'#profile-data'}">
+            <li>
+              <button class="uk-button" href="">Tagságok</button>
+            </li>
+            <li>
+              <button class="uk-button" href="">Történet</button>
+            </li>
+          </ul>
+
+          <ul id="profile-data" class="uk-switcher">
+            <li>
+              <div class="uk-grid uk-grid-medium" data-uk-grid="{gutter: 20}">
+                <% own_memberships do |membership| %>
+                  <div class="uk-width-1-1 uk-width-medium-1-3">
+                    <div class="uk-panel uk-panel-box dark">
+                      <div class="uk-panel-title uk-margin-remove">
+                        <%= link_to membership.group_name, group_path(membership.group_id) %>
+                      </div>
+                      <div class="uk-panel-body uk-padding-remove">
+                        <div class="uk-grid uk-grid-collapse">
+                          <div class="uk-width-2-3 uk-padding-small uk-text-bold"><%= membership.posts %></div>
+                          <div class="uk-width-1-3 uk-padding-small uk-text-bold uk-text-right"><%= membership.membership_timer %></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </li>
+            <li>
+              <% years_with_points(@user_presenter.pointrequests) do |year| %>
+              <div class="uk-accordion" data-uk-accordion="{collapse:true, showfirst:false}">
+                <h3 class="uk-accordion-title">
+                  <%= year.to_readable %>
+                  <span class="uk-align-right">
+                    Felvételipont: <%= PointHistory.find_by(semester: year.to_s, user: @user_presenter.id).point %>
+                  </span>
+                </h3>
+                <div class="uk-accordion-content">
+                  <table class="profile-history uk-table uk-table-striped white-bg">
+                    <tbody>
+                      <% user_detailed_point_history(@user_presenter.pointrequests, year) do |point_history| %>
+                      <tr>
+                        <td><%= link_to point_history.group_name, group_path(point_history.group_id) %></td>
+                        <td><%= point_history.point %></td>
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <% end %>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

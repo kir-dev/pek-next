@@ -1,6 +1,20 @@
-<% results.each do |user| %>
-  <tr>
-    <td> <%= link_to user.full_name, profile_path(user.screen_name) %> </td>
-    <td> <%= user.nickname %> </td>
-  </tr>
+<% groups.each do |group| %>
+    <div class="uk-grid uk-grid-collapse uk-panel uk-panel-box dark uk-margin-small-top uk-margin-small-bottom uk-width-1-1 group-search group-result">
+      <div class="uk-width-1-1">
+        <%= link_to group.name, group_path(group.id), class: 'result-name uk-h3' %>
+      </div>
+      <div class="uk-width-1-1 uk-text-break">
+        <%= truncate group.description, length: 200 %>
+      </div>
+    </div>
+<% end %>
+<% users.each do |user| %>
+    <div class="uk-grid uk-grid-collapse uk-panel uk-panel-box dark uk-margin-small-top uk-margin-small-bottom uk-width-1-1 user-search user-result">
+      <div class="uk-width-1-1">
+        <%= link_to user.compact_name, profile_path(user.screen_name), class: 'result-name uk-h3' %>
+      </div>
+      <div class="uk-width-1-1">
+        <%= user.room %>
+      </div>
+    </div>
 <% end %>

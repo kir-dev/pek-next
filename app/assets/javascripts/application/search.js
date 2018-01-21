@@ -21,7 +21,7 @@ var search = (function(Helpers, Rx, $) {
 
             inputStream.subscribe(inputChange);
         }
-        
+
         $("#show-more").click(showMore);
     }
 
@@ -43,11 +43,12 @@ var search = (function(Helpers, Rx, $) {
                 url: '/search',
                 data: {query: query}
             }).done(function (resp) {
-                $('#content-main').html($(resp).find("#content-main").html());
+                $('#content-container').html($(resp).filter("#content-container").html());
 
                 document.title = "Keresés";
                 window.history.pushState({ "html" : resp.html, "pageTitle" : "Keresés"},"", "/search?query=" + query);
                 updateSuggestions(query);
+                $("#show-more").click(showMore);
             });
         }
     }
@@ -58,11 +59,14 @@ var search = (function(Helpers, Rx, $) {
         if(query.length === 0) {
             return;
         }
-        $.get('/search/suggest', {query: query, page: page++}, function (resp) {
+        var group_count = $('.group-result').length;
+        var user_count = $('.user-result').length;
+        $.get('/search/suggest', { query: query, group_count: group_count, 
+          user_count: user_count }, function (resp) {
             $(resp).appendTo($('#suggestions'));
             if(resp.length === 0){
-                $('#show-more').hide();
-                $('#no-more').show();
+                $('#show-more').addClass( 'uk-hidden' );
+                $('#no-more').removeClass( 'uk-hidden' );
             }
         });
     }

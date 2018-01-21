@@ -1,0 +1,39 @@
+<% stylesheet 'admin' %>
+
+<h1 class="uk-h1"><%= @group.name %> delegáltjai</h1>
+<div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-alert
+    <%= 'uk-alert-danger' if @group.can_delegate_more %>
+    <%= 'uk-alert-success' unless @group.can_delegate_more %>">
+    <h5>
+      <b><%= @group.delegate_count %></b> tagot kell delegálnod. Jelenleg <b><%= @group.current_delegated_count %></b> tag van delegálva
+    </h5>
+  </div>
+
+  <h5>Akik aktív SVIE tagok és elsődleges körük a <%= @group.name %>:</h5>
+
+  <div class="uk-grid uk-margin-remove uk-width-medium-3-4">
+    <% @eligible_members.each do |member| %>
+    <div class="uk-width-1-1 uk-grid uk-margin-remove uk-padding-remove">
+      <div class="uk-width-1-2 uk-text-left uk-text-bold">
+        <%= member.decorate.compact_name %>
+      </div>
+      <% if member.delegated %>
+
+      <%= button_to "Visszahívás", group_delegate_path(params[:group_id]),
+      method: :delete, params: { member_id: member.id},
+      class: "uk-button uk-button-danger uk-width-1-1 uk-align-center", remote: false %>
+
+      <% else %>
+
+      <%= button_to "Küldés", group_delegate_path(params[:group_id]),
+      params: { member_id: member.id}, method: :post,
+      class: "uk-button uk-button-success uk-width-1-1 uk-align-center", remote: false %>
+
+      <% end %>
+    </div>
+  <% end %>
+
+
+  </div>
+</div>

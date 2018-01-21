@@ -4,4 +4,8 @@ module ApplicationHelper
     '/auth/oauth'
   end
 
+  def stylesheet(*files)
+    content_for(:head) { stylesheet_link_tag(*files) }
+  end
+
 end

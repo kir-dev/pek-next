@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>PekNext</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <%= yield(:head) %>
 </head>
+
 <body class="uk-height-1-1">
 
-<%= render 'navbar' unless controller_name == 'registration' %>
+  <%= render 'navbar' %>
 
-<% if flash.alert %>
-  <div class="uk-alert uk-alert-danger uk-container-center uk-width-2-3 uk-margin-top">
-    <p>
-      <%= flash.alert %>
-    </p>
-  </div>
-<% end %>
+  <% if flash.alert %>
+    <script>
+      UIkit.notify("<%= flash.alert %>", {status:'danger'});
+    </script>
+  <% end %>
 
-<% if flash.notice %>
-  <div class="uk-alert uk-alert-success uk-container-center uk-width-2-3 uk-margin-top">
-    <p>
-      <%= flash.notice %>
-    </p>
-  </div>
-<% end %>
+  <% if flash.notice %>
+    <script>
+      UIkit.notify("<%= flash.notice %>", {status:'success'});
+    </script>
+  <% end %>
 
-<div id="content-container">
-  <div id="content-main" class="uk-width-large-3-5 uk-container-center">
+  <div class="uk-container uk-container-center uk-padding-remove uk-margin-top uk-margin-small-bottom page-wrap" id="content-container">
     <%= yield %>
   </div>
-</div>
+
+  <%= render 'footer' %>
 
 </body>
+
 </html>

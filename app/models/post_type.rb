@@ -4,4 +4,6 @@ class PostType < ActiveRecord::Base
 
   alias_attribute :id, :pttip_id
   alias_attribute :name, :pttip_name
+
+  belongs_to :group, foreign_key: :grp_id
 end
