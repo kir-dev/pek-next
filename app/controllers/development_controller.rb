@@ -4,27 +4,38 @@ class DevelopmentController < ApplicationController
   end
 
   def impersonate_someone
-    impersonate(User.first.id)
-    redirect_to :back
+    impersonate(User.first)
+    impersonated_successfully
   end
 
   def impersonate_user
-    impersonate(params[:user_id])
-    redirect_to :back
+    impersonate(User.find params[:user_id])
+    impersonated_successfully
   end
 
   def impersonate_role
     case params[:role]
-    when :mezei_user
-      impersonate(User.first.id)
+    when 'mezei_user'
+      impersonate(User.first)
+    when 'group_leader'
+      impersonate(Group.kirdev.leader.user)
+    when 'rvt_member'
+    when 'svie_admin'
+    when 'pek_admin'
+      example_admin = Group.kirdev.members.find { |user| user.roles.pek_admin? }
+      impersonate(example_admin)
     end
-    redirect_to :back
+    impersonated_successfully
   end
 
   private
 
-  def impersonate(user_id)
-    session[:user_id] = user_id
+  def impersonate(user)
+    session[:user_id] = user.id
+  end
+
+  def impersonated_successfully
+    redirect_to :back, notice: :successful_impersonation
   end
 
 end

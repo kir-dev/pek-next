@@ -1,5 +1,11 @@
 <div class="uk-width-medium-2-3 uk-container-center uk-overflow-container">
 
+  <% if flash.notice %>
+    <script>
+      UIkit.notify("<%= flash.notice %>", {status:'success'});
+    </script>
+  <% end %>
+
   <h1>Development console</h1>
   <h2>User impersonation</h2>
 
