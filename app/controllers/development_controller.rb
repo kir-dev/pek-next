@@ -20,10 +20,12 @@ class DevelopmentController < ApplicationController
     when 'group_leader'
       impersonate(Group.kirdev.leader.user)
     when 'rvt_member'
+      impersonate(Group.rvt.leader.user)
     when 'svie_admin'
+      impersonate(Group.svie.leader.user)
     when 'pek_admin'
-      example_admin = Group.kirdev.members.find { |user| user.roles.pek_admin? }
-      impersonate(example_admin)
+      pek_admin = Group.kirdev.members.find { |user| user.roles.pek_admin? }
+      impersonate(pek_admin)
     end
     impersonated_successfully
   end

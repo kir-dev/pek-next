@@ -1,7 +1,4 @@
 class UserRole
-  SVIE_GROUP_ID = 369
-  RVT_GROUP_ID = 146
-  PEK_ADMIN_ID = 66
 
   def initialize(user)
     @user = user
@@ -12,10 +9,11 @@ class UserRole
   end
 
   def svie_admin?
-    @user.groups.any? { |g| g.id == SVIE_GROUP_ID }
+    @user.groups.any? { |g| g == Group.svie }
   end
 
   def rvt_member?
-    @user.groups.any? { |g| g.id == RVT_GROUP_ID }
+    @user.groups.any? { |g| g == Group.rvt }
   end
+
 end
