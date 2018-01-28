@@ -9,11 +9,11 @@ class UserRole
   end
 
   def svie_admin?
-    @user.groups.any? { |g| g == Group.svie }
+    @user.member_of?(Group.svie)
   end
 
   def rvt_member?
-    @user.groups.any? { |g| g == Group.rvt }
+    @user.member_of?(Group.rvt)
   end
 
 end
