@@ -27,13 +27,13 @@
           <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
           method: :post, class: "uk-button uk-button-primary uk-button-small uk-width-auto", remote: true %>
         </div>
-        <% if member.user.not_member_of_svie? || member.user.svie_state_is_in_processing? %>
+        <% if member.user.svie.not_member? || member.user.svie.in_processing? %>
           <div class="uk-icon-circle-o" data-uk-tooltip title="Nem SVIE tag"></div>
-        <% elsif member.user.outside_svie_member? %>
+        <% elsif member.user.svie.outside_member? %>
           <div class="uk-icon-check-circle-o" data-uk-tooltip title="Pártolótag"></div>
         <% elsif !member.primary_member? %>
           <div class="uk-icon-check-circle-o" data-uk-tooltip title="Más elsődleges kör"></div>
-        <% elsif member.user.inside_svie_member? %>
+        <% elsif member.user.svie.inside_member? %>
           <div class="uk-icon-check-circle" data-uk-tooltip title="Rendes tag"></div>
         <% end %>
         <% end %>

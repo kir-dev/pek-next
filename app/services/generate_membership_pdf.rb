@@ -10,9 +10,9 @@ class GenerateMembershipPdf
     pdf.image "#{Rails.root}/app/assets/images/schlogo.png", width: 80,  position: :center
     pdf.font_size 18
     pdf.text 'Tagfelvételi kérelem', align: :center
-    if user.inside_svie_member?
+    if user.svie.inside_member?
       pdf.text 'Belsős tagsághoz', align: :center
-    elsif user.outside_svie_member?
+    elsif user.svie.outside_member?
       pdf.text 'Külsős tagsághoz', align: :center
     else
       pdf.text 'Öregtagsághoz', align: :center

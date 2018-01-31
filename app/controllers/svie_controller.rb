@@ -21,7 +21,7 @@ class SvieController < ApplicationController
   def update
     current_user.update(svie_primary_membership: params[:svie][:primary_membership])
     current_user.update(delegated: false)
-    if current_user.not_member_of_svie?
+    if current_user.svie.not_member?
       redirect_to new_svie_path
     else
       redirect_to profiles_me_path, notice: t(:edit_successful)
@@ -46,7 +46,7 @@ class SvieController < ApplicationController
   end
 
   def destroy
-    current_user.remove_svie_membership!
+    current_user.svie.remove_membership!
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 end
