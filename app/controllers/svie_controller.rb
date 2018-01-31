@@ -44,4 +44,9 @@ class SvieController < ApplicationController
   def application_pdf
     send_data GenerateMembershipPdf.call(current_user), filename: 'szerzodes.pdf', type: 'application/pdf'
   end
+
+  def destroy
+    current_user.remove_svie_membership!
+    redirect_to profiles_me_path, notice: t(:edit_successful)
+  end
 end

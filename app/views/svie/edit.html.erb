@@ -23,6 +23,9 @@
         </div>
       </div>
       <% end %>
+      <div class="uk-width-1-4 uk-margin uk-align-center">
+        <%= button_to 'Tagság megszüntetése', { action: :destroy }, class: 'uk-button uk-width-expand uk-button-danger', data: { confirm: 'Biztos vagy benne?', disable_with: 'töltés...' } %>
+      </div>
 
     </div>
   </div>

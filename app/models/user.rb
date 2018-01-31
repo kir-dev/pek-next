@@ -90,4 +90,11 @@ class User < ActiveRecord::Base
   def inactive_svie_member?
     svie_member_type == 'OREGTAG'
   end
+
+  def remove_svie_membership!
+    self.svie_state = 'NEMTAG'
+    self.svie_member_type = 'NEMTAG'
+    save!
+  end
+
 end
