@@ -40,6 +40,10 @@
 	color: #fff !important;
 }
 
+.uk-padding {
+	padding: 10px;
+}
+
 .dark {
 	background-color: #f5f5f5 !important;
 }
