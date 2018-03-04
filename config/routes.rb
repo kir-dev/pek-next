@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
+      put '/archive', to: 'memberships#archive'
+      put '/unarchive', to: 'memberships#unarchive'
       resources :posts, only: [:index, :create, :destroy]
     end
     resources :post_types, only: [:create]
@@ -39,6 +41,7 @@ Rails.application.routes.draw do
   post '/privacies/update', to: 'privacies#update'
 
   resources :delegates, only: [:index]
+  get '/delegates/export', to: 'delegates#export'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

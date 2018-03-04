@@ -72,6 +72,14 @@ past_babhamozo_member:
   usr_lastname: Csilis
   usr_screen_name: chili
 
+delegated_babhamozo_member:
+  usr_id: 4005
+  usr_firstname: Delegált
+  usr_lastname: Csilis
+  usr_screen_name: kuldott
+  usr_delegated: true
+  usr_svie_primary_membership: 8
+
 user_with_primary_membership:
   usr_id: 5000
   usr_firstname: GoFor
@@ -79,6 +87,18 @@ user_with_primary_membership:
   usr_screen_name: csakasvie
   usr_svie_primary_membership: 4
   usr_svie_state: ELFOGADVA
+
+archived_active_babhamozo_member:
+  usr_id: 5005
+  usr_firstname: Archi
+  usr_lastname: János
+  usr_screen_name: ajani
+
+archived_inactive__babhamozo_member:
+  usr_id: 5006
+  usr_firstname: Öreg Archi
+  usr_lastname: János
+  usr_screen_name: oldjani
 
 not_rvt_member:
   usr_id: 6000

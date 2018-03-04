@@ -4,7 +4,33 @@ class DelegatesController < ApplicationController
   before_action :require_svie_admin, only: [:index, :export]
 
   def index
-    @delegates = User.where(delegated: true).order(:firstname).page(params[:page]).per(params[:per])
+    @delegates = User.where(delegated: true).order(:lastname).page(params[:page]).per(params[:per])
+     .select{ |user| user.primary_membership.group.issvie }
+  end
+
+  def export
+    @delegates = User.where(delegated: true).order(:lastname)
+
+    require "prawn/table"
+    require "prawn"
+
+    Prawn::Document.generate("delegates.pdf") do |pdf|
+      table_data = Array.new
+      table_data << ["Név", "Kör", "Email", "Aláíras"]
+      @delegates.each do |user|
+        table_data << [user.full_name, user.primary_membership.group.name, user.email, ""]
+      end
+      pdf.font_families.update("Helvetica"=>{:normal => Rails.root.join('app', 'assets/fonts', 'HELR45W.ttf').to_s})
+      pdf.font "Helvetica"
+      pdf.table(table_data) do |table|
+        table.column_widths=[110,100,130,200]
+      end
+    end
+    File.open("#{Rails.root}/delegates.pdf", 'r') do |f|
+      send_data f.read, type: "application/pdf"
+    end
+    File.delete("#{Rails.root}/delegates.pdf")
+
   end
 
   def show

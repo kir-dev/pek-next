@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.8
--- Dumped by pg_dump version 9.5.8
+-- Dumped from database version 9.5.10
+-- Dumped by pg_dump version 9.5.10
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -126,7 +126,8 @@ CREATE TABLE groups (
     grp_founded integer,
     grp_issvie boolean DEFAULT false NOT NULL,
     grp_svie_delegate_nr integer,
-    grp_users_can_apply boolean DEFAULT true NOT NULL
+    grp_users_can_apply boolean DEFAULT true NOT NULL,
+    grp_archived_members_visible boolean
 );
 
 
@@ -153,7 +154,8 @@ CREATE TABLE grp_membership (
     grp_id bigint,
     usr_id bigint,
     membership_start date DEFAULT now(),
-    membership_end date
+    membership_end date,
+    archived date
 );
 
 
@@ -936,4 +938,6 @@ ALTER TABLE ONLY usr_private_attrs
 SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20161124163851');
+
+INSERT INTO schema_migrations (version) VALUES ('20171130184224');
 
