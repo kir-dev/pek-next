@@ -24,6 +24,14 @@ class Membership < ActiveRecord::Base
     posts.any? { |post| post.post_type.id == DEFAULT_POST_ID }
   end
 
+  def archived?
+    !self.archived.nil?
+  end
+
+  def active?
+    !self.newbie? && self.end.nil? && !self.archived?
+  end
+
   def post(post_type)
     posts.find_by(post_type_id: post_type)
   end

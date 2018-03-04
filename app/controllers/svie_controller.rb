@@ -14,7 +14,7 @@ class SvieController < ApplicationController
   end
 
   def edit
-    @svie_memberships = current_user.memberships.select { |m| m.group.issvie && !m.newbie? }
+    @svie_memberships = current_user.memberships.select { |m| m.group.issvie && m.active? }
     redirect_to :back, alert: t(:svie_group_needed) if @svie_memberships.empty?
   end
 
