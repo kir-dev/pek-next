@@ -223,6 +223,7 @@ DEPENDENCIES
   omniauth
   omniauth-oauth2
   pg
+  prawn
   prawn-table
   puma
   rails (= 4.2.5)
