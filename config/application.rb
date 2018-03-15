@@ -76,6 +76,9 @@ module PekNext
       'RENDESTAG' => 'Rendes tag',
       'PARTOLOTAG' => 'Külsős tag',
     }
+
+    config.x.auth_sch_pingback_url = 'https://auth.sch.bme.hu/api/profile/resync?access_token='
+
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
   end

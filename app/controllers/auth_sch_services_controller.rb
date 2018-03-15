@@ -15,7 +15,7 @@ class AuthSchServicesController < ApplicationController
   end
 
   def entrants
-    user = get_user(params[:id], [ { entryrequests: [ :evaluation ] } ])
+    user = get_user(params[:id], [ { entryrequests: [ { evaluation: [ :group ] } ] } ])
     if user
       render json: entrants_json(user, params[:semester])
     end
