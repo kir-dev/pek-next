@@ -15,6 +15,7 @@ class Evaluation < ActiveRecord::Base
   alias_attribute :principle, :pontozasi_elvek
 
   belongs_to :evaluation_id, foreign_key: :evaluation_id
+  belongs_to :group, foreign_key: :grp_id
   has_one :point_request
   has_one :entry_request
 
