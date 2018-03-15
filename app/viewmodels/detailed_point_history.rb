@@ -1,5 +1,4 @@
 class DetailedPointHistory
-
   def initialize(pointrequest)
     @pointrequest = pointrequest
     @evaluation = Evaluation.find(@pointrequest.evaluation_id)
@@ -21,5 +20,4 @@ class DetailedPointHistory
   def point
     @pointrequest.point
   end
-
 end
