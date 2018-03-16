@@ -21,13 +21,25 @@
   <div class="uk-accordion-content">
     <ul class="uk-list uk-list-line">
       <% user_detailed_point_history(@user_presenter.pointrequests, year) do |point_history| %>
-      <li class="uk-clearfix">
-        <div class="uk-float-left">
-          <%= link_to point_history.group_name, group_path(point_history.group_id) %>
+      <% point_history_presenter = PointHistoryDecorator.decorate(point_history) %>
+      <li>
+        <div class="uk-clearfix">
+          <div class="uk-float-left uk-text-bold">
+            <%= point_history_presenter.group_link %>
+          </div>
+          <div class="uk-float-right uk-text-center" style="width: 110px">
+            <div>
+              <%= point_history_presenter.point %>
+            </div>
+            <div class="uk-float-right uk-visible-small" style="width: 110px">
+              <%= point_history_presenter.entry_card_type %>
+            </div>
+          </div>
+          <div class="uk-float-right uk-text-center uk-hidden-small" style="width: 110px">
+            <%= point_history_presenter.entry_card_type %>
+          </div>
         </div>
-        <div class="uk-float-right uk-text-center" style="width: 110px">
-          <%= point_history.point %>
-        </div>
+        <%= point_history_presenter.explanation %>
       </li>
       <% end %>
     </ul>
