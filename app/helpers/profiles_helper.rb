@@ -13,6 +13,10 @@ module ProfilesHelper
     end
   end
 
+  def user_point_for_year(semester, user)
+    PointHistory.find_by(semester: semester, user: user).point
+  end
+
   def user_detailed_point_history(pointrequests, semester)
     accepted_pointrequests = pointrequests.select do |c|
       c.evaluation.accepted &&
