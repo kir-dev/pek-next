@@ -66,24 +66,23 @@ private
 
   def get_user(id, includes)
     type = id_type(id)
-    error_response(400, 'Not valid id. It should be a UUID or a NEPTUN code.') if type == :invalid
+    return error_response(400, t(:invalid_id)) if type == :invalid
     user = User.includes(includes)
       .find_by({ type => id.upcase })
-    error_response(404, "Could not find user with #{id} id.") if !user
+    return error_response(404, t(:non_existent_id, id: id)) if !user
     user
   end
 
   def id_type(id)
-    neptun_regex = /^[A-Za-z0-9]{6,7}$/
-    uuid_regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-    return :neptun if id =~ neptun_regex
-    return :auth_sch_id if id =~ uuid_regex
+    return :neptun if id =~ Rails.configuration.x.neptun_regex
+    return :auth_sch_id if id =~ Rails.configuration.x.uuid_regex
     :invalid
   end
 
   def error_response(error_code, message)
     msg = { success: false, message: message }
     render json: msg, status: error_code
+    nil
   end
 
 end
