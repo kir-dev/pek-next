@@ -1,6 +1,7 @@
 class AuthSchPingbackService
 
   def self.call(access_token)
+    return if Rails.env.test?
     EventMachine.run {
       http = EventMachine::HttpRequest.new(Rails.configuration.x.auth_sch_pingback_url + access_token).get
       http.errback {
