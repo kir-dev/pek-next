@@ -42,6 +42,13 @@ Rails.application.routes.draw do
   resources :delegates, only: [:index]
   get '/delegates/export', to: 'delegates#export'
 
+  if Rails.env.development?
+    get '/development', to: 'development#index'
+    post '/development/impersonate/random', to: 'development#impersonate_someone', as: :impersonate_someone
+    post '/development/impersonate/user', to: 'development#impersonate_user', as: :impersonate_user
+    post '/development/impersonate/role', to: 'development#impersonate_role', as: :impersonate_role
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

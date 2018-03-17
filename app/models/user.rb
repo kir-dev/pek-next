@@ -63,6 +63,11 @@ class User < ActiveRecord::Base
     membership && membership.leader?
   end
 
+  def member_of?(group)
+    membership = membership_for(group)
+    membership && !membership.newbie?
+  end
+
   def roles
     @roles ||= UserRole.new(self)
   end

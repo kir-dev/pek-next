@@ -12,6 +12,7 @@ hu:
   applied_succesful: Sikeres jelentkezés!
   accept_application: SVIE tag lett!
   svie_group_needed: SVIE jelentkezéshez legalább egy SVIE körben tagnak kell lenned!
+  successful_impersonation: Successful user impersonation
   activerecord:
     attributes:
       user:

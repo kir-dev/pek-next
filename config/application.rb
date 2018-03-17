@@ -55,6 +55,7 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
+    config.x.roles = ['mezei_user', 'group_leader', 'rvt_member', 'svie_admin', 'pek_admin']
     config.x.svie_states = {
       'ELFOGADVA'        => 'Elfogadva',
 # Meg van a papírja, az RVT elfogadására vár :
