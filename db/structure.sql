@@ -245,6 +245,37 @@ CREATE TABLE neptun_list (
 
 
 --
+-- Name: point_details; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE point_details (
+    id integer NOT NULL,
+    principle_id integer,
+    point_request_id bigint,
+    point integer
+);
+
+
+--
+-- Name: point_details_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE point_details_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: point_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE point_details_id_seq OWNED BY point_details.id;
+
+
+--
 -- Name: point_history_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -329,6 +360,39 @@ CREATE TABLE poszttipus (
     pttip_name character varying(30) NOT NULL,
     delegated_post boolean DEFAULT false
 );
+
+
+--
+-- Name: principles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE principles (
+    id integer NOT NULL,
+    evaluation_id bigint,
+    name character varying,
+    description character varying,
+    type character varying,
+    max_per_member integer
+);
+
+
+--
+-- Name: principles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE principles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: principles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE principles_id_seq OWNED BY principles.id;
 
 
 --
@@ -459,6 +523,20 @@ CREATE TABLE usr_private_attrs (
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY point_details ALTER COLUMN id SET DEFAULT nextval('point_details_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY principles ALTER COLUMN id SET DEFAULT nextval('principles_id_seq'::regclass);
+
+
+--
 -- Name: belepoigenyles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -539,6 +617,14 @@ ALTER TABLE ONLY neptun_list
 
 
 --
+-- Name: point_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY point_details
+    ADD CONSTRAINT point_details_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: point_history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -568,6 +654,14 @@ ALTER TABLE ONLY poszt
 
 ALTER TABLE ONLY poszttipus
     ADD CONSTRAINT poszttipus_pkey PRIMARY KEY (pttip_id);
+
+
+--
+-- Name: principles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY principles
+    ADD CONSTRAINT principles_pkey PRIMARY KEY (id);
 
 
 --
@@ -940,4 +1034,8 @@ SET search_path TO "$user", public;
 INSERT INTO schema_migrations (version) VALUES ('20161124163851');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130184224');
+
+INSERT INTO schema_migrations (version) VALUES ('20180317194014');
+
+INSERT INTO schema_migrations (version) VALUES ('20180317200507');
 
