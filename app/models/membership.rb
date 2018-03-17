@@ -58,4 +58,9 @@ class Membership < ActiveRecord::Base
     save
   end
 
+  def accept!
+    newbie_post = posts.find { |post| post.post_type.id == DEFAULT_POST_ID }
+    newbie_post.destroy
+  end
+
 end
