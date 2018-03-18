@@ -42,6 +42,9 @@ Rails.application.routes.draw do
   resources :delegates, only: [:index]
   get '/delegates/export', to: 'delegates#export'
 
+  get '/seasons', to: 'season_admin#index'
+  post '/seasons', to: 'season_admin#update'
+
   if Rails.env.development?
     get '/development', to: 'development#index'
     post '/development/impersonate/random', to: 'development#impersonate_someone', as: :impersonate_someone

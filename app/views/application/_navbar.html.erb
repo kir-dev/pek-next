@@ -28,6 +28,9 @@
             <div class="uk-dropdown uk-dropdown-navbar">
               <ul class="uk-nav uk-nav-navbar"></li>
                 <li><%= link_to "SVIE-be jelentkezettek", svie_index_path %></li>
+                <% if current_user.roles.rvt_leader? %>
+                  <li><%= link_to "Időszakok állítása", seasons_path %></li>
+                <% end %>
               </ul>
             </div>
           </li>

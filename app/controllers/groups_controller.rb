@@ -28,7 +28,7 @@ class GroupsController < ApplicationController
   end
 
   def is_leader
-    current_user.leader_of(Group.find(params[:id]))
+    current_user.leader_of?(Group.find(params[:id]))
   end
   helper_method :is_leader
 

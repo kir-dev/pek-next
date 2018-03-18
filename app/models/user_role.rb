@@ -16,4 +16,8 @@ class UserRole
     @user.member_of?(Group.rvt)
   end
 
+  def rvt_leader?
+    @user.leader_of?(Group.rvt)
+  end
+
 end
