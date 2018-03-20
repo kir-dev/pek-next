@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :photos, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
   get '/profiles/me/', to: 'profiles#show_self'
   resources :profiles, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
+  get '/profile/show/uid/:id', to: 'profiles#show', constraints: { id: /[^\/]+/ }
 
   get '/photo/raw', to: 'raw_photos#show'
   post '/photo/raw', to: 'raw_photos#update'
@@ -36,6 +37,8 @@ Rails.application.routes.draw do
     post '/delegate', to: 'delegates#create'
     delete '/delegate', to: 'delegates#destroy'
   end
+
+  get '/korok/showgroup/id/:id', to: 'groups#show'
 
   post '/privacies/update', to: 'privacies#update'
 
