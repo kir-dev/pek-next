@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     delete '/delegate', to: 'delegates#destroy'
   end
 
-  get '/korok/showgroup/id/:id', to: redirect('/groups/%{id}'), constraints: { id: /[^\/]+/ }
+  get '/korok/showgroup/id/:id', to: redirect('/groups/%{id}')
 
   post '/privacies/update', to: 'privacies#update'
 
