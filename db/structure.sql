@@ -251,7 +251,7 @@ CREATE TABLE neptun_list (
 CREATE TABLE point_details (
     id integer NOT NULL,
     principle_id integer,
-    point_request_id bigint,
+    point_request_id integer,
     point integer
 );
 
@@ -368,7 +368,7 @@ CREATE TABLE poszttipus (
 
 CREATE TABLE principles (
     id integer NOT NULL,
-    evaluation_id bigint,
+    evaluation_id integer,
     name character varying,
     description character varying,
     type character varying,

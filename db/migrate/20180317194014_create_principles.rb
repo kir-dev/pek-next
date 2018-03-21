@@ -1,7 +1,7 @@
 class CreatePrinciples < ActiveRecord::Migration
   def change
     create_table :principles do |t|
-      t.bigint :evaluation_id
+      t.references :evaluation
       t.string :name
       t.string :description
       t.string :type
