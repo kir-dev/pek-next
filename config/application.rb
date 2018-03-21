@@ -78,9 +78,9 @@ module PekNext
       'PARTOLOTAG' => 'Külsős tag',
     }
     config.x.season_types = {
-      'NONE' => 'Nyugalmi időszak',
+      'NINCSERTEKELES' => 'Nyugalmi időszak',
       'ERTEKELESLEADAS' => 'Pontozási időszak',
-      'ERTEKELESELBIRALAS' => 'Bírálási időszak'
+      'ERTEKELESLEADAS' => 'Bírálási időszak'
     }
 
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
