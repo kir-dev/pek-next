@@ -16,8 +16,12 @@ class SystemAttribute < ActiveRecord::Base
     find_by(name: 'ertekeles_idoszak')
   end
 
+  OFFSEASON = 'NINCSERTEKELES'
+  APPLICATION_SEASON = 'ERTEKELESLEADAS'
+  EVALUATION_SEASON = 'ERTEKELESELBIRALAS'
+
   def application_season?
-    self.value == 'ERTEKELESELBIRALAS'
+    self.value == APPLICATION_SEASON
   end
 
 end

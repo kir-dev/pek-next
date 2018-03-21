@@ -37,3 +37,6 @@ rvt_member       =  User.create({ firstname: 'Elnök', lastname: 'Simonyi', scre
 
 kb_user           = User.create({ firstname: 'Srác', lastname: 'KBs', screen_name: 'kbs123' })
                     Membership.create({ group_id: 1, user_id: kb_user.id })
+
+SystemAttribute.create({name: 'szemeszter', value: '201720182'})
+SystemAttribute.create({name: 'ertekeles_idoszak', value: 'NINCSERTEKELES'})
