@@ -14,6 +14,7 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @imAccount = ImAccount.new
     @user = User.find_by(screen_name: params[:id])
   end
 
