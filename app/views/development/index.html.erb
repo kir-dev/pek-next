@@ -1,0 +1,31 @@
+<div class="uk-width-medium-2-3 uk-container-center uk-overflow-container">
+
+  <% if flash.notice %>
+    <script>
+      UIkit.notify("<%= flash.notice %>", {status:'success'});
+    </script>
+  <% end %>
+
+  <h1>Development console</h1>
+  <h2>User impersonation</h2>
+
+  <%= button_to "Impersonate random user", impersonate_someone_path,
+    class: 'uk-button uk-button-primary uk-margin uk-margin-top' %>
+
+  <%= form_tag(impersonate_user_path) do %>
+    <%= text_field_tag :user_id, '', placeholder: 'User id', required: true %>
+    <%= submit_tag "Impersonate user", class: 'uk-button uk-button-primary uk-margin-small uk-margin-left' %>
+  <% end %>
+
+  <%= form_tag(impersonate_role_path) do %>
+    <%= select_tag :role, options_for_select(Rails.configuration.x.roles) %>
+    <%= submit_tag "Impersonate role", class: 'uk-button uk-button-primary uk-margin-small uk-margin-left' %>
+  <% end %>
+
+  <div class="uk-text-center">
+    <div class="inline-block">
+      <%= button_to 'Back to application', root_path, method: :get, class: 'uk-button uk-button-success uk-margin-large-top' %>
+    </div>
+  </div>
+
+</div>

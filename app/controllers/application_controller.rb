@@ -38,6 +38,10 @@ class ApplicationController < ActionController::Base
     unauthorized_page unless current_user.roles.rvt_member?
   end
 
+  def require_rvt_leader
+    unauthorized_page unless current_user.roles.rvt_leader?
+  end
+
   def current_user
     if ENV['NONAUTH']
       return impersonate_user

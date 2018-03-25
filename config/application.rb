@@ -55,6 +55,7 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
+    config.x.roles = ['mezei_user', 'group_leader', 'rvt_member', 'svie_admin', 'pek_admin']
     config.x.im_accounts = {
       'call_sign'    => 'Hívójel',
       'gtalk'        => 'Google Hangouts',
@@ -84,6 +85,11 @@ module PekNext
     config.x.svie_member_types = {
       'RENDESTAG' => 'Rendes tag',
       'PARTOLOTAG' => 'Külsős tag',
+    }
+    config.x.season_types = {
+        'NINCSERTEKELES' => 'Nyugalmi időszak',
+        'ERTEKELESLEADAS' => 'Pontozási időszak',
+        'ERTEKELESLEADAS' => 'Bírálási időszak'
     }
 
     config.x.auth_sch_pingback_url = 'https://auth.sch.bme.hu/api/profile/resync?access_token='

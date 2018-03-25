@@ -21,6 +21,22 @@ class Group < ActiveRecord::Base
   has_many :post_types, foreign_key: :grp_id
   alias :own_post_types :post_types
 
+  SVIE_ID = 369
+  RVT_ID = 146
+  KIRDEV_ID = 106
+
+  def self.kirdev
+    find KIRDEV_ID
+  end
+
+  def self.svie
+    find SVIE_ID
+  end
+
+  def self.rvt
+    find RVT_ID
+  end
+
   def member?(user)
     user.membership_for(self)
   end
