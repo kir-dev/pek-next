@@ -14,6 +14,8 @@ PostType.create([
   { id: 66, name: 'PéK admin' }
   ])
 
+# These are not necessary to run the application, but required for full operation
+
 Group.create([
   { id: 369, name: 'SVIE', type: 'bizottság' },
   { id: 1, name: 'Kollégiumi bizottság', type: 'csoport' },

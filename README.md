@@ -16,12 +16,20 @@
 $ sudo apt-get install postgresql libpq-dev nodejs
 ```
 
-###### Ruby 2.2.3 environment
+###### Ruby 2.4.2 environment
 
 ```bash
-$ \curl -sSL https://get.rvm.io | bash -s stable
-$ rvm install 2.2.3
+$ sudo apt-get install rbenv
+$ mkdir -p "$(rbenv root)"/plugins
+$ git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+$ echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+$ source ~/.bashrc
+$ rbenv install 2.4.2
+$ rbenv global 2.4.2
 ```
+
+Check current ruby version with `ruby -v`
 
 ###### The source code and dependencies
 
@@ -39,23 +47,14 @@ Create a `.env` file using `.env.example` and replace the values with real ones
 ```bash
 $ sudo su postgres
 $ psql -c 'create user "pek-next" with superuser password '\''pek-next'\'';'
-$ psql -c 'create database "pek-next";' -U postgres
-$ psql -c 'create database "pek-next-test";' -U postgres
 ```
 
-###### Creating the schema
+###### Creating a clean database
 
 _As your own user_
 
 ```bash
-$ rake db:structure:load
-$ rake db:migrate
-```
-
-###### If you start developing with a clean database
-
-```bash
-$ rake db:seed
+$ rake db:setup
 ```
 
 **Starting the server**
@@ -84,12 +83,22 @@ $ rake test
 $ sudo apt-get install ruby-dev
 ```
 
-##### After setting from RVM the ruby version is still not correct
-
-_RVM sometimes needs an interactive shell_
+##### Rbenv install only gives ruby-build usage instructions
 
 ```bash
-$ bash --login
+$ rbenv install -v 2.4.2
 ```
+
+##### Rbenv doesn't modify your ruby version
+
+```bash
+$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+$ echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+$ source ~/.bashrc
+```
+
+##### Rails command is not recognised after install
+
+_Restart your terminal_
 
 by [Kir-Dev Team](http://kir-dev.sch.bme.hu/)
