@@ -45,12 +45,12 @@
             <% if is_leader %>
               <ul class="uk-list">
                 <li class="uk-margin-small">
-                  <%= link_to 'Adatok szerkesztése', edit_group_path(@group),
+                  <%= link_to 'Adatok szerkesztése', edit_group_path(@viewmodel.group),
                     class: 'uk-button uk-button-primary uk-width-3-4' %>
                 </li>
                 <% if @viewmodel.group.issvie %>
                 <li class="uk-margin-small">
-                  <%= link_to 'Küldöttek', group_delegates_path(@group),
+                  <%= link_to 'Küldöttek', group_delegates_path(@viewmodel.group),
                     class: 'uk-button uk-button-primary uk-width-3-4' %>
                 </li>
                 <% end %>

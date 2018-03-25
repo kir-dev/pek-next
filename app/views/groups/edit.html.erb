@@ -3,7 +3,7 @@
 <h1>Kör szerkesztése</h1>
 <div id="content-main" class="uk-panel uk-panel-box">
 <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
-    <%= form_for @group, html: {class: 'uk-form'} do |f| %>
+    <%= form_for current_group, html: {class: 'uk-form'} do |f| %>
         <%= render 'form_errors', errors: f.object.errors %>
 
         <table class="uk-table">
@@ -46,7 +46,7 @@
 
         <div class="uk-text-center">
             <div class="inline-block">
-                <input class="uk-button" type="submit" value="Módosítás" name="submitButton"/>
+              <%= f.submit 'Módosítás', class: 'uk-button uk-button-success' %>
             </div>
         </div>
     <% end %>

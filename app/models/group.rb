@@ -21,8 +21,12 @@ class Group < ActiveRecord::Base
   has_many :post_types, foreign_key: :grp_id
   alias :own_post_types :post_types
 
+  def member?(user)
+    user.membership_for(self)
+  end
+
   def user_can_join?(current_user)
-    !users_can_apply || current_user.membership_for(self)
+    users_can_apply && !member?(current_user)
   end
 
   def leader
