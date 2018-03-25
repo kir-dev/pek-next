@@ -7,6 +7,7 @@ babhamozo_member_into_group:
   id: 2
   grp_id: 1
   usr_id: 4002
+  membership_start: 2010-02-02
 
 inactive_babhamozo_member:
   id: 3

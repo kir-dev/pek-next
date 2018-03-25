@@ -45,6 +45,11 @@ Rails.application.routes.draw do
   resources :delegates, only: [:index]
   get '/delegates/export', to: 'delegates#export'
 
+  get '/services/sync/:id', to: 'auth_sch_services#sync'
+  get '/services/sync/:id/memberships', to: 'auth_sch_services#memberships'
+  get '/services/entrants/get/:semester/:id', to: 'auth_sch_services#entrants'
+  get '/services/entrants/get/:semester/authsch/:id', to: 'auth_sch_services#entrants'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -85,6 +85,11 @@ module PekNext
       'RENDESTAG' => 'Rendes tag',
       'PARTOLOTAG' => 'Külsős tag',
     }
+
+    config.x.auth_sch_pingback_url = 'https://auth.sch.bme.hu/api/profile/resync?access_token='
+    config.x.neptun_regex = /^[A-Za-z0-9]{6,7}$/
+    config.x.uuid_regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
+
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
   end

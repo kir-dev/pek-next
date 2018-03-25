@@ -42,6 +42,8 @@ gem 'rollbar'
 
 gem 'prawn'
 
+gem 'em-http-request'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
