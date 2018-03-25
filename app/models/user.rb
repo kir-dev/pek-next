@@ -67,27 +67,8 @@ class User < ActiveRecord::Base
     @roles ||= UserRole.new(self)
   end
 
-  def not_member_of_svie?
-    svie_state == 'NEMTAG'
+  def svie
+    @svie_user ||= SvieUser.new(self)
   end
 
-  def member_of_svie?
-    svie_state == 'ELFOGADVA'
-  end
-
-  def svie_state_is_in_processing?
-    svie_state == 'FELDOLGOZASALATT'
-  end
-
-  def inside_svie_member?
-    svie_member_type == 'RENDESTAG'
-  end
-
-  def outside_svie_member?
-    svie_member_type == 'PARTOLOTAG'
-  end
-
-  def inactive_svie_member?
-    svie_member_type == 'OREGTAG'
-  end
 end

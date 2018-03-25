@@ -14,14 +14,14 @@ class SvieController < ApplicationController
   end
 
   def edit
-    @svie_memberships = current_user.memberships.select { |m| m.group.issvie && !m.newbie? }
+    @svie_memberships = current_user.memberships.select { |m| m.group.issvie && m.active? }
     redirect_to :back, alert: t(:svie_group_needed) if @svie_memberships.empty?
   end
 
   def update
     current_user.update(svie_primary_membership: params[:svie][:primary_membership])
     current_user.update(delegated: false)
-    if current_user.not_member_of_svie?
+    if current_user.svie.not_member?
       redirect_to new_svie_path
     else
       redirect_to profiles_me_path, notice: t(:edit_successful)
@@ -43,5 +43,10 @@ class SvieController < ApplicationController
 
   def application_pdf
     send_data GenerateMembershipPdf.call(current_user), filename: 'szerzodes.pdf', type: 'application/pdf'
+  end
+
+  def destroy
+    current_user.svie.remove_membership!
+    redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 end
