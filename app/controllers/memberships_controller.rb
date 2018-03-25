@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :require_login
-  before_action :require_leader, only: [:inactivate, :destroy, :reactivate, :archive, :unarchive]
+  before_action :require_leader, only: [:inactivate, :destroy, :reactivate, :archive, :unarchive, :accept]
 
   def create
     @group = Group.find(params[:group_id])
@@ -26,5 +26,9 @@ class MembershipsController < ApplicationController
 
   def reactivate
     Membership.find(params[:membership_id]).reactivate!
+  end
+
+  def accept
+    Membership.find(params[:membership_id]).accept!
   end
 end

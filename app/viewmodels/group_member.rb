@@ -59,4 +59,8 @@ class GroupMember
     end
   end
 
+  def membership
+    @membership
+  end
+
 end
