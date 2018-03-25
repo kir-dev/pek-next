@@ -89,7 +89,7 @@ module PekNext
     config.x.season_types = {
         'NINCSERTEKELES' => 'Nyugalmi időszak',
         'ERTEKELESLEADAS' => 'Pontozási időszak',
-        'ERTEKELESLEADAS' => 'Bírálási időszak'
+        'ERTEKELESELBIRALAS' => 'Bírálási időszak'
     }
 
     config.x.auth_sch_pingback_url = 'https://auth.sch.bme.hu/api/profile/resync?access_token='

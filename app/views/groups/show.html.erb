@@ -42,7 +42,7 @@
             </table>
           </div>
           <div class="uk-width-medium-1-4 uk-text-right">
-            <% if is_leader %>
+            <% if @viewmodel.leader? %>
               <ul class="uk-list">
                 <li class="uk-margin-small">
                   <%= link_to 'Adatok szerkesztése', edit_group_path(@viewmodel.group),

@@ -4,8 +4,7 @@ class DelegatesController < ApplicationController
   before_action :require_svie_admin, only: [:index, :export]
 
   def index
-    @delegates = User.where(delegated: true).order(:lastname).page(params[:page]).per(params[:per])
-     .select{ |user| user.primary_membership.group.issvie }
+    @delegates = User.where(delegated: true).order(:lastname).select{ |user| user.primary_membership.group.issvie }
   end
 
   def export
