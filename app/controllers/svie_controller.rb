@@ -7,9 +7,10 @@ class SvieController < ApplicationController
   end
 
   def create
-    update_params = params.permit(:home_address, :mother_name, :svie_member_type)
-    update_params[:svie_state] = :ELFOGADASALATT
+    params.permit(:svie_member_type)
+    update_params = params.permit(:home_address, :mother_name)
     current_user.update(update_params)
+    current_user.svie.createRequest(params[:svie_member_type])
     redirect_to svie_successful_path
   end
 
@@ -21,21 +22,29 @@ class SvieController < ApplicationController
   def update
     current_user.update(svie_primary_membership: params[:svie][:primary_membership])
     current_user.update(delegated: false)
-    if current_user.svie.not_member?
-      redirect_to new_svie_path
-    else
+    if !current_user.svie.member?
       redirect_to profiles_me_path, notice: t(:edit_successful)
+    else
+      redirect_to new_svie_path
     end
   end
 
   def index
-    @not_svie_members = User.where(svie_state: [:FELDOLGOZASALATT, :ELFOGADASALATT])
+    @post_requests = SviePostRequest.all();
   end
 
   def approve
-    user = User.find(params[:id])
-    user.update(svie_state: :ELFOGADVA)
+    svie_post_request = SviePostRequest.find(params[:id])
+    user = User.find(svie_post_request.usr_id)
+    user.update(svie_member_type: svie_post_request.member_type)
+    svie_post_request.destroy
     redirect_to :back, notice: user.full_name + ' ' + t(:accept_application)
+  end
+
+  def reject
+    svie_post_request = SviePostRequest.destroy(params[:id])
+    user = User.find(svie_post_request.usr_id)
+    redirect_to :back, notice: user.full_name + ' ' + t(:abort_application)
   end
 
   def successful_application
@@ -47,6 +56,21 @@ class SvieController < ApplicationController
 
   def destroy
     current_user.svie.remove_membership!
+    redirect_to profiles_me_path, notice: t(:edit_successful)
+  end
+
+  def inactivate
+    current_user.svie.createRequest('OREGTAG')
+    redirect_to profiles_me_path, notice: t(:edit_successful)
+  end
+
+  def outside
+    current_user.svie.createRequest('KULSOSTAG')
+    redirect_to profiles_me_path, notice: t(:edit_successful)
+  end
+
+  def inside
+    current_user.svie.createRequest('BELSOSTAG')
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 end

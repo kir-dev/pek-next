@@ -55,27 +55,13 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
-    config.x.svie_states = {
-      'ELFOGADVA'        => 'Elfogadva',
-# Meg van a papírja, az RVT elfogadására vár :
-      'FELDOLGOZASALATT' => 'Feldolgozás alatt',
-# A papírja leadás alatt van (ide esik, ha a user letölti a belépési nyilatkozatát) :
-      'ELFOGADASALATT'   => 'Elfogadás alatt',
-      'NEMTAG'           => 'Nem tag'
-    }
 
     # This should be the member types after we no longer depend on old VIR
-    # config.x.svie_member_types = {
-    #   'RENDESTAG' => 'Rendes tag',
-    #   'KULSOSTAG' => 'Külsős tag',
-    #   'OREGTAG' => 'Öregtag'
-    # }
-
-    # This is temporary pls no merge to master
-    config.x.svie_member_types = {
-      'RENDESTAG' => 'Rendes tag',
-      'PARTOLOTAG' => 'Külsős tag',
-    }
+     config.x.svie_member_types = {
+       'BELSOSTAG' => 'Belsős tag',
+       'KULSOSTAG' => 'Külsős tag',
+       'OREGTAG' => 'Öregtag'
+     }
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
   end
