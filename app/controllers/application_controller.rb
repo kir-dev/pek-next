@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     if ENV['NONAUTH']
       return impersonate_user
     end
-    @current_user ||= User.find(session[:user_id])
+    @current_user ||= User.includes([ { memberships: [ :group ] } ]).find(session[:user_id])
   end
   helper_method :current_user
 
