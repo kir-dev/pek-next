@@ -1,7 +1,6 @@
 module ProfilesHelper
   def own_memberships
-    @user_presenter.memberships.order(end: :desc)
-                   .includes(:group).each do |membership|
+    @user_presenter.memberships.sort { |a, b| a && b ? a <=> b : a ? -1 : 1 }.each do |membership|
       yield GroupMember.new(membership)
     end
   end
@@ -14,7 +13,7 @@ module ProfilesHelper
   end
 
   def user_point_for_year(semester, user)
-    PointHistory.find_by(semester: semester, user: user).point
+    user.point_history.find { |ph| ph.semester == semester }.point
   end
 
   def user_detailed_point_history(pointrequests, semester)
@@ -22,7 +21,6 @@ module ProfilesHelper
       c.evaluation.accepted &&
         c.evaluation.date == semester.to_s
     end
-
     accepted_pointrequests.each do |pointrequest|
       yield DetailedPointHistory.new(pointrequest)
     end

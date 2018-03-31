@@ -1,10 +1,9 @@
 class DetailedPointHistory
   def initialize(point_request)
     @point_request = point_request
-    @evaluation = Evaluation.find(@point_request.evaluation_id)
-    @group = Group.find(@evaluation.group_id)
-    @entry_request = EntryRequest.find_by(usr_id: @point_request.usr_id,
-                                          evaluation_id: @point_request.evaluation_id)
+    @evaluation = point_request.evaluation
+    @group = @evaluation.group
+    @entry_request = @evaluation.entry_request
   end
 
   def group_name
