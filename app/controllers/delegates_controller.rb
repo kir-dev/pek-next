@@ -4,7 +4,8 @@ class DelegatesController < ApplicationController
   before_action :require_svie_admin, only: [:index, :export]
 
   def index
-    @delegates = User.where(delegated: true).order(:lastname).select{ |user| user.primary_membership.group.issvie }
+    @delegates = User.includes([ { primary_membership: [ :group ] } ]).where(delegated: true).order(:lastname)
+    .select { |user| user.primary_membership.group.issvie }
   end
 
   def export
@@ -34,7 +35,8 @@ class DelegatesController < ApplicationController
 
   def show
     #There are 68 active svie members without a primary group
-    @eligible_members = @group.members.where(svie_member_type: 'RENDESTAG').order(:lastname)
+    @eligible_members = @group.members.includes([ { primary_membership: [ { posts: [ :post_type ] } ] } ])
+      .where(svie_member_type: 'RENDESTAG').order(:lastname)
       .select { |user| !user.primary_membership.nil? && !user.primary_membership.newbie? &&
         user.primary_membership.group_id == params[:group_id].to_i && user.primary_membership.end.nil? }
   end
