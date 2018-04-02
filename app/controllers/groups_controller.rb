@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   before_action :require_leader, only: [:edit, :update]
 
   def index
-    @groups = Group.order(:name).page(params[:page]).per(params[:per])
+    @groups = Group.order(:name).page(params[:page]).per(params[:per]).decorate
   end
 
   def show
