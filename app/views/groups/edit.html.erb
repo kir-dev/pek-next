@@ -2,53 +2,63 @@
 
 <h1>Kör szerkesztése</h1>
 <div id="content-main" class="uk-panel uk-panel-box">
-<div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
-    <%= form_for current_group, html: {class: 'uk-form'} do |f| %>
-        <%= render 'form_errors', errors: f.object.errors %>
+  <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
+    <%= form_for current_group, html: {class: 'uk-form uk-form-horizontal'} do |f| %>
+    <%= render 'form_errors', errors: f.object.errors %>
+    <div class="uk-form-row">
+      <%= f.label :name, class: 'uk-form-label form-label-required' %>
+      <div class="uk-form-controls">
+        <%= f.text_field :name, class: 'uk-input uk-width-auto', required: true %>
+      </div>
+    </div>
 
-        <table class="uk-table">
-          <tr>
-            <td><%= f.label :name, class: "form-label-required" %></td>
-            <td><%= f.text_field :name, class: 'uk-input uk-width-auto', required: true %></td>
-          </tr>
+    <div class="uk-form-row">
+      <%= f.label :description, class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.text_area :description, class: 'uk-textarea uk-width-auto', cols: 35, rows: 5 %>
+      </div>
+    </div>
 
-          <tr>
-            <td><%= f.label :description %></td>
-            <td><%= f.text_area :description, class: 'uk-textarea uk-width-auto', cols: 35, rows: 5 %></td>
-          </tr>
+    <div class="uk-form-row">
+      <%= f.label :webpage, class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.text_field :webpage, class: 'uk-input uk-width-auto' %>
+      </div>
+    </div>
 
-          <tr>
-            <td><%= f.label :webpage %></td>
-            <td><%= f.text_field :webpage, class: 'uk-input uk-width-auto' %></td>
-          </tr>
+    <div class="uk-form-row">
+      <%= f.label :founded, class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.text_field :founded, class: 'uk-input uk-width-auto' %>
+      </div>
+    </div>
 
-          <tr>
-            <td><%= f.label :founded %></td>
-            <td><%= f.text_field :founded, class: 'uk-input uk-width-auto' %></td>
-          </tr>
+    <div class="uk-form-row">
+      <%= f.label :maillist, class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.text_field :maillist, class: 'uk-input uk-width-auto' %>
+      </div>
+    </div>
 
-          <tr>
-            <td><%= f.label :maillist %></td>
-            <td><%= f.text_field :maillist, class: 'uk-input uk-width-auto' %>
-            </td>
-          </tr>
+    <div class="uk-form-row">
+      <%= f.label :archived_members_visible, class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.check_box :archived_members_visible, class: 'uk-align-right' %>
+      </div>
+    </div>
 
-          <tr>
-            <td><%= f.label :archived_members_visible %></td>
-            <td><%= f.check_box :archived_members_visible %></td>
-          </tr>
+    <div class="uk-form-row">
+      <%= f.label :users_can_apply, class: 'uk-form-label' %>
+      <div class="uk-form-controls">
+        <%= f.check_box :users_can_apply, class: 'uk-align-right' %>
+      </div>
+    </div>
 
-          <tr>
-            <td><%= f.label :users_can_apply %></td>
-            <td><%= f.check_box :users_can_apply %></td>
-          </tr>
-        </table>
-
-        <div class="uk-text-center">
-            <div class="inline-block">
-              <%= f.submit 'Módosítás', class: 'uk-button uk-button-success' %>
-            </div>
-        </div>
+    <div class="uk-text-center">
+      <div class="inline-block">
+        <%= f.submit 'Módosítás', class: 'uk-button uk-margin-top' %>
+      </div>
+    </div>
     <% end %>
-</div>
+  </div>
 </div>
