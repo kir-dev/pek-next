@@ -22,8 +22,4 @@ module GroupsHelper
       yield GroupMember.new(membership)
     end
   end
-
-  def member?(group, user)
-    group.memberships.pluck('usr_id').include? user.id
-  end
 end
