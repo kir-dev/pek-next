@@ -16,7 +16,7 @@ class MembershipViewModelDecorator < Draper::Decorator
   end
 
   def join_group_button
-    return unless membership_view_model.group.users_can_apply && !@own_membership
+    return unless membership_view_model.group.users_can_apply && !member?(membership_view_model.group, current_user)
     form_tag group_memberships_path(membership_view_model.group), {method: 'post'} do
       button_tag('Jelentkezés körbe', {class: 'uk-button uk-button-primary uk-width-3-4'})
     end
