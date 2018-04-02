@@ -7,7 +7,8 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @viewmodel = Group::MembershipViewModel.new(current_user, params[:id])
+    membership_view_model = Group::MembershipViewModel.new(current_user, params[:id])
+    @viewmodel = MembershipViewModelDecorator.decorate(membership_view_model)
   end
 
   def edit
