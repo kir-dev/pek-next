@@ -19,6 +19,12 @@ var listing = (function() {
             UIkit.grid('#active_users').init();
             UIkit.grid('#archived_users').init();
         });
+
+        $('#membership-tab').on('click', function () {
+            UIkit.grid('#inactive_users').init();
+            UIkit.grid('#active_users').init();
+            UIkit.grid('#archived_users').init();
+        });
     };
 
     return module;
