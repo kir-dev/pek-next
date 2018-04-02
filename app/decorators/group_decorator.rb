@@ -16,6 +16,20 @@ class GroupDecorator < Draper::Decorator
     simple_format(truncate(format_description, length: 100))
   end
 
+  def goup_leader_link
+    return unless group.leader
+    link_to(group.leader.user.full_name, profile_path(group.leader.user.screen_name))
+  end
+
+  def webpage_link
+    return unless group.webpage
+    link_to(group.webpage, group.webpage)
+  end
+
+  def svie_state
+    group.issvie ? 'Igen' : 'Nem'
+  end
+
   private
     def format_description
       group.description.gsub('[-----------------------------------------]','<br/>')

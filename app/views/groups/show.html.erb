@@ -8,38 +8,7 @@
         <div class="uk-grid">
           <div class="uk-width-medium-3-4">
             <h2 class="uk-h2">Kör adatai</h2>
-            <table>
-              <tbody>
-                <tr>
-                  <th class="uk-text-left">Név</th>
-                  <td><%= @viewmodel.group.name %></td>
-                </tr>
-                <tr>
-                  <th class="uk-text-left">Alapítási éve</th>
-                  <td><%= @viewmodel.group.founded %></td>
-                </tr>
-                <tr>
-                  <th class="uk-text-left">Svie tag</th>
-                  <td><%= @viewmodel.group.issvie ? "Igen" : "Nem" %></td>
-                </tr>
-                <tr>
-                  <th class="uk-text-left">Weboldal</th>
-                  <td><%= link_to @viewmodel.group.webpage, @viewmodel.group.webpage if @viewmodel.group.webpage %></td>
-                </tr>
-                <tr>
-                  <th class="uk-text-left">Levelezőlista</th>
-                  <td><%= @viewmodel.group.maillist %></td>
-                </tr>
-                <tr>
-                  <th class="uk-text-left">Körvezető</th>
-                  <td><%= link_to @viewmodel.group.leader.user.full_name, profile_path(@viewmodel.group.leader.user.screen_name) if @viewmodel.group.leader %></td>
-                </tr>
-                <tr>
-                  <th class="uk-text-left">Bemutatkozás</th>
-                  <td><%= @viewmodel.group.formatted_description %></td>
-                </tr>
-              </tbody>
-            </table>
+              <%= render 'group_info'%>
           </div>
           <div class="uk-width-medium-1-4 uk-text-right">
           <ul class="uk-list uk-list-space">
