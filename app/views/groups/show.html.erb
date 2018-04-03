@@ -29,6 +29,10 @@
             <th class="uk-text-left">Bemutatkozás</th>
             <td><%= @viewmodel.group.description %></td>
           </tr>
+          <tr>
+            <th class="group-attr">Leader</th>
+            <td><%= @group.leader.user.full_name %></td>
+          </tr>
         </tbody>
       </table>
       <% if @viewmodel.leader? %>

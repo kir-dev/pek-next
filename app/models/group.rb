@@ -25,4 +25,8 @@ class Group < ActiveRecord::Base
   def user_can_join?(current_user)
     users_can_apply && !member?(current_user)
   end
+
+  def leader
+    memberships.find { |membership| membership.is_leader }
+  end
 end
