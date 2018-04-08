@@ -4,23 +4,62 @@ class UserDecorator < Draper::Decorator
 
   def room
     return if user.dormitory.blank?
-    room = [user.dormitory, user.room].join(' ')
+    return unless Privacy.for(user, 'ROOM_NUMBER').visible
+    room = [content_tag(:i, "", class: 'uk-icon-building'), user.dormitory,
+      user.room].join(' ').html_safe
     content_tag(:h4, room, class: 'uk-h4')
   end
 
   def cell_phone
     return if user.cell_phone.blank?
-    content_tag(:h4, user.cell_phone, class: 'uk-h4')
+    return unless Privacy.for(user, 'CELL_PHONE').visible
+    cell_phone = [content_tag(:i, "", class: 'uk-icon-phone'),
+      user.cell_phone].join(' ').html_safe
+    content_tag(:h4, cell_phone, class: 'uk-h4')
   end
 
   def email
     return if user.email.blank?
-    content_tag(:h4, user.email, class: 'uk-h4')
+    return unless Privacy.for(user, 'EMAIL').visible
+    email = [content_tag(:i, "", class: 'uk-icon-envelope'), user.email]
+      .join(' ').html_safe
+    content_tag(:h4, email, class: 'uk-h4')
+  end
+
+  def home_address
+    return if user.home_address.blank?
+    return unless Privacy.for(user, 'ADDRESS').visible ||
+      Privacy.for(user, 'HOME_ADDRESS').visible
+    home_address = [content_tag(:i, "", class: 'uk-icon-home'), user.home_address]
+      .join(' ').html_safe
+    content_tag(:h4, home_address, class: 'uk-h4')
+  end
+
+  def date_of_birth
+    return if user.date_of_birth.blank?
+    return unless Privacy.for(user, 'DATE_OF_BIRTH').visible
+    date_of_birth = [content_tag(:i, "", class: 'uk-icon-birthday-cake'),
+      user.date_of_birth].join(' ').html_safe
+    content_tag(:h4, date_of_birth, class: 'uk-h4')
   end
 
   def nickname
     return if user.nickname.blank?
-    ['-', user.nickname].join(' ')
+    user.nickname
   end
 
+  def compact_name
+    return user.full_name if user.nickname.blank?
+    [user.full_name, ' (', user.nickname, ')'].join
+  end
+
+  def messaging_accounts
+    im_accounts.decorate.each
+  end
+
+  def delegated_for
+    return unless user.delegated
+
+    content_tag(:h4, "Küldött itt: " + user.primary_membership.group.name, class: 'uk-h4')
+  end
 end

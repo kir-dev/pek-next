@@ -24,11 +24,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'omniauth'
 gem 'omniauth-oauth2'
 
-gem 'uikit-sass-rails'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
 gem 'draper'
+
+gem 'prawn-table'
 
 # Reactive javascript extension
 gem 'rxjs-rails'
@@ -36,6 +37,12 @@ gem 'rxjs-rails'
 gem 'kaminari'
 
 gem 'puma'
+
+gem 'rollbar'
+
+gem 'prawn'
+
+gem 'em-http-request'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

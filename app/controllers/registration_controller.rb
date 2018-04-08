@@ -20,6 +20,7 @@ class RegistrationController < ApplicationController
     else
       render :new
     end
+    AuthSchPingbackService.call(session[:access_token])
   end
 
   private

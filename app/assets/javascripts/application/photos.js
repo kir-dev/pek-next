@@ -21,19 +21,14 @@ var settings = (function() {
         }).toDataURL();
         $.ajax({
             type: "PUT",
-            url: "/photos/fixme",
+            url: "/photos/me",
             data: {
                 croppedData: croppedData
             }
         }).done(function (data) {
-            UIkit.notify({
-                message: 'Sikeres feltöltés!',
-                status: 'info',
-                timeout: 5000,
-                pos: 'top-center'
-            });
-            $('#image-upload-container').fadeOut();
-            setTimeout(function () {$('#back-button-container').fadeIn();}, 400);
+            if(data.status == 'success') {
+                window.location.replace('/');
+            }
         });
     }
 

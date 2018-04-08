@@ -1,21 +1,50 @@
-<div class="uk-height-viewport uk-responsive-width">
-  <div class="uk-container-center">
-    <div class="uk-panel uk-panel-box">
-      <h3 class="uk-panel-title">
-        Adatlap
-        <%= @user_presenter.nickname %>
-      </h3>
+<% stylesheet 'profile' %>
 
-      <%= image_tag photo_path(@user_presenter.screen_name), class: "uk-thumbnail", alt: @user_presenter.full_name %>
+<div id="content-main" class="profile-container">
+  <div class="uk-height-viewport uk-responsive-width">
+    <h1 class="uk-h1"><%= @user_presenter.compact_name %></h1>
+    <div class="uk-container-center uk-panel uk-panel-box">
+      <div class="uk-grid uk-flex-middle">
 
-      <h3 class="uk-h3">
-        <%= @user_presenter.full_name %>
-      </h3>
+        <div class="uk-width-medium-1-3 uk-flex-center uk-padding-large">
+          <%= image_tag photo_path(@user_presenter.screen_name), class: "uk-thumbnail uk-width-expand", alt: @user_presenter.full_name, id: 'profile-picture' %>
+        </div>
 
-      <%= @user_presenter.email %>
-      <%= @user_presenter.room %>
-      <%= @user_presenter.cell_phone %>
+        <div class="uk-width-medium-1-3 uk-flex-center">
+          <h2 class="uk-h2">Adatlap</h2>
+          <%= @user_presenter.room %>
+          <%= @user_presenter.cell_phone %>
+          <%= @user_presenter.email %>
+          <%= @user_presenter.home_address %>
+          <%= @user_presenter.date_of_birth %>
+          <% @user_presenter.messaging_accounts.each do |im_account| %>
+            <%= im_account.account %>
+          <% end %>
+          <%= @user_presenter.delegated_for %>
+        </div>
 
+        <div class="uk-width-1-1 uk-margin-top">
+          <h2 class="uk-h2">Közösség</h2>
+          <ul class="uk-tab uk-margin" data-uk-tab="{connect:'#profile-data'}">
+            <li>
+              <a class="uk-button uk-text-muted" href="">Tagságok</a>
+            </li>
+            <li>
+              <a class="uk-button uk-text-muted" href="">Történet</a>
+            </li>
+          </ul>
+
+          <ul id="profile-data" class="uk-switcher">
+            <li>
+              <%= render "group_membership" %>
+            </li>
+            <li>
+              <%= render "point_history" %>
+            </li>
+          </ul>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>

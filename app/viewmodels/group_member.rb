@@ -5,6 +5,9 @@ class GroupMember
   end
 
   def posts
+    return 'öregtag' unless @membership.end.nil? || @membership.archived
+    return 'archivált' if @membership.end && @membership.archived
+    return 'tag' if @membership.post_types.empty?
     @membership.post_types.map(&:pttip_name).join(', ')
   end
 
@@ -14,6 +17,10 @@ class GroupMember
 
   def nickname
     @membership.user.nickname
+  end
+
+  def screen_name
+    @membership.user.screen_name
   end
 
   def membership_start
@@ -26,6 +33,34 @@ class GroupMember
 
   def membership_id
     @membership.id
+  end
+
+  def group_id
+    @membership.group.id
+  end
+
+  def group_name
+    @membership.group.name
+  end
+
+  def primary_member?
+    @membership == @membership.user.primary_membership
+  end
+
+  def user
+    @membership.user
+  end
+
+  def membership_timer
+    if @membership.end
+      [@membership.start, @membership.end].join(' - ')
+    else
+      "#{@membership.start} -"
+    end
+  end
+
+  def membership
+    @membership
   end
 
 end

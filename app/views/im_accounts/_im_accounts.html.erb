@@ -1,0 +1,29 @@
+<h2>IM Accounts</h2>
+
+<div id="im_accounts">
+  <% @user.im_accounts.each do |im_account| %>
+    <%= render "im_accounts/im_account", :im_account => im_account, :user => @user %>
+  <% end %>
+</div>
+
+<hr>
+
+<%= form_for @imAccount, :remote => true, :authenticity_token => true, html: {class: 'uk-form'} do |f| %>
+  <div class="uk-grid uk-margin">
+
+    <div class="uk-width-3-10">
+      <%= f.select :protocol,
+                   options_for_select(Rails.configuration.x.im_accounts.invert, ""), class: 'uk-select uk-width-1-1' %>
+    </div>
+
+    <div class="uk-width-4-10">
+      <%= f.text_field :name, class: 'uk-input uk-width-auto' %>
+    </div>
+
+    <div class="uk-width-3-10">
+      <%= f.hidden_field :user_id, :value => @user.id, class: 'uk-input uk-width-auto' %>
+      <%= f.submit "Hozzáad", class: "uk-button" %>
+    </div>
+
+  </div>
+<% end %>

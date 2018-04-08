@@ -1,11 +1,24 @@
-<div class="uk-text-center">
-    <div class="inline-block">
-        <div id="cropper-container">
-            <%= image_tag photo_raw_path, id: "cropper-img" %>
-        </div>
-        <button id="crop-finish-button" type="button" class="uk-button uk-button-primary uk-margin">Mehet!</button>
+<% stylesheet 'profile' %>
+
+<h1>Profilkép feltöltése</h1>
+<div class="uk-panel uk-panel-box" id="content-main">
+  <div class="uk-grid uk-align-center" style="width:600px;">
+    <div class="uk-width-1-1 uk-margin-bottom">
+      <div class="uk-width uk-align-center" style="width: 600px;" id="cropper-container">
+        <%= image_tag photo_raw_path, id: "cropper-img" %>
+      </div>
     </div>
-</div>
-<div class="uk-margin-large-top uk-margin uk-text-center hidden" id="back-button-container">
-    <a class="uk-button uk-button-primary uk-button-large" type="button" href="<%= root_path %>">Vissza</a>
+
+    <div class="uk-width-1-4 uk-text-center uk-push-1-2">
+      <a class="uk-button uk-button-primary" id="back-button-container" href="<%= edit_profile_path(current_user.screen_name) %>">Vissza</a>
+    </div>
+
+    <div class="uk-width-1-4 uk-text-center uk-push-1-2">
+      <button class="uk-button uk-button-primary" id="crop-finish-button">Mehet!</button>
+    </div>
+
+      </div>
+
+    </div>
+  </div>
 </div>

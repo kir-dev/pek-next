@@ -3,7 +3,9 @@ class ProfilesController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def show
-    user = User.find_by(screen_name: params[:id])
+    user = User.includes( [ { pointrequests: [ { evaluation: [ :group, :entry_request ] } ] },
+      { memberships: [ :group, :post_types ] } ]).find_by(screen_name: params[:id])
+    redirect_to profiles_me_path unless user
     @user_presenter = user.decorate
   end
 
@@ -13,6 +15,7 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @imAccount = ImAccount.new
     @user = User.find_by(screen_name: params[:id])
   end
 

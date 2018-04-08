@@ -1,126 +1,78 @@
-<div class="uk-height-viewport uk-responsive-width">
-  <div class="uk-container-center">
-    <div class="uk-panel uk-panel-box">
-      <h3 class="uk-panel-title"><%= @viewmodel.group.name %></h3>
-      <h2 class="uk-h2">Kör adatai</h2>
-      <table>
-        <tbody>
-          <tr>
-            <th class="uk-text-left">Név</th>
-            <td><%= @viewmodel.group.name %></td>
-          </tr>
-          <tr>
-            <th class="uk-text-left">Alapítási éve</th>
-            <td><%= @viewmodel.group.founded %></td>
-          </tr>
-          <tr>
-            <th class="uk-text-left">Svie tag</th>
-            <td><%= @viewmodel.group.issvie ? "Igen" : "Nem" %></td>
-          </tr>
-          <tr>
-            <th class="uk-text-left">Weboldal</th>
-            <td><%= @viewmodel.group.webpage %></td>
-          </tr>
-          <tr>
-            <th class="uk-text-left">Levelezőlista</th>
-            <td><%= @viewmodel.group.maillist %></td>
-          </tr>
-          <tr>
-            <th class="uk-text-left">Bemutatkozás</th>
-            <td><%= @viewmodel.group.description %></td>
-          </tr>
-          <tr>
-            <th class="group-attr">Leader</th>
-            <td><%= @group.leader.user.full_name %></td>
-          </tr>
-        </tbody>
-      </table>
-      <% if @viewmodel.leader? %>
-        <%= link_to 'Adatok szerkesztése', edit_group_path(@viewmodel.group), class: 'uk-button uk-button-primary' %>
-      <% end %>
-      <% if @viewmodel.group.user_can_join?(current_user) %>
-        <%= form_tag group_memberships_path(@viewmodel.group), {method: 'post'} do %>
-          <%= button_tag "Jelentkezés körbe", {class: "uk-button uk-button-primary"} %>
-        <% end %>
+<% stylesheet 'groups' %>
 
-      <% end %>
-      <h2 class="uk-h2">Aktív tagok</h2>
-      <table class="uk-table uk-table-striped uk-table-hover">
-        <thead>
-          <tr>
-            <th>Név</th>
-            <th>Becenév</th>
-            <th>Betöltött poszt</th>
-            <th>Tagság kezdete</th>
-            <% if @viewmodel.leader? %>
-              <th>Posztok állítása</th>
-              <th>Öregtaggá avatás</th>
-              <th>Törlés</th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% active_users(@viewmodel.group) do |member| %>
-          <tr>
-            <td><%= member.full_name %></td>
-            <td><%= member.nickname %></td>
-            <td>
-              <%= member.posts %>
-            </td>
-            <td><%= l member.membership_start %></td>
-            <% if @viewmodel.leader? %>
-              <td></td>
-              <td>
-                <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
-                 method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
-              </td>
-              <td>
-                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, member.membership_id),
-                method: :delete, data: {confirm: "Biztos vagy benne?"},
-                class: "uk-button-small uk-button-danger uk-button", remote: true %>
-              </td>
-            <% end %>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+<div id="content-main" class="group-container">
+  <div class="uk-height-viewport uk-responsive-width">
+    <div class="uk-container-center">
+      <h1 class="uk-h1"><%= @viewmodel.group.name %></h1>
+      <div class="uk-panel uk-panel-box">
+        <div class="uk-grid">
+          <div class="uk-width-medium-3-4">
+            <h2 class="uk-h2">Kör adatai</h2>
+              <%= render 'group_info'%>
+          </div>
+          <div class="uk-width-medium-1-4">
+            <ul class="uk-list uk-list-space">
+              <li><%= @viewmodel.edit_group_button %></li>
+              <li><%= @viewmodel.edit_group_delegates_button %></li>
+              <li><%= @viewmodel.join_group_button %></li>
+            </ul>
+          </div>
+        </div>
 
-      <h2 class="uk-h2">Öregtagok</h2>
-      <table class="uk-table uk-table-striped uk-table-hover">
-        <thead>
-          <tr>
-            <th>Név</th>
-            <th>Becenév</th>
-            <th>Betöltött poszt</th>
-            <th>Tagság kezdete</th>
-            <th>Tagság vége</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% inactive_users(@viewmodel.group) do |member| %>
-          <tr>
-            <td><%= member.full_name %></td>
-            <td><%= member.nickname %></td>
-            <td>
-              <%= member.posts %>
-            </td>
-            <td><%=l member.membership_start %></td>
-            <td><%=l member.membership_end %></td>
-            <% if @viewmodel.leader? %>
-              <td>
-                <%= button_to "Újraaktiválás", group_membership_reactivate_path(@viewmodel.group.id, member.membership_id),
-                 method: :post, class: "uk-button uk-button-primary uk-button-small", remote: true %>
-              </td>
-              <td>
-                <%= button_to "Törlés", group_membership_path(@viewmodel.group.id, member.membership_id),
-                method: :delete, data: {confirm: "Biztos vagy benne?"},
-                class: "uk-button-small uk-button-danger uk-button", remote: true %>
-              </td>
-            <% end %>
-          </tr>
+        <div class="uk-grid uk-margin-top">
+          <div class="uk-width-2-3">
+            <h2 class="uk-h2">Tagságok</h2>
+          </div>
+          <div class="uk-width-1-3 uk-hidden-small">
+            <a class="grid uk-icon-th uk-align-right"></a>
+            <a class="list uk-icon-bars uk-align-right"></a>
+          </div>
+        </div>
+
+        <ul class="uk-tab uk-margin" id="membership-tab" data-uk-tab="{connect:'#membership-data'}">
+          <li>
+            <a class="uk-button uk-text-muted" href="">Aktív tagok</a>
+          </li>
+          <li>
+            <a class="uk-button uk-text-muted" href="">Öreg tagok</a>
+          </li>
+          <% if @viewmodel.group.archived_members_visible %>
+            <li>
+              <a class="uk-button uk-text-muted" href="">Archivált tagok</a>
+            </li>
           <% end %>
-        </tbody>
-      </table>
+        </ul>
+
+        <ul id="membership-data" class="uk-switcher">
+          <li>
+            <div class="uk-width-1-1 uk-grid uk-grid-medium uk-margin-large-bottom" data-uk-grid="{gutter: 20}" id="active_users">
+              <%= render 'active_users' %>
+            </div>
+            <div id="active_users_paginate">
+              <%= paginate @active_users, :param_name => 'active_users_page', :remote => true %>
+            </div>
+          </li>
+          <li>
+            <div class="uk-width-1-1 uk-grid uk-grid-medium uk-margin-large-bottom" data-uk-grid="{gutter: 20}" id="inactive_users">
+              <%= render 'inactive_users' %>
+            </div>
+            <div id="inactive_users_paginate">
+              <%= paginate @inactive_users, :param_name => 'inactive_users_page', :remote => true %>
+            </div>
+          </li>
+          <% if @viewmodel.group.archived_members_visible %>
+            <li>
+              <div class="uk-width-1-1 uk-grid uk-grid-medium uk-margin-bottom" data-uk-grid="{gutter: 20}" id="archived_users">
+                <%= render 'archived_users' %>
+              </div>
+              <div id="archived_users_paginate">
+                <%= paginate @archived_users, :param_name => 'archived_users_page', :remote => true %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+
+      </div>
     </div>
   </div>
 </div>

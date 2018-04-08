@@ -2,7 +2,8 @@ class PhotosController < ApplicationController
   before_action :require_login
 
   def show
-    send_file PhotoService.cropped_path(params[:id]), type: 'image/png', disposition: 'inline'
+    sanitized = params[:id].gsub(/^.*(\\|\/)/, '')
+    send_file PhotoService.cropped_path(sanitized), type: 'image/png', disposition: 'inline'
   end
 
   def update

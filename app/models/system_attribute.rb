@@ -7,4 +7,21 @@ class SystemAttribute < ActiveRecord::Base
   def self.semester
     Semester.new(find_by(name: "szemeszter").value)
   end
+
+  def self.update_semester(semester)
+    find_by(name: "szemeszter").update(value: semester)
+  end
+
+  def self.season
+    find_by(name: 'ertekeles_idoszak')
+  end
+
+  OFFSEASON = 'NINCSERTEKELES'
+  APPLICATION_SEASON = 'ERTEKELESLEADAS'
+  EVALUATION_SEASON = 'ERTEKELESELBIRALAS'
+
+  def application_season?
+    self.value == APPLICATION_SEASON
+  end
+
 end

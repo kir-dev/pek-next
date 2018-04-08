@@ -1,0 +1,52 @@
+<% stylesheet 'admin' %>
+
+<h1 class="uk-h1"><%= @membership.user.full_name %> posztjai</h1>
+<div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-grid uk-margin-remove uk-width-medium-1-2">
+    <% @group.post_types.each do |post_type| %>
+    <div class="uk-width-1-1 uk-grid  uk-margin-remove uk-padding-remove">
+      <div class="uk-width-1-2 uk-text-left uk-text-bold">
+        <%= post_type.name %>
+      </div>
+      <div class="uk-width-1-2">
+        <% active_post = @membership.posts.any? { |post| post.post_type == post_type } %>
+
+        <% if active_post %>
+
+          <%= button_to "Poszt elvétele", group_membership_post_path(@group.id, @membership.id,
+            @membership.posts.find { |post| post.post_type == post_type }.id),
+            action: :destroy, method: :delete, class: "uk-button uk-button-danger uk-button-mini uk-width-1-2 uk-align-center" %>
+
+        <% else %>
+
+          <%= button_to "Poszt adása", group_membership_posts_path(@group.id, @membership.id),
+            action: :create, params: { post_type_id: post_type.id },
+            class: "uk-button uk-button-success uk-button-mini uk-width-1-2 uk-align-center" %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <h2 class="uk-h2">Új poszt létrehozása:</h2>
+  <%= form_for :post_type, url: group_post_types_path(@group.id) do |f| %>
+    <%= f.hidden_field :group_id, value: @group.id %>
+
+    <div class="uk-grid uk-margin-remove uk-width-medium-1-2">
+      <div class="uk-width-1-1 uk-grid  uk-margin-remove uk-padding-remove">
+
+        <div class="uk-width-1-2 uk-text-left uk-text-bold">
+          <%= f.text_field :name %>
+        </div>
+        <div class="uk-width-1-2 uk-text-left uk-text-bold">
+          <%= f.submit("Mehet!", class: "uk-button uk-button-success uk-button-mini uk-width-1-2 uk-align-center") %>
+        </div>
+      </div>
+
+    </div>
+  <% end %>
+
+  <div class="uk-margin-large-top uk-margin" id="back-button-container">
+    <%= button_to "Vissza", group_path(@group.id), method: :get,
+      class: "uk-button uk-button-primary uk-button-large uk-align-center" %>
+  </div>
+</div>

@@ -35,6 +35,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (6.0.4)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -54,6 +56,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
+    cookiejar (0.3.3)
     crass (1.0.2)
     debug_inspector (0.0.3)
     dotenv (2.2.1)
@@ -65,9 +68,18 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
+    em-http-request (1.1.5)
+      addressable (>= 2.3.4)
+      cookiejar (!= 0.3.1)
+      em-socksify (>= 0.3)
+      eventmachine (>= 1.0.3)
+      http_parser.rb (>= 0.6.0)
+    em-socksify (0.3.2)
+      eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
     et-orbi (1.0.8)
       tzinfo
+    eventmachine (1.2.5)
     execjs (2.7.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -75,6 +87,7 @@ GEM
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
+    http_parser.rb (0.6.0)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.6.4)
@@ -123,7 +136,14 @@ GEM
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
+    pdf-core (0.7.0)
     pg (0.21.0)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
+    public_suffix (3.0.2)
     puma (3.10.0)
     rack (1.6.8)
     rack-protection (2.0.0)
@@ -161,6 +181,8 @@ GEM
     rdoc (4.3.0)
     redis (4.0.1)
     request_store (1.3.2)
+    rollbar (2.15.5)
+      multi_json
     rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
     rxjs-rails (3.1.0)
@@ -200,12 +222,11 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
+    ttfunk (1.5.1)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    uikit-sass-rails (1.4.1)
-      sass-rails (>= 3.1)
 
 PLATFORMS
   ruby
@@ -218,14 +239,18 @@ DEPENDENCIES
   coffee-rails (~> 4.2.0)
   dotenv-rails
   draper
+  em-http-request
   jbuilder (~> 2.6.0)
   jquery-rails
   kaminari
   omniauth
   omniauth-oauth2
   pg
+  prawn
+  prawn-table
   puma
   rails (= 4.2.10)
+  rollbar
   rxjs-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
@@ -234,7 +259,6 @@ DEPENDENCIES
   spring
   timecop
   uglifier (~> 3.2.0)
-  uikit-sass-rails
 
 BUNDLED WITH
    1.15.4

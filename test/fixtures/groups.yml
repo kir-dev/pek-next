@@ -1,5 +1,5 @@
 parent:
-  grp_id: 15
+  grp_id: 369
   grp_name: SVIE
   grp_type: csoport
 
@@ -7,7 +7,7 @@ babhamozo:
   grp_id: 1
   grp_name: Babhámozó
   grp_type: szakmai kör
-  grp_parent: 15
+  grp_parent: 369
   grp_state: active
   grp_description: vietnámiak
   grp_webpage: http://babhamozo.sch.bme.hu
@@ -24,3 +24,21 @@ group<%= i %>:
   grp_name: group<% i %>
   grp_type: kör
 <% end %>
+
+svie_group:
+  grp_id: 3
+  grp_name: Pizzás
+  grp_type: szolgáltató
+  grp_issvie: true
+
+svie_group_with_newbies:
+  grp_id: 4
+  grp_name: Hambis
+  grp_type: szolgáltató
+  grp_issvie: true
+
+rvt:
+  grp_id: 146
+  grp_name: RVT
+  grp_type: csak_az_elvek
+  grp_issvie: false

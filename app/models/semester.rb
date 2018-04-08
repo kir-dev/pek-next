@@ -7,6 +7,10 @@ class Semester
     @autumn = semester.chars.last == "1"
   end
 
+  def self.from_year(year, autumn)
+    Semester.new(year + (autumn ? '1' : '2'))
+  end
+
   def previous
     if autumn
       @starting_year -= 1
@@ -25,6 +29,14 @@ class Semester
 
   def to_s
     starting_year.to_s + second_year.to_s + (autumn ? 1 : 2).to_s
+  end
+
+  def to_readable
+    starting_year.to_s + "/" + second_year.to_s + (autumn ? " ősz" : " tavasz")
+  end
+
+  def save
+    SystemAttribute.update_semester(to_s)
   end
 
   private

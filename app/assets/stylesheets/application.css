@@ -10,27 +10,63 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require uikit
+ *= require uikit/font-awesome.min
+ *= require uikit/uikit.min
+ *= require uikit/components/accordion.min
+ *= require uikit/components/form-password.min
+ *= require uikit/components/form-select.min
+ *= require uikit/components/notify.min
+ *= require uikit/components/search.min
+ *= require uikit/components/sticky.min
+
  *= require cropper.min
- *= require_tree .
+ *= require search
  *= require_self
  */
 
-.inline-block {
-	display: inline-block;
+.notification {
+	z-index: 1020;
 }
 
-.hidden {
-	display: none;
+.uk-dropdown {
+	background-color: #fff;
 }
 
-.navbar {
-	position: fixed;
-	right: 0;
-	left: 0;
-	top: 0;
-	height: 40px;
-	z-index: 1030;
+.uk-dropdown, .uk-panel-box {
+	outline: 1px solid #d4d4d4;
+}
+
+.uk-light {
+	color: #fff !important;
+}
+
+.uk-padding {
+	padding: 10px;
+}
+
+.dark {
+	background-color: #f5f5f5 !important;
+}
+
+html, body {
+	height: 100%;
+	background-color: #f5f5f5;
+}
+
+.uk-panel-box {
+	background-color: #fff;
+}
+
+.uk-navbar {
+	background-color: #000;
+}
+
+.uk-padding-small {
+    padding: 5px;
+}
+
+.uk-navbar-nav>li>a {
+	color: #f5f5f5;
 }
 
 .page-wrap {
@@ -38,21 +74,9 @@
 	margin-bottom: -80px;
 }
 
-.search {
-	margin-top: 5px;
-}
-
-.notification {
-	z-index: 1020;
-}
-
 .page-wrap:after {
 	content: "";
 	display: block;
-}
-
-html, body {
-	height: 100%;
 }
 
 .tm-footer, .page-wrap:after {

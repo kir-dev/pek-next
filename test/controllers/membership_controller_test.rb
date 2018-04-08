@@ -31,26 +31,48 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_template 'application/401'
   end
 
-  test "deleting member of group" do
-    babhamozo_member_into_group = grp_membership(:babhamozo_member_into_group)
+  test "archive active_member of group" do
+    membership = grp_membership(:newbie_membership)
+    Timecop.freeze do
+      xhr :put, :archive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
 
-    assert_not_nil Membership.find(babhamozo_member_into_group.id)
-      delete :destroy, format: :js, group_id: groups(:babhamozo).id,
-        id: babhamozo_member_into_group.id
-    assert_nil Membership.find_by(id: babhamozo_member_into_group.id)
+      assert membership.reload.archived.today?
+    end
+    assert_response :success
+  end
+
+  test "archive inactive_member of group" do
+    membership = grp_membership(:inactive_babhamozo_member)
+    Timecop.freeze do
+      xhr :put, :archive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+
+      assert membership.reload.archived.today?
+    end
+    assert_response :success
+  end
+
+  test "unarchive active_member of group" do
+    membership = grp_membership(:active_archived_babhamozo_member)
+
+    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+    assert_nil membership.reload.archived
 
     assert_response :success
   end
 
-  test "unauthorized deletion of member" do
+  test "unarchive inactive_member of group" do
+    membership = grp_membership(:inactive_archived_babhamozo_member)
+
+    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+    assert_nil membership.reload.archived
+
+    assert_response :success
+  end
+
+  test "unauthorized archive of member" do
     login_as_user(:non_babhamozo_member)
 
-    babhamozo_member_membership = grp_membership(:babhamozo_leader_into_group)
-
-    assert_not_nil Membership.find(babhamozo_member_membership.id)
-      delete :destroy, group_id: groups(:babhamozo).id,
-        id: babhamozo_member_membership.id
-    assert_not_nil Membership.find(babhamozo_member_membership.id)
+    xhr :get, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id:  grp_membership(:babhamozo_leader_into_group).id
 
     assert_template 'application/401'
   end
@@ -72,6 +94,20 @@ class MembershipsControllerTest < ActionController::TestCase
       membership_id: membership.id
 
     assert_nil membership.reload.membership_end
+    assert_response :success
+  end
+
+  test "delegation became false when inactivate a group member who delegated that group" do
+    membership = grp_membership(:babhamozo_member_who_delegated)
+
+    assert membership.user.delegated
+    assert_equal(membership.user.primary_membership, membership)
+
+    Timecop.freeze do
+      xhr :get, :inactivate, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+
+      assert_not membership.reload.user.delegated
+    end
     assert_response :success
   end
 end

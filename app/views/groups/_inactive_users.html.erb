@@ -1,0 +1,28 @@
+<% inactive_users(@viewmodel.group) do |member| %>
+<div class="uk-width-1-1 uk-width-medium-1-3">
+  <div class="uk-panel uk-panel-box dark">
+    <div class="uk-panel-title uk-margin-remove">
+      <%= link_to member.full_name, profile_path(member.screen_name) %>
+    </div>
+    <div class="uk-panel-body uk-padding-remove">
+      <div class="uk-grid uk-grid-collapse">
+        <div class="uk-width-1-1">
+          <%= member.nickname %>
+        </div>
+        <div class="uk-width-1-2 uk-text-bold"><%= member.posts %></div>
+        <div class="uk-width-1-2 uk-text-bold uk-text-right"><%=l member.membership_start %> - <%=l member.membership_end %></div>
+        <% if @viewmodel.leader? %>
+        <div class="uk-width-1-2 uk-padding-small">
+          <%= button_to "Újraaktiválás", group_membership_reactivate_path(@viewmodel.group.id, member.membership_id),
+          method: :post, class: "uk-button uk-button-primary uk-button-small uk-width-auto", remote: true %>
+        </div>
+        <div class="uk-width-1-2 uk-padding-small">
+          <%= button_to "Archiválás", group_membership_archive_path(@viewmodel.group.id, member.membership_id),
+                        method: :put, class: "uk-button uk-button-danger uk-button-small uk-width-auto", remote: true %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

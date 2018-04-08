@@ -34,14 +34,23 @@ class User < ActiveRecord::Base
   alias_attribute :auth_sch_id, :usr_auth_sch_id
   alias_attribute :bme_id, :usr_bme_id
 
-  has_many :memberships, foreign_key: :usr_id
+  has_many :memberships, class_name: "Membership", foreign_key: :usr_id
   has_many :groups, through: :memberships
+  has_many :entryrequests, class_name: "EntryRequest", foreign_key: :usr_id
+  has_many :pointrequests, class_name: "PointRequest", foreign_key: :usr_id
+  has_many :im_accounts, foreign_key: :usr_id
+  has_many :point_history, foreign_key: :usr_id
+  has_many :privacies, foreign_key: :usr_id
+
+  has_one :primary_membership, class_name: "Membership", foreign_key: :id, primary_key: :usr_svie_primary_membership
 
   validates :screen_name, uniqueness: true
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
+  validates_with PrimaryMembershipValidator
 
   validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
+  validates_format_of :screen_name, with: /[^\/]+/
 
   def full_name
     [lastname, firstname].compact.join(' ')
@@ -51,8 +60,22 @@ class User < ActiveRecord::Base
     memberships.find { |m| m.group == group }
   end
 
-  def leader_of(group)
+  def leader_of?(group)
     membership = membership_for(group)
     membership && membership.leader?
   end
+
+  def member_of?(group)
+    membership = membership_for(group)
+    membership && !membership.newbie?
+  end
+
+  def roles
+    @roles ||= UserRole.new(self)
+  end
+
+  def svie
+    @svie_user ||= SvieUser.new(self)
+  end
+
 end

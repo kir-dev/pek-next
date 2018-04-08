@@ -8,6 +8,13 @@ hu:
 
   edit_successful: Sikeres mentés!
   register_successful: Sikeres regisztráció!
+  too_many_delegates: Túl sok küldöttet szeretnél beállítani!
+  applied_succesful: Sikeres jelentkezés!
+  accept_application: SVIE tag lett!
+  svie_group_needed: SVIE jelentkezéshez legalább egy SVIE körben tagnak kell lenned!
+  invalid_id: Not valid id. It should be a UUID or a NEPTUN code.
+  non_existent_id: Could not find user with %{id} id.
+  successful_impersonation: Successful user impersonation
   activerecord:
     attributes:
       user:
@@ -32,6 +39,12 @@ hu:
         founded: Alapítva
         maillist: Levelezőlista
         users_can_apply: Körbe jelentkezés megengedett
+        archived_members_visible: Archívált tagok láthatóak
+      im_account/protocol:
+        skype: Skype
+        gtalk: Google Hangouts
+        jabber: Jabber
+        irc: IRC
     errors:
       models:
         user:
@@ -44,3 +57,10 @@ hu:
               taken: már regisztrálva van!
             bme_id:
               taken: már regisztrálva van!
+  views:
+    pagination:
+      first: "Első"
+      previous: "&laquo; Előző"
+      next: "Következő &raquo;"
+      last: "Utolsó"
+      truncate: "..."

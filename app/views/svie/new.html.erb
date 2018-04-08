@@ -1,0 +1,41 @@
+<% stylesheet 'profile' %>
+
+<div id="content-main" class="neutral-container">
+  <div class="uk-height-viewport uk-responsive-width">
+    <h1 class="uk-h1">Jelentkezés leadása</h1>
+    <div class="uk-container-center uk-panel uk-panel-box">
+      <h2 class="uk-h2"><%= current_user.full_name %></h2>
+      <h4 class="uk-h4">Jelentkezéshez szükséges adatok</h4>
+      <p>Rendes tag: BME-VIK-es aktív, nappali hallgatói jogviszonnyal rendelkező hallgató</p>
+      <p>Öregtag: BME-VIK-en tanult hallgató, aki már nem szeretne aktív lenni az egyesületben</p>
+      <p>Külsős tag: A fentiekbe nem tartozó személy</p>
+      <%= form_tag svie_index_path, method: :post, html: { class: 'uk-form' } do %>
+        <div class="uk-text-center">
+          <div class="uk-grid">
+            <div class="uk-width-1-1">
+              <div class="uk-form-row">
+                <%= label_tag :home_address, 'Lakcím:' %>
+                <%= text_field_tag :home_address, current_user.home_address %>
+              </div>
+              <div class="uk-form-row">
+                <%= label_tag :mother_name, 'Anyja neve:' %>
+                <%= text_field_tag :mother_name, current_user.mother_name %>
+              </div>
+              <div class="uk-form-row">
+                <%= label_tag :email, 'Email cím:' %>
+                <%= text_field_tag :email, current_user.email %>
+              </div>
+              <div class="uk-form-row">
+                <%= label_tag :svie_member_type, 'Tagság típusa' %>
+                <%= select_tag :svie_member_type, options_for_select(Rails.configuration.x.svie_member_types.invert) %>
+              </div>
+              <div class="uk-form-row">
+                <%= submit_tag 'Tovább', class: 'uk-button'  %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

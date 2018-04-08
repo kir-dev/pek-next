@@ -1,24 +1,28 @@
-<p id="notice"><%= notice %></p>
+<% stylesheet 'groups' %>
 
-<h1>Körök listázása</h1>
+<div class="uk-height-viewport uk-responsive-width uk-margin-large">
+<h1 class="uk-h1">Körök</h1>
+<div class="uk-container-center uk-panel uk-panel-box">
+  <p id="notice"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>név</th>
-      <th>leírás</th>
-    </tr>
-  </thead>
-  <tbody>
+
+  <div class="uk-grid uk-grid-medium" data-uk-grid="{gutter: 20}">
     <% @groups.each do |group| %>
-      <tr>
-        <td><%= group.id %></td>
-        <td><%= link_to group.name, group_path(group.id) %></td>
-        <td><%= group.description %></td>
-      </tr>
+      <div class="uk-width-1-1 uk-width-medium-1-3">
+        <div class="uk-panel uk-panel-box dark">
+          <div class="uk-panel-title">
+            <%= link_to group.name, group_path(group.id), class: "uk-text-primary" %>
+          </div>
+          <div class="uk-panel-body">
+            <%= group.truncated_description %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  <div class="uk-width-expand uk-text-center uk-margin-top">
+    <%= paginate @groups %>
+  </div>
 
-<%= paginate @groups %>
+</div>
+</div>

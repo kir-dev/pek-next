@@ -7,9 +7,58 @@ babhamozo_member_into_group:
   id: 2
   grp_id: 1
   usr_id: 4002
+  membership_start: 2010-02-02
 
 inactive_babhamozo_member:
   id: 3
   grp_id: 1
   usr_id: 4004
   membership_end: <%= Time.now %>
+
+user_with_primary_membership:
+  id: 4
+  grp_id: 1
+  usr_id: 5000
+
+not_primary_membership:
+  id: 5
+  grp_id: 3
+  usr_id: 5000
+
+non_svie_membership:
+  id: 6
+  grp_id: 22
+  usr_id: 5000
+
+newbie_membership:
+  id: 7
+  grp_id: 4
+  usr_id: 5000
+
+babhamozo_member_who_delegated:
+  id: 8
+  grp_id: 1
+  usr_id: 4005
+
+inactive_archived_babhamozo_member:
+  id: 10
+  grp_id: 1
+  usr_id: 5005
+  archived: <%= Time.now %>
+  membership_end: <%= Time.now %>
+
+active_archived_babhamozo_member:
+  id: 11
+  grp_id: 1
+  usr_id: 5006
+  archived: <%= Time.now %>
+
+babhamozo_member_who_delegated:
+  id: 8
+  grp_id: 1
+  usr_id: 4005
+
+rvt_membership:
+  id: 9
+  grp_id: 146
+  usr_id: 6000

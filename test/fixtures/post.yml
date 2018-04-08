@@ -1,3 +1,7 @@
 babhamozo_leader:
   grp_member_id: 1
   pttip_id: 3
+
+newbie_in_svie_group:
+  grp_member_id: 7
+  pttip_id: 6

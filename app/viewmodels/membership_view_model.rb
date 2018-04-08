@@ -3,7 +3,7 @@ class MembershipViewModel
 
   def initialize(user, group_id)
     @user = user
-    @group = Group.find(group_id)
+    @group = Group.includes([ :members, { memberships: [ :post_types ] } ] ).find(group_id)
   end
 
   def leader?

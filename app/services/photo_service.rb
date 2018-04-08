@@ -18,11 +18,12 @@ module PhotoService extend self
   end
 
   def raw_path(screen_name)
-    return photo_dir(screen_name).join('raw.png')
+    photo_dir(screen_name).join('raw.png')
   end
 
   def cropped_path(screen_name)
-    return photo_dir(screen_name).join('cropped.png')
+    return default_path unless Dir.exists?(photo_dir(screen_name))
+    photo_dir(screen_name).join('cropped.png')
   end
 
   def dircheck(dirname)
@@ -32,6 +33,10 @@ module PhotoService extend self
   end
 
   def photo_dir(screen_name)
-    return Rails.root.join(Rails.configuration.x.photo_path, screen_name[0, 1], screen_name)
+    Rails.root.join(Rails.configuration.x.photo_path, screen_name[0, 1], screen_name)
+  end
+
+  def default_path
+    Rails.root.join('public', 'img', 'default_profile.png')
   end
 end
