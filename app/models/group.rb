@@ -63,4 +63,5 @@ class Group < ActiveRecord::Base
   def can_delegate_more
     current_delegated_count < delegate_count
   end
+
 end

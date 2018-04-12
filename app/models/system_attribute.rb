@@ -20,8 +20,8 @@ class SystemAttribute < ActiveRecord::Base
   APPLICATION_SEASON = 'ERTEKELESLEADAS'
   EVALUATION_SEASON = 'ERTEKELESELBIRALAS'
 
-  def application_season?
-    self.value == APPLICATION_SEASON
+  def self.application_season?
+    season.value == APPLICATION_SEASON
   end
 
 end

@@ -2,10 +2,11 @@ class Evaluation < ActiveRecord::Base
   self.table_name = "ertekelesek"
   self.primary_key = :id
 
+  before_save :default_values
+
   alias_attribute :entry_request_status, :belepoigeny_statusz
   alias_attribute :timestamp, :feladas
   alias_attribute :point_request_status, :pontigeny_statusz
-  alias_attribute :date, :semester
   alias_attribute :justification, :szoveges_ertekeles
   alias_attribute :last_evaulation, :utolso_elbiralas
   alias_attribute :last_modification, :utolso_modositas
@@ -18,19 +19,32 @@ class Evaluation < ActiveRecord::Base
   has_one :point_request
   has_one :entry_request, foreign_key: :ertekeles_id
 
+  NON_EXISTENT = 'NINCS'
+  ACCEPTED = 'ELFOGADVA'
+  REJECTED = 'ELUTASITVA'
+  NOT_YET_ASSESSED = 'ELBIRALATLAN'
+
   def point_request_accepted
-    point_request_status == 'ELFOGADVA'
+    point_request_status == ACCEPTED
   end
 
   def entry_request_accepted
-    entry_request_status == 'ELFOGADVA'
+    entry_request_status == ACCEPTED
   end
 
   def no_entry_request
-    entry_request_status == 'NINCS'
+    entry_request_status == NON_EXISTENT
   end
 
   def accepted
     point_request_accepted && !next_version
+  end
+
+  def default_values
+    self.point_request_status ||= NON_EXISTENT
+    self.entry_request_status ||= NON_EXISTENT
+    self.timestamp ||= Time.now
+    self.justification ||= ''
+    self.last_modification = Time.now
   end
 end

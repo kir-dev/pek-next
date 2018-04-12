@@ -19,7 +19,7 @@ module ProfilesHelper
   def user_detailed_point_history(pointrequests, semester)
     accepted_pointrequests = pointrequests.select do |c|
       c.evaluation.accepted &&
-        c.evaluation.date == semester.to_s
+        c.evaluation.semester == semester.to_s
     end
     accepted_pointrequests.each do |pointrequest|
       yield DetailedPointHistory.new(pointrequest)

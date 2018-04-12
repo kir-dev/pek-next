@@ -1,0 +1,12 @@
+<% stylesheet 'admin' %>
+
+<h2 class="uk-h2">
+  Értékelés leadás <%= @group.name %> körnek <%= SystemAttribute.semester.to_s %> félévre
+</h2>
+
+<div id="content-main" class="uk-panel uk-panel-box">
+
+  <h5><%= @evaluation.point_request_status %></h5>
+  <h5><%= @evaluation.entry_request_status %></h5>
+
+</div>

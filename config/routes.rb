@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       resources :posts, only: [:index, :create, :destroy]
     end
     resources :post_types, only: [:create]
+    resources :evaluations
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'
     delete '/delegate', to: 'delegates#destroy'
