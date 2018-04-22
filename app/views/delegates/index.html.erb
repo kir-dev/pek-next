@@ -10,7 +10,7 @@
     <tr>
       <th>Név</th>
       <th>Kör</th>
-      <th>E-mail cím</th>
+      <th>Lakcím</th>
       <th width="300" height="50">Aláírás</th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
       <tr>
         <td><%= u.full_name %></td>
         <td><%= link_to u.primary_membership.group.name, group_path( u.primary_membership.group.id) %></td>
-        <td><%= u.email %></td>
+        <td><%= u.home_address %></td>
         <td height="40"></td>
       </tr>
     <% end %>
