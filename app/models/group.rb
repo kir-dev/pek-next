@@ -63,4 +63,10 @@ class Group < ActiveRecord::Base
   def can_delegate_more
     current_delegated_count < delegate_count
   end
+
+  def inactive?
+    previous_eval = Evaluation.where(group_id: self.id).where(date: SystemAttribute.semester.previous.to_s).empty?
+    pre_previous_eval = Evaluation.where(group_id: self.id).where(date: SystemAttribute.semester.previous.previous.to_s).empty?
+    previous_eval && pre_previous_eval
+  end
 end

@@ -47,4 +47,11 @@
       <%= @viewmodel.group.formatted_description %>
     </div>
   </div>
+
+  <% if @viewmodel.group.inactive? %>
+    <div class="uk-form-row uk-margin-remove">
+      <label class="uk-form-label uk-text-bold">A kör valószínűleg inaktív!</label>
+    </div>
+  <% end %>
+
 </div>
