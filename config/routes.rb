@@ -47,7 +47,6 @@ Rails.application.routes.draw do
   resources :im_accounts, only: [:create, :update, :destroy]
 
   resources :delegates, only: [:index]
-  get '/delegates/export', to: 'delegates#export'
 
   get '/seasons', to: 'season_admin#index'
   post '/seasons', to: 'season_admin#update'
