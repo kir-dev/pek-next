@@ -1,8 +1,8 @@
 class EvaluationsController < ApplicationController
   before_action :require_login
-  before_action :require_leader, only: [:new, :create]
+  before_action :require_leader, only: [:current, :show, :edit, :update]
 
-  def new
+  def current
     @evaluation = Evaluation.find_by({ group_id: @group.id, semester: SystemAttribute.semester.to_s })
     unless @evaluation
       @evaluation = Evaluation.create({
@@ -11,9 +11,21 @@ class EvaluationsController < ApplicationController
         semester: SystemAttribute.semester.to_s
         })
     end
+    redirect_to group_evaluation_path(@evaluation.group, @evaluation)
   end
 
-  def create
+  def show
+    @evaluation = Evaluation.find(params[:id])
+  end
+
+  def edit
+    @evaluation = Evaluation.find_by({ group_id: @group.id, semester: SystemAttribute.semester.to_s })
+  end
+
+  def update
+    @evaluation = Evaluation.find(params[:id])
+    @evaluation.update(params.require(:evaluation).permit(:explanation))
+    redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:edit_successful)
   end
 
 end
