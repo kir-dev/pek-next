@@ -17,7 +17,7 @@
           <%= @user_presenter.email %>
           <%= @user_presenter.home_address %>
           <%= @user_presenter.date_of_birth %>
-          <% @user_presenter.messaging_accounts.each do |im_account| %>
+          <% @user_presenter.im_accounts.each do |im_account| %>
             <%= im_account.account %>
           <% end %>
           <%= @user_presenter.delegated_for %>

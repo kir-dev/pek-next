@@ -1,5 +1,6 @@
 class UserDecorator < Draper::Decorator
   delegate_all
+  decorates_association :im_accounts
   include Draper::LazyHelpers
 
   def room
@@ -51,10 +52,6 @@ class UserDecorator < Draper::Decorator
   def compact_name
     return user.full_name if user.nickname.blank?
     [user.full_name, ' (', user.nickname, ')'].join
-  end
-
-  def messaging_accounts
-    im_accounts.decorate.each
   end
 
   def delegated_for
