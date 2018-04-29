@@ -28,4 +28,8 @@ class EvaluationsController < ApplicationController
     redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:edit_successful)
   end
 
+  def table
+    @evaluation = Evaluation.find(params[:evaluation_id])
+  end
+
 end

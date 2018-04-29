@@ -1,0 +1,30 @@
+<% stylesheet 'groups' %>
+<% stylesheet 'evaluation_table' %>
+
+<h1>Pontozás - <%= @evaluation.group.name %></h1>
+
+<div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-width-large-1-1 uk-container-center uk-overflow-container uk-width-1-1">
+    <table class="uk-table uk-table-striped uk-table-hover ">
+      <thead>
+        <tr>
+          <th>Körtagok</th>
+          <% @evaluation.principles.each do |principle| %>
+            <th class="uk-text-center"><%= principle.name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @evaluation.group.members.each do |member| %>
+          <tr>
+            <td><%= member.full_name %></td>
+            <% @evaluation.principles.each do |principle| %>
+              <td><input class="uk-input uk-width-auto" type="number" value="<%= rand(5..30) if rand(1..20) == 20 %>"></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

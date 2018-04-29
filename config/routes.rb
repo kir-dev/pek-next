@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     get '/evaluations/current', to: 'evaluations#current'
     resources :evaluations do
       resources :principles
+      get '/table', to: 'evaluations#table'
     end
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'
