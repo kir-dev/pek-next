@@ -36,7 +36,9 @@ Rails.application.routes.draw do
     end
     resources :post_types, only: [:create]
     get '/evaluations/current', to: 'evaluations#current'
-    resources :evaluations
+    resources :evaluations do
+      resources :principles
+    end
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'
     delete '/delegate', to: 'delegates#destroy'

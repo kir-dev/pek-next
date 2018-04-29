@@ -18,6 +18,7 @@ class Evaluation < ActiveRecord::Base
   belongs_to :group, foreign_key: :grp_id
   has_one :point_request
   has_one :entry_request, foreign_key: :ertekeles_id
+  has_many :principles
 
   NON_EXISTENT = 'NINCS'
   ACCEPTED = 'ELFOGADVA'

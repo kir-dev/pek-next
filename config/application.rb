@@ -91,6 +91,10 @@ module PekNext
         'ERTEKELESLEADAS' => 'Pontozási időszak',
         'ERTEKELESELBIRALAS' => 'Bírálási időszak'
     }
+    config.x.principle_types = {
+        'WORK' => 'Munka',
+        'RESPONSIBILITY' => 'Felelősség'
+    }
 
     config.x.auth_sch_pingback_url = 'https://auth.sch.bme.hu/api/profile/resync?access_token='
     config.x.neptun_regex = /^[A-Za-z0-9]{6,7}$/

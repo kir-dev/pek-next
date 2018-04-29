@@ -1,0 +1,30 @@
+class PrinciplesController < ApplicationController
+  before_action :require_leader
+
+  def index
+    @evaluation = Evaluation.find(params[:evaluation_id])
+  end
+
+  def update
+    @principle = Principle.find(params[:id])
+    @principle.update(principle_params)
+  end
+
+  def create
+    @principle = Principle.new(principle_params)
+    @evaluation = Evaluation.find(params[:evaluation_id])
+    @principle.evaluation = @evaluation
+    @principle.save
+  end
+
+  def destroy
+    @principle = Principle.find(params[:id])
+    @principle.destroy
+  end
+
+  private
+    def principle_params
+      params.require(:principle).permit(:type, :name, :max_per_member)
+    end
+
+end
