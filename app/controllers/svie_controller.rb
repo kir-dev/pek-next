@@ -30,7 +30,7 @@ class SvieController < ApplicationController
   end
 
   def index
-    @post_requests = SviePostRequest.all();
+    @post_requests = SviePostRequest.all
   end
 
   def approve
