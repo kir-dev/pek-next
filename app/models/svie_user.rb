@@ -27,11 +27,6 @@ class SvieUser
     @user.svie_member_type == 'OREGTAG'
   end
 
-  def remove_membership!
-    @user.svie_member_type = 'NEMTAG'
-    @user.save!
-  end
-
   def can_join_to?(member_type)
     return false if(self.in_processing?) || @user.svie_member_type == member_type
     return !inside_member? if(member_type == 'KULSOSTAG')

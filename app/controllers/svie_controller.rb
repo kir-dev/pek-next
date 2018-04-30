@@ -55,7 +55,7 @@ class SvieController < ApplicationController
   end
 
   def destroy
-    current_user.svie.remove_membership!
+    current_user.svie.createRequest('NEMTAG')
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 
