@@ -39,7 +39,6 @@ private
   def membership_json(user)
     memberships_array = []
     user.memberships.each do |membership|
-      next if membership.newbie?
       memberships_array.push({
         start: membership.start,
         end: membership.end,
