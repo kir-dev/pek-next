@@ -12,7 +12,7 @@ class SvieUser
   end
 
   def in_processing?
-    @user.svie_post_request
+    !@user.svie_post_request.nil?
   end
 
   def inside_member?
