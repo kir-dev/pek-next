@@ -2,7 +2,7 @@ require 'fileutils'
 
 module PhotoService extend self
   def upload_cropped(screen_name, photo)
-    dircheck(photo_dir(screen_name))
+    dir_check(photo_dir(screen_name))
 
     File.open(cropped_path(screen_name), 'wb') do |file|
       file.write(photo)
@@ -10,7 +10,7 @@ module PhotoService extend self
   end
 
   def upload_raw(screen_name, photo)
-    dircheck(photo_dir(screen_name))
+    dir_check(photo_dir(screen_name))
 
     File.open(raw_path(screen_name), 'wb') do |file|
       file.write(photo.read)
@@ -26,12 +26,12 @@ module PhotoService extend self
     photo_dir(screen_name).join('cropped.png')
   end
 
-  def rawcheck(screen_name)
+  def raw_check(screen_name)
     path = raw_path(screen_name)
     File.file?(path)
   end
 
-  def dircheck(dirname)
+  def dir_check(dirname)
     if !Dir.exists?(dirname)
       FileUtils.mkdir_p(dirname)
     end
