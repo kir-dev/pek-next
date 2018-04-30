@@ -24,11 +24,9 @@
               class: "uk-text-primary" %>
           </div>
           <div class="uk-width-1-4 uk-text-center">
-            Jelenlegi: <%= post_request.user.svie_member_type %>
             <%= Rails.configuration.x.svie_member_types[post_request.user.svie_member_type] %>
           </div>
           <div class="uk-width-1-4 uk-text-center">
-            Uj: <%= post_request.member_type %>
             <%= Rails.configuration.x.svie_member_types[post_request.member_type]  %>
           </div>
           <div class="uk-width-1-4 uk-text-right">

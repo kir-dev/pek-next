@@ -1,4 +1,6 @@
 class SvieUser
+  MEBEMER_TYPES = Rails.configuration.x.svie_member_types < {NEMTAG: 'Nem tag'}
+
   def initialize(user)
     @user = user
   end
@@ -33,7 +35,7 @@ class SvieUser
     true
   end
 
-  def createRequest(member_type)
+  def create_request(member_type)
     unless self.can_join_to?(member_type)
       unauthorized_page
     end
