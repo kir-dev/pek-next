@@ -1,0 +1,14 @@
+<h2>Profilkép</h2>
+
+<div class="uk-margin-large-top uk-margin" id="image-upload-container">
+  <%= form_tag photo_raw_path, multipart: true, class: 'uk-form uk-margin-remove' do %>
+    <div class="uk-clearfix">
+      <div class="uk-float-left">
+        <%= file_field_tag 'rawPhoto' %>
+      </div>
+      <div class="uk-float-right">
+        <input class="uk-button" type="submit" value="Feltöltés" name="submitButton"/>
+      </div>
+    </div>
+  <% end %>
+</div>

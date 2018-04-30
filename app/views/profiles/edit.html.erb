@@ -91,23 +91,7 @@
         </div>
     <% end %>
 
-    <%= render "im_accounts/im_accounts", :user => @user %>
+    <%= render 'profile_picture_upload' %>
 
-    <!-- Profile picture upload -->
-    <div class="uk-margin-large-top uk-margin" id="image-upload-container">
-        <%= form_tag photo_raw_path, multipart: true, class: 'uk-form uk-margin-remove' do %>
-            <div class="uk-grid">
-                <div class="uk-width-1-4">
-                  Profilkép
-                </div>
-                <div class="uk-width-1-2 uk-text-center uk-padding-remove">
-                    <%= file_field_tag 'rawPhoto' %>
-                </div>
-                <div class="uk-width-1-4 uk-text-center uk-padding-remove">
-                    <input class="uk-button" type="submit" value="Feltöltés" name="submitButton"/>
-                </div>
-            </div>
-        <% end %>
-    </div>
   </div>
 </div>
