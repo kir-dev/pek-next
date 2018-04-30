@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
   has_many :entryrequests, class_name: "EntryRequest", foreign_key: :usr_id
   has_many :pointrequests, class_name: "PointRequest", foreign_key: :usr_id
   has_many :im_accounts, foreign_key: :usr_id
+  has_many :point_history, foreign_key: :usr_id
+  has_many :privacies, foreign_key: :usr_id
 
   has_one :primary_membership, class_name: "Membership", foreign_key: :id, primary_key: :usr_svie_primary_membership
 
@@ -47,7 +49,8 @@ class User < ActiveRecord::Base
   validates :bme_id, uniqueness: true, allow_nil: true
   validates_with PrimaryMembershipValidator
 
-  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
+#  Before validation need to fix cell phone numbers
+#  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
   validates_format_of :screen_name, with: /[^\/]+/
 
   def full_name
@@ -58,36 +61,22 @@ class User < ActiveRecord::Base
     memberships.find { |m| m.group == group }
   end
 
-  def leader_of(group)
+  def leader_of?(group)
     membership = membership_for(group)
     membership && membership.leader?
+  end
+
+  def member_of?(group)
+    membership = membership_for(group)
+    membership && !membership.newbie?
   end
 
   def roles
     @roles ||= UserRole.new(self)
   end
 
-  def not_member_of_svie?
-    svie_state == 'NEMTAG'
+  def svie
+    @svie_user ||= SvieUser.new(self)
   end
 
-  def member_of_svie?
-    svie_state == 'ELFOGADVA'
-  end
-
-  def svie_state_is_in_processing?
-    svie_state == 'FELDOLGOZASALATT'
-  end
-
-  def inside_svie_member?
-    svie_member_type == 'RENDESTAG'
-  end
-
-  def outside_svie_member?
-    svie_member_type == 'PARTOLOTAG'
-  end
-
-  def inactive_svie_member?
-    svie_member_type == 'OREGTAG'
-  end
 end

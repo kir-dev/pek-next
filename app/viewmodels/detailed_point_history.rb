@@ -1,9 +1,9 @@
 class DetailedPointHistory
-
-  def initialize(pointrequest)
-    @pointrequest = pointrequest
-    @evaluation = Evaluation.find(@pointrequest.evaluation_id)
-    @group = Group.find(@evaluation.group_id)
+  def initialize(point_request)
+    @point_request = point_request
+    @evaluation = point_request.evaluation
+    @group = @evaluation.group
+    @entry_request = @evaluation.entry_request
   end
 
   def group_name
@@ -19,7 +19,14 @@ class DetailedPointHistory
   end
 
   def point
-    @pointrequest.point
+    @point_request.point
   end
 
+  def entry_card_type
+    @entry_request ? @entry_request.entry_type : EntryRequest::DEFAULT_TYPE
+  end
+
+  def entry_card_explanation
+    @entry_request ? @entry_request.explanation : ''
+  end
 end

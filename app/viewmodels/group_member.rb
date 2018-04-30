@@ -43,12 +43,24 @@ class GroupMember
     @membership.group.name
   end
 
+  def primary_member?
+    @membership == @membership.user.primary_membership
+  end
+
+  def user
+    @membership.user
+  end
+
   def membership_timer
     if @membership.end
       [@membership.start, @membership.end].join(' - ')
     else
       "#{@membership.start} -"
     end
+  end
+
+  def membership
+    @membership
   end
 
 end

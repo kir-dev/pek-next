@@ -1,15 +1,16 @@
+<% stylesheet 'delegates', media: 'print' %>
 <p id="notice"><%= notice %></p>
-
 <div id="content-main" class="neutral-content">
-<h1>Küldöttek listázása</h1>
-<%= link_to 'Exportálás', delegates_export_path, class: 'uk-button uk-button-large uk-button-primary uk-align-right' %>
+<h1 class="no-print">Küldöttek listázása</h1>
+
+<%= button_to 'Exportálás', 'javascript:window.print()', class: 'uk-button uk-button-large uk-button-primary uk-align-right' %>
 
 <table border="1" class="uk-table uk-table-striped uk-table-hover">
   <thead>
     <tr>
       <th>Név</th>
       <th>Kör</th>
-      <th>E-mail cím</th>
+      <th>Lakcím</th>
       <th width="300" height="50">Aláírás</th>
     </tr>
   </thead>
@@ -18,12 +19,11 @@
       <tr>
         <td><%= u.full_name %></td>
         <td><%= link_to u.primary_membership.group.name, group_path( u.primary_membership.group.id) %></td>
-        <td><%= u.email %></td>
+        <td><%= u.home_address %></td>
         <td height="40"></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= paginate @delegates %>
 </div>

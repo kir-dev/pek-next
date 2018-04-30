@@ -1,0 +1,57 @@
+<div class="uk-form uk-form-horizontal">
+  <div class="uk-form-row">
+    <label class="uk-form-label form-label-required">Név</label>
+    <div class="uk-form-controls">
+      <%= @viewmodel.group.name %>
+    </div>
+  </div>
+
+  <div class="uk-form-row uk-margin-remove">
+    <label class="uk-form-label form-label-required">Alapítási éve</label>
+    <div class="uk-form-controls">
+      <%= @viewmodel.group.founded %>
+    </div>
+  </div>
+
+  <div class="uk-form-row uk-margin-remove">
+    <label class="uk-form-label form-label-required">Svie tag</label>
+    <div class="uk-form-controls">
+      <%= @viewmodel.group.svie_state %>
+    </div>
+  </div>
+
+  <div class="uk-form-row uk-margin-remove">
+    <label class="uk-form-label form-label-required">Weboldal</label>
+    <div class="uk-form-controls">
+      <%= @viewmodel.group.webpage_link %>
+    </div>
+  </div>
+
+  <div class="uk-form-row uk-margin-remove">
+    <label class="uk-form-label form-label-required">Levelezőlista</label>
+    <div class="uk-form-controls">
+      <%= @viewmodel.group.maillist %>
+    </div>
+  </div>
+
+  <div class="uk-form-row uk-margin-remove">
+    <label class="uk-form-label form-label-required">Körvezető</label>
+    <div class="uk-form-controls">
+      <%= @viewmodel.group.goup_leader_link %>
+    </div>
+  </div>
+
+  <div class="uk-form-row uk-margin-remove">
+    <label class="uk-form-label form-label-required">Bemutatkozás</label>
+    <div class="uk-form-controls">
+      <%= @viewmodel.group.formatted_description %>
+    </div>
+  </div>
+
+  <% if @viewmodel.group.inactive? %>
+    <div class="uk-form-row uk-margin-remove">
+      <label class="uk-form-label uk-text-bold">A kör valószínűleg inaktív!</label>
+    </div>
+  <% end %>
+
+</div>

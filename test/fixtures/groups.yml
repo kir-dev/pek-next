@@ -1,5 +1,5 @@
 parent:
-  grp_id: 15
+  grp_id: 369
   grp_name: SVIE
   grp_type: csoport
 
@@ -7,7 +7,7 @@ babhamozo:
   grp_id: 1
   grp_name: Babhámozó
   grp_type: szakmai kör
-  grp_parent: 15
+  grp_parent: 369
   grp_state: active
   grp_description: vietnámiak
   grp_webpage: http://babhamozo.sch.bme.hu

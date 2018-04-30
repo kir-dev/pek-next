@@ -24,13 +24,27 @@
         <div class="uk-width-1-3 uk-text-bold uk-text-right"><%= member.membership_start %> -</div>
         <% if @viewmodel.leader? %>
           <div class="uk-width-1-2 uk-padding-small">
-            <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
+            <% if member.membership.newbie? %>
+              <%= button_to "Elfogadás", group_membership_accept_path(@viewmodel.group.id, member.membership_id),
+                        method: :post, class: "uk-button uk-button-success uk-button-small uk-width-auto", remote: true %>
+            <% else %>
+              <%= button_to "Öreggé avatás", group_membership_inactivate_path(@viewmodel.group.id, member.membership_id),
                         method: :post, class: "uk-button uk-button-primary uk-button-small uk-width-auto", remote: true %>
+            <% end %>
           </div>
           <div class="uk-width-1-2 uk-padding-small">
             <%= button_to "Archiválás", group_membership_archive_path(@viewmodel.group.id, member.membership_id),
                         method: :put, class: "uk-button uk-button-danger uk-button-small uk-width-auto", remote: true %>
           </div>
+          <% if member.user.svie.not_member? || member.user.svie.in_processing? %>
+              <div class="uk-icon-circle-o" data-uk-tooltip title="Nem SVIE tag"></div>
+          <% elsif member.user.svie.outside_member? %>
+              <div class="uk-icon-check-circle-o" data-uk-tooltip title="Pártolótag"></div>
+          <% elsif !member.primary_member? %>
+              <div class="uk-icon-check-circle-o" data-uk-tooltip title="Más elsődleges kör"></div>
+          <% elsif member.user.svie.inside_member? %>
+              <div class="uk-icon-check-circle" data-uk-tooltip title="Rendes tag"></div>
+          <% end %>
         <% end %>
       </div>
     </div>

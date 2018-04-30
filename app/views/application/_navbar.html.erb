@@ -28,6 +28,9 @@
             <div class="uk-dropdown uk-dropdown-navbar">
               <ul class="uk-nav uk-nav-navbar"></li>
                 <li><%= link_to "SVIE-be jelentkezettek", svie_index_path %></li>
+                <% if current_user.roles.rvt_leader? %>
+                  <li><%= link_to "Időszakok állítása", seasons_path %></li>
+                <% end %>
               </ul>
             </div>
           </li>
@@ -47,7 +50,7 @@
               <li><%= link_to "Profilom", root_url %></li>
               <li class="uk-nav-divider"></li>
               <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
-              <% if current_user.not_member_of_svie? %>
+              <% if current_user.svie.not_member? %>
                 <li><%= link_to "SVIE-be jelentkezés", new_svie_path %></li>
               <% else %>
                 <li><%= link_to "SVIE tagság", svie_edit_path %></li>
@@ -97,6 +100,9 @@
       <% if current_user.roles.rvt_member? %>
       <li class="uk-nav-header">RVT felület</li>
       <li><%= link_to "SVIE-be jelentkezettek", svie_index_path %></li>
+      <% if current_user.roles.rvt_leader? %>
+        <li><%= link_to "Időszakok állítása", seasons_path %></li>
+      <% end %>
       <% end %>
 
       <% if current_user.roles.svie_admin? %>
