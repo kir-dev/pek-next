@@ -1,5 +1,4 @@
 class SvieUser
-  MEBEMER_TYPES = Rails.configuration.x.svie_member_types < {NEMTAG: 'Nem tag'}
 
   def initialize(user)
     @user = user
@@ -40,5 +39,11 @@ class SvieUser
       unauthorized_page
     end
     SviePostRequest.create(user: @user, member_type: member_type)
+  end
+
+  def try_inactivate!
+    if user.groups.select {|g| g.svie?}.nil?
+      user.update(svie_member_type: 'OREGTAG', primary_membership: nil)
+    end
   end
 end

@@ -10,7 +10,7 @@ class SvieController < ApplicationController
     params.permit(:svie_member_type)
     update_params = params.permit(:home_address, :mother_name)
     current_user.update(update_params)
-    current_user.svie.createRequest(params[:svie_member_type])
+    current_user.svie.create_request(params[:svie_member_type])
     redirect_to svie_successful_path
   end
 
@@ -55,17 +55,17 @@ class SvieController < ApplicationController
   end
 
   def destroy
-    current_user.svie.createRequest('NEMTAG')
+    current_user.svie.create_request('NEMTAG')
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 
   def outside
-    current_user.svie.createRequest('KULSOSTAG')
+    current_user.svie.create_request('KULSOSTAG')
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 
   def inside
-    current_user.svie.createRequest('BELSOSTAG')
+    current_user.svie.create_request('BELSOSTAG')
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 end
