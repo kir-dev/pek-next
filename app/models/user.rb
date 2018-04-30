@@ -46,7 +46,9 @@ class User < ActiveRecord::Base
   validates :screen_name, uniqueness: true
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
-  validates_with PrimaryMembershipValidator
+
+  # If primary group is not SVIE
+  # validates_with PrimaryMembershipValidator
 
   validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
   validates_format_of :screen_name, with: /[^\/]+/
