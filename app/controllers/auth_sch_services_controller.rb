@@ -39,6 +39,7 @@ private
   def membership_json(user)
     memberships_array = []
     user.memberships.each do |membership|
+      next if membership.newbie?
       memberships_array.push({
         start: membership.start,
         end: membership.end,
@@ -67,8 +68,13 @@ private
   def get_user(id, includes)
     type = id_type(id)
     return error_response(400, t(:invalid_id)) if type == :invalid
-    user = User.includes(includes)
-      .find_by({ type => id.upcase })
+    if type == :neptun
+      user = User.includes(includes)
+        .find_by({ type => id.upcase })
+    else
+      user = User.includes(includes)
+        .find_by({ type => id })
+    end
     return error_response(404, t(:non_existent_id, id: id)) if !user
     user
   end
