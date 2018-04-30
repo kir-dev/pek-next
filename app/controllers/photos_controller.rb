@@ -15,5 +15,6 @@ class PhotosController < ApplicationController
   end
 
   def edit
+    redirect_to(edit_profile_path) unless PhotoService.rawcheck(current_user.screen_name)
   end
 end

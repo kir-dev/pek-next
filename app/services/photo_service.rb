@@ -26,6 +26,11 @@ module PhotoService extend self
     photo_dir(screen_name).join('cropped.png')
   end
 
+  def rawcheck(screen_name)
+    path = raw_path(screen_name)
+    File.file?(path)
+  end
+
   def dircheck(dirname)
     if !Dir.exists?(dirname)
       FileUtils.mkdir_p(dirname)
