@@ -5,22 +5,24 @@
 
       <div class="uk-width-2-10">
         <%= f.select :protocol,
-             options_for_select(Rails.configuration.x.im_accounts.invert, im_account.protocol), {}, { :class => 'uk-select uk-width-1-1' } %>
+              options_for_select(Rails.configuration.x.im_accounts.invert, im_account.protocol),
+              {}, { :class => 'uk-select uk-width-1-1' } %>
       </div>
 
       <div class="uk-width-5-10">
-        <%= f.text_field :name, class: "uk-input uk-width-1-1" %>
+        <%= f.text_field :name, class: 'uk-input uk-width-1-1' %>
       </div>
 
       <div class="uk-width-3-10">
-        <div class="uk-grid">
+        <div class="uk-grid uk-grid-small">
           <div class="uk-width-1-2">
-            <%= f.submit "Mentés", class: "uk-button" %>
+            <%= f.submit 'Mentés', class: 'uk-button uk-width-1-1' %>
           </div>
 
           <div class="uk-width-1-2">
-            <%= link_to "Törlés", im_account_path(im_account.id),
-                    method: :delete, class: "uk-button uk-button-danger", remote: true, data: {confirm: 'Biztosan törlöd?'} %>
+            <%= link_to 'Törlés', im_account_path(im_account.id),
+                  method: :delete, class: 'uk-button uk-button-danger uk-width-1-1',
+                  remote: true, data: {confirm: 'Biztosan törlöd?'} %>
           </div>
         </div>
       </div>
