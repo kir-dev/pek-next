@@ -59,11 +59,6 @@ class SvieController < ApplicationController
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 
-  def inactivate
-    current_user.svie.createRequest('OREGTAG')
-    redirect_to profiles_me_path, notice: t(:edit_successful)
-  end
-
   def outside
     current_user.svie.createRequest('KULSOSTAG')
     redirect_to profiles_me_path, notice: t(:edit_successful)

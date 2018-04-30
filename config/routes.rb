@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get '/svie/edit', to: 'svie#edit'
   post '/svie/update', to: 'svie#update'
   post '/svie/destroy', to: 'svie#destroy'
-  post '/svie/inactivate', to: 'svie#inactivate'
   post '/svie/outside', to: 'svie#outside'
   post '/svie/inside', to: 'svie#inside'
   resources :svie, only: [:index, :new, :create] # :edit, :update]
