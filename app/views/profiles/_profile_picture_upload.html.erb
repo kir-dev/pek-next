@@ -8,6 +8,9 @@
       </div>
       <div class="uk-float-right">
         <input class="uk-button" type="submit" value="Feltöltés" name="submitButton"/>
+
+        <%= link_to('Szerkesztés', edit_photo_path(current_user.screen_name),
+          class: 'uk-align-right uk-button') %>
       </div>
     </div>
   <% end %>
