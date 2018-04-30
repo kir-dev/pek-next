@@ -54,6 +54,14 @@ class UserDecorator < Draper::Decorator
     [user.full_name, ' (', user.nickname, ')'].join
   end
 
+  def edit_profile_picture_button
+    return unless user.id == current_user.id
+    icon = content_tag(:i, '', class: 'uk-icon-edit uk-contrast')
+    link = link_to(icon, edit_photo_path(current_user.screen_name),
+      class: 'uk-align-right uk-link-muted uk-overlay-background uk-padding')
+    content_tag(:figcaption, link, class: 'uk-overlay-panel uk-overlay-top')
+  end
+
   def delegated_for
     return unless user.delegated
 
