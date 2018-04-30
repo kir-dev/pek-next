@@ -27,7 +27,7 @@
               </div>
               <div class="uk-form-row">
                 <%= label_tag :svie_member_type, 'Tagság típusa' %>
-                <%= select_tag :svie_member_type, options_for_select(Rails.configuration.x.svie_member_types.invert) %>
+                <%= select_tag :svie_member_type, options_for_select(Rails.configuration.x.selectable_svie_member_types.invert) %>
               </div>
               <div class="uk-form-row">
                 <%= submit_tag 'Tovább', class: 'uk-button'  %>
