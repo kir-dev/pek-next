@@ -38,7 +38,7 @@
 
       <div class="uk-grid uk-margin">
         <div class="uk-width-medium-1-1 uk-width-1-1">
-          <% if current_user.svie.can_join?('OREGTAG') %>
+          <% if current_user.svie.can_join_to?('OREGTAG') %>
             <div class="uk-grid">
               <div class="uk-width-medium-2-3">
                 Öregtaggá válás kezdeményezése
@@ -49,7 +49,7 @@
             </div>
           <% end %>
 
-          <% if current_user.svie.can_join?('KULSOSTAG') %>
+          <% if current_user.svie.can_join_to?('KULSOSTAG') %>
             <div class="uk-grid">
               <div class="uk-width-medium-2-3">
                 Külsős taggá válás kezdeményezése
@@ -60,7 +60,7 @@
             </div>
           <% end %>
 
-          <% if current_user.svie.can_join?('BELSOSTAG') %>
+          <% if current_user.svie.can_join_to?('BELSOSTAG') %>
             <div class="uk-grid">
               <div class="uk-width-medium-2-3">
                 Belsős taggá válás kezdeményezése

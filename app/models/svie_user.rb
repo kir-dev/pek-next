@@ -3,7 +3,7 @@ class SvieUser
     @user = user
   end
 
-  def need_join?
+  def can_join?
     !member? && !in_processing?
   end
 
@@ -32,16 +32,16 @@ class SvieUser
     @user.save!
   end
 
-  def can_join?(into)
-    return false if(self.in_processing?) || @user.svie_member_type == into
-    return !inside_member? if(into == 'KULSOSTAG')
+  def can_join_to?(member_type)
+    return false if(self.in_processing?) || @user.svie_member_type == member_type
+    return !inside_member? if(member_type == 'KULSOSTAG')
     true
   end
 
-  def createRequest(into)
-    unless self.can_join?(into)
-      abort('Nope')
+  def createRequest(member_type)
+    unless self.can_join_to?(member_type)
+      unauthorized_page
     end
-    SviePostRequest.create(usr_id: @user.id, member_type: into)
+    SviePostRequest.create(user: @user, member_type: member_type)
   end
 end

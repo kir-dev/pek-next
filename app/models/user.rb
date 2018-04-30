@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   has_many :im_accounts, foreign_key: :usr_id
 
   has_one :primary_membership, class_name: "Membership", foreign_key: :id, primary_key: :usr_svie_primary_membership
-  has_one :svie_post_request, class_name: "SviePostRequest", foreign_key: :usr_id, primary_key: :id
+  has_one :svie_post_request, foreign_key: :usr_id, primary_key: :id
 
   validates :screen_name, uniqueness: true
   validates :auth_sch_id, uniqueness: true, allow_nil: true
