@@ -2,7 +2,7 @@
 
 <h1>Profil szerkesztése</h1>
 <div id="content-main" class="uk-panel uk-panel-box">
-  <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
+  <div class="uk-width-large-1-2 uk-container-center uk-overflow-container">
     <%= form_for @user, as: :profile, url: profile_path(@user.screen_name), html: {class: 'uk-form'} do |f| %>
         <%= render 'form_errors', errors: f.object.errors %>
 
