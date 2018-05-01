@@ -49,7 +49,8 @@ class User < ActiveRecord::Base
   validates :bme_id, uniqueness: true, allow_nil: true
   validates_with PrimaryMembershipValidator
 
-  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
+#  Before validation need to fix cell phone numbers
+#  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
   validates_format_of :screen_name, with: /[^\/]+/
 
   def full_name

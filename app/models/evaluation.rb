@@ -33,4 +33,8 @@ class Evaluation < ActiveRecord::Base
   def accepted
     point_request_accepted? && !next_version
   end
+
+  def date_as_semester
+    Semester.new(self.date)
+  end
 end
