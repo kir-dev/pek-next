@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def show
-    user = User.includes( [ { pointrequests: [ { evaluation: [ :group, :entry_request ] } ] },
+    user = User.includes( [ { pointrequests: [ { evaluation: [ :group, :entry_requests ] } ] },
       { memberships: [ :group, :post_types ] } ]).find_by(screen_name: params[:id])
     redirect_to profiles_me_path unless user
     @user_presenter = user.decorate
