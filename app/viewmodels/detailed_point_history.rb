@@ -3,7 +3,7 @@ class DetailedPointHistory
     @point_request = point_request
     @evaluation = point_request.evaluation
     @group = @evaluation.group
-    @entry_request = @evaluation.entry_request
+    @entry_request = @evaluation.entry_requests.find_by user_id: point_request.usr_id
   end
 
   def group_name
