@@ -11,11 +11,12 @@ class PostsController < ApplicationController
     group = Group.find(params[:group_id])
     membership = Membership.find(params[:membership_id])
     post_type_id = params[:post_type_id].to_i
-    if CreatePost.call(group, membership, post_type_id)
-      redirect_to group_path(group)
-    else
-      redirect_to :back
+
+    new_post = CreatePost.call(group, membership, post_type_id)
+    if new_post.leader?
+      return redirect_to group_path(group)
     end
+    redirect_to :back
   end
 
   def destroy
