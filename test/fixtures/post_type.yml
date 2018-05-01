@@ -5,3 +5,7 @@ leader:
 newbie:
   pttip_id: 6
   pttip_name: feldolgozás alatt
+
+pek_admin:
+  pttip_id: 66
+  pttip_name: PéK Admin

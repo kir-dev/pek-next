@@ -42,3 +42,9 @@ rvt:
   grp_name: RVT
   grp_type: csak_az_elvek
   grp_issvie: false
+
+kir_dev:
+  grp_id: 106
+  grp_name: Kir-Dev
+  grp_type: szolgáltató
+  grp_issvie: true
