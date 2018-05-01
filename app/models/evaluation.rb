@@ -14,9 +14,9 @@ class Evaluation < ActiveRecord::Base
   alias_attribute :creator_user_id, :felado_usr_id
   alias_attribute :principle, :pontozasi_elvek
 
-  belongs_to :evaluation_id, foreign_key: :evaluation_id
+  belongs_to :group, foreign_key: :grp_id
   has_one :point_request
-  has_one :entry_request
+  has_one :entry_request, foreign_key: :ertekeles_id
 
   def point_request_accepted
     point_request_status == 'ELFOGADVA'
@@ -31,6 +31,6 @@ class Evaluation < ActiveRecord::Base
   end
 
   def accepted
-    point_request_accepted && (entry_request_accepted || no_entry_request)
+    point_request_accepted && !next_version
   end
 end

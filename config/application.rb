@@ -55,6 +55,16 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
+    config.x.roles = ['mezei_user', 'group_leader', 'rvt_member', 'svie_admin', 'pek_admin']
+    config.x.im_accounts = {
+      'call_sign'    => 'Hívójel',
+      'gtalk'        => 'Google Hangouts',
+      'skype'        => 'Skype',
+      'irc'          => 'IRC',
+      'twitter'      => 'Twitter',
+      'facebook'     => 'Facebook',
+      'jabber'       => 'Jabber'
+    }
 
     # This should be the member types after we no longer depend on old VIR
     config.x.selectable_svie_member_types = {
@@ -63,6 +73,16 @@ module PekNext
         'OREGTAG' => 'Öregtag'
     }
     config.x.svie_member_types = config.x.selectable_svie_member_types.merge({'NEMTAG' => 'Nem tag'})
+
+    config.x.season_types = {
+        'NINCSERTEKELES' => 'Nyugalmi időszak',
+        'ERTEKELESLEADAS' => 'Pontozási időszak',
+        'ERTEKELESELBIRALAS' => 'Bírálási időszak'
+    }
+
+    config.x.auth_sch_pingback_url = 'https://auth.sch.bme.hu/api/profile/resync?access_token='
+    config.x.neptun_regex = /^[A-Za-z0-9]{6,7}$/
+    config.x.uuid_regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
 
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 

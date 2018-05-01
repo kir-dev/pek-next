@@ -1,14 +1,14 @@
 class MembershipsController < ApplicationController
   before_action :require_login
-  before_action :require_leader, only: [:inactivate, :destroy, :reactivate, :archive, :unarchive]
+  before_action :require_leader, only: [:inactivate, :destroy, :reactivate, :archive, :unarchive, :accept]
 
   def create
     @group = Group.find(params[:group_id])
     if @group.user_can_join?(current_user)
-      unauthorized_page
-    else
       CreateMembership.call(@group, current_user)
       redirect_to :back
+    else
+      unauthorized_page
     end
   end
 
@@ -30,5 +30,9 @@ class MembershipsController < ApplicationController
 
   def reactivate
     Membership.find(params[:membership_id]).reactivate!
+  end
+
+  def accept
+    Membership.find(params[:membership_id]).accept!
   end
 end

@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
   has_many :entryrequests, class_name: "EntryRequest", foreign_key: :usr_id
   has_many :pointrequests, class_name: "PointRequest", foreign_key: :usr_id
   has_many :im_accounts, foreign_key: :usr_id
+  has_many :point_history, foreign_key: :usr_id
+  has_many :privacies, foreign_key: :usr_id
 
   has_one :primary_membership, class_name: "Membership", foreign_key: :id, primary_key: :usr_svie_primary_membership
   has_one :svie_post_request, foreign_key: :usr_id, primary_key: :id
@@ -61,9 +63,14 @@ class User < ActiveRecord::Base
     memberships.find { |m| m.group == group }
   end
 
-  def leader_of(group)
+  def leader_of?(group)
     membership = membership_for(group)
     membership && membership.leader?
+  end
+
+  def member_of?(group)
+    membership = membership_for(group)
+    membership && !membership.newbie?
   end
 
   def roles

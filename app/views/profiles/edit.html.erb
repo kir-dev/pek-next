@@ -91,6 +91,8 @@
         </div>
     <% end %>
 
+    <%= render "im_accounts/im_accounts", :user => @user %>
+
     <!-- Profile picture upload -->
     <div class="uk-margin-large-top uk-margin" id="image-upload-container">
         <%= form_tag photo_raw_path, multipart: true, class: 'uk-form uk-margin-remove' do %>

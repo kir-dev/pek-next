@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :photos, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
   get '/profiles/me/', to: 'profiles#show_self'
   resources :profiles, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
+  get '/profile/show/uid/:id', to: redirect('/profiles/%{id}'), constraints: { id: /[^\/]+/ }
 
   get '/photo/raw', to: 'raw_photos#show'
   post '/photo/raw', to: 'raw_photos#update'
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
+      post '/accept', to: 'memberships#accept'
       put '/archive', to: 'memberships#archive'
       put '/unarchive', to: 'memberships#unarchive'
       resources :posts, only: [:index, :create, :destroy]
@@ -41,10 +43,28 @@ Rails.application.routes.draw do
     delete '/delegate', to: 'delegates#destroy'
   end
 
+  get '/korok/showgroup/id/:id', to: redirect('/groups/%{id}')
+
   post '/privacies/update', to: 'privacies#update'
 
+  resources :im_accounts, only: [:create, :update, :destroy]
+
   resources :delegates, only: [:index]
-  get '/delegates/export', to: 'delegates#export'
+
+  get '/seasons', to: 'season_admin#index'
+  post '/seasons', to: 'season_admin#update'
+
+  if Rails.env.development?
+    get '/development', to: 'development#index'
+    post '/development/impersonate/random', to: 'development#impersonate_someone', as: :impersonate_someone
+    post '/development/impersonate/user', to: 'development#impersonate_user', as: :impersonate_user
+    post '/development/impersonate/role', to: 'development#impersonate_role', as: :impersonate_role
+  end
+
+  get '/services/sync/:id', to: 'auth_sch_services#sync'
+  get '/services/sync/:id/memberships', to: 'auth_sch_services#memberships'
+  get '/services/entrants/get/:semester/:id', to: 'auth_sch_services#entrants'
+  get '/services/entrants/get/:semester/authsch/:id', to: 'auth_sch_services#entrants'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

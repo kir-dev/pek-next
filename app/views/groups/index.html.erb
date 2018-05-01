@@ -14,7 +14,7 @@
             <%= link_to group.name, group_path(group.id), class: "uk-text-primary" %>
           </div>
           <div class="uk-panel-body">
-            <%= truncate group.description, length: 100 %>
+            <%= group.truncated_description %>
           </div>
         </div>
       </div>

@@ -1,0 +1,14 @@
+@media print {
+    .uk-hidden-small, .uk-navbar, .uk-button, .uk-notify, .no-print, .no-print * {
+        display: none !important;
+    }
+    a {
+        text-decoration: none;
+    }
+    td:first-child {
+        width: 200px;
+    }
+    td:nth-child(2) {
+        width: 250px;
+    }
+}

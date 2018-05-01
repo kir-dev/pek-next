@@ -21,8 +21,28 @@ class Group < ActiveRecord::Base
   has_many :post_types, foreign_key: :grp_id
   alias :own_post_types :post_types
 
+  SVIE_ID = 369
+  RVT_ID = 146
+  KIRDEV_ID = 106
+
+  def self.kirdev
+    find KIRDEV_ID
+  end
+
+  def self.svie
+    find SVIE_ID
+  end
+
+  def self.rvt
+    find RVT_ID
+  end
+
+  def member?(user)
+    user.membership_for(self)
+  end
+
   def user_can_join?(current_user)
-    !users_can_apply || current_user.membership_for(self)
+    users_can_apply && !member?(current_user)
   end
 
   def leader
@@ -34,9 +54,10 @@ class Group < ActiveRecord::Base
   end
 
   def current_delegated_count
-    delegates = members.where(delegated: true)
-     .select { |user| user.primary_membership.group == self && user.primary_membership.end.nil? }
-    delegates.length
+    return @currently_delegated_cache if @currently_delegated_cache
+    delegates = members.includes(:primary_membership).where(delegated: true)
+     .select { |user| user.primary_membership.group_id == self.id && user.primary_membership.end.nil? }
+    @currently_delegated_cache = delegates.length
   end
 
   def can_delegate_more
