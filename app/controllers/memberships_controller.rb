@@ -1,6 +1,7 @@
 class MembershipsController < ApplicationController
   before_action :require_login
-  before_action :require_leader, only: [:inactivate, :destroy, :reactivate, :archive, :unarchive, :accept]
+  before_action :require_leader, only: [:inactivate, :destroy, :reactivate, :archive, :accept]
+  before_action :require_pek_admin, only: [:unarchive]
 
   def create
     @group = Group.find(params[:group_id])

@@ -51,20 +51,36 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "unarchive active_member of group" do
+  test "unarchive active_member of group with group leader" do
     membership = grp_membership(:active_archived_babhamozo_member)
 
     xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
-    assert_nil membership.reload.archived
+
+    assert_response :unauthorized
+  end
+
+  test "unarchive inactive_member of group with group leader" do
+    membership = grp_membership(:inactive_archived_babhamozo_member)
+
+    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
+
+    assert_response :unauthorized
+  end
+
+  test "unarchive active_member of group" do
+    login_as_user(:pek_admin)
+    membership = grp_membership(:active_archived_babhamozo_member)
+
+    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
 
     assert_response :success
   end
 
   test "unarchive inactive_member of group" do
+    login_as_user(:pek_admin)
     membership = grp_membership(:inactive_archived_babhamozo_member)
 
     xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id: membership.id
-    assert_nil membership.reload.archived
 
     assert_response :success
   end
