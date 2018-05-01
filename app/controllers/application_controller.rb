@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
     unauthorized_page unless current_user.roles.rvt_leader?
   end
 
+  def require_pek_admin
+    unauthorized_page unless current_user.roles.pek_admin?
+  end
+
   def current_user
     if ENV['NONAUTH']
       return impersonate_user
