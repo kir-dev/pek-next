@@ -18,6 +18,14 @@
               <td><%= text_field_tag :home_address, current_user.home_address, class: 'uk-input uk-width-expand' %></td>
             </tr>
             <tr>
+              <td><%= label_tag :place_of_birth, 'Születési hely:' %></td>
+              <td><%= text_field_tag :place_of_birth, current_user.place_of_birth, class: 'uk-input uk-width-expand' %></td>
+            </tr>
+            <tr>
+              <td><%= label_tag :birth_name, 'Születési név:' %></td>
+              <td><%= text_field_tag :birth_name, current_user.birth_name, class: 'uk-input uk-width-expand' %></td>
+            </tr>
+            <tr>
               <td><%= label_tag :mother_name, 'Anyja neve:' %></td>
               <td><%= text_field_tag :mother_name, current_user.mother_name, class: 'uk-input uk-width-expand' %></td>
             </tr>

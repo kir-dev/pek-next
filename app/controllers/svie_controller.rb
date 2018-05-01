@@ -8,7 +8,7 @@ class SvieController < ApplicationController
 
   def create
     params.permit(:svie_member_type)
-    update_params = params.permit(:home_address, :mother_name)
+    update_params = params.permit(:home_address, :mother_name, :place_of_birth, :birth_name, :email)
     current_user.update(update_params)
     current_user.svie.create_request(params[:svie_member_type])
     redirect_to svie_successful_path
@@ -51,7 +51,14 @@ class SvieController < ApplicationController
   end
 
   def application_pdf
-    send_data GenerateMembershipPdf.call(current_user), filename: 'szerzodes.pdf', type: 'application/pdf'
+    html = GenerateMembershipPdf.new(current_user).as_html
+    kit = PDFKit.new(html, page_size: 'A4')
+    pdf = kit.to_pdf
+
+    send_data(pdf,
+              filename: 'szerzodes.pdf',
+              disposition: 'attachment',
+              type: :pdf)
   end
 
   def destroy

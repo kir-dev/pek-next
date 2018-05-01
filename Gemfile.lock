@@ -137,6 +137,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     pdf-core (0.7.0)
+    pdfkit (0.8.2)
     pg (0.21.0)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
@@ -180,6 +181,8 @@ GEM
       ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
     redis (4.0.1)
+    render_anywhere (0.0.12)
+      rails (>= 3.0.7)
     request_store (1.3.2)
     rollbar (2.15.5)
       multi_json
@@ -227,6 +230,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    wkhtmltopdf-binary (0.12.3.1)
 
 PLATFORMS
   ruby
@@ -245,11 +249,13 @@ DEPENDENCIES
   kaminari
   omniauth
   omniauth-oauth2
+  pdfkit
   pg
   prawn
   prawn-table
   puma
   rails (= 4.2.10)
+  render_anywhere
   rollbar
   rxjs-rails
   sass-rails (~> 5.0)
@@ -259,6 +265,7 @@ DEPENDENCIES
   spring
   timecop
   uglifier (~> 3.2.0)
+  wkhtmltopdf-binary
 
 BUNDLED WITH
-   1.15.4
+   1.16.1

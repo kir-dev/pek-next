@@ -1,0 +1,33 @@
+body {
+    font-size: 12px;
+}
+
+.logo {
+    margin: 0 auto;
+    display: block;
+    width: 80px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+}
+
+.signature {
+    width: 540px;
+    margin: 30px auto 0 auto;
+}
+
+.signature .col {
+    text-align: center;
+    width: 250px;
+    float: left;
+    padding: 0px 20px 25px 0px;
+}
+
+.row::after {
+    clear: both;
+}
