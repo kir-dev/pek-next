@@ -19,8 +19,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    Post.destroy(params[:id])
-    redirect_to :back
+    post_id = params[:id]
+    return redirect_to :back if DestroyPost.call(post_id)
+    redirect_to :back, alert: t(:no_leader_error)
   end
 
 end
