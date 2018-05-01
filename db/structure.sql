@@ -536,7 +536,9 @@ CREATE TABLE public.users (
     usr_auth_sch_id character varying,
     usr_bme_id character varying,
     usr_created_at timestamp without time zone,
-    usr_metascore integer
+    usr_metascore integer,
+    usr_place_of_birth character varying,
+    usr_birth_name character varying
 );
 
 
@@ -1091,4 +1093,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180315103617');
 INSERT INTO schema_migrations (version) VALUES ('20180317194014');
 
 INSERT INTO schema_migrations (version) VALUES ('20180317200507');
+
+INSERT INTO schema_migrations (version) VALUES ('20180501175635');
 

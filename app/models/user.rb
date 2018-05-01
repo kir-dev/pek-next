@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   alias_attribute :show_recommended_photo, :usr_show_recommended_photo
   alias_attribute :screen_name, :usr_screen_name
   alias_attribute :date_of_birth, :usr_date_of_birth
+  alias_attribute :place_of_birth, :usr_place_of_birth
+  alias_attribute :birth_name, :usr_birth_name
   alias_attribute :gender, :usr_gender
   alias_attribute :student_status, :usr_student_status
   alias_attribute :mother_name, :usr_mother_name
