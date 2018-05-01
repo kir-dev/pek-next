@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.12
--- Dumped by pg_dump version 9.5.12
+-- Dumped from database version 9.3.13
+-- Dumped by pg_dump version 9.6.8
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -44,6 +45,20 @@ CREATE TABLE public.belepoigenyles (
     usr_id bigint
 );
 
+
+SET default_with_oids = false;
+
+--
+-- Name: eredmeny_tmp; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.eredmeny_tmp (
+    uid bigint,
+    pont integer
+);
+
+
+SET default_with_oids = true;
 
 --
 -- Name: ertekeles_uzenet; Type: TABLE; Schema: public; Owner: -
@@ -96,40 +111,6 @@ CREATE SEQUENCE public.event_seq
     CACHE 1;
 
 
-SET default_with_oids = false;
-
---
--- Name: forums; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.forums (
-    id integer NOT NULL,
-    name character varying,
-    description text,
-    date timestamp without time zone,
-    application_deadline timestamp without time zone
-);
-
-
---
--- Name: forums_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.forums_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: forums_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.forums_id_seq OWNED BY public.forums.id;
-
-
 --
 -- Name: groups_grp_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
@@ -141,8 +122,6 @@ CREATE SEQUENCE public.groups_grp_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-SET default_with_oids = true;
 
 --
 -- Name: groups; Type: TABLE; Schema: public; Owner: -
@@ -267,86 +246,6 @@ CREATE TABLE public.lostpw_tokens (
 
 
 --
--- Name: meetings; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.meetings (
-    id integer NOT NULL,
-    name character varying,
-    description text,
-    meeting_at timestamp without time zone,
-    application_deadline timestamp without time zone
-);
-
-
---
--- Name: meetings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.meetings_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: meetings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.meetings_id_seq OWNED BY public.meetings.id;
-
-
---
--- Name: neptun_list; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.neptun_list (
-    nev character varying(128) NOT NULL,
-    neptun character varying(6) NOT NULL,
-    szuldat date NOT NULL,
-    education_id character varying(11) DEFAULT NULL::character varying,
-    newbie boolean DEFAULT false
-);
-
-
---
--- Name: notifications; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.notifications (
-    id integer NOT NULL,
-    name character varying,
-    user_id integer,
-    date timestamp without time zone,
-    seen_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    sent_at timestamp without time zone
-);
-
-
---
--- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.notifications_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
-
-
---
 -- Name: point_details; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -398,6 +297,20 @@ CREATE TABLE public.point_history (
     usr_id bigint NOT NULL,
     point integer NOT NULL,
     semester character varying(9) NOT NULL
+);
+
+
+--
+-- Name: points_2017; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.points_2017 (
+    usr_firstname text,
+    usr_lastname text,
+    usr_nickname text,
+    usr_neptun character varying,
+    usr_bme_id character varying,
+    point integer
 );
 
 
@@ -517,21 +430,21 @@ CREATE TABLE public.spot_images (
 
 
 --
--- Name: svie_post; Type: TABLE; Schema: public; Owner: -
+-- Name: svie_post_requests; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.svie_post (
+CREATE TABLE public.svie_post_requests (
     id integer NOT NULL,
-    state character varying,
-    member_type character varying
+    member_type character varying,
+    usr_id integer
 );
 
 
 --
--- Name: svie_post_tables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: svie_post_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.svie_post_tables_id_seq
+CREATE SEQUENCE public.svie_post_requests_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -540,10 +453,10 @@ CREATE SEQUENCE public.svie_post_tables_id_seq
 
 
 --
--- Name: svie_post_tables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: svie_post_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.svie_post_tables_id_seq OWNED BY public.svie_post.id;
+ALTER SEQUENCE public.svie_post_requests_id_seq OWNED BY public.svie_post_requests.id;
 
 
 SET default_with_oids = true;
@@ -623,8 +536,7 @@ CREATE TABLE public.users (
     usr_auth_sch_id character varying,
     usr_bme_id character varying,
     usr_created_at timestamp without time zone,
-    usr_metascore integer,
-    usr_svie_state character varying
+    usr_metascore integer
 );
 
 
@@ -655,49 +567,28 @@ CREATE TABLE public.usr_private_attrs (
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.forums ALTER COLUMN id SET DEFAULT nextval('public.forums_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.meetings ALTER COLUMN id SET DEFAULT nextval('public.meetings_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public.notifications_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: point_details id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.point_details ALTER COLUMN id SET DEFAULT nextval('public.point_details_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: principles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.principles ALTER COLUMN id SET DEFAULT nextval('public.principles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: svie_post_requests id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.svie_post ALTER COLUMN id SET DEFAULT nextval('public.svie_post_tables_id_seq'::regclass);
+ALTER TABLE ONLY public.svie_post_requests ALTER COLUMN id SET DEFAULT nextval('public.svie_post_requests_id_seq'::regclass);
 
 
 --
--- Name: belepoigenyles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: belepoigenyles belepoigenyles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.belepoigenyles
@@ -705,7 +596,7 @@ ALTER TABLE ONLY public.belepoigenyles
 
 
 --
--- Name: ertekeles_uzenet_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ertekeles_uzenet ertekeles_uzenet_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ertekeles_uzenet
@@ -713,7 +604,7 @@ ALTER TABLE ONLY public.ertekeles_uzenet
 
 
 --
--- Name: ertekelesek_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ertekelesek ertekelesek_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ertekelesek
@@ -721,15 +612,7 @@ ALTER TABLE ONLY public.ertekelesek
 
 
 --
--- Name: forums_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.forums
-    ADD CONSTRAINT forums_pkey PRIMARY KEY (id);
-
-
---
--- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: groups groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.groups
@@ -737,7 +620,7 @@ ALTER TABLE ONLY public.groups
 
 
 --
--- Name: grp_membership_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: grp_membership grp_membership_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.grp_membership
@@ -745,7 +628,7 @@ ALTER TABLE ONLY public.grp_membership
 
 
 --
--- Name: im_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: im_accounts im_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.im_accounts
@@ -753,7 +636,7 @@ ALTER TABLE ONLY public.im_accounts
 
 
 --
--- Name: log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: log log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.log
@@ -761,7 +644,7 @@ ALTER TABLE ONLY public.log
 
 
 --
--- Name: lostpw_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: lostpw_tokens lostpw_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lostpw_tokens
@@ -769,7 +652,7 @@ ALTER TABLE ONLY public.lostpw_tokens
 
 
 --
--- Name: lostpw_tokens_token_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: lostpw_tokens lostpw_tokens_token_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lostpw_tokens
@@ -777,31 +660,7 @@ ALTER TABLE ONLY public.lostpw_tokens
 
 
 --
--- Name: meetings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.meetings
-    ADD CONSTRAINT meetings_pkey PRIMARY KEY (id);
-
-
---
--- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.notifications
-    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
-
-
---
--- Name: pl; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.neptun_list
-    ADD CONSTRAINT pl PRIMARY KEY (neptun);
-
-
---
--- Name: point_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: point_details point_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.point_details
@@ -809,7 +668,7 @@ ALTER TABLE ONLY public.point_details
 
 
 --
--- Name: point_history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: point_history point_history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.point_history
@@ -817,7 +676,7 @@ ALTER TABLE ONLY public.point_history
 
 
 --
--- Name: pontigenyles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pontigenyles pontigenyles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pontigenyles
@@ -825,7 +684,7 @@ ALTER TABLE ONLY public.pontigenyles
 
 
 --
--- Name: poszt_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: poszt poszt_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.poszt
@@ -833,7 +692,7 @@ ALTER TABLE ONLY public.poszt
 
 
 --
--- Name: poszttipus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: poszttipus poszttipus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.poszttipus
@@ -841,7 +700,7 @@ ALTER TABLE ONLY public.poszttipus
 
 
 --
--- Name: principles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: principles principles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.principles
@@ -849,7 +708,7 @@ ALTER TABLE ONLY public.principles
 
 
 --
--- Name: spot_images_usr_neptun_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: spot_images spot_images_usr_neptun_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.spot_images
@@ -857,15 +716,15 @@ ALTER TABLE ONLY public.spot_images
 
 
 --
--- Name: svie_post_tables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: svie_post_requests svie_post_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.svie_post
-    ADD CONSTRAINT svie_post_tables_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.svie_post_requests
+    ADD CONSTRAINT svie_post_requests_pkey PRIMARY KEY (id);
 
 
 --
--- Name: system_attrs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: system_attrs system_attrs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.system_attrs
@@ -873,7 +732,7 @@ ALTER TABLE ONLY public.system_attrs
 
 
 --
--- Name: unique_memberships; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: grp_membership unique_memberships; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.grp_membership
@@ -881,7 +740,7 @@ ALTER TABLE ONLY public.grp_membership
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -889,7 +748,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users_usr_auth_sch_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_usr_auth_sch_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -897,7 +756,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users_usr_bme_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_usr_bme_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -905,7 +764,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users_usr_neptun_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_usr_neptun_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -913,7 +772,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users_usr_screen_name_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_usr_screen_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -921,7 +780,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: usr_private_attrs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: usr_private_attrs usr_private_attrs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.usr_private_attrs
@@ -1034,7 +893,7 @@ CREATE UNIQUE INDEX users_usr_screen_name_idx ON public.users USING btree (upper
 
 
 --
--- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: groups $1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.groups
@@ -1042,7 +901,7 @@ ALTER TABLE ONLY public.groups
 
 
 --
--- Name: fk1e9df02e5854b081; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: lostpw_tokens fk1e9df02e5854b081; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lostpw_tokens
@@ -1050,7 +909,7 @@ ALTER TABLE ONLY public.lostpw_tokens
 
 
 --
--- Name: fk4e301ac36958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: belepoigenyles fk4e301ac36958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.belepoigenyles
@@ -1058,7 +917,7 @@ ALTER TABLE ONLY public.belepoigenyles
 
 
 --
--- Name: fk807db18871c0d156; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ertekelesek fk807db18871c0d156; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ertekelesek
@@ -1066,7 +925,7 @@ ALTER TABLE ONLY public.ertekelesek
 
 
 --
--- Name: fk807db18879696582; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ertekelesek fk807db18879696582; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ertekelesek
@@ -1074,7 +933,7 @@ ALTER TABLE ONLY public.ertekelesek
 
 
 --
--- Name: fk807db188b31cf015; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ertekelesek fk807db188b31cf015; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ertekelesek
@@ -1082,7 +941,7 @@ ALTER TABLE ONLY public.ertekelesek
 
 
 --
--- Name: fk_ertekeles_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: belepoigenyles fk_ertekeles_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.belepoigenyles
@@ -1090,7 +949,7 @@ ALTER TABLE ONLY public.belepoigenyles
 
 
 --
--- Name: fk_ertekeles_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pontigenyles fk_ertekeles_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pontigenyles
@@ -1098,7 +957,7 @@ ALTER TABLE ONLY public.pontigenyles
 
 
 --
--- Name: fk_felado_usr_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ertekeles_uzenet fk_felado_usr_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ertekeles_uzenet
@@ -1106,7 +965,7 @@ ALTER TABLE ONLY public.ertekeles_uzenet
 
 
 --
--- Name: fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ertekeles_uzenet fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ertekeles_uzenet
@@ -1114,7 +973,7 @@ ALTER TABLE ONLY public.ertekeles_uzenet
 
 
 --
--- Name: fk_next_version; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ertekelesek fk_next_version; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ertekelesek
@@ -1122,7 +981,7 @@ ALTER TABLE ONLY public.ertekelesek
 
 
 --
--- Name: fkaa1034cd6958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pontigenyles fkaa1034cd6958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pontigenyles
@@ -1130,7 +989,7 @@ ALTER TABLE ONLY public.pontigenyles
 
 
 --
--- Name: grp_membership_grp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: grp_membership grp_membership_grp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.grp_membership
@@ -1138,7 +997,7 @@ ALTER TABLE ONLY public.grp_membership
 
 
 --
--- Name: grp_membership_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: grp_membership grp_membership_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.grp_membership
@@ -1146,7 +1005,7 @@ ALTER TABLE ONLY public.grp_membership
 
 
 --
--- Name: im_accounts_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: im_accounts im_accounts_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.im_accounts
@@ -1154,7 +1013,7 @@ ALTER TABLE ONLY public.im_accounts
 
 
 --
--- Name: log_group; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: log log_group; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.log
@@ -1162,7 +1021,7 @@ ALTER TABLE ONLY public.log
 
 
 --
--- Name: log_user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: log log_user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.log
@@ -1170,7 +1029,7 @@ ALTER TABLE ONLY public.log
 
 
 --
--- Name: point_history_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: point_history point_history_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.point_history
@@ -1178,7 +1037,7 @@ ALTER TABLE ONLY public.point_history
 
 
 --
--- Name: poszt_grp_member_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: poszt poszt_grp_member_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.poszt
@@ -1186,7 +1045,7 @@ ALTER TABLE ONLY public.poszt
 
 
 --
--- Name: poszt_pttip_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: poszt poszt_pttip_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.poszt
@@ -1194,7 +1053,7 @@ ALTER TABLE ONLY public.poszt
 
 
 --
--- Name: poszttipus_opc_csoport; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: poszttipus poszttipus_opc_csoport; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.poszttipus
@@ -1202,7 +1061,7 @@ ALTER TABLE ONLY public.poszttipus
 
 
 --
--- Name: users_main_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_main_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -1210,7 +1069,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: usr_private_attrs_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: usr_private_attrs usr_private_attrs_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.usr_private_attrs
@@ -1221,15 +1080,13 @@ ALTER TABLE ONLY public.usr_private_attrs
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user", public;
+SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20161124163851');
 
 INSERT INTO schema_migrations (version) VALUES ('20171130184224');
 
-INSERT INTO schema_migrations (version) VALUES ('20180111162758');
-
-INSERT INTO schema_migrations (version) VALUES ('20180315103616');
+INSERT INTO schema_migrations (version) VALUES ('20180315103617');
 
 INSERT INTO schema_migrations (version) VALUES ('20180317194014');
 
