@@ -29,8 +29,7 @@ class UserDecorator < Draper::Decorator
 
   def home_address
     return if user.home_address.blank?
-    return unless Privacy.for(user, 'ADDRESS').visible ||
-      Privacy.for(user, 'HOME_ADDRESS').visible
+    return unless Privacy.for(user, 'HOME_ADDRESS').visible
     home_address = [content_tag(:i, "", class: 'uk-icon-home'), user.home_address]
       .join(' ').html_safe
     content_tag(:h4, home_address, class: 'uk-h4')
