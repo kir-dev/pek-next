@@ -5,6 +5,7 @@
 
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-width-large-1-1 uk-container-center uk-overflow-container uk-width-1-1">
+    A beírt adatok automatikusan mentődnek.
     <table class="uk-table uk-table-striped uk-table-hover ">
       <thead>
         <tr>
@@ -15,11 +16,17 @@
         </tr>
       </thead>
       <tbody>
-        <% @evaluation.group.members.each do |member| %>
+        <% @evaluation.group.active_memberships.each do |membership| %>
           <tr>
-            <td><%= member.full_name %></td>
+            <td><%= membership.user.full_name %></td>
             <% @evaluation.principles.each do |principle| %>
-              <td><input class="uk-input uk-width-auto" type="number" value="<%= rand(5..30) if rand(1..20) == 20 %>"></td>
+              <td>
+                <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
+                class="uk-input uk-width-auto point-input" type="number" value="<%=
+                point_detail = @point_details.find { |pd| pd.point_request.user == membership.user && pd.principle_id == principle.id }
+                point_detail.point if point_detail
+                %>">
+              </td>
             <% end %>
           </tr>
         <% end %>
@@ -28,3 +35,7 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+  var updateURL = "<%= group_evaluation_pointdetails_update_path(@group, @evaluation) %>";
+</script>

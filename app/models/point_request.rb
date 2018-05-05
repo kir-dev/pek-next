@@ -8,4 +8,5 @@ class PointRequest < ActiveRecord::Base
 
   belongs_to :evaluation, foreign_key: :ertekeles_id
   belongs_to :user, foreign_key: :usr_id
+  has_many :point_details
 end
