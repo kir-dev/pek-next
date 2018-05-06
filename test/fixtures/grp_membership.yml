@@ -62,3 +62,9 @@ rvt_membership:
   id: 9
   grp_id: 146
   usr_id: 6000
+
+pek_admin_membership:
+  id: 12
+  grp_id: 106
+  usr_id: 7000
+

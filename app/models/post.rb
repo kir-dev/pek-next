@@ -6,4 +6,8 @@ class Post < ActiveRecord::Base
   alias_attribute :post_type_id, :pttip_id
 
   belongs_to :post_type, foreign_key: :pttip_id
+
+  def leader?
+    post_type_id == Membership::LEADER_POST_ID
+  end
 end

@@ -13,6 +13,7 @@ hu:
   accept_application: SVIE tag lett!
   abort_application: tagsági kérelme elutasítva!
   svie_group_needed: SVIE jelentkezéshez legalább egy SVIE körben tagnak kell lenned!
+  no_leader_error: Körvezetői posztot csak tovább adni tudod!
   invalid_id: Not valid id. It should be a UUID or a NEPTUN code.
   non_existent_id: Could not find user with %{id} id.
   successful_impersonation: Successful user impersonation

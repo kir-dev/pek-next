@@ -1,5 +1,6 @@
 class UserDecorator < Draper::Decorator
   delegate_all
+  decorates_association :im_accounts
   include Draper::LazyHelpers
 
   def room
@@ -28,8 +29,7 @@ class UserDecorator < Draper::Decorator
 
   def home_address
     return if user.home_address.blank?
-    return unless Privacy.for(user, 'ADDRESS').visible ||
-      Privacy.for(user, 'HOME_ADDRESS').visible
+    return unless Privacy.for(user, 'HOME_ADDRESS').visible
     home_address = [content_tag(:i, "", class: 'uk-icon-home'), user.home_address]
       .join(' ').html_safe
     content_tag(:h4, home_address, class: 'uk-h4')
@@ -53,8 +53,12 @@ class UserDecorator < Draper::Decorator
     [user.full_name, ' (', user.nickname, ')'].join
   end
 
-  def messaging_accounts
-    im_accounts.decorate.each
+  def edit_profile_picture_button
+    return unless user.id == current_user.id
+    icon = content_tag(:i, '', class: 'uk-icon-edit uk-contrast')
+    link = link_to(icon, edit_photo_path(current_user.screen_name),
+      class: 'uk-align-right uk-link-muted uk-overlay-background uk-padding')
+    content_tag(:figcaption, link, class: 'uk-overlay-panel uk-overlay-top')
   end
 
   def delegated_for

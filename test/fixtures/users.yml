@@ -114,3 +114,9 @@ rvt_member:
   usr_firstname: Rvts
   usr_lastname: Pistike
   usr_screen_name: pityuka
+
+pek_admin:
+  usr_id: 7000
+  usr_firstname: Kir
+  usr_lastname: Bálint
+  usr_screen_name: kir
