@@ -62,17 +62,17 @@ class SvieController < ApplicationController
   end
 
   def destroy
-    current_user.svie.create_request('NEMTAG')
+    current_user.svie.create_request(SvieUser::NOT_MEMBER)
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 
   def outside
-    current_user.svie.create_request('KULSOSTAG')
+    current_user.svie.create_request(SvieUser::OUTSIDE_MEMBER)
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 
   def inside
-    current_user.svie.create_request('BELSOSTAG')
+    current_user.svie.create_request(SvieUser::INSIDE_MEMBER)
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 end

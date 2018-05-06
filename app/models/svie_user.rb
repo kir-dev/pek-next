@@ -1,4 +1,8 @@
 class SvieUser
+  NOT_MEMBER = 'NEMTAG'.freeze
+  INSIDE_MEMBER = 'BELSOSTAG'.freeze
+  OUTSIDE_MEMBER = 'KULSOSTAG'.freeze
+  INACTIVE_MEMBER = 'OREGTAG'.freeze
 
   def initialize(user)
     @user = user
@@ -9,7 +13,7 @@ class SvieUser
   end
 
   def member?
-    @user.svie_member_type != 'NEMTAG'
+    @user.svie_member_type != NOT_MEMBER
   end
 
   def in_processing?
@@ -17,20 +21,20 @@ class SvieUser
   end
 
   def inside_member?
-    @user.svie_member_type == 'BELSOSTAG'
+    @user.svie_member_type == INSIDE_MEMBER
   end
 
   def outside_member?
-    @user.svie_member_type == 'KULSOSTAG'
+    @user.svie_member_type == OUTSIDE_MEMBER
   end
 
   def inactive_member?
-    @user.svie_member_type == 'OREGTAG'
+    @user.svie_member_type == INACTIVE_MEMBER
   end
 
   def can_join_to?(member_type)
     return false if(self.in_processing?) || @user.svie_member_type == member_type
-    return !inside_member? if(member_type == 'KULSOSTAG')
+    return !inside_member? if(member_type == OUTSIDE_MEMBER)
     true
   end
 

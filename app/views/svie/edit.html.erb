@@ -27,7 +27,7 @@
 
     <div class="uk-grid uk-margin">
       <div class="uk-width-medium-1-1 uk-width-1-1">
-        <% if current_user.svie.can_join_to?('NEMTAG') %>
+        <% if current_user.svie.can_join_to?(SvieUser::NOT_MEMBER) %>
           <div class="uk-grid">
             <div class="uk-width-medium-2-3">
               Tagság megszüntetésének kezdeményezése
@@ -39,7 +39,7 @@
             </div>
           </div>
         <% end %>
-        <% if current_user.svie.can_join_to?('KULSOSTAG') %>
+        <% if current_user.svie.can_join_to?(SvieUser::OUTSIDE_MEMBER) %>
           <div class="uk-grid">
             <div class="uk-width-medium-2-3">
               Külsős taggá válás kezdeményezése
@@ -52,7 +52,7 @@
           </div>
         <% end %>
 
-        <% if current_user.svie.can_join_to?('BELSOSTAG') %>
+        <% if current_user.svie.can_join_to?(SvieUser::INSIDE_MEMBER) %>
           <div class="uk-grid">
             <div class="uk-width-medium-2-3">
               Belsős taggá válás kezdeményezése
