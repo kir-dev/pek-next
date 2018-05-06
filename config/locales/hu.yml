@@ -11,6 +11,7 @@ hu:
   too_many_delegates: Túl sok küldöttet szeretnél beállítani!
   applied_succesful: Sikeres jelentkezés!
   accept_application: SVIE tag lett!
+  abort_application: tagsági kérelme elutasítva!
   svie_group_needed: SVIE jelentkezéshez legalább egy SVIE körben tagnak kell lenned!
   no_leader_error: Körvezetői posztot csak tovább adni tudod!
   invalid_id: Not valid id. It should be a UUID or a NEPTUN code.

@@ -14,7 +14,9 @@ class MembershipsController < ApplicationController
   end
 
   def archive
-    Membership.find(params[:membership_id]).archive!
+    membership = Membership.find(params[:membership_id])
+    membership.archive!
+    membership.user.svie.try_inactivate!
   end
 
   def unarchive
@@ -22,7 +24,9 @@ class MembershipsController < ApplicationController
   end
 
   def inactivate
-    Membership.find(params[:membership_id]).inactivate!
+    membership = Membership.find(params[:membership_id])
+    membership.inactivate!
+    membership.user.svie.try_inactivate!
   end
 
   def reactivate

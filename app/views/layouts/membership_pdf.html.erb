@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>PekNext</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="<%= "#{Rails.root}/app/assets/stylesheets/svie_member_request_pdf.css" %>">
+</head>
+
+<body>
+<img src="<%= "#{Rails.root}/public/img/schlogo.png" %>" class="logo">
+<div>
+  <%= yield %>
+</div>
+Budapest, 20__. ____________ __.
+<hr>
+<p>Tanúsítjuk, hogy jelen nyilatkozat a Nyilatkozó jelenlétünkben írta alá, illetve aláírását a
+  sajátjának ismerte el.</p>
+
+<div class="signature">
+  <div class="row">
+    <div class="col">
+      <hr>
+      Név
+    </div>
+    <div class="col">
+      <hr>
+      Név
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <hr>
+      Lakcím
+    </div>
+    <div class="col">
+      <hr>
+      Lakcím
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <hr>
+      Aláírás
+    </div>
+    <div class="col">
+      <hr>
+      Aláírás
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

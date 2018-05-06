@@ -19,8 +19,11 @@ Rails.application.routes.draw do
   get '/svie/edit', to: 'svie#edit'
   post '/svie/update', to: 'svie#update'
   post '/svie/destroy', to: 'svie#destroy'
+  post '/svie/outside', to: 'svie#outside'
+  post '/svie/inside', to: 'svie#inside'
   resources :svie, only: [:index, :new, :create] # :edit, :update]
   post '/svie/approve/:id', to: 'svie#approve', as: :svie_approve # has need refactor
+  post '/svie/reject/:id', to: 'svie#reject', as: :svie_reject # has need refactor
   get '/svie/pdf', to: 'svie#application_pdf'
   get '/svie/successful', to: 'svie#successful_application'
 

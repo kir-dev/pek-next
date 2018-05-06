@@ -44,6 +44,13 @@ gem 'prawn'
 
 gem 'em-http-request'
 
+# PDF generate
+gem 'pdfkit'
+
+gem 'render_anywhere'
+
+gem 'wkhtmltopdf-binary'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

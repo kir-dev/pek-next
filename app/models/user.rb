@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   alias_attribute :show_recommended_photo, :usr_show_recommended_photo
   alias_attribute :screen_name, :usr_screen_name
   alias_attribute :date_of_birth, :usr_date_of_birth
+  alias_attribute :place_of_birth, :usr_place_of_birth
+  alias_attribute :birth_name, :usr_birth_name
   alias_attribute :gender, :usr_gender
   alias_attribute :student_status, :usr_student_status
   alias_attribute :mother_name, :usr_mother_name
@@ -43,11 +45,14 @@ class User < ActiveRecord::Base
   has_many :privacies, foreign_key: :usr_id
 
   has_one :primary_membership, class_name: "Membership", foreign_key: :id, primary_key: :usr_svie_primary_membership
+  has_one :svie_post_request, foreign_key: :usr_id, primary_key: :id
 
   validates :screen_name, uniqueness: true
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
-  validates_with PrimaryMembershipValidator
+
+  # If primary group is not SVIE
+  # validates_with PrimaryMembershipValidator
 
 #  Before validation need to fix cell phone numbers
 #  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
