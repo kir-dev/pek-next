@@ -51,9 +51,6 @@ class Membership < ActiveRecord::Base
     if self.user.delegated && self.user.primary_membership == self
       self.user.update(delegated: false)
     end
-    if self.user.memberships
-
-    end
     save
   end
 
