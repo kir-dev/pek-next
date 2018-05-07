@@ -3,7 +3,10 @@ class GroupsController < ApplicationController
   before_action :require_leader, only: [:edit, :update]
 
   def index
-    @groups = Group.order(:name).page(params[:page]).per(params[:per]).decorate
+    active_groups = Group.order(:name).select{ |g| !g.inactive? }
+    active_groups = GroupDecorator.decorate_collection(active_groups)
+    @groups = Kaminari.paginate_array(active_groups)
+      .page(params[:page]).per(params[:per])
   end
 
   def show
