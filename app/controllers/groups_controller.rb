@@ -9,6 +9,11 @@ class GroupsController < ApplicationController
       .page(params[:page]).per(params[:per])
   end
 
+  def all
+    @groups = Group.order(:name).page(params[:page]).per(params[:per]).decorate
+    render :index
+  end
+
   def show
     membership_view_model = Group::MembershipViewModel.new(current_user, params[:id])
     @viewmodel = MembershipViewModelDecorator.decorate(membership_view_model)
