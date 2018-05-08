@@ -13,7 +13,9 @@ class GroupDecorator < Draper::Decorator
 
   def truncated_description
     return unless group.description
-    simple_format(truncate(format_description, length: 100))
+    description = truncate(format_description, length: 100)
+    simple_format(description, { class: 'uk-panel-body uk-padding-small' },
+      wrapper_tag: 'div')
   end
 
   def goup_leader_link
