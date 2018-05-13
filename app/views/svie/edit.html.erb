@@ -20,7 +20,7 @@
 
     <h2>SVIE tagság</h2>
     <div class="uk-alert uk-width-1-1">
-      SVIE tagság típusa: <%= t current_user.svie_member_type %>
+      SVIE tagság típusa: <%= Rails.configuration.x.svie_member_types[current_user.svie_member_type] %>
     </div>
 
     <% if current_user.svie.member? %>
