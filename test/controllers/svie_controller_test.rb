@@ -11,7 +11,7 @@ class SvieControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 3, assigns(:svie_memberships).size
     assert_equal grp_membership(:user_with_primary_membership).id, assigns(:svie_memberships).first.id
-    assert_equal grp_membership(:not_primary_membership).id, assigns(:svie_memberships).last.id
+    assert_equal grp_membership(:newbie_membership).id, assigns(:svie_memberships).last.id
   end
 
   test "save change of primary group" do
