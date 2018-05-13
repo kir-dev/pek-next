@@ -44,7 +44,7 @@ class SvieUser
 
   def try_inactivate!
     if @user.groups.select {|g| g.issvie?}.nil?
-      @user.update(svie_member_type: 'OREGTAG', primary_membership: nil)
+      @user.update(svie_member_type: INACTIVE_MEMBER, primary_membership: nil)
     end
   end
 end
