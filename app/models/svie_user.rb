@@ -39,9 +39,6 @@ class SvieUser
   end
 
   def create_request(member_type)
-    unless self.can_join_to?(member_type)
-      unauthorized_page
-    end
     SviePostRequest.create(user: @user, member_type: member_type)
   end
 
