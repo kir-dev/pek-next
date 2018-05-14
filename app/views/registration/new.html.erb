@@ -1,25 +1,43 @@
-<%= form_for @user, url: registration_path do |f| %>
-    <%= render 'form_errors', errors: f.object.errors %>
-    <div class="uk-height-1-1">
-        <div class="uk-vertical-align uk-text-center uk-height-1-1">
-            <div class="uk-vertical-align-middle white-bg" id="registration-container">
-                <div class="uk-panel uk-panel-box rounded-border">
-                    <h2>Regisztráció</h2>
-                    <div class="uk-form-row">
-                        <%= f.text_field :screen_name, required: true, class: "uk-width-1-1 uk-form-large", placeholder: "Url" %>
-                    </div>
-                    <div class="uk-form-row">
-                        <%= f.label :dormitory, class: "uk-form-label" %>
-                        <%= f.select :dormitory, options_for_select(Rails.configuration.x.dorms.invert), {include_blank: true}, class: "uk-width-1-1 uk-form-large uk-form-controls" %>
-                    </div>
-                    <div class="uk-form-row">
-                         <%= f.number_field(:room, class: "uk-width-1-1 uk-form-large", placeholder: "Szobaszám") %>
-                    </div>
-                    <div class="uk-form-row">
-                        <%= f.submit("Mehet!", class: "uk-width-1-1 uk-button uk-button-primary uk-button-large") %>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div id="content-main" class="neutral-content">
+  <div class="uk-width-1-1 uk-width-medium-1-2 uk-container-center uk-panel uk-panel-box uk-margin-top">
+    <div class="uk-text-center">
+      <h2>Regisztráció</h2>
+      Az auth.sch alapján még nem vagy beregisztrálva az oldalra, ezt itt
+      pótolhatod. Amennyiben bármilyen hibát észlelsz, kérlek
+      <a href="https://support.sch.bme.hu">itt</a> jelezd.
     </div>
-<% end %>
+
+    <%= form_for @user, url: registration_path,
+      html: {class: 'uk-form uk-form-horizontal uk-margin-top'} do |f| %>
+      <%= render 'form_errors', errors: f.object.errors %>
+
+      <div class="uk-form-row">
+        <%= f.label :screen_name, 'Url', class: 'uk-width-1-1 uk-form-label form-label-required' %>
+        <%= f.text_field :screen_name, required: true, autofocus: true,
+          class: 'uk-width-1-1 uk-form-large', id: 'url-input', placeholder: 'Url' %>
+      </div>
+
+      <div class="uk-text-muted uk-text-right" id="url-description">
+        Ezen lesz elérhető a profilod a 'pek.sch.bme.hu/profiles/' alatt.
+      </div>
+
+      <div class="uk-form-row">
+        <%= f.label :dormitory, class: 'uk-form-label form-label-required' %>
+        <%= f.select :dormitory, options_for_select(Rails.configuration.x.dorms.invert),
+          {include_blank: true}, {class: 'uk-width-1-1 uk-select'} %>
+      </div>
+
+      <div class="uk-form-row">
+        <%= f.label :room, class: 'uk-form-label form-label-required' %>
+        <%= f.number_field :room, class: 'uk-width-1-1 uk-form-large', placeholder: 'Szobaszám' %>
+      </div>
+
+      <div class="uk-text-center">
+        <div class="inline-block">
+          <%= f.submit 'Mehet!', class: 'uk-button uk-width-1-1 uk-width-medium-1-2 uk-margin-top' %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
