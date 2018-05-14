@@ -24,7 +24,7 @@
       <div class="uk-form-row">
         <%= f.label :dormitory, class: 'uk-form-label form-label-required' %>
         <%= f.select :dormitory, options_for_select(Rails.configuration.x.dorms.invert),
-          {include_blank: true}, {class: 'uk-width-1-1 uk-select'} %>
+          {}, {class: 'uk-width-1-1 uk-select'} %>
       </div>
 
       <div class="uk-form-row">
