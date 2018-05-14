@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
 
   def member_of?(group)
     membership = membership_for(group)
-    membership && !membership.newbie?
+    membership && membership.active?
   end
 
   def roles
