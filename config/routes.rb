@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get '/svie/successful', to: 'svie#successful_application'
 
   root to: redirect('/profiles/me')
+  get 'groups/all', to: 'groups#all', as: :all_groups
   resources :groups, only: [:show, :index, :edit, :update] do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'

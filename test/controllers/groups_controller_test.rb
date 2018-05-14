@@ -5,12 +5,21 @@ class GroupsControllerTest < ActionController::TestCase
     login_as_user(:sanyi)
   end
 
-  test "show groups list" do
+  test "show all groups list" do
     result_per_page = 20
-    get :index, per: result_per_page
+    get :all, per: result_per_page
 
     assert_equal result_per_page, assigns(:groups).size
     assert_equal groups(:babhamozo).id, assigns(:groups).first.id
+  end
+
+  test "show active groups list" do
+    time = Time.now() + 2.year
+    semester = "#{time.year}#{time.year+1}1"
+    SystemAttribute.update_semester(semester)
+    get :index, per: 20
+
+    assert_equal 0, assigns(:groups).size
   end
 
   test "show some group" do
