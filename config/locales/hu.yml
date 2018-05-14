@@ -55,6 +55,7 @@ hu:
               invalid: formátuma hibás. Ellenőrizd, hogy +36201234567 formátumú legyen!
             screen_name:
               taken: már foglalt!
+              invalid: csak alfanumerikus és '-', '_' karaktereket tartalmazhat!
             auth_sch_id:
               taken: már regisztrálva van!
             bme_id:
