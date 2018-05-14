@@ -42,7 +42,7 @@
         <% if current_user.svie.can_join_to?(SvieUser::OUTSIDE_MEMBER) %>
           <div class="uk-grid">
             <div class="uk-width-medium-2-3">
-              Külsős taggá válás kezdeményezése
+              Külső taggá válás kezdeményezése
             </div>
             <div class="uk-width-medium-1-3">
               <%= button_to 'Kérvény leadása', { action: :outside },
@@ -55,7 +55,7 @@
         <% if current_user.svie.can_join_to?(SvieUser::INSIDE_MEMBER) %>
           <div class="uk-grid">
             <div class="uk-width-medium-2-3">
-              Belsős taggá válás kezdeményezése
+              Rendes taggá válás kezdeményezése
             </div>
             <div class="uk-width-medium-1-3">
               <%= button_to 'Kérvény leadása', { action: :inside },
