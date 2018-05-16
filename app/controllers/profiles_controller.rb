@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
   def show
     user = User.includes( [ { pointrequests: [ { evaluation: [ :group, :entry_requests ] } ] },
       { memberships: [ :group, :post_types ] } ]).find_by(screen_name: params[:id])
-    redirect_to profiles_me_path unless user
+    return redirect_to profiles_me_path unless user
     @user_presenter = user.decorate
   end
 
