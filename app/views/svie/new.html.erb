@@ -6,9 +6,9 @@
     <div class="uk-container-center uk-panel uk-panel-box">
       <h2 class="uk-h2"><%= current_user.full_name %></h2>
       <h4 class="uk-h4">Jelentkezéshez szükséges adatok</h4>
-      <p>Belsős tag: BME-VIK-es aktív, nappali hallgatói jogviszonnyal rendelkező hallgató</p>
-      <p>Öregtag: BME-VIK-en tanult hallgató, aki már nem szeretne aktív lenni az egyesületben</p>
-      <p>Külsős tag: A fentiekbe nem tartozó személy</p>
+      <p>Rendes tag: BME-VIK-es aktív, nappali hallgatói jogviszonnyal rendelkező hallgató</p>
+      <p>Öreg tag: BME-VIK-en tanult hallgató, aki már nem szeretne aktív lenni az egyesületben</p>
+      <p>Külső tag: A fentiekbe nem tartozó személy</p>
       <%= form_tag svie_index_path, method: :post, class: 'uk-form' do %>
         <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
           <table class="uk-table">

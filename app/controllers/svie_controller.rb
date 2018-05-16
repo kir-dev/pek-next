@@ -15,7 +15,7 @@ class SvieController < ApplicationController
   end
 
   def edit
-    @svie_memberships = current_user.memberships.select { |m| m.group.issvie && m.active? }
+    @svie_memberships = current_user.memberships.select { |m| m.group.issvie }
     redirect_to :back, alert: t(:svie_group_needed) if @svie_memberships.empty?
   end
 
@@ -62,17 +62,22 @@ class SvieController < ApplicationController
   end
 
   def destroy
-    current_user.svie.create_request(SvieUser::NOT_MEMBER)
-    redirect_to profiles_me_path, notice: t(:edit_successful)
+    join_to(SvieUser::NOT_MEMBER)
   end
 
   def outside
-    current_user.svie.create_request(SvieUser::OUTSIDE_MEMBER)
-    redirect_to profiles_me_path, notice: t(:edit_successful)
+    join_to(SvieUser::OUTSIDE_MEMBER)
   end
 
   def inside
-    current_user.svie.create_request(SvieUser::INSIDE_MEMBER)
+    join_to(SvieUser::INSIDE_MEMBER)
+  end
+
+  private
+
+  def join_to(member_type)
+    return unauthorized_page unless current_user.svie.can_join_to?(member_type)
+    current_user.svie.create_request(member_type)
     redirect_to profiles_me_path, notice: t(:edit_successful)
   end
 end
