@@ -7,4 +7,6 @@ class PostType < ActiveRecord::Base
   alias_attribute :group_id, :grp_id
 
   belongs_to :group, foreign_key: :grp_id
+
+  validates :name, presence: true
 end
