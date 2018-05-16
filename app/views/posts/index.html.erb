@@ -1,6 +1,11 @@
 <% stylesheet 'admin' %>
 
-<h1 class="uk-h1"><%= @membership.user.full_name %> posztjai</h1>
+<h1 class="uk-h1">
+  <%= @membership.user.full_name %> posztjai
+  <span class="uk-text-muted uk-text-nowrap">
+    (<%= @group.name %>)
+  </span>
+</h1>
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-grid uk-margin-remove uk-width-medium-1-2">
     <% @group.post_types.each do |post_type| %>
