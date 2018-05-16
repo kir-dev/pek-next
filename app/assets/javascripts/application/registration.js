@@ -6,13 +6,13 @@ var registration = (function() {
   module.init = function() {
     urlDescription = document.getElementById('url-description');
     urlInput = document.getElementById('url-input');
-    if (urlInput)
-    urlInput.oninput = update;
+    if (urlInput) {
+      urlInput.oninput = update;
+    }
   }
 
   function update() {
-    urlDescription.innerHTML = 'Ezen lesz elérhető a profilod a \
-    \'pek.sch.bme.hu/profiles/' + urlInput.value + '\' alatt.'
+    urlDescription.innerHTML = 'Ezen lesz elérhető a profilod a \'pek.sch.bme.hu/profiles/' + urlInput.value + '\' alatt.'
   }
 
   return module;
