@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 
 #  Before validation need to fix cell phone numbers
 #  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
-  validates_format_of :screen_name, with: /[^\/]+/
+  validates_format_of :screen_name, without: /[\\\/]+/
 
   def full_name
     [lastname, firstname].compact.join(' ')
