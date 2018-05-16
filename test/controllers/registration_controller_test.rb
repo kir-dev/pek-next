@@ -20,7 +20,7 @@ class RegistrationControllerTest < ActionController::TestCase
   end
 
   test "unsuccessful registration with invalid screen_name" do
-    post :create, user: { screen_name: "/" }
+    post :create, user: { screen_name: "Feri/Ferko" }
 
     assert_response :success
     refute assigns(:user).valid?
