@@ -8,5 +8,5 @@ class PostType < ActiveRecord::Base
 
   belongs_to :group, foreign_key: :grp_id
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 30 }
 end
