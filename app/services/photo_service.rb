@@ -22,8 +22,13 @@ module PhotoService extend self
   end
 
   def cropped_path(screen_name)
-    return default_path unless Dir.exists?(photo_dir(screen_name))
     photo_dir(screen_name).join('cropped.png')
+  end
+
+  def photo_path(screen_name)
+    path = cropped_path(screen_name)
+    return default_path unless File.file?(path)
+    path
   end
 
   def raw_check(screen_name)

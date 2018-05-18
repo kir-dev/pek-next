@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
 
   def show
     sanitized = params[:id].gsub(/^.*(\\|\/)/, '')
-    send_file PhotoService.cropped_path(sanitized), type: 'image/png', disposition: 'inline'
+    send_file PhotoService.photo_path(sanitized), type: 'image/png', disposition: 'inline'
   end
 
   def update
