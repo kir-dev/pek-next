@@ -13,21 +13,39 @@
           <% @evaluation.principles.each do |principle| %>
             <th class="uk-text-center"><%= principle.name %></th>
           <% end %>
+          <th>Szumma felelősség</th>
+          <th>Szumma munka</th>
+          <th>Szumma pont</th>
         </tr>
       </thead>
       <tbody>
-        <% @evaluation.group.active_memberships.each do |membership| %>
+        <% @evaluation.group.point_eligible_memberships.each do |membership| %>
           <tr>
-            <td><%= membership.user.full_name %></td>
+            <td class="name-column"><%= membership.user.full_name %></td>
             <% @evaluation.principles.each do |principle| %>
               <td>
                 <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
+                data-principle-type="<%= principle.type %>"
                 class="uk-input uk-width-auto point-input" type="number" value="<%=
-                point_detail = @point_details.find { |pd| pd.point_request.user == membership.user && pd.principle_id == principle.id }
-                point_detail.point if point_detail
+                  single_detail(@point_details, membership.user, principle)
                 %>">
               </td>
             <% end %>
+            <td>
+              <input disabled data-user="<%= membership.user_id %>"
+                class="uk-input uk-width-auto sum-resp" type="number"
+                value="<%= sum_details(@point_details, membership.user, Principle::RESPONSIBILITY) %>">
+            </td>
+            <td>
+              <input disabled data-user="<%= membership.user_id %>"
+                class="uk-input uk-width-auto sum-work" type="number"
+                value="<%= sum_details(@point_details, membership.user, Principle::WORK) %>">
+            </td>
+            <td>
+              <input disabled data-user="<%= membership.user_id %>"
+              class="uk-input uk-width-auto sum-all" type="number"
+              value="<%= sum_all_details(@point_details, membership.user) %>">
+            </td>
           </tr>
         <% end %>
       </tbody>

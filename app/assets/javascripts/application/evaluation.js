@@ -27,7 +27,6 @@ var evaluation = (function(Rx, $) {
                 point: value
             }
         }).done(function (resp) {
-            console.log('gut');
         });
     }
 

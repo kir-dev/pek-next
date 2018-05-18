@@ -64,8 +64,8 @@ class Group < ActiveRecord::Base
     current_delegated_count < delegate_count
   end
 
-  def active_memberships
-    memberships.includes(:user).select { |m| m.end == nil && m.archived == nil }
+  def point_eligible_memberships
+    memberships.includes(:user).select { |m| m.end == nil && m.archived == nil && m.user.svie.member? }
   end
 
 end

@@ -1,3 +1,7 @@
 #content-container {
   max-width: 100%;
 }
+
+.name-column {
+  min-width: 150px;
+}
