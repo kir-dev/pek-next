@@ -19,12 +19,16 @@ Rails.application.routes.draw do
   get '/svie/edit', to: 'svie#edit'
   post '/svie/update', to: 'svie#update'
   post '/svie/destroy', to: 'svie#destroy'
+  post '/svie/outside', to: 'svie#outside'
+  post '/svie/inside', to: 'svie#inside'
   resources :svie, only: [:index, :new, :create] # :edit, :update]
   post '/svie/approve/:id', to: 'svie#approve', as: :svie_approve # has need refactor
+  post '/svie/reject/:id', to: 'svie#reject', as: :svie_reject # has need refactor
   get '/svie/pdf', to: 'svie#application_pdf'
   get '/svie/successful', to: 'svie#successful_application'
 
   root to: redirect('/profiles/me')
+  get 'groups/all', to: 'groups#all', as: :all_groups
   resources :groups, only: [:show, :index, :edit, :update] do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
@@ -53,7 +57,6 @@ Rails.application.routes.draw do
   resources :im_accounts, only: [:create, :update, :destroy]
 
   resources :delegates, only: [:index]
-  get '/delegates/export', to: 'delegates#export'
 
   get '/seasons', to: 'season_admin#index'
   post '/seasons', to: 'season_admin#update'

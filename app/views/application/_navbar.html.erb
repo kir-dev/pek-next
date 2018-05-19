@@ -36,8 +36,14 @@
           </li>
         <% end %>
 
-        <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="">
+        <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="{pos:'bottom-right'}">
           <%= link_to "Körök", groups_url, class: "nav-button" %>
+          <div class="uk-dropdown uk-dropdown-navbar">
+            <ul class="uk-nav uk-nav-navbar">
+              <li><%= link_to "Körök", groups_url %></li>
+              <li><%= link_to "Összes kör", all_groups_url %></li>
+            </ul>
+          </div>
         </li>
 
         <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="{pos:'bottom-right'}">
@@ -50,7 +56,7 @@
               <li><%= link_to "Profilom", root_url %></li>
               <li class="uk-nav-divider"></li>
               <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
-              <% if current_user.svie.not_member? %>
+              <% if current_user.svie.can_join? %>
                 <li><%= link_to "SVIE-be jelentkezés", new_svie_path %></li>
               <% else %>
                 <li><%= link_to "SVIE tagság", svie_edit_path %></li>
@@ -68,8 +74,8 @@
 
 <script type="text/javascript">
   UIkit.notify({
-    message : '<a target="_blank" href="https://goo.gl/forms/0pP8bDKAD7jzprPK2">Ez egy beta oldal, itt tudod jelezni az észrevételeidet.</a>',
-    status  : 'danger',
+    message : '<a target="_blank" href="https://goo.gl/forms/0pP8bDKAD7jzprPK2">Az észrevételeidet itt tudod jelezni.</a>',
+    status  : 'primary',
     timeout : 0,
     pos     : 'bottom-right'
   });

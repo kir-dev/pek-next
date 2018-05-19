@@ -65,27 +65,15 @@ module PekNext
       'facebook'     => 'Facebook',
       'jabber'       => 'Jabber'
     }
-    config.x.svie_states = {
-      'ELFOGADVA'        => 'Elfogadva',
-# Meg van a papírja, az RVT elfogadására vár :
-      'FELDOLGOZASALATT' => 'Feldolgozás alatt',
-# A papírja leadás alatt van (ide esik, ha a user letölti a belépési nyilatkozatát) :
-      'ELFOGADASALATT'   => 'Elfogadás alatt',
-      'NEMTAG'           => 'Nem tag'
-    }
 
     # This should be the member types after we no longer depend on old VIR
-    # config.x.svie_member_types = {
-    #   'RENDESTAG' => 'Rendes tag',
-    #   'KULSOSTAG' => 'Külsős tag',
-    #   'OREGTAG' => 'Öregtag'
-    # }
-
-    # This is temporary pls no merge to master
-    config.x.svie_member_types = {
-      'RENDESTAG' => 'Rendes tag',
-      'PARTOLOTAG' => 'Külsős tag',
+    config.x.selectable_svie_member_types = {
+        'BELSOSTAG' => 'Rendes tag',
+        'KULSOSTAG' => 'Külső tag',
+        'OREGTAG' => 'Öreg tag'
     }
+    config.x.svie_member_types = config.x.selectable_svie_member_types.merge({'NEMTAG' => 'Nem tag'})
+
     config.x.season_types = {
         'NINCSERTEKELES' => 'Nyugalmi időszak',
         'ERTEKELESLEADAS' => 'Pontozási időszak',

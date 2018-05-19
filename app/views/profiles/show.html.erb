@@ -6,9 +6,12 @@
     <div class="uk-container-center uk-panel uk-panel-box">
       <div class="uk-grid uk-flex-middle">
 
-        <div class="uk-width-medium-1-3 uk-flex-center uk-padding-large">
-          <%= image_tag photo_path(@user_presenter.screen_name), class: "uk-thumbnail uk-width-expand", alt: @user_presenter.full_name, id: 'profile-picture' %>
-        </div>
+        <figure class="uk-overlay uk-width-medium-1-3 uk-flex-center uk-padding-large uk-overlay-hover">
+          <%= image_tag photo_path(@user_presenter.screen_name),
+            class: "uk-thumbnail uk-width-expand", alt: @user_presenter.full_name,
+            id: 'profile-picture' %>
+          <%= @user_presenter.edit_profile_picture_button %>
+        </figure>
 
         <div class="uk-width-medium-1-3 uk-flex-center">
           <h2 class="uk-h2">Adatlap</h2>
@@ -17,7 +20,7 @@
           <%= @user_presenter.email %>
           <%= @user_presenter.home_address %>
           <%= @user_presenter.date_of_birth %>
-          <% @user_presenter.messaging_accounts.each do |im_account| %>
+          <% @user_presenter.im_accounts.each do |im_account| %>
             <%= im_account.account %>
           <% end %>
           <%= @user_presenter.delegated_for %>

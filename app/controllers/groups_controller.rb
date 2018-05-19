@@ -3,11 +3,20 @@ class GroupsController < ApplicationController
   before_action :require_leader, only: [:edit, :update]
 
   def index
-    @groups = Group.order(:name).page(params[:page]).per(params[:per])
+    active_groups = Group.order(:name).select{ |g| !g.inactive? }
+    active_groups = GroupDecorator.decorate_collection(active_groups)
+    @groups = Kaminari.paginate_array(active_groups)
+      .page(params[:page]).per(params[:per])
+  end
+
+  def all
+    @groups = Group.order(:name).page(params[:page]).per(params[:per]).decorate
+    render :index
   end
 
   def show
-    @viewmodel = Group::MembershipViewModel.new(current_user, params[:id])
+    membership_view_model = Group::MembershipViewModel.new(current_user, params[:id])
+    @viewmodel = MembershipViewModelDecorator.decorate(membership_view_model)
   end
 
   def edit
@@ -24,7 +33,7 @@ class GroupsController < ApplicationController
   private
 
   def update_params
-    params.require(:group).permit(:name, :description, :webpage, :founded, :maillist, :users_can_apply)
+    params.require(:group).permit(:name, :description, :webpage, :founded, :maillist, :users_can_apply, :archived_members_visible)
   end
 
 end

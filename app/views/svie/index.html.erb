@@ -1,27 +1,55 @@
 <% stylesheet 'admin' %>
 
-<div class="uk-height-viewport uk-responsive-width">
+<div class="uk-height-viewport uk-responsive-width uk-margin-large">
   <h1 class="uk-h1">SVIE-be jelentkezett felhasználók</h1>
   <div class="uk-container-center uk-panel uk-panel-box">
-    <ul class="uk-list uk-width-1-1 uk-width-large-1-2 uk-container-center">
-      <% @not_svie_members.each do |user| %>
+    <ul class="uk-list uk-width-1-1">
+
       <li class="uk-margin">
         <div class="uk-panel uk-panel-box dark">
           <div class="uk-width-1-1 uk-panel-body uk-padding-remove uk-grid">
-            <div class="uk-width-1-2 uk-width-small-2-5">
-              <%= link_to user.full_name, profile_path(user.screen_name),
-                class: "uk-text-primary" %>
+            <div class="uk-width-1-3 uk-width-small-1-4">
+              <strong>Név</strong>
             </div>
-            <div class="uk-width-1-2 uk-width-small-2-5">
-              <%= user.svie_state %>
+            <div class="uk-width-1-3 uk-width-small-1-4">
+              <strong>Jelenlegi tagság típusa</strong>
             </div>
-            <div class="uk-width-1-1 uk-width-small-1-5 uk-text-center">
-              <%= button_to "Elfogadás", svie_approve_path(user.id), method: :post,
-                class: "uk-button uk-button-success", remote: false %>
+            <div class="uk-width-1-3 uk-width-small-1-4">
+              <strong>Kérvényezett tagság típusa</strong>
             </div>
           </div>
         </div>
       </li>
+      <% @post_requests.each do |post_request| %>
+        <li class="uk-margin">
+          <div class="uk-panel uk-panel-box dark">
+            <div class="uk-width-1-1 uk-panel-body uk-padding-remove uk-grid">
+              <div class="uk-width-1-3 uk-width-small-1-4">
+                <%= link_to post_request.user.full_name, profile_path(post_request.user.screen_name),
+                            class: "uk-text-primary" %>
+              </div>
+              <div class="uk-width-1-3 uk-width-small-1-4 uk-text-center">
+                <%= Rails.configuration.x.svie_member_types[post_request.user.svie_member_type] %>
+              </div>
+              <div class="uk-width-1-3 uk-width-small-1-4 uk-text-center">
+                <%= Rails.configuration.x.svie_member_types[post_request.member_type] %>
+              </div>
+              <div class="uk-width-1-1 uk-width-small-1-4 uk-text-center">
+                <div class="uk-grid">
+                  <div class="uk-width-1-2">
+                    <%= button_to "Elutasítás", svie_reject_path(post_request.id), method: :post,
+                                  class: "uk-button uk-button-danger", remote: false %>
+                  </div>
+                  <div class="uk-width-1-2">
+                    <%= button_to "Elfogadás", svie_approve_path(post_request.id), method: :post,
+                                  class: "uk-button uk-button-success", remote: false %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </li>
       <% end %>
     </ul>
   </div>

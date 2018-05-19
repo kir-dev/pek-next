@@ -64,8 +64,13 @@ class Group < ActiveRecord::Base
     current_delegated_count < delegate_count
   end
 
+  def inactive?
+    previous_eval = Evaluation.where(group_id: self.id).where(date: SystemAttribute.semester.previous.to_s).empty?
+    pre_previous_eval = Evaluation.where(group_id: self.id).where(date: SystemAttribute.semester.previous.previous.to_s).empty?
+    previous_eval && pre_previous_eval
+  end
+
   def point_eligible_memberships
     memberships.includes(:user).select { |m| m.end == nil && m.archived == nil && m.user.svie.member? }
   end
-
 end

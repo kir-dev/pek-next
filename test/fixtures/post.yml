@@ -5,3 +5,7 @@ babhamozo_leader:
 newbie_in_svie_group:
   grp_member_id: 7
   pttip_id: 6
+
+pek_admin_in_kir_dev:
+  grp_member_id: 12
+  pttip_id: 66

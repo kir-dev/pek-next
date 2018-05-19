@@ -19,6 +19,13 @@ class ProfilesControllerTest < ActionController::TestCase
     assert_equal users(:bela).id, assigns(:user_presenter).id
   end
 
+  test "redirects to own profile at invalid screenname" do
+    get :show, id: 'dummy'
+
+    assert_response :redirect
+    assert_redirected_to profiles_me_path
+  end
+
   test "rendering edit page is successful" do
     get :edit, id: users(:sanyi).screen_name
 

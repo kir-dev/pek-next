@@ -7,6 +7,7 @@ class Evaluation < ActiveRecord::Base
   alias_attribute :entry_request_status, :belepoigeny_statusz
   alias_attribute :timestamp, :feladas
   alias_attribute :point_request_status, :pontigeny_statusz
+  alias_attribute :date, :semester
   alias_attribute :justification, :szoveges_ertekeles
   alias_attribute :last_evaulation, :utolso_elbiralas
   alias_attribute :last_modification, :utolso_modositas
@@ -17,7 +18,7 @@ class Evaluation < ActiveRecord::Base
 
   belongs_to :group, foreign_key: :grp_id
   has_many :point_requests, foreign_key: :ertekeles_id
-  has_one :entry_request, foreign_key: :ertekeles_id
+  has_many :entry_requests, foreign_key: :ertekeles_id
   has_many :principles
 
   NON_EXISTENT = 'NINCS'
@@ -25,20 +26,24 @@ class Evaluation < ActiveRecord::Base
   REJECTED = 'ELUTASITVA'
   NOT_YET_ASSESSED = 'ELBIRALATLAN'
 
-  def point_request_accepted
+  def point_request_accepted?
     point_request_status == ACCEPTED
   end
 
-  def entry_request_accepted
+  def entry_request_accepted?
     entry_request_status == ACCEPTED
   end
 
-  def no_entry_request
+  def no_entry_request?
     entry_request_status == NON_EXISTENT
   end
 
   def accepted
-    point_request_accepted && !next_version
+    point_request_accepted? && !next_version
+  end
+
+  def date_as_semester
+    Semester.new(self.date)
   end
 
   def default_values

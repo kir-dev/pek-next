@@ -36,7 +36,7 @@
             <%= button_to "Archiválás", group_membership_archive_path(@viewmodel.group.id, member.membership_id),
                         method: :put, class: "uk-button uk-button-danger uk-button-small uk-width-auto", remote: true %>
           </div>
-          <% if member.user.svie.not_member? || member.user.svie.in_processing? %>
+          <% if !member.user.svie.member? || member.user.svie.in_processing? %>
               <div class="uk-icon-circle-o" data-uk-tooltip title="Nem SVIE tag"></div>
           <% elsif member.user.svie.outside_member? %>
               <div class="uk-icon-check-circle-o" data-uk-tooltip title="Pártolótag"></div>

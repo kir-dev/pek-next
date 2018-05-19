@@ -44,6 +44,13 @@ gem 'prawn'
 
 gem 'em-http-request'
 
+# PDF generate
+gem 'pdfkit'
+
+gem 'render_anywhere'
+
+gem 'wkhtmltopdf-binary'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -52,6 +59,8 @@ gem 'em-http-request'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem 'dotenv-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -68,8 +77,6 @@ end
 group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
-  gem 'dotenv-rails'
 
   gem 'better_errors', '~> 1.1.0'
   gem 'binding_of_caller', '~> 0.7.3.pre1'
