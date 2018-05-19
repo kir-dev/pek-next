@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     resources :evaluations do
       resources :principles
       post '/pointdetails/update', to: 'point_details#update'
+      post '/entryrequests/update', to: 'entry_requests#update'
       get '/table', to: 'evaluations#table'
     end
     get '/delegates', to: 'delegates#show'
