@@ -22,4 +22,10 @@ class MembershipViewModelDecorator < Draper::Decorator
     end
   end
 
+  def new_evaluation_button
+    return unless membership_view_model.leader? && SystemAttribute.application_season?
+    link_to('Értékelés leadás', group_evaluations_current_path(membership_view_model.group),
+      class: 'uk-button uk-button-primary uk-width-1-1')
+  end
+
 end

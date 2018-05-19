@@ -14,12 +14,7 @@
             <li><%= @viewmodel.edit_group_button %></li>
             <li><%= @viewmodel.edit_group_delegates_button %></li>
             <li><%= @viewmodel.join_group_button %></li>
-	    <% if SystemAttribute.application_season? %>
-            <li class="uk-margin-small">
-              <%= link_to 'Értékelés leadás', group_evaluations_current_path(@viewmodel.group),
-                class: 'uk-button uk-button-primary uk-width-3-4' %>
-            </li>
-   	    <% end %>
+            <li><%= @viewmodel.new_evaluation_button %></li>
           </ul>
         </div>
       </div>
