@@ -3,7 +3,7 @@ class EntryRequest < ActiveRecord::Base
   self.primary_key = :id
 
   alias_attribute :entry_type, :belepo_tipus
-  alias_attribute :explanation, :szoveges_ertekeles
+  alias_attribute :justification, :szoveges_ertekeles
   alias_attribute :evaluation_id, :ertekeles_id
   alias_attribute :user_id, :usr_id
 
