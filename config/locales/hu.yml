@@ -47,7 +47,11 @@ hu:
         gtalk: Google Hangouts
         jabber: Jabber
         irc: IRC
+      post_type:
+        name: Poszt neve
     errors:
+      messages:
+        blank: nem lehet üres!
       models:
         user:
           attributes:
