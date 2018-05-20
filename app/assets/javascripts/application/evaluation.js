@@ -29,6 +29,12 @@ var evaluation = (function(Rx, $) {
             }
         }).done(function (resp) {
             $('#save-icon').fadeOut();
+        }).error(function () {
+            UIkit.notify({
+                message: "Hiba történt a mentés során! Ellenőrizd az internetkapcsolatod!",
+                timeout: 10000,
+                status: 'danger'
+            });
         });
     }
 
