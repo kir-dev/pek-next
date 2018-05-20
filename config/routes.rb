@@ -40,8 +40,8 @@ Rails.application.routes.draw do
     end
     resources :post_types, only: [:create]
     get '/evaluations/current', to: 'evaluations#current'
-    resources :evaluations do
-      resources :principles
+    resources :evaluations, only: [:show, :edit, :update] do
+      resources :principles, only: [:index, :update, :create, :destroy]
       post '/pointdetails/update', to: 'point_details#update'
       post '/entryrequests/update', to: 'entry_requests#update'
       get '/justifications/edit', to: 'justifications#edit'
