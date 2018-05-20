@@ -9,5 +9,7 @@ class EntryRequestsController < ApplicationController
     
     entry_request = EntryRequest.find_or_create_by(evaluation: evaluation, user: user)
     entry_request.update(entry_type: entry_type)
+
+    head :ok
   end
 end

@@ -1,7 +1,6 @@
 module EvaluationsHelper
   def single_detail(point_details, user, principle)
-    point_detail = point_details.find { |pd| pd.point_request.user == user && pd.principle_id == principle.id }
-    point_detail.point if point_detail
+    point_detail = point_details.find { |pd| pd.point_request.user == user && pd.principle_id == principle.id }&.point
   end
 
   def sum_details(point_details, user, principle_type)

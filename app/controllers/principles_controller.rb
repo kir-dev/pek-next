@@ -6,8 +6,8 @@ class PrinciplesController < ApplicationController
   end
 
   def update
-    @principle = Principle.find(params[:id])
-    @principle.update(principle_params)
+    principle = Principle.find(params[:id])
+    principle.update(principle_params)
   end
 
   def create

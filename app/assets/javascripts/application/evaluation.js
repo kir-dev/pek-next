@@ -35,6 +35,7 @@ var evaluation = (function(Rx, $) {
                 timeout: 10000,
                 status: 'danger'
             });
+            $('#save-icon').fadeOut();
         });
     }
 

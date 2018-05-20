@@ -72,5 +72,6 @@ class Group < ActiveRecord::Base
 
   def point_eligible_memberships
     memberships.includes(:user).select { |m| m.end == nil && m.archived == nil && m.user.svie.member? }
+      .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
   end
 end

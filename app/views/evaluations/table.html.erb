@@ -10,7 +10,7 @@
       <thead>
         <tr>
           <th>Körtagok</th>
-          <% @evaluation.principles.each do |principle| %>
+          <% @evaluation.principles.order(:id).each do |principle| %>
             <th class="uk-text-center"><%= principle.name %></th>
           <% end %>
           <th>Szumma felelősség</th>
@@ -23,7 +23,7 @@
         <% @evaluation.group.point_eligible_memberships.each do |membership| %>
           <tr>
             <td class="name-column"><%= membership.user.full_name %></td>
-            <% @evaluation.principles.each do |principle| %>
+            <% @evaluation.principles.order(:id).each do |principle| %>
               <td>
                 <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
                 data-principle-type="<%= principle.type %>"
@@ -61,7 +61,8 @@
       </tbody>
     </table>
     
-    <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get, class: "uk-button uk-align-center uk-margin-top"%>
+    <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get,
+      class: "uk-button uk-align-center uk-margin-top" %>
 
     <div id="save-icon"></div>
 
