@@ -14,4 +14,8 @@ class EntryRequest < ActiveRecord::Base
   KB = :KB
   KDO = :KDO
   DEFAULT_TYPE = KDO
+
+  after_save do
+    evaluation.update_last_change!
+  end
 end
