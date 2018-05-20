@@ -20,7 +20,7 @@
 
     <h2>SVIE tagság</h2>
     <div class="uk-alert uk-width-1-1">
-      SVIE tagság típusa: <%= t current_user.svie_member_type %>
+      SVIE tagság típusa: <%= Rails.configuration.x.svie_member_types[current_user.svie_member_type] %>
     </div>
 
     <% if current_user.svie.member? %>
@@ -42,7 +42,7 @@
         <% if current_user.svie.can_join_to?(SvieUser::OUTSIDE_MEMBER) %>
           <div class="uk-grid">
             <div class="uk-width-medium-2-3">
-              Külsős taggá válás kezdeményezése
+              Külső taggá válás kezdeményezése
             </div>
             <div class="uk-width-medium-1-3">
               <%= button_to 'Kérvény leadása', { action: :outside },
@@ -55,7 +55,7 @@
         <% if current_user.svie.can_join_to?(SvieUser::INSIDE_MEMBER) %>
           <div class="uk-grid">
             <div class="uk-width-medium-2-3">
-              Belsős taggá válás kezdeményezése
+              Rendes taggá válás kezdeményezése
             </div>
             <div class="uk-width-medium-1-3">
               <%= button_to 'Kérvény leadása', { action: :inside },
@@ -72,8 +72,8 @@
       <h2>
         <%= Rails.configuration.x.svie_member_types[current_user.svie_post_request.member_type] %>gá válási kérvényed feldolgozás alatt van.
       </h2>
-      <p>A regisztrációs folyamat befejezéséhez két lehetőséged van: Ha ki tudod nyomtatni, akkor aláírod a kérvényt és leadod Katalinnak a Schönherz 1719-es irodájában (megtehetitek, hogy többet adtok le egyszerre, nem kell személyesen jelen lenni).</p>
-      <p>Ha nem tudod vagy nem akarod kinyomtatni, akkor keresd Katalint a Schönherz 1719-es irodájában, ő kinyomtatja helyetted, ekkor viszont ott kell lenned személyesen, hogy alá tudd írni.</p>
+      <p>A regisztrációs folyamat befejezéséhez két lehetőséged van: Ha ki tudod nyomtatni, akkor aláírod a kérvényt és leadod Grétinek a Schönherz 1719-es irodájában (megtehetitek, hogy többet adtok le egyszerre, nem kell személyesen jelen lenni).</p>
+      <p>Ha nem tudod vagy nem akarod kinyomtatni, akkor keresd Grétit a Schönherz 1719-es irodájában, ő kinyomtatja helyetted, ekkor viszont ott kell lenned személyesen, hogy alá tudd írni.</p>
 
       <div class="uk-width-1-1 uk-width-medium-1-2 uk-margin uk-align-center">
         <%= button_to "Kérvény letöltése", svie_pdf_path,

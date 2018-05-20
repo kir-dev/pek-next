@@ -68,9 +68,9 @@ module PekNext
 
     # This should be the member types after we no longer depend on old VIR
     config.x.selectable_svie_member_types = {
-        'BELSOSTAG' => 'Belsős tag',
-        'KULSOSTAG' => 'Külsős tag',
-        'OREGTAG' => 'Öregtag'
+        'BELSOSTAG' => 'Rendes tag',
+        'KULSOSTAG' => 'Külső tag',
+        'OREGTAG' => 'Öreg tag'
     }
     config.x.svie_member_types = config.x.selectable_svie_member_types.merge({'NEMTAG' => 'Nem tag'})
 
