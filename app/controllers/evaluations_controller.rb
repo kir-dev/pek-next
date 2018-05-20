@@ -30,6 +30,7 @@ class EvaluationsController < ApplicationController
 
   def table
     @evaluation = Evaluation.find(params[:evaluation_id])
+    @evaluation.started_creation!
     @point_details = PointDetail.includes(:point_request).select { |pd| pd.point_request.evaluation == @evaluation }
   end
 

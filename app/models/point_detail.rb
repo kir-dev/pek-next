@@ -3,4 +3,8 @@ class PointDetail < ActiveRecord::Base
 
   belongs_to :principle
   belongs_to :point_request
+
+  after_save do
+    point_request.recalculate!
+  end
 end
