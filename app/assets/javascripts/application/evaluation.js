@@ -15,6 +15,7 @@ var evaluation = (function(Rx, $) {
     }
 
     function inputChange (input) {
+        $('#save-icon').fadeIn();
         var value = input.value;
         var principle = input.getAttribute('data-principle');
         var user = input.getAttribute('data-user');
@@ -27,6 +28,7 @@ var evaluation = (function(Rx, $) {
                 point: value
             }
         }).done(function (resp) {
+            $('#save-icon').fadeOut();
         });
     }
 
