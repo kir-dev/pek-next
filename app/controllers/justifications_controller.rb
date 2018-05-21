@@ -3,7 +3,8 @@ class JustificationsController < ApplicationController
   before_action :require_leader
 
   def edit
-    @evaluation = Evaluation.find(params[:evaluation_id])
+    @entry_requests = Evaluation.find(params[:evaluation_id]).entry_requests
+      .select { |er| er.entry_type != EntryRequest::KDO }
   end
 
   def update
