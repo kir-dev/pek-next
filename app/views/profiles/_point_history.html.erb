@@ -8,7 +8,7 @@
 </div>
 
 <div class="uk-accordion" data-uk-accordion="{collapse:false, showfirst:false}">
-  <% years_with_points(@user_presenter.pointrequests) do |year| %>
+  <% years_with_points(@user_presenter.point_history) do |year| %>
   <div class="uk-accordion-title uk-clearfix">
     <div class="uk-float-left">
       <%= year.to_readable %>
