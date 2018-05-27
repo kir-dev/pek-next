@@ -16,13 +16,13 @@ class PostsController < ApplicationController
     if new_post.leader?
       return redirect_to group_path(group)
     end
-    redirect_to :back
+    redirect_back
   end
 
   def destroy
     post_id = params[:id]
-    return redirect_to :back if DestroyPost.call(post_id)
-    redirect_to :back, alert: t(:no_leader_error)
+    return redirect_back if DestroyPost.call(post_id)
+    redirect_back alert: t(:no_leader_error)
   end
 
 end
