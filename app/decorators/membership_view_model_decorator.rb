@@ -22,4 +22,17 @@ class MembershipViewModelDecorator < Draper::Decorator
     end
   end
 
+  def leader_info_button
+    return unless membership_view_model.leader?
+    button_tag('Help me!', {
+      class: 'uk-button uk-button-primary uk-width-1-1',
+      'data-uk-modal': '{target:\'#info\'}'
+    })
+  end
+
+  def leader_info
+    return unless membership_view_model.leader?
+    render 'leader_info'
+  end
+
 end
