@@ -37,7 +37,7 @@ class DevelopmentController < ApplicationController
   end
 
   def impersonated_successfully
-    redirect_to :back, notice: :successful_impersonation
+    redirect_back fallback_location: development_path, notice: :successful_impersonation
   end
 
 end

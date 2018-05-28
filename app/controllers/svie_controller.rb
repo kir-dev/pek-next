@@ -16,7 +16,7 @@ class SvieController < ApplicationController
 
   def edit
     @svie_memberships = current_user.memberships.select { |m| m.group.issvie }
-    redirect_to :back, alert: t(:svie_group_needed) if @svie_memberships.empty?
+    redirect_back alert: t(:svie_group_needed) if @svie_memberships.empty?
   end
 
   def update
@@ -38,13 +38,13 @@ class SvieController < ApplicationController
     user = User.find(svie_post_request.usr_id)
     user.update(svie_member_type: svie_post_request.member_type)
     svie_post_request.destroy
-    redirect_to :back, notice: user.full_name + ' ' + t(:accept_application)
+    redirect_back notice: user.full_name + ' ' + t(:accept_application)
   end
 
   def reject
     svie_post_request = SviePostRequest.destroy(params[:id])
     user = User.find(svie_post_request.usr_id)
-    redirect_to :back, notice: user.full_name + ' ' + t(:abort_application)
+    redirect_back notice: user.full_name + ' ' + t(:abort_application)
   end
 
   def successful_application
