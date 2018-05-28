@@ -76,4 +76,14 @@ class ApplicationController < ActionController::Base
   def unauthorized_page
     render 'application/401', status: :unauthorized
   end
+
+  # TODO delete when we upgrade to Rails5
+  # Maybe then the default fallback_location will break the app
+  def redirect_back(fallback_location: root_url, **args)
+    if request.env['HTTP_REFERER'].present? and request.env['HTTP_REFERER'] != request.env["REQUEST_URI"]
+      redirect_to :back, args
+    else
+      redirect_to fallback_location, args
+    end
+  end
 end

@@ -7,7 +7,8 @@ class RawPhotosController < ApplicationController
 
   def update
     unless params[:rawPhoto]
-      redirect_to :back, alert: 'Nincs kép kiválasztva!'
+      redirect_back fallback_location: edit_profile_path(current_user.screen_name),
+        alert: 'Nincs kép kiválasztva'
       return
     end
 
