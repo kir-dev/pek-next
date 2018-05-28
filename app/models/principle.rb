@@ -6,4 +6,8 @@ class Principle < ActiveRecord::Base
 
   WORK = 'WORK'
   RESPONSIBILITY = 'RESPONSIBILITY'
+
+  validates :name, presence: true
+  validates :type, presence: true
+  validates :max_per_member, presence: true
 end
