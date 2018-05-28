@@ -12,7 +12,7 @@ class PointRequest < ActiveRecord::Base
 
   def recalculate!
     self.point = point_details.sum(:point)
-    save
+    save!
     evaluation.update_last_change!
   end
 end
