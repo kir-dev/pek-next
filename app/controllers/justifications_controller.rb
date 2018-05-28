@@ -1,6 +1,7 @@
-class JustificationsController < ApplicationController
+class JustificationsController < EvaluationsController
   before_action :require_login
   before_action :require_leader
+  before_action :validate_correct_group
 
   def edit
     @entry_requests = Evaluation.find(params[:evaluation_id]).entry_requests

@@ -1,6 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :require_login
   before_action :require_leader
+  before_action :validate_correct_group
 
   def current
     evaluation = Evaluation.find_by({ group_id: current_group.id, semester: SystemAttribute.semester.to_s })
@@ -32,6 +33,13 @@ class EvaluationsController < ApplicationController
     @evaluation = Evaluation.find(params[:evaluation_id])
     @evaluation.started_creation!
     @point_details = PointDetail.includes(:point_request).select { |pd| pd.point_request.evaluation == @evaluation }
+  end
+
+  private
+
+  def validate_correct_group
+    evaluation = Evaluation.find(params[:evaluation_id] || params[:id])
+    unauthorized_page unless evaluation.group == current_group
   end
 
 end
