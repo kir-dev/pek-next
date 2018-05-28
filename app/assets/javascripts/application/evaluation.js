@@ -1,6 +1,5 @@
 var evaluation = (function(Rx, $) {
     var module = {};
-    var cropper;
 
     module.init = function() {
 
