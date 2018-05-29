@@ -1,5 +1,7 @@
-class PrinciplesController < ApplicationController
+class PrinciplesController < EvaluationsController
+  before_action :require_login
   before_action :require_leader
+  before_action :validate_correct_group
 
   def index
     @evaluation = Evaluation.find(params[:evaluation_id])

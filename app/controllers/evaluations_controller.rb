@@ -1,7 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :require_login
   before_action :require_leader
-  before_action :validate_correct_group
+  before_action :validate_correct_group, only: [:show, :edit, :update, :table]
 
   def current
     evaluation = Evaluation.find_by({ group_id: current_group.id, semester: SystemAttribute.semester.to_s })
