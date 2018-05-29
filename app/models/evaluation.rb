@@ -2,7 +2,7 @@ class Evaluation < ActiveRecord::Base
   self.table_name = "ertekelesek"
   self.primary_key = :id
 
-  before_save :default_values
+  before_save :set_default_values
 
   alias_attribute :entry_request_status, :belepoigeny_statusz
   alias_attribute :timestamp, :feladas
@@ -46,12 +46,13 @@ class Evaluation < ActiveRecord::Base
     Semester.new(self.date)
   end
 
-  def default_values
+  def set_default_values
     self.point_request_status ||= NON_EXISTENT
     self.entry_request_status ||= NON_EXISTENT
     self.timestamp ||= Time.now
     self.justification ||= ''
     self.last_modification = Time.now
+    self
   end
 
   def started_creation!
