@@ -48,3 +48,13 @@ kir_dev:
   grp_name: Kir-Dev
   grp_type: szolgáltató
   grp_issvie: true
+
+group_with_no_evaluation:
+  grp_id: 300
+  grp_name: Nincs értékelés
+  grp_type: teszt
+
+group_with_existing_evaluation:
+  grp_id: 301
+  grp_name: Értékes kör
+  grp_type: teszt

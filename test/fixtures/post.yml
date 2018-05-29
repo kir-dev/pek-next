@@ -9,3 +9,11 @@ newbie_in_svie_group:
 pek_admin_in_kir_dev:
   grp_member_id: 12
   pttip_id: 66
+
+evaluation_giver_to_leader1:
+  grp_member_id: 14
+  pttip_id: 3
+
+evaluation_giver_to_leader2:
+  grp_member_id: 15
+  pttip_id: 3

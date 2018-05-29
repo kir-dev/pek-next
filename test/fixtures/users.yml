@@ -120,3 +120,9 @@ pek_admin:
   usr_firstname: Kir
   usr_lastname: Bálint
   usr_screen_name: kir
+
+evaluation_giver:
+  usr_id: 8000
+  usr_firstname: Értékelés
+  usr_lastname: Leadó Srác
+  usr_screen_name: ertekeles96
