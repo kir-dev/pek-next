@@ -5,8 +5,8 @@ module ProfilesHelper
     end
   end
 
-  def years_with_points(pointrequests)
-    pointrequests.map { |request| request.evaluation.semester }
+  def years_with_points(point_history)
+    point_history.map { |history| history.semester }
                  .uniq.sort.reverse.each do |semester|
       yield Semester.new(semester)
     end

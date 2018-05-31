@@ -16,7 +16,7 @@ module GroupsHelper
   end
 
   def archived_users(group)
-    @archived_users = Kaminari.paginate_array(group.memberships.select { |m| m.archived == nil }.
+    @archived_users = Kaminari.paginate_array(group.memberships.select { |m| m.archived != nil }.
         sort { |a, b| a.user.lastname <=> b.user.lastname }).page(params[:archived_users_page])
     @archived_users.each do |membership|
       yield GroupMember.new(membership)
