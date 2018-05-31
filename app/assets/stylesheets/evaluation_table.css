@@ -1,0 +1,25 @@
+#content-container {
+  max-width: 100%;
+}
+
+.name-column {
+  min-width: 150px;
+}
+
+#save-icon {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  border: 5px solid #acf4a6;
+  border-top: 5px solid #14700c;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

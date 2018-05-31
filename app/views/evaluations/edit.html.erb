@@ -1,0 +1,17 @@
+<% stylesheet 'groups' %>
+
+<h1>Beszámoló szerkesztése</h1>
+<div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-width-medium-2-3 uk-container-center uk-overflow-container">
+    <%= form_for @evaluation, url: group_evaluation_path(@evaluation.group, @evaluation),
+      html: { class: 'uk-form' } do |f| %>
+      
+      <%= f.text_area :explanation, cols: 80, rows: 20, placeholder: 'Beszámoló', class: 'uk-textarea' %>
+
+      <div class="uk-text-center uk-margin">
+        <%= f.submit 'Mentés', class: 'uk-button uk-button-success' %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

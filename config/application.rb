@@ -75,9 +75,18 @@ module PekNext
     config.x.svie_member_types = config.x.selectable_svie_member_types.merge({'NEMTAG' => 'Nem tag'})
 
     config.x.season_types = {
-        'NINCSERTEKELES' => 'Nyugalmi időszak',
-        'ERTEKELESLEADAS' => 'Pontozási időszak',
-        'ERTEKELESELBIRALAS' => 'Bírálási időszak'
+      'NINCSERTEKELES' => 'Nyugalmi időszak',
+      'ERTEKELESLEADAS' => 'Pontozási időszak',
+      'ERTEKELESELBIRALAS' => 'Bírálási időszak'
+    }
+    config.x.principle_types = {
+      'WORK' => 'Munka',
+      'RESPONSIBILITY' => 'Felelősség'
+    }
+    config.x.entry_types = {
+      'KDO' => 'DO',
+      'KB' => 'KB',
+      'AB' => 'ÁB'
     }
 
     config.x.auth_sch_pingback_url = 'https://auth.sch.bme.hu/api/profile/resync?access_token='

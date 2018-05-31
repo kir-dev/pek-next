@@ -69,4 +69,9 @@ class Group < ActiveRecord::Base
     pre_previous_eval = Evaluation.where(group_id: self.id).where(date: SystemAttribute.semester.previous.previous.to_s).empty?
     previous_eval && pre_previous_eval
   end
+
+  def point_eligible_memberships
+    memberships.includes(:user).select { |m| m.end == nil && m.archived == nil && m.user.svie.member? }
+      .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
+  end
 end

@@ -1,0 +1,74 @@
+<% stylesheet 'groups' %>
+<% stylesheet 'evaluation_table' %>
+
+<h1>Pontozás - <%= @evaluation.group.name %></h1>
+
+<div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-width-large-1-1 uk-container-center uk-overflow-container uk-width-1-1">
+    A beírt adatok automatikusan mentődnek. Az üres mezők nulláknak számítanak.
+    <table class="uk-table uk-table-striped uk-table-hover ">
+      <thead>
+        <tr>
+          <th>Körtagok</th>
+          <% @evaluation.principles.order(:id).each do |principle| %>
+            <th class="uk-text-center"><%= principle.name %></th>
+          <% end %>
+          <th>Szumma felelősség</th>
+          <th>Szumma munka</th>
+          <th>Szumma pont</th>
+          <th>Belépő</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @evaluation.group.point_eligible_memberships.each do |membership| %>
+          <tr>
+            <td class="name-column"><%= membership.user.full_name %></td>
+            <% @evaluation.principles.order(:id).each do |principle| %>
+              <td>
+                <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
+                data-principle-type="<%= principle.type %>"
+                class="uk-input uk-width-auto point-input" type="number" value="<%=
+                  single_detail(@point_details, membership.user, principle) %>">
+              </td>
+            <% end %>
+            <td>
+              <input disabled data-user="<%= membership.user_id %>"
+                class="uk-input uk-width-auto sum-resp" type="number"
+                value="<%= sum_details(@point_details, membership.user, Principle::RESPONSIBILITY) %>">
+            </td>
+            <td>
+              <input disabled data-user="<%= membership.user_id %>"
+                class="uk-input uk-width-auto sum-work" type="number"
+                value="<%= sum_details(@point_details, membership.user, Principle::WORK) %>">
+            </td>
+            <td>
+              <input disabled data-user="<%= membership.user_id %>"
+                class="uk-input uk-width-auto sum-all" type="number"
+                value="<%= sum_all_details(@point_details, membership.user) %>">
+            </td>
+            <td>
+              <%= form_tag(group_evaluation_entryrequests_update_path(@group, @evaluation),
+                mehtod: :post, remote: true, html: { class: 'uk-form' }) do %>
+                <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
+                  entry_request(@evaluation, membership.user)),
+                  onchange: 'javascript: $( this ).trigger("submit.rails")',
+                  class: 'uk-select uk-width-auto' %>
+                <%= hidden_field_tag :user_id, membership.user_id %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+    <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get,
+      class: "uk-button uk-align-center uk-margin-top" %>
+
+    <div id="save-icon"></div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  var updateURL = "<%= group_evaluation_pointdetails_update_path(@group, @evaluation) %>";
+</script>

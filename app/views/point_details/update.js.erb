@@ -1,0 +1,3 @@
+$('.sum-resp[data-user=<%= @user.id %>]').val(<%= sum_details(@point_details, @user, Principle::RESPONSIBILITY) %>)
+$('.sum-work[data-user=<%= @user.id %>]').val(<%= sum_details(@point_details, @user, Principle::WORK) %>)
+$('.sum-all[data-user=<%= @user.id %>]').val(<%= sum_all_details(@point_details, @user) %>)

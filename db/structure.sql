@@ -30,6 +30,18 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: belepoigenyles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.belepoigenyles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = true;
@@ -39,7 +51,7 @@ SET default_with_oids = true;
 --
 
 CREATE TABLE belepoigenyles (
-    id bigint NOT NULL,
+    id bigint DEFAULT nextval('public.belepoigenyles_id_seq'::regclass) NOT NULL,
     belepo_tipus character varying(255),
     szoveges_ertekeles text,
     ertekeles_id bigint NOT NULL,
@@ -58,6 +70,17 @@ CREATE TABLE eredmeny_tmp (
     pont integer
 );
 
+--
+-- Name: ertekeles_uzenet_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.ertekeles_uzenet_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 
 SET default_with_oids = true;
 
@@ -66,7 +89,7 @@ SET default_with_oids = true;
 --
 
 CREATE TABLE ertekeles_uzenet (
-    id bigint NOT NULL,
+    id bigint DEFAULT nextval('public.ertekeles_uzenet_id_seq'::regclass) NOT NULL,
     feladas_ido timestamp without time zone,
     uzenet text,
     felado_usr_id bigint,
@@ -75,13 +98,24 @@ CREATE TABLE ertekeles_uzenet (
     from_system boolean DEFAULT false
 );
 
+--
+-- Name: ertekelesek_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.ertekelesek_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 
 --
 -- Name: ertekelesek; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE ertekelesek (
-    id bigint NOT NULL,
+    id bigint DEFAULT nextval('public.ertekelesek_id_seq'::regclass) NOT NULL,
     belepoigeny_statusz character varying(255),
     feladas timestamp without time zone,
     pontigeny_statusz character varying(255),
@@ -314,6 +348,17 @@ CREATE TABLE points_2017 (
     point integer
 );
 
+--
+-- Name: pontigenyles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pontigenyles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 
 SET default_with_oids = true;
 
@@ -322,7 +367,7 @@ SET default_with_oids = true;
 --
 
 CREATE TABLE pontigenyles (
-    id bigint NOT NULL,
+    id bigint DEFAULT nextval('public.pontigenyles_id_seq'::regclass) NOT NULL,
     pont integer,
     ertekeles_id bigint NOT NULL,
     usr_id bigint
@@ -1144,5 +1189,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180317200507');
 
 INSERT INTO schema_migrations (version) VALUES ('20180501175635');
 
+INSERT INTO schema_migrations (version) VALUES ('20180403171730');
+
 INSERT INTO schema_migrations (version) VALUES ('20180505065154');
 
+INSERT INTO schema_migrations (version) VALUES ('20180505152100');

@@ -27,6 +27,6 @@ class DetailedPointHistory
   end
 
   def entry_card_explanation
-    @entry_request ? @entry_request.explanation : ''
+    @entry_request ? @entry_request.justification : ''
   end
 end

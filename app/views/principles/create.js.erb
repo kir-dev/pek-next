@@ -1,0 +1,4 @@
+UIkit.notify({message: "Sikeresen létrehozva!", timeout: 2000});
+$('#principles').append('<%= j render("show", principle: @principle, evaluation: @evaluation) %>');
+$('#principle_new_name').val('');
+$('#principle_new_max_per_member').val('');

@@ -1,3 +1,7 @@
 semester:
   attributename: szemeszter
   attributevalue: 200820091
+
+app_season:
+  attributename: ertekeles_idoszak
+  attributevalue: NINCSERTEKELES

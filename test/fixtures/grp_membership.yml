@@ -68,3 +68,12 @@ pek_admin_membership:
   grp_id: 106
   usr_id: 7000
 
+evaluation_giver_group1:
+  id: 14
+  usr_id: 8000
+  grp_id: 300
+
+evaluation_giver_group2:
+  id: 15
+  usr_id: 8000
+  grp_id: 301

@@ -1,0 +1,56 @@
+<% stylesheet 'groups' %>
+
+<h1>Pontozási elvek</h1>
+<div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-width-large-2-3 uk-container-center uk-overflow-container uk-width-1-1">
+
+    <div class="uk-grid uk-margin">
+      <div class="uk-width-2-10">
+        Típus
+      </div>
+      <div class="uk-width-4-10">
+        Megnevezés
+      </div>
+      <div class="uk-width-3-10">
+        Maximum adható pont / fő
+      </div>
+    </div>
+
+    <div id="principles">
+      <% @evaluation.principles.order(:id).each do |principle| %>
+        <%= render 'show', principle: principle, evaluation: @evaluation %>
+      <% end %>
+    </div>
+
+    <hr/>
+
+    <%= form_for [ @evaluation.group, @evaluation, Principle.new ], remote: true,
+      authenticity_token: true, html: { class: 'uk-form' } do |f| %>
+      <div class="uk-grid uk-margin uk-grid-small">
+
+        <div class="uk-width-2-10">
+          <%= f.select :type, options_for_select(Rails.configuration.x.principle_types.invert, ""), {},
+            class: 'uk-select uk-width-1-1' %>
+        </div>
+
+        <div class="uk-width-4-10">
+          <%= f.text_field :name, class: 'uk-input uk-width-expand', id: 'principle_new_name' %>
+        </div>
+
+        <div class="uk-width-2-10">
+          <%= f.number_field :max_per_member, class: 'uk-input uk-width-expand',
+            id: 'principle_new_max_per_member' %>
+        </div>
+
+        <div class="uk-width-2-10">
+          <%= f.submit 'Hozzáad', class: 'uk-button' %>
+        </div>
+
+      </div>
+    <% end %>
+
+    <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get,
+      class: "uk-button uk-align-center uk-margin-top" %>
+
+  </div>
+</div>

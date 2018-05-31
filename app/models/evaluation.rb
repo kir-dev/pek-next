@@ -2,6 +2,8 @@ class Evaluation < ActiveRecord::Base
   self.table_name = "ertekelesek"
   self.primary_key = :id
 
+  before_save :set_default_values
+
   alias_attribute :entry_request_status, :belepoigeny_statusz
   alias_attribute :timestamp, :feladas
   alias_attribute :point_request_status, :pontigeny_statusz
@@ -15,19 +17,25 @@ class Evaluation < ActiveRecord::Base
   alias_attribute :principle, :pontozasi_elvek
 
   belongs_to :group, foreign_key: :grp_id
-  has_many :point_requests
+  has_many :point_requests, foreign_key: :ertekeles_id
   has_many :entry_requests, foreign_key: :ertekeles_id
+  has_many :principles
+
+  NON_EXISTENT = 'NINCS'
+  ACCEPTED = 'ELFOGADVA'
+  REJECTED = 'ELUTASITVA'
+  NOT_YET_ASSESSED = 'ELBIRALATLAN'
 
   def point_request_accepted?
-    point_request_status == 'ELFOGADVA'
+    point_request_status == ACCEPTED
   end
 
   def entry_request_accepted?
-    entry_request_status == 'ELFOGADVA'
+    entry_request_status == ACCEPTED
   end
 
   def no_entry_request?
-    entry_request_status == 'NINCS'
+    entry_request_status == NON_EXISTENT
   end
 
   def accepted
@@ -36,5 +44,25 @@ class Evaluation < ActiveRecord::Base
 
   def date_as_semester
     Semester.new(self.date)
+  end
+
+  def set_default_values
+    self.point_request_status ||= NON_EXISTENT
+    self.entry_request_status ||= NON_EXISTENT
+    self.timestamp ||= Time.now
+    self.justification ||= ''
+    self.last_modification = Time.now
+    self
+  end
+
+  def started_creation!
+    self.point_request_status = NOT_YET_ASSESSED if self.point_request_status == NON_EXISTENT
+    self.entry_request_status = NOT_YET_ASSESSED if self.entry_request_status == NON_EXISTENT
+    save!
+  end
+
+  def update_last_change!
+    self.last_modification = Time.now
+    save!
   end
 end
