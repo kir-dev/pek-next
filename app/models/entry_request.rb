@@ -10,6 +10,8 @@ class EntryRequest < ActiveRecord::Base
   belongs_to :evaluation, foreign_key: :ertekeles_id
   belongs_to :user, foreign_key: :usr_id
 
+  before_save :remove_justification
+
   AB = 'AB'
   KB = 'KB'
   KDO = 'KDO'
@@ -17,5 +19,10 @@ class EntryRequest < ActiveRecord::Base
 
   after_save do
     evaluation.update_last_change!
+  end
+
+  def remove_justification
+    return unless entry_type == KDO
+    self.justification = ''
   end
 end
