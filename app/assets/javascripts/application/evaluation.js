@@ -11,6 +11,37 @@ var evaluation = (function(Rx, $) {
 
             inputStream.subscribe(inputChange);
         }
+        $('.principle').click(function() {
+            principleModal($(this))
+        });
+    }
+
+    function principleModal (principle) {
+        var sumPoint = 0, str = ``;
+        $('.point-input[data-principle="' + principle.data('id') + '"]').each(function(){
+            if($(this).val() != 0){
+                str += `<tr>
+                            <td>${$(this).data('user-name')}</td>
+                            <td>${$(this).val()}</td>
+                        </tr>`;
+                sumPoint += parseInt($(this).val());
+            }
+        });
+        UIkit.modal.alert(
+            `<h2>${principle.text()}</h2>
+             <p>${principle.data('description')}</p>
+             <table class="uk-table uk-table-striped">
+                ${str}
+             <tr>
+                    <td>
+                        <strong>Összeg</strong>
+                    </td>
+                    <td>
+                        <strong>${sumPoint}</strong>
+                    </td>
+                </tr>
+            </table>`
+        );
     }
 
     function inputChange (input) {
