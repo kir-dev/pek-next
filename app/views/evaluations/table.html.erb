@@ -11,7 +11,7 @@
         <tr>
           <th>Körtagok</th>
           <% @evaluation.principles.order(:id).each do |principle| %>
-            <th class="uk-text-center principle" data-id="<%= principle.id %>"
+            <th class="uk-text-center uk-link uk-link-muted principle" data-id="<%= principle.id %>"
             data-description="<%= principle.description %>">
               <%= principle.name %> <i class="uk-icon-eye"></i>
             </th>
@@ -64,7 +64,7 @@
         <% end %>
       </tbody>
     </table>
-    
+
     <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get,
       class: "uk-button uk-align-center uk-margin-top" %>
 
