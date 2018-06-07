@@ -16,6 +16,11 @@ class SystemAttribute < ActiveRecord::Base
     find_by(name: 'ertekeles_idoszak')
   end
 
+  def self.update_season(season)
+    find_by(name: 'ertekeles_idoszak').update(value: season)
+    EntryRequest.remove_justifications unless application_season?
+  end
+
   OFFSEASON = 'NINCSERTEKELES'
   APPLICATION_SEASON = 'ERTEKELESLEADAS'
   EVALUATION_SEASON = 'ERTEKELESELBIRALAS'
