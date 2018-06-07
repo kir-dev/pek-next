@@ -6,6 +6,7 @@ class JustificationsController < EvaluationsController
   def edit
     @entry_requests = Evaluation.find(params[:evaluation_id]).entry_requests
       .select { |er| er.entry_type != EntryRequest::KDO }
+    redirect_back alert: t(:no_entry_request) if @entry_requests.empty?
   end
 
   def update
