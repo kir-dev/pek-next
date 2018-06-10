@@ -6,6 +6,7 @@ hu:
     formats:
       default: "%Y.%m.%d. %H:%M"
 
+  no_entry_request: Nincs belépőigény leadva!
   edit_successful: Sikeres mentés!
   register_successful: Sikeres regisztráció!
   too_many_delegates: Túl sok küldöttet szeretnél beállítani!
