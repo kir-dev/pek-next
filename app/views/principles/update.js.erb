@@ -1,1 +1,5 @@
-UIkit.notify({message: "Sikeresen módosítva!", timeout: 2000})
+UIkit.notify({message: "Sikeresen módosítva!", timeout: 2000});
+
+$('#principle_type_<%= @principle.id %>').text('<%= Rails.configuration.x.principle_types[@principle.type] %>');
+$('#principle_name_<%= @principle.id %>').text('<%= @principle.name %>');
+$('#principle_max_per_member_<%= @principle.id %>').text('<%= @principle.max_per_member %>');
