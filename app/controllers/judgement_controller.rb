@@ -1,6 +1,6 @@
 class JudgementController < ApplicationController
   before_action :require_login
-  before_action :require_rvt_leader
+  before_action :require_privileges_of_rvt
 
   def index
     semester = SystemAttribute.semester.to_s

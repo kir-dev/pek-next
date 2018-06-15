@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get '/svie/pdf', to: 'svie#application_pdf'
   get '/svie/successful', to: 'svie#successful_application'
 
-  get '/judgement', to: 'judgement#index', as: :judgement
+  get '/judgement', to: 'judgement#index', as: :judgements
 
   root to: redirect('/profiles/me')
   get 'groups/all', to: 'groups#all', as: :all_groups
