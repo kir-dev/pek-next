@@ -11,7 +11,23 @@
       <h2>Bírálat</h2>
       <%= render 'form', evaluation: @evaluation %>
 
-      <%= render 'point_requests' %>
+      <ul class="uk-tab uk-margin-top" data-uk-tab="{connect:'#evaluation-switcher'}">
+        <li>
+          <a>Pontozási elvek</a>
+        </li>
+        <li class="uk-active">
+          <a>Pontozás</a>
+        </li>
+      </ul>
+
+      <ul id="evaluation-switcher" class="uk-switcher uk-margin-top">
+        <li>
+          <%= render 'principles' %>
+        </li>
+        <li>
+          <%= render 'point_requests' %>
+        </li>
+      </ul>
 
     </div>
   </div>

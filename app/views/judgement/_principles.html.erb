@@ -1,0 +1,39 @@
+<ul class="uk-list uk-list-striped">
+  <li class="uk-grid uk-margin-remove uk-text-bold">
+    <div class="uk-width-2-10">
+      Megnevezés
+    </div>
+    <div class="uk-width-3-10">
+      Leírás
+    </div>
+    <div class="uk-width-2-10 uk-text-center">
+      Típus
+    </div>
+    <div class="uk-width-1-10 uk-text-center">
+      Max / fő
+    </div>
+    <div class="uk-width-1-10 uk-text-center">
+      Kiosztott
+    </div>
+  </li>
+
+  <% @evaluation.principles.order(:name).decorate.each do |principle| %>
+    <li class="uk-grid uk-margin-remove">
+      <div class="uk-width-2-10">
+        <%= principle.name %>
+      </div>
+      <div class="uk-width-3-10">
+        <%= principle.description %>
+      </div>
+      <div class="uk-width-2-10 uk-text-center">
+        <%= principle.nice_type %>
+      </div>
+      <div class="uk-width-1-10 uk-text-center">
+        <%= principle.max_per_member %>
+      </div>
+      <div class="uk-width-1-10 uk-text-center">
+        <%= sum_principle_details(@point_details, principle) %>
+      </div>
+    </li>
+  <% end %>
+</ul>
