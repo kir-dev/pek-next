@@ -28,4 +28,7 @@ class SystemAttribute < ActiveRecord::Base
     season.value == EVALUATION_SEASON
   end
 
+  def self.offseason?
+    season.value == OFFSEASON
+  end
 end

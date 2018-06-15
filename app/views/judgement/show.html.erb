@@ -8,8 +8,10 @@
     </h1>
     <div class="uk-container-center uk-panel uk-panel-box">
 
-      <h2>Bírálat</h2>
-      <%= render 'form', evaluation: @evaluation %>
+      <% if SystemAttribute.evaluation_season? %>
+        <h2>Bírálat</h2>
+        <%= render 'form', evaluation: @evaluation %>
+      <% end %>
 
       <ul class="uk-tab uk-margin-top" id="evaluation-tab" data-uk-tab="{connect:'#evaluation-switcher'}">
         <li>
