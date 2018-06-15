@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get '/svie/successful', to: 'svie#successful_application'
 
   get '/judgement', to: 'judgement#index', as: :judgements
+  get '/judgement/:evaluation_id/edit', to: 'judgement#edit', as: :edit_judgement
+  post '/judgement/:evaluation_id/update', to: 'judgement#update', as: :update_judgement
 
   root to: redirect('/profiles/me')
   get 'groups/all', to: 'groups#all', as: :all_groups

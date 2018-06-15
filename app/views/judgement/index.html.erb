@@ -24,7 +24,7 @@
       <% @evaluations.each do |evaluation| %>
         <li class="uk-clearfix uk-link-muted">
           <div class="uk-float-left">
-            <%= link_to evaluation.group.name, group_path(evaluation.group) %>
+            <%= link_to evaluation.group.name, edit_judgement_path(evaluation) %>
           </div>
           <div class="uk-width-1-4 uk-float-right uk-text-center">
             <%= evaluation.nice_point_request_status %>
