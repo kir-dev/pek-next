@@ -27,7 +27,7 @@ class JudgementController < ApplicationController
 
   private
     def judgement_params
-      params.permit(:entry_request_status, :point_request_status, :message)
+      params.permit(:entry_request_status, :point_request_status, :explanation)
     end
 
 end
