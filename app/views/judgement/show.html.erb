@@ -11,18 +11,18 @@
       <h2>Bírálat</h2>
       <%= render 'form', evaluation: @evaluation %>
 
-      <ul class="uk-tab uk-margin-top" data-uk-tab="{connect:'#evaluation-switcher'}">
+      <ul class="uk-tab uk-margin-top" id="evaluation-tab" data-uk-tab="{connect:'#evaluation-switcher'}">
         <li>
-          <a>Pontozási elvek</a>
+          <a href="#principles">Pontozási elvek</a>
         </li>
         <li class="uk-active">
-          <a>Pontozás</a>
+          <a href="#points">Pontozás</a>
         </li>
         <li>
-          <a>Belépők</a>
+          <a href="#entries">Belépők</a>
         </li>
         <li>
-          <a>Üzenetek</a>
+          <a href="#messages">Üzenetek</a>
         </li>
       </ul>
 
