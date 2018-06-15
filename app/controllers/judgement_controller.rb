@@ -11,6 +11,8 @@ class JudgementController < ApplicationController
     @evaluation = Evaluation.find(params[:evaluation_id])
     @point_details = PointDetail.includes(:point_request)
       .select { |pd| pd.point_request.evaluation == @evaluation }
+    @entry_requests = EntryRequestDecorator.decorate_collection(@evaluation
+      .entry_requests.select { |er| er.entry_type != EntryRequest::KDO })
   end
 
   def update
