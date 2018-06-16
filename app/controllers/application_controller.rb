@@ -12,7 +12,10 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    redirect_to login_path unless session[:user_id] || ENV['NONAUTH']
+    unless session[:user_id] || ENV['NONAUTH']
+      session[:redirect_url] = request.original_fullpath
+      redirect_to login_path
+    end
   end
 
   def correct_user
