@@ -13,6 +13,22 @@ var profiles = (function(Helpers, Rx, $) {
         }
       });
     });
+    $('#share-profile').bind('click', copyToClipboard);
+  }
+
+  copyToClipboard = function() {
+    var link = $('#share-profile').attr('data-link');
+    var aux = document.createElement('input');
+    aux.setAttribute('value', link);
+    document.body.appendChild(aux);
+    aux.select();
+    document.execCommand('copy');
+    UIkit.notify({
+      status: 'success',
+      message: 'Profil link sikeresen másolva!',
+      timeout: 2000
+    });
+    document.body.removeChild(aux);
   }
 
   return module;
