@@ -7,6 +7,8 @@ hu:
       default: "%Y.%m.%d. %H:%M"
 
   no_entry_request: Nincs belépőigény leadva!
+  submitted_entry_request: Belépőigény leadva!
+  submitted_point_request: Pontigény leadva!
   edit_successful: Sikeres mentés!
   register_successful: Sikeres regisztráció!
   too_many_delegates: Túl sok küldöttet szeretnél beállítani!

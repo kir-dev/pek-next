@@ -7,7 +7,7 @@ class Evaluation < ActiveRecord::Base
   alias_attribute :entry_request_status, :belepoigeny_statusz
   alias_attribute :timestamp, :feladas
   alias_attribute :point_request_status, :pontigeny_statusz
-  alias_attribute :date, :semester
+  alias_attribute :date, :semester # This alias is misleading
   alias_attribute :justification, :szoveges_ertekeles
   alias_attribute :last_evaulation, :utolso_elbiralas
   alias_attribute :last_modification, :utolso_modositas
