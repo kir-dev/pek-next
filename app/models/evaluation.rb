@@ -55,12 +55,6 @@ class Evaluation < ActiveRecord::Base
     self
   end
 
-  def started_creation!
-    self.point_request_status = NOT_YET_ASSESSED if self.point_request_status == NON_EXISTENT
-    self.entry_request_status = NOT_YET_ASSESSED if self.entry_request_status == NON_EXISTENT
-    save!
-  end
-
   def update_last_change!
     self.last_modification = Time.now
     save!

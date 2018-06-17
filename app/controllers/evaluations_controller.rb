@@ -25,13 +25,12 @@ class EvaluationsController < ApplicationController
 
   def update
     evaluation = Evaluation.find(params[:id])
-    evaluation.update(params.require(:evaluation).permit(:explanation))
+    evaluation.update(params.require(:evaluation).permit(:justification))
     redirect_to group_evaluation_path(evaluation.group, evaluation), notice: t(:edit_successful)
   end
 
   def table
     @evaluation = Evaluation.find(params[:evaluation_id])
-    @evaluation.started_creation!
     @point_details = PointDetail.includes(:point_request).select { |pd| pd.point_request.evaluation == @evaluation }
   end
 
@@ -41,5 +40,4 @@ class EvaluationsController < ApplicationController
     evaluation = Evaluation.find(params[:evaluation_id] || params[:id])
     unauthorized_page unless evaluation.group == current_group
   end
-
 end
