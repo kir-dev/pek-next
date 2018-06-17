@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
   def create
     raw_user = request.env['omniauth.auth']['extra']['raw_info']
     redirect_url = session[:redirect_url] || root_path
-    session[:redirect_url] = nil
     user = User.find_by(auth_sch_id: raw_user['internal_id'])
     if user
       session[:user_id] = user.id
