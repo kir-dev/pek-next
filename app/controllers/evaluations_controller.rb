@@ -3,6 +3,8 @@ class EvaluationsController < ApplicationController
   before_action :require_leader
   before_action :validate_correct_group, only: %i[show edit update table submit_entry_request submit_point_request]
   before_action :validate_correct_leader, only: %i[submit_entry_request submit_point_request]
+  before_action :changeable_points, only: %i[edit update table submit_point_request]
+  before_action :changeable_entries, only: %i[submit_entry_request]
 
   def current
     evaluation = Evaluation.find_by(group_id: current_group.id, semester: SystemAttribute.semester.to_s)
@@ -50,5 +52,13 @@ class EvaluationsController < ApplicationController
 
   def validate_correct_leader
     redirect_to root_url unless current_user.leader_of? Group.find(params[:group_id])
+  end
+
+  def changeable_entries
+    redirect_to root_url unless @evaluation.changeable_entry_request_status?
+  end
+
+  def changeable_points
+    redirect_to root_url unless @evaluation.changeable_point_request_status?
   end
 end

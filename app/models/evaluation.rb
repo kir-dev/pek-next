@@ -59,4 +59,25 @@ class Evaluation < ActiveRecord::Base
     self.last_modification = Time.now
     save!
   end
+
+  def changeable_entry_request_status?
+    can_change_request_status_of? entry_request_status
+  end
+
+  def changeable_point_request_status?
+    can_change_request_status_of? point_request_status
+  end
+
+  private
+
+  def can_change_request_status_of? request_status
+    case SystemAttribute.season.value
+    when SystemAttribute::EVALUATION_SEASON
+      return true if request_status == REJECTED
+    end
+
+    return true if ([NON_EXISTENT, REJECTED].include? request_status) && SystemAttribute.application_season?
+
+    false
+  end
 end
