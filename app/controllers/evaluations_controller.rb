@@ -8,11 +8,10 @@ class EvaluationsController < ApplicationController
 
   def current
     evaluation = Evaluation.find_by(group_id: current_group.id, semester: SystemAttribute.semester.to_s)
-    unless evaluation
-      evaluation = Evaluation.create(group_id: current_group.id,
+    evaluation ||= Evaluation.create(group_id: current_group.id,
                                      creator_user_id: current_user.id,
                                      semester: SystemAttribute.semester.to_s)
-    end
+
     redirect_to group_evaluation_path(evaluation.group, evaluation)
   end
 
