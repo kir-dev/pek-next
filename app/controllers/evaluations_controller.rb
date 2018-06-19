@@ -1,7 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :require_login
   before_action :require_leader
-  before_action :validate_correct_group, only: %i[show edit update table submit_entry_request submit_point_request]
+  before_action :validate_correct_group, except: :current
   before_action :validate_correct_leader, only: %i[submit_entry_request submit_point_request]
   before_action :changeable_points, only: %i[edit update table submit_point_request]
   before_action :changeable_entries, only: %i[submit_entry_request]
@@ -40,6 +40,18 @@ class EvaluationsController < ApplicationController
     @evaluation.update(point_request_status: Evaluation::NOT_YET_ASSESSED)
 
     redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:submitted_point_request)
+  end
+
+  def cancel_entry_request
+    @evaluation.update(entry_request_status: Evaluation::NON_EXISTENT)
+
+    redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:cancelled_entry_request)
+  end
+
+  def cancel_point_request
+    @evaluation.update(point_request_status: Evaluation::NON_EXISTENT)
+
+    redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:cancelled_point_request)
   end
 
   private

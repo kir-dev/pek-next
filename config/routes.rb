@@ -44,11 +44,13 @@ Rails.application.routes.draw do
       resources :principles, only: [:index, :update, :create, :destroy]
       post '/pointdetails/update', to: 'point_details#update'
       post '/entryrequests', to: 'evaluations#submit_entry_request'
+      delete '/entryrequests', to: 'evaluations#cancel_entry_request', as: :cancel_entry_request
       post '/entryrequests/update', to: 'entry_requests#update'
       get '/justifications/edit', to: 'justifications#edit'
       post '/justifications/update', to: 'justifications#update'
       get '/table', to: 'evaluations#table'
       post '/points', to: 'evaluations#submit_point_request'
+      delete '/points', to: 'evaluations#cancel_point_request', as: :cancel_point_request
     end
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'

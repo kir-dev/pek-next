@@ -9,6 +9,8 @@ hu:
   no_entry_request: Nincs belépőigény leadva!
   submitted_entry_request: Belépőigény leadva!
   submitted_point_request: Pontigény leadva!
+  cancelled_entry_request: Belépőigény leadás visszavonva!
+  cancelled_point_request: Pontigény leadás visszavonva!
   edit_successful: Sikeres mentés!
   register_successful: Sikeres regisztráció!
   too_many_delegates: Túl sok küldöttet szeretnél beállítani!
