@@ -27,9 +27,9 @@ Rails.application.routes.draw do
   get '/svie/pdf', to: 'svie#application_pdf'
   get '/svie/successful', to: 'svie#successful_application'
 
-  get '/judgement', to: 'judgement#index', as: :judgements
-  get '/judgement/:evaluation_id/edit', to: 'judgement#edit', as: :edit_judgement
-  post '/judgement/:evaluation_id/update', to: 'judgement#update', as: :update_judgement
+  get '/judgement', to: 'judgements#index', as: :judgements
+  get '/judgement/:evaluation_id/edit', to: 'judgements#edit', as: :edit_judgement
+  post '/judgement/:evaluation_id/update', to: 'judgements#update', as: :update_judgement
 
   root to: redirect('/profiles/me')
   get 'groups/all', to: 'groups#all', as: :all_groups
