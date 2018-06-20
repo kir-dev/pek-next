@@ -12,7 +12,10 @@ module EvaluationsHelper
   end
 
   def sum_all_details(point_details, user)
-    sum_responsibility_details(point_details, user) + sum_work_details(point_details, user)
+    sum = sum_responsibility_details(point_details, user) + sum_work_details(point_details, user)
+    return 5 if [3, 4].include? sum
+    return 0 if [1, 2].include? sum
+    sum
   end
 
   def entry_request(evaluation, user)
