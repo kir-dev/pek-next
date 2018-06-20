@@ -18,4 +18,8 @@ class EntryRequest < ActiveRecord::Base
   after_save do
     evaluation.update_last_change!
   end
+
+  def self.remove_justifications
+    where(entry_type: KDO).update_all(szoveges_ertekeles: '')
+  end
 end
