@@ -1,0 +1,44 @@
+<% stylesheet 'admin' %>
+
+<h2 class="uk-h2">
+  Értékelések - <%= SystemAttribute.semester.to_readable %>
+</h2>
+
+<div id="content-main" class="uk-panel uk-panel-box">
+
+  <div class="uk-width-large-1-2 uk-width-1-1 uk-align-center">
+
+    <ul class="uk-list uk-list-line">
+      <li class="uk-clearfix uk-text-bold uk-margin-bottom">
+        <div class="uk-float-left">
+          Kör
+        </div>
+        <div class="uk-width-1-4 uk-float-right uk-text-center">
+          Pontigénylés
+        </div>
+        <div class="uk-width-1-4 uk-float-right uk-text-center">
+          Belépő igénylés
+        </div>
+      </li>
+
+      <% @evaluations.each do |evaluation| %>
+        <li class="uk-clearfix uk-link-muted">
+          <div class="uk-float-left">
+            <%= link_to evaluation.group.name, edit_judgement_path(evaluation) %>
+          </div>
+          <div class="uk-width-1-4 uk-float-right uk-text-center">
+            <%= evaluation.nice_point_request_status %>
+          </div>
+          <div class="uk-width-1-4 uk-float-right uk-text-center">
+            <%= evaluation.nice_entry_request_status %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="uk-width-expand uk-text-center uk-margin-top">
+    <%= paginate @evaluations %>
+  </div>
+
+</div>

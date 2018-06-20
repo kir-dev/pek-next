@@ -88,6 +88,12 @@ module PekNext
       'KB' => 'KB',
       'AB' => 'ÁB'
     }
+    config.x.evaulation_request_statuses = {
+      'NINCS'        => 'Nincs leadva',
+      'ELFOGADVA'    => 'Elfogadva',
+      'ELUTASITVA'   => 'Elutasítva',
+      'ELBIRALATLAN' => 'Elbírálatlan'
+    }
 
     config.x.auth_sch_pingback_url = 'https://auth.sch.bme.hu/api/profile/resync?access_token='
     config.x.neptun_regex = /^[A-Za-z0-9]{6,7}$/

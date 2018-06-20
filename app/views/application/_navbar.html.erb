@@ -31,6 +31,9 @@
                 <% if current_user.roles.rvt_leader? %>
                   <li><%= link_to "Időszakok állítása", seasons_path %></li>
                 <% end %>
+                <% if SystemAttribute.evaluation_season? %>
+                  <li><%= link_to 'Értékelések', judgements_path %></li>
+                <% end %>
               </ul>
             </div>
           </li>
