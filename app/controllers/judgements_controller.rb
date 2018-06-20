@@ -17,7 +17,8 @@ class JudgementsController < ApplicationController
       return redirect_back fallback_location: judgements_path, alert: t(:not_evaluation_season)
     end
     evaluation = Evaluation.find(params[:evaluation_id])
-    if CreateJudgement.call(evaluation, judgement_params)
+    create_judgement_service = CreateJudgement.new(judgement_params, evaluation)
+    if create_judgement_service.call
       redirect_back fallback_location: judgements_path, notice: t(:edit_successful)
     else
       redirect_back fallback_location: judgements_path, alert: t(:no_changes)
