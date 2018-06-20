@@ -6,7 +6,7 @@
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-width-large-1-1 uk-container-center uk-overflow-container uk-width-1-1">
     A beírt adatok automatikusan mentődnek. Az üres mezők nulláknak számítanak.
-    <table class="uk-table uk-table-striped uk-table-hover ">
+    <table class="uk-table uk-table-striped uk-table-hover uk-table-condensed">
       <thead>
         <tr>
           <th>Körtagok</th>
@@ -25,7 +25,9 @@
       <tbody>
         <% @evaluation.group.point_eligible_memberships.each do |membership| %>
           <tr>
-            <td class="name-column" data-id="<%= membership.user_id %>"><%= membership.user.full_name %></td>
+            <td class="uk-text-nowrap name-column" data-id="<%= membership.user_id %>">
+              <%= membership.user.full_name %>
+            </td>
             <% @evaluation.principles.order(:id).each do |principle| %>
               <td>
                 <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
@@ -37,17 +39,17 @@
             <% end %>
             <td>
               <input disabled data-user="<%= membership.user_id %>"
-                class="uk-input uk-width-auto sum-resp" type="number"
+                class="uk-input uk-width-auto uk-text-center sum-resp" type="number"
                 value="<%= sum_responsibility_details(@point_details, membership.user) %>">
             </td>
             <td>
               <input disabled data-user="<%= membership.user_id %>"
-                class="uk-input uk-width-auto sum-work" type="number"
+                class="uk-input uk-width-auto uk-text-center sum-work" type="number"
                 value="<%= sum_work_details(@point_details, membership.user) %>">
             </td>
             <td>
               <input disabled data-user="<%= membership.user_id %>"
-                class="uk-input uk-width-auto sum-all" type="number"
+                class="uk-input uk-width-auto uk-text-center sum-all" type="number"
                 value="<%= sum_all_details(@point_details, membership.user) %>">
             </td>
             <td>
