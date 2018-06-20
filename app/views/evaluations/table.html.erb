@@ -38,12 +38,12 @@
             <td>
               <input disabled data-user="<%= membership.user_id %>"
                 class="uk-input uk-width-auto sum-resp" type="number"
-                value="<%= sum_details(@point_details, membership.user, Principle::RESPONSIBILITY) %>">
+                value="<%= sum_responsibility_details(@point_details, membership.user) %>">
             </td>
             <td>
               <input disabled data-user="<%= membership.user_id %>"
                 class="uk-input uk-width-auto sum-work" type="number"
-                value="<%= sum_details(@point_details, membership.user, Principle::WORK) %>">
+                value="<%= sum_work_details(@point_details, membership.user) %>">
             </td>
             <td>
               <input disabled data-user="<%= membership.user_id %>"
