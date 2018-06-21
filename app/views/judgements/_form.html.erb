@@ -1,0 +1,29 @@
+<%= form_tag update_judgement_path, class: 'uk-form uk-form-horizontal uk-width-1-1 uk-width-large-1-2 uk-align-center' do %>
+  <div class="uk-form-row">
+    <label class="uk-form-label">Pont igénylés:</label>
+    <div class="uk-form-controls">
+      <%= select_tag :point_request_status,
+          options_for_select(Rails.configuration.x.evaulation_request_statuses.invert, evaluation.point_request_status),
+          class: 'uk-select uk-width-1-1' %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <label class="uk-form-label">Belépő igénylés:</label>
+    <div class="uk-form-controls">
+      <%= select_tag :entry_request_status,
+          options_for_select(Rails.configuration.x.evaulation_request_statuses.invert, evaluation.entry_request_status),
+          class: 'uk-select uk-width-1-1' %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <label class="uk-form-label">Indoklás:</label>
+    <div class="uk-form-controls">
+      <%= text_area_tag :explanation, '', class: 'uk-textarea uk-width-1-1' %>
+    </div>
+  </div>
+  <div class="uk-form-row uk-text-center">
+    <%= submit_tag 'Mentés', class: 'uk-button'%>
+  </div>
+<% end %>

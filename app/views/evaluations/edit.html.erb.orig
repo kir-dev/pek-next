@@ -6,7 +6,11 @@
     <%= form_for @evaluation, url: group_evaluation_path(@evaluation.group, @evaluation),
       html: { class: 'uk-form' } do |f| %>
 
+<<<<<<< HEAD
       <%= f.text_area :justification, cols: 80, rows: 20, placeholder: 'Beszámoló', class: 'uk-textarea' %>
+=======
+      <%= f.text_area :explanation, cols: 80, rows: 20, placeholder: 'Beszámoló', class: 'uk-textarea' %>
+>>>>>>> master
 
       <div class="uk-text-center uk-margin">
         <%= f.submit 'Mentés', class: 'uk-button uk-button-success' %>
