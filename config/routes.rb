@@ -42,7 +42,9 @@ Rails.application.routes.draw do
       put '/unarchive', to: 'memberships#unarchive'
       resources :posts, only: [:index, :create, :destroy]
     end
+
     resources :post_types, only: [:create]
+
     get '/evaluations/current', to: 'evaluations#current'
     resources :evaluations, only: [:show, :edit, :update] do
       resources :principles, only: [:index, :update, :create, :destroy]
@@ -53,8 +55,8 @@ Rails.application.routes.draw do
       get '/justifications/edit', to: 'justifications#edit'
       post '/justifications/update', to: 'justifications#update'
       get '/table', to: 'evaluations#table'
-      post '/points', to: 'evaluations#submit_point_request'
-      delete '/points', to: 'evaluations#cancel_point_request', as: :cancel_point_request
+      post '/pointrequest', to: 'evaluations#submit_point_request'
+      delete '/pointrequest', to: 'evaluations#cancel_point_request', as: :cancel_point_request
     end
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'
