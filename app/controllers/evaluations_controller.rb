@@ -2,7 +2,6 @@ class EvaluationsController < ApplicationController
   before_action :require_login
   before_action :require_leader
   before_action :validate_correct_group, except: :current
-  before_action :validate_correct_leader, only: %i[submit_entry_request submit_point_request]
   before_action :changeable_points, only: %i[edit update table submit_point_request]
   before_action :changeable_entries, only: %i[submit_entry_request]
 
@@ -59,10 +58,6 @@ class EvaluationsController < ApplicationController
   def validate_correct_group
     @evaluation = Evaluation.find(params[:evaluation_id] || params[:id])
     unauthorized_page unless @evaluation.group == current_group
-  end
-
-  def validate_correct_leader
-    redirect_to root_url unless current_user.leader_of? Group.find(params[:group_id])
   end
 
   def changeable_entries
