@@ -71,12 +71,8 @@ class Evaluation < ActiveRecord::Base
   private
 
   def can_change_request_status_of? request_status
-    case SystemAttribute.season.value
-    when SystemAttribute::EVALUATION_SEASON
-      return true if request_status == REJECTED
-    end
-
-    return true if ([NON_EXISTENT, REJECTED].include? request_status) && SystemAttribute.application_season?
+    return true if SystemAttribute.evaluation_season? && request_status == REJECTED
+    return true if SystemAttribute.application_season? && ([NON_EXISTENT, REJECTED].include? request_status)
 
     false
   end
