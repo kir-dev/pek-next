@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get '/svie/successful', to: 'svie#successful_application'
 
   get '/judgement', to: 'judgements#index', as: :judgements
-  get '/judgement/:evaluation_id/edit', to: 'judgements#edit', as: :edit_judgement
+  get '/judgement/:evaluation_id', to: 'judgements#show', as: :judgement
   post '/judgement/:evaluation_id/update', to: 'judgements#update', as: :update_judgement
 
   root to: redirect('/profiles/me')

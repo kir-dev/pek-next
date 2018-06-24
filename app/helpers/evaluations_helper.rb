@@ -15,4 +15,9 @@ module EvaluationsHelper
   def entry_request(evaluation, user)
     evaluation.entry_requests.find { |er| er.user == user }&.entry_type || EntryRequest::DEFAULT_TYPE
   end
+
+  def sum_principle_details(point_details, principle)
+    point_details.select { |pd| pd.principle == principle }
+    .sum { |pd| pd.point }
+  end
 end
