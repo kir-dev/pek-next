@@ -1,0 +1,18 @@
+<ul class="uk-comment-list">
+  <% @evaluation_messages.each do |message| %>
+    <li class="uk-panel-box">
+      <article class="uk-comment">
+        <header class="uk-comment-header">
+          <img class="uk-comment-avatar" src="" alt="">
+          <h4 class="uk-comment-title uk-margin-remove"><%= message.sender_user_name %></h4>
+          <div class="uk-comment-meta"><%= message.sent_at %></div>
+        </header>
+        <div class="uk-comment-body"><%= message.message %></div>
+      </article>
+    </li>
+  <% end %>
+</ul>
+
+<div class="uk-width-expand uk-text-center uk-margin-top">
+  <%= paginate @evaluation_messages %>
+</div>
