@@ -62,7 +62,11 @@ html, body {
 }
 
 .uk-padding-small {
-    padding: 5px;
+	padding: 5px;
+}
+
+.col-vertical-border {
+	border-left: solid 1px #ddd;
 }
 
 .uk-navbar-nav>li>a {

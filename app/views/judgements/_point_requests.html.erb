@@ -17,20 +17,20 @@
         <tr>
           <td class="uk-text-left uk-text-bold"><%= membership.user.full_name %></td>
           <% @evaluation.principles.order(:id).each do |principle| %>
-            <td>
+            <td class="col-vertical-border">
               <%= single_detail(@point_details, membership.user, principle) %>
             </td>
           <% end %>
-          <td>
+          <td class="col-vertical-border">
             <%= sum_details(@point_details, membership.user, Principle::RESPONSIBILITY) %>
           </td>
-          <td>
+          <td class="col-vertical-border">
             <%= sum_details(@point_details, membership.user, Principle::WORK) %>
           </td>
-          <td>
+          <td class="col-vertical-border">
             <%= sum_all_details(@point_details, membership.user) %>
           </td>
-          <td>
+          <td class="col-vertical-border">
             <%= Rails.configuration.x.entry_types[entry_request(@evaluation, membership.user)] %>
           </td>
         </tr>
