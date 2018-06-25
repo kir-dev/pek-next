@@ -7,7 +7,7 @@ class Evaluation < ActiveRecord::Base
   alias_attribute :entry_request_status, :belepoigeny_statusz
   alias_attribute :timestamp, :feladas
   alias_attribute :point_request_status, :pontigeny_statusz
-  alias_attribute :date, :semester
+  alias_attribute :date, :semester # This alias is misleading
   alias_attribute :justification, :szoveges_ertekeles
   alias_attribute :last_evaulation, :utolso_elbiralas
   alias_attribute :last_modification, :utolso_modositas
@@ -55,14 +55,25 @@ class Evaluation < ActiveRecord::Base
     self
   end
 
-  def started_creation!
-    self.point_request_status = NOT_YET_ASSESSED if self.point_request_status == NON_EXISTENT
-    self.entry_request_status = NOT_YET_ASSESSED if self.entry_request_status == NON_EXISTENT
-    save!
-  end
-
   def update_last_change!
     self.last_modification = Time.now
     save!
+  end
+
+  def changeable_entry_request_status?
+    can_change_request_status_of? entry_request_status
+  end
+
+  def changeable_point_request_status?
+    can_change_request_status_of? point_request_status
+  end
+
+  private
+
+  def can_change_request_status_of? request_status
+    return true if SystemAttribute.evaluation_season? && request_status == REJECTED
+    return true if SystemAttribute.application_season? && ([NON_EXISTENT, REJECTED].include? request_status)
+
+    false
   end
 end

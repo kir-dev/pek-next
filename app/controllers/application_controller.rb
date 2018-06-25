@@ -23,16 +23,6 @@ class ApplicationController < ActionController::Base
     redirect_to(root_url) unless user == current_user
   end
 
-  def require_leader
-    if params[:group_id]
-      @group = Group.find(params[:group_id])
-    else
-      @group = Group.find(params[:id])
-    end
-    @own_membership = current_user.membership_for(@group)
-    unauthorized_page unless @own_membership && @own_membership.leader?
-  end
-
   def require_svie_admin
     redirect_to root_url unless current_user.roles.svie_admin?
   end
