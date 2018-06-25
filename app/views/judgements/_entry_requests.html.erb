@@ -1,0 +1,27 @@
+<ul class="uk-list uk-list-striped">
+  <li class="uk-grid uk-margin-remove uk-text-bold">
+    <div class="uk-width-2-10">
+      Név
+    </div>
+    <div class="uk-width-1-10 uk-text-center">
+      Típus
+    </div>
+    <div class="uk-width-6-10 uk-text-center">
+      Leírás
+    </div>
+  </li>
+
+  <% @entry_requests.each do |entry_request| %>
+    <li class="uk-grid uk-margin-remove">
+      <div class="uk-width-2-10">
+        <%= entry_request.user.decorate.full_name %>
+      </div>
+      <div class="uk-width-1-10 uk-text-center">
+        <%= entry_request.nice_entry_type %>
+      </div>
+      <div class="uk-width-6-10 uk-text-center">
+        <%= entry_request.justification %>
+      </div>
+    </li>
+  <% end %>
+</ul>

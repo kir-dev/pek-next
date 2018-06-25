@@ -1,0 +1,48 @@
+<% stylesheet 'admin' %>
+
+<div id="content-main" class="group-container">
+  <div class="uk-responsive-width">
+    <h1 class="uk-h1">
+      <%= @evaluation.group.name %>
+      <span class="uk-text-muted"> - <%= Semester.new(@evaluation.semester).to_readable %></span>
+    </h1>
+    <div class="uk-container-center uk-panel uk-panel-box">
+
+      <% if SystemAttribute.evaluation_season? %>
+        <h2>Bírálat</h2>
+        <%= render 'form', evaluation: @evaluation %>
+      <% end %>
+
+      <ul class="uk-tab uk-margin-top" id="evaluation-tab" data-uk-tab="{connect:'#evaluation-switcher'}">
+        <li>
+          <a href="#principles">Pontozási elvek</a>
+        </li>
+        <li class="uk-active">
+          <a href="#points">Pontozás</a>
+        </li>
+        <li>
+          <a href="#entries">Belépők</a>
+        </li>
+        <li>
+          <a href="#messages">Üzenetek</a>
+        </li>
+      </ul>
+
+      <ul id="evaluation-switcher" class="uk-switcher uk-margin-top">
+        <li>
+          <%= render 'principles' %>
+        </li>
+        <li>
+          <%= render 'point_requests' %>
+        </li>
+        <li>
+          <%= render 'entry_requests' %>
+        </li>
+        <li>
+          <%= render 'evaluation_messages' %>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
