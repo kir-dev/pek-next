@@ -2,6 +2,7 @@ class PointDetailsController < ApplicationController
   before_action :require_login
   before_action :require_leader
   before_action :set_entities
+  before_action :changeable_evaluation
 
   def update
     point_request = PointRequest.find_or_create_by(evaluation: @evaluation, user: @user)
@@ -27,5 +28,9 @@ class PointDetailsController < ApplicationController
     return 0 if point < 0
     return max_point if point > max_point
     point
+  end
+
+  def changeable_evaluation
+    redirect_to root_url unless @evaluation.changeable_point_request_status?
   end
 end

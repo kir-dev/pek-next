@@ -102,3 +102,6 @@ $ source ~/.bashrc
 _Restart your terminal_
 
 by [Kir-Dev Team](http://kir-dev.sch.bme.hu/)
+
+### Special thanks for
+[![Rollbar](public/img/rollbar.png)](https://rollbar.com/)

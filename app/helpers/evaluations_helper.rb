@@ -22,9 +22,16 @@ module EvaluationsHelper
     evaluation.entry_requests.find { |er| er.user == user }&.entry_type || EntryRequest::DEFAULT_TYPE
   end
 
+  def sum_principle_details(point_details, principle)
+    point_details.select { |pd| pd.principle == principle }
+    .sum { |pd| pd.point }
+  end
+
   private
-    def sum_details(point_details, user, principle_type)
-      point_details.select { |pd| pd.point_request.user == user && pd.principle.type == principle_type }
-      .sum { |pd| pd.point }
-    end
+
+  def sum_details(point_details, user, principle_type)
+    point_details.select { |pd| pd.point_request.user == user && pd.principle.type == principle_type }
+    .sum { |pd| pd.point }
+  end
+
 end
