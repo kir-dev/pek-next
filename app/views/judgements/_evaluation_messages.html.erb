@@ -1,8 +1,16 @@
-<ul class="uk-comment-list">
-  <% @evaluation_messages.each do |message| %>
-    <%= render 'messages/message', message: message %>
-  <% end %>
-</ul>
+<%= render 'messages/form', group: @evaluation.group %>
+
+<% if @evaluation_messages.empty? %>
+  <div class="uk-text-center uk-padding uk-text-muted">
+    Nincs megjelenítendő üzenet!
+  </div>
+<% else %>
+  <ul class="uk-comment-list uk-margin-top">
+    <% @evaluation_messages.each do |message| %>
+      <%= render 'messages/message', message: message %>
+    <% end %>
+  </ul>
+<% end %>
 
 <div class="uk-width-expand uk-text-center uk-margin-top">
   <%= paginate @evaluation_messages %>
