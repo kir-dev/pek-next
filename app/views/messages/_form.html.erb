@@ -1,0 +1,20 @@
+<%= form_tag group_message_create_path(group),
+  class: 'uk-form uk-form-horizontal uk-width-1-1 uk-panel-box' do %>
+
+  <article class="uk-comment">
+    <header class="uk-comment-header">
+      <%= image_tag photo_path(current_user.screen_name), alt: current_user.full_name, class: 'uk-comment-avatar profile-picture' %>
+      <h4 class="uk-comment-title uk-margin-remove"><%= current_user.full_name %></h4>
+    </header>
+    <div class="uk-comment-body uk-grid uk-grid-collapse">
+      <div class="uk-width" style="width: calc(100% - 50px)">
+        <%= text_area_tag :message, '', class: 'uk-textarea uk-width-1-1' %>
+      </div>
+      <div class="uk-width" style="width: 50px">
+        <%= button_tag type: 'submit', class: 'uk-button uk-button-primary uk-align-right uk-height-1-1', title: 'Küldés', 'uk-tooltip': '' do %>
+          <i class="uk-icon-send"></i>
+        <% end %>
+      </div>
+    </div>
+  </article>
+<% end %>
