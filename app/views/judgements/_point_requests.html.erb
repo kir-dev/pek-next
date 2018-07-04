@@ -22,10 +22,10 @@
             </td>
           <% end %>
           <td class="col-vertical-border">
-            <%= sum_details(@point_details, membership.user, Principle::RESPONSIBILITY) %>
+            <%= sum_responsibility_details(@point_details, membership.user) %>
           </td>
           <td class="col-vertical-border">
-            <%= sum_details(@point_details, membership.user, Principle::WORK) %>
+            <%= sum_work_details(@point_details, membership.user) %>
           </td>
           <td class="col-vertical-border">
             <%= sum_all_details(@point_details, membership.user) %>
