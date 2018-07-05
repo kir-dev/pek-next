@@ -1,17 +1,25 @@
 <h2>Profilkép</h2>
 
-<div class="uk-margin-large-top uk-margin" id="image-upload-container">
+
+<figure class="uk-overlay uk-width-small-1-2 uk-flex-center uk-padding-large uk-overlay-hover uk-align-center">
+  <%= image_tag photo_path(current_user.screen_name),
+    alt: current_user.full_name, class: 'uk-thumbnail uk-width-1-1' %>
+  <figcaption class="uk-overlay-panel uk-overlay-top">
+    <%= link_to edit_photo_path(current_user.screen_name), class: 'uk-align-right uk-link-muted uk-overlay-background uk-padding' do %>
+      <i class="uk-icon-edit uk-contrast"></i>
+    <% end %>
+  </figcaption>
+</figure>
+
+<h3>Új feltöltése</h3>
+<div class="uk-margin-top uk-margin" id="image-upload-container">
   <%= form_tag photo_raw_path, multipart: true, class: 'uk-form uk-margin-remove' do %>
-    <div class="uk-grid uk-grid-small">
-      <div class="uk-width-1-1 uk-width-medium-1-2">
+    <div class="uk-clearfix">
+      <div class="uk-width-1-1 uk-width-medium-1-2 uk-float-left">
         <%= file_field_tag 'rawPhoto' %>
       </div>
-      <div class="uk-width-1-1 uk-width-medium-1-4 uk-margin-small-bottom">
+      <div class="uk-width-1-1 uk-width-medium-1-4 uk-float-right">
         <input class="uk-button uk-width-1-1" type="submit" value="Feltöltés" name="submitButton"/>
-      </div>
-      <div class="uk-width-1-1 uk-width-medium-1-4 uk-margin-small-bottom">
-        <%= link_to('Szerkesztés', edit_photo_path(current_user.screen_name),
-          class: 'uk-align-right uk-button uk-width-1-1') %>
       </div>
     </div>
   <% end %>

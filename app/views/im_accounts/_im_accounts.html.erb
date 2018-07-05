@@ -1,4 +1,4 @@
-<h2>IM Accounts</h2>
+<h2>IM Fiókok</h2>
 
 <div id="im_accounts">
   <% @user.im_accounts.each do |im_account| %>
@@ -6,7 +6,9 @@
   <% end %>
 </div>
 
-<hr>
+<% unless @user.im_accounts.empty? %>
+  <hr>
+<% end %>
 
 <%= form_for @imAccount, :remote => true, :authenticity_token => true, html: {class: 'uk-form'} do |f| %>
   <div class="uk-grid uk-margin uk-grid-small">
