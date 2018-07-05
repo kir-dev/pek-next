@@ -105,6 +105,7 @@
 
       <li class="uk-nav-header">Közösség</li>
       <li><%= link_to "Körök", groups_path %></li>
+      <li><%= link_to "Összes kör", all_groups_url %></li>
 
       <% if current_user.roles.rvt_member? %>
       <li class="uk-nav-header">RVT felület</li>
