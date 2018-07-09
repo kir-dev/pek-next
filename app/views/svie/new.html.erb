@@ -15,23 +15,27 @@
 
             <tr>
               <td><%= label_tag :home_address, 'Lakcím:' %></td>
-              <td><%= text_field_tag :home_address, current_user.home_address, class: 'uk-input uk-width-expand' %></td>
+              <td><%= text_field_tag :home_address, current_user.home_address, class: 'uk-input uk-width-expand', required: true %></td>
             </tr>
             <tr>
               <td><%= label_tag :place_of_birth, 'Születési hely:' %></td>
-              <td><%= text_field_tag :place_of_birth, current_user.place_of_birth, class: 'uk-input uk-width-expand' %></td>
+              <td><%= text_field_tag :place_of_birth, current_user.place_of_birth, class: 'uk-input uk-width-expand', required: true %></td>
+            </tr>
+            <tr>
+              <td><%= label_tag :date_of_birth, 'Születési idő:' %></td>
+              <td><%= date_field_tag :date_of_birth, current_user.date_of_birth, class: 'uk-input uk-width-expand', required: true %></td>
             </tr>
             <tr>
               <td><%= label_tag :birth_name, 'Születési név:' %></td>
-              <td><%= text_field_tag :birth_name, current_user.birth_name, class: 'uk-input uk-width-expand' %></td>
+              <td><%= text_field_tag :birth_name, current_user.birth_name, class: 'uk-input uk-width-expand', required: true %></td>
             </tr>
             <tr>
               <td><%= label_tag :mother_name, 'Anyja neve:' %></td>
-              <td><%= text_field_tag :mother_name, current_user.mother_name, class: 'uk-input uk-width-expand' %></td>
+              <td><%= text_field_tag :mother_name, current_user.mother_name, class: 'uk-input uk-width-expand', required: true %></td>
             </tr>
             <tr>
               <td><%= label_tag :email, 'Email cím:' %></td>
-              <td><%= text_field_tag :email, current_user.email, class: 'uk-input uk-width-expand' %></td>
+              <td><%= text_field_tag :email, current_user.email, class: 'uk-input uk-width-expand', required: true %></td>
             </tr>
             <tr>
               <td><%= label_tag :svie_member_type, 'Tagság típusa' %></td>

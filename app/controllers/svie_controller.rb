@@ -8,7 +8,7 @@ class SvieController < ApplicationController
 
   def create
     params.permit(:svie_member_type)
-    update_params = params.permit(:home_address, :mother_name, :place_of_birth, :birth_name, :email)
+    update_params = params.permit(:home_address, :mother_name, :place_of_birth, :date_of_birth, :birth_name, :email)
     current_user.update(update_params)
     current_user.svie.create_request(params[:svie_member_type])
     redirect_to svie_successful_path
