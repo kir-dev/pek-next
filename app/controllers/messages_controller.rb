@@ -6,14 +6,12 @@ class MessagesController < ApplicationController
 
   def index
     @semester = SystemAttribute.semester.to_s
-    @group = Group.find(params[:group_id])
     @evaluation_messages =
       EvaluationMessage.where(group: @group, semester: @semester)
                        .order(sent_at: :desc).page(params[:page]).decorate
   end
 
   def all
-    @group = Group.find(params[:group_id])
     @evaluation_messages =
       EvaluationMessage.where(group: @group)
                        .order(sent_at: :desc).page(params[:page]).decorate
@@ -22,8 +20,9 @@ class MessagesController < ApplicationController
 
   def create
     semester = SystemAttribute.semester.to_s
-    group = Group.find(params[:group_id])
-    EvaluationMessage.create(message: params[:message], group: group, sender_user: current_user, sent_at: DateTime.now, semester: semester)
+    EvaluationMessage.create(message: params[:message], group: current_group,
+                             sender_user: current_user, sent_at: DateTime.now,
+                             semester: semester)
     redirect_back fallback_location: group_messages_path(current_group)
   end
 end
