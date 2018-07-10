@@ -26,16 +26,4 @@ class MessagesController < ApplicationController
     EvaluationMessage.create(message: params[:message], group: group, sender_user: current_user, sent_at: DateTime.now, semester: semester)
     redirect_back fallback_location: group_messages_path(current_group)
   end
-
-  private
-
-  def require_application_or_evaluation_season
-    redirect_to root_url if SystemAttribute.offseason?
-  end
-
-  def require_leader_or_rvt_member
-    membership = current_user.membership_for(current_group)
-    return if (membership && membership.leader?) || current_user.roles.rvt_member?
-    unauthorized_page
-  end
 end
