@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     end
     get '/messages', to: 'messages#index'
     get '/messages/all', to: 'messages#all'
-    post '/messages', to: 'messages#create', as: :message_create
+    post '/messages', to: 'messages#create'
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'
     delete '/delegate', to: 'delegates#destroy'
