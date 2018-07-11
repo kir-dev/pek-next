@@ -35,6 +35,17 @@ class ApplicationController < ActionController::Base
     unauthorized_page unless current_user.roles.rvt_leader?
   end
 
+  def require_resort_leader
+    @own_membership = current_user.roles.resort_leader?(current_group)
+    unauthorized_page unless @own_membership && @own_membership.leader?
+  end
+
+  def require_resort_or_group_leader
+    @resort_leader = current_user.roles.resort_leader?(current_group)
+    @own_membership = current_user.membership_for(current_group)
+    unauthorized_page unless (@own_membership && @own_membership.leader?) || @resort_leader
+  end
+
   def require_pek_admin
     unauthorized_page unless current_user.roles.pek_admin?
   end

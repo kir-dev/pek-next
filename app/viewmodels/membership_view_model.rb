@@ -10,4 +10,8 @@ class MembershipViewModel
     membership = user.membership_for(group)
     return membership.leader? if membership
   end
+
+  def resort_leader?
+    @user.roles.resort_leader?(@group)
+  end
 end

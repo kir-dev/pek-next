@@ -20,4 +20,8 @@ class UserRole
     @user.leader_of?(Group.rvt) || pek_admin?
   end
 
+  def resort_leader?(group)
+    @user.leader_of?(group.parent) || pek_admin?
+  end
+
 end
