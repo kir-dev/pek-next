@@ -9,15 +9,15 @@ class UserRole
   end
 
   def svie_admin?
-    @user.member_of?(Group.svie)
+    @user.member_of?(Group.svie) || pek_admin?
   end
 
   def rvt_member?
-    @user.member_of?(Group.rvt)
+    @user.member_of?(Group.rvt) || pek_admin?
   end
 
   def rvt_leader?
-    @user.leader_of?(Group.rvt)
+    @user.leader_of?(Group.rvt) || pek_admin?
   end
 
 end
