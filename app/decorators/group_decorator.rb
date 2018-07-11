@@ -32,6 +32,11 @@ class GroupDecorator < Draper::Decorator
     group.issvie ? 'Igen' : 'Nem'
   end
 
+  def parent
+    return '-' unless group.parent
+    link_to group.parent.name, group.parent
+  end
+
   private
     def format_description
       group.description.gsub('[-----------------------------------------]','<br/>')

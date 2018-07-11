@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
   alias_attribute :id, :grp_id
   alias_attribute :name, :grp_name
   alias_attribute :type, :grp_type
-  alias_attribute :parent, :grp_parent
+  alias_attribute :parent_id, :grp_parent
   alias_attribute :state, :grp_state
   alias_attribute :description, :grp_description
   alias_attribute :webpage, :grp_webpage
@@ -15,10 +15,12 @@ class Group < ActiveRecord::Base
   alias_attribute :delegate_count, :grp_svie_delegate_nr
   alias_attribute :users_can_apply, :grp_users_can_apply
   alias_attribute :archived_members_visible, :grp_archived_members_visible
+  alias_attribute :parent, :group
 
   has_many :memberships, foreign_key: :grp_id
   has_many :members, through: :memberships, source: :user
   has_many :post_types, foreign_key: :grp_id
+  belongs_to :group, foreign_key: :grp_parent
   alias :own_post_types :post_types
 
   SVIE_ID = 369
