@@ -7,13 +7,13 @@ class MessagesController < ApplicationController
   def index
     @semester = SystemAttribute.semester.to_s
     @evaluation_messages =
-      EvaluationMessage.where(group: @group, semester: @semester)
+      EvaluationMessage.where(group: current_group, semester: @semester)
                        .order(sent_at: :desc).page(params[:page]).decorate
   end
 
   def all
     @evaluation_messages =
-      EvaluationMessage.where(group: @group)
+      EvaluationMessage.where(group: current_group)
                        .order(sent_at: :desc).page(params[:page]).decorate
     render :index
   end
