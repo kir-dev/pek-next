@@ -56,15 +56,18 @@ class EvaluationsController < ApplicationController
   private
 
   def validate_correct_group
-    @evaluation = Evaluation.find(params[:evaluation_id] || params[:id])
-    unauthorized_page unless @evaluation.group == current_group
+    unauthorized_page unless current_evaluation.group == current_group
   end
 
   def changeable_entries
-    redirect_to root_url unless @evaluation.changeable_entry_request_status?
+    redirect_to root_url unless current_evaluation.changeable_entry_request_status?
   end
 
   def changeable_points
-    redirect_to root_url unless @evaluation.changeable_point_request_status?
+    redirect_to root_url unless current_evaluation.changeable_point_request_status?
+  end
+
+  def current_evaluation
+    @evaluation ||= Evaluation.find(params[:evaluation_id] || params[:id])
   end
 end
