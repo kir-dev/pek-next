@@ -14,43 +14,46 @@ class EvaluationsController < ApplicationController
     redirect_to group_evaluation_path(evaluation.group, evaluation)
   end
 
-  def show; end
+  def show
+    @evaluation = current_evaluation
+  end
 
   def edit
     @evaluation = Evaluation.find_by(group_id: current_group.id, semester: SystemAttribute.semester.to_s)
   end
 
   def update
-    @evaluation.update(params.require(:evaluation).permit(:justification))
-    redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:edit_successful)
+    current_evaluation.update(params.require(:evaluation).permit(:justification))
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:edit_successful)
   end
 
   def table
-    @point_details = PointDetail.includes(:point_request).select { |pd| pd.point_request.evaluation == @evaluation }
+    @point_details = PointDetail.includes(:point_request).select { |pd| pd.point_request.evaluation == current_evaluation }
+    @evaluation = current_evaluation
   end
 
   def submit_entry_request
-    @evaluation.update(entry_request_status: Evaluation::NOT_YET_ASSESSED)
+    current_evaluation.update(entry_request_status: Evaluation::NOT_YET_ASSESSED)
 
-    redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:submitted_entry_request)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:submitted_entry_request)
   end
 
   def submit_point_request
-    @evaluation.update(point_request_status: Evaluation::NOT_YET_ASSESSED)
+    current_evaluation.update(point_request_status: Evaluation::NOT_YET_ASSESSED)
 
-    redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:submitted_point_request)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:submitted_point_request)
   end
 
   def cancel_entry_request
-    @evaluation.update(entry_request_status: Evaluation::NON_EXISTENT)
+    current_evaluation.update(entry_request_status: Evaluation::NON_EXISTENT)
 
-    redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:cancelled_entry_request)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:cancelled_entry_request)
   end
 
   def cancel_point_request
-    @evaluation.update(point_request_status: Evaluation::NON_EXISTENT)
+    current_evaluation.update(point_request_status: Evaluation::NON_EXISTENT)
 
-    redirect_to group_evaluation_path(@evaluation.group, @evaluation), notice: t(:cancelled_point_request)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:cancelled_point_request)
   end
 
   private
@@ -64,10 +67,10 @@ class EvaluationsController < ApplicationController
   end
 
   def changeable_points
-    redirect_to root_url unless current_evaluation.changeable_point_request_status?
+    redirect_to root_url, notice: t("mi a fas?") unless current_evaluation.changeable_point_request_status?
   end
 
   def current_evaluation
-    @evaluation ||= Evaluation.find(params[:evaluation_id] || params[:id])
+    @current_evaluation ||= Evaluation.find(params[:evaluation_id] || params[:id])
   end
 end
