@@ -58,6 +58,9 @@ Rails.application.routes.draw do
       post '/pointrequest', to: 'evaluations#submit_point_request'
       delete '/pointrequest', to: 'evaluations#cancel_point_request', as: :cancel_point_request
     end
+    get '/messages', to: 'messages#index'
+    get '/messages/all', to: 'messages#all'
+    post '/messages', to: 'messages#create'
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'
     delete '/delegate', to: 'delegates#destroy'
