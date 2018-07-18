@@ -67,7 +67,7 @@ class EvaluationsController < ApplicationController
   end
 
   def changeable_points
-    redirect_to root_url, notice: t("mi a fas?") unless current_evaluation.changeable_point_request_status?
+    redirect_to root_url unless current_evaluation.changeable_point_request_status?
   end
 
   def current_evaluation
