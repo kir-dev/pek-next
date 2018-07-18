@@ -39,6 +39,15 @@ class ApplicationController < ActionController::Base
     unauthorized_page unless current_user.roles.pek_admin?
   end
 
+  def require_application_or_evaluation_season
+    redirect_to root_url if SystemAttribute.offseason?
+  end
+
+  def require_leader_or_rvt_member
+    membership = current_user.membership_for(current_group)
+    unauthorized_page unless (membership && membership.leader?) || current_user.roles.rvt_member?
+  end
+
   def current_user
     if ENV['NONAUTH']
       return impersonate_user
