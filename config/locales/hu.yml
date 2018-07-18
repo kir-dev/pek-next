@@ -18,6 +18,7 @@ hu:
   accept_application: SVIE tag lett!
   abort_application: tagsági kérelme elutasítva!
   svie_group_needed: SVIE jelentkezéshez legalább egy SVIE körben tagnak kell lenned!
+  bad_date_format: Hibás dátum formátum! (YYYY. mm. dd)
   no_changes: Nincs változtatás!
   not_evaluation_season: Nincs bírálási időszak!
   no_leader_error: Körvezetői posztot csak tovább adni tudod!

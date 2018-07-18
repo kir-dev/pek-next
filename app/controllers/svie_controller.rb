@@ -10,8 +10,17 @@ class SvieController < ApplicationController
     params.permit(:svie_member_type)
     update_params = params.permit(:home_address, :mother_name, :place_of_birth, :birth_name, :email)
     current_user.update(update_params)
+
+    begin
+      date_of_birth = params[:date_of_birth].to_date
+    rescue Exception => e
+      return redirect_to new_svie_path, alert: t(:bad_date_format)
+    else
+      current_user.update!(date_of_birth: date_of_birth)
+    end
+
     current_user.svie.create_request(params[:svie_member_type])
-    redirect_to svie_successful_path
+    redirect_to svie_successful_path, notice: t(:applied_succesful)
   end
 
   def edit
