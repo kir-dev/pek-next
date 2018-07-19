@@ -2,6 +2,7 @@ class JustificationsController < EvaluationsController
   before_action :require_login
   before_action :require_resort_or_group_leader
   before_action :validate_correct_group
+  skip_filter :changeable_points
 
   def edit
     @entry_requests = Evaluation.find(params[:evaluation_id]).entry_requests

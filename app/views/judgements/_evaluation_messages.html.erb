@@ -1,17 +1,16 @@
-<ul class="uk-comment-list">
-  <% @evaluation_messages.each do |message| %>
-    <li class="uk-panel-box">
-      <article class="uk-comment">
-        <header class="uk-comment-header">
-          <img class="uk-comment-avatar" src="" alt="">
-          <h4 class="uk-comment-title uk-margin-remove"><%= message.sender_user_name %></h4>
-          <div class="uk-comment-meta"><%= message.sent_at %></div>
-        </header>
-        <div class="uk-comment-body"><%= message.message %></div>
-      </article>
-    </li>
-  <% end %>
-</ul>
+<%= render 'messages/form', group: @evaluation.group %>
+
+<% if @evaluation_messages.empty? %>
+  <div class="uk-text-center uk-padding uk-text-muted">
+    Nincs megjelenítendő üzenet!
+  </div>
+<% else %>
+  <ul class="uk-comment-list uk-margin-top">
+    <% @evaluation_messages.each do |message| %>
+      <%= render 'messages/message', message: message %>
+    <% end %>
+  </ul>
+<% end %>
 
 <div class="uk-width-expand uk-text-center uk-margin-top">
   <%= paginate @evaluation_messages %>
