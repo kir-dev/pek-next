@@ -1,6 +1,6 @@
 class JustificationsController < EvaluationsController
   before_action :require_login
-  before_action :require_leader
+  before_action :require_resort_or_group_leader
   before_action :validate_correct_group
   skip_filter :changeable_points
 

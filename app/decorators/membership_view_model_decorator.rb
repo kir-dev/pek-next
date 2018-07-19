@@ -41,4 +41,10 @@ class MembershipViewModelDecorator < Draper::Decorator
     render 'leader_info'
   end
 
+  def resort_leader_evaluation_button
+    return  unless membership_view_model.resort_leader?
+    link_to('Értékelés megtekintése', group_evaluations_current_path(membership_view_model.group),
+            class: 'uk-button uk-button-primary uk-width-1-1')
+  end
+
 end
