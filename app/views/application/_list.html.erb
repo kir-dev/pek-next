@@ -1,0 +1,17 @@
+<% if list? %>
+
+  <ul class="uk-list uk-list-divider uk-list-striped">
+    <% items.each do |item| %>
+      <%= item.list_item %>
+    <% end %>
+  </ul>
+
+<% else %>
+
+  <div class="uk-grid uk-grid-medium" data-uk-grid="{gutter: 20}">
+    <% items.each do |item| %>
+      <%= item.list_item %>
+    <% end %>
+  </div>
+
+<% end %>

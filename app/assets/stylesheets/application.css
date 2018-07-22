@@ -44,6 +44,12 @@
 	padding: 10px;
 }
 
+.uk-list-divider>li {
+	padding-bottom: 2px;
+	border-bottom: 2px solid #eee;
+	margin-bottom: 2px;
+}
+
 .dark {
 	background-color: #f5f5f5 !important;
 }
@@ -81,6 +87,11 @@ html, body {
 .page-wrap:after {
 	content: "";
 	display: block;
+}
+
+.link:hover {
+	cursor: pointer;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 3px 0 rgba(0, 0, 0, 0.19);
 }
 
 .tm-footer, .page-wrap:after {
