@@ -28,14 +28,14 @@
 
       <ul class="uk-tab uk-margin" id="membership-tab" data-uk-tab="{connect:'#membership-data'}">
         <li>
-          <a class="uk-button uk-text-muted" href="">Aktív tagok</a>
+          <a class="uk-button uk-text-muted" href="#active">Aktív tagok</a>
         </li>
         <li>
-          <a class="uk-button uk-text-muted" href="">Öreg tagok</a>
+          <a class="uk-button uk-text-muted" href="#inactive">Öreg tagok</a>
         </li>
         <% if @viewmodel.group.archived_members_visible %>
           <li>
-            <a class="uk-button uk-text-muted" href="">Archivált tagok</a>
+            <a class="uk-button uk-text-muted" href="#archived">Archivált tagok</a>
           </li>
         <% end %>
       </ul>

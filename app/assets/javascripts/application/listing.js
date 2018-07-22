@@ -1,7 +1,9 @@
-var listing = (function() {
+var listing = (function(Helpers) {
   var module = {};
 
   module.init = function() {
+    Helpers.initSwitcher('membership-tab');
+
     $('#membership-tab').on('click', function () {
       UIkit.grid('#inactive_users_grid').init();
       UIkit.grid('#active_users_grid').init();
