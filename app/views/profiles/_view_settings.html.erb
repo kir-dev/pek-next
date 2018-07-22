@@ -1,0 +1,30 @@
+<h2>Megjelenítés</h2>
+
+<%= form_for @view_setting, url: update_view_setting_path(@user.screen_name), html: {class: 'uk-form-horizontal uk-form uk-width-medium-2-3 uk-align-center'} do |f| %>
+    <%= render 'form_errors', errors: f.object.errors %>
+
+    <div class="uk-form-row">
+      <%= f.label :listing, class: 'uk-form-label form-label-required' %>
+      <div class="uk-form-controls">
+        <%= f.select :listing, ViewSetting.listings.keys.map { |k| [k.humanize, k] }, {}, {class: 'uk-select uk-width-1-1'} %>
+      </div>
+    </div>
+
+    <div class="uk-form-row">
+      <%= f.label :items_per_page, class: 'uk-form-label form-label-required' %>
+      <div class="uk-form-controls">
+        <%= f.text_field :items_per_page, class: 'uk-input uk-width-1-1', placeholder: '21' %>
+      </div>
+    </div>
+
+    <div class="uk-form-row">
+      <%= f.label :show_pictures, class: 'uk-form-label form-label-required' %>
+      <div class="uk-form-controls">
+        <%= f.check_box :show_pictures, class: 'uk-align-right' %>
+      </div>
+    </div>
+
+    <div class="uk-margin-top uk-text-center">
+      <%= f.submit 'Módosítás', class: 'uk-button' %>
+    </div>
+<% end %>

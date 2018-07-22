@@ -8,18 +8,22 @@
         <li><a href="#profile">Profil</a></li>
         <li><a href="#im-accounts">IM Fiókok</a></li>
         <li><a href="#profile-picture">Profilkép</a></li>
+        <li><a href="#view-settings">Megjelenítés</a></li>
       </ul>
     </div>
-    <div class="uk-width-medium-3-4 uk-padding-small">
+    <div class="uk-width-medium-3-4 uk-padding">
       <ul id="settings" class="uk-switcher uk-margin">
         <li>
           <%= render 'user_settings' %>
         </li>
         <li>
-          <%= render 'im_accounts/im_accounts', user: @user %>
+          <%= render 'im_accounts/im_accounts', im_account: @im_account, user: @user %>
         </li>
         <li>
           <%= render 'profile_picture_upload' %>
+        </li>
+        <li>
+          <%= render 'view_settings' %>
         </li>
       </ul>
     </div>

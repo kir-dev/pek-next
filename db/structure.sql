@@ -617,6 +617,38 @@ CREATE TABLE public.usr_private_attrs (
 
 
 --
+-- Name: view_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.view_settings (
+    id integer NOT NULL,
+    user_id integer,
+    items_per_page integer,
+    show_pictures boolean DEFAULT true,
+    listing integer DEFAULT 1
+);
+
+
+--
+-- Name: view_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.view_settings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: view_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.view_settings_id_seq OWNED BY public.view_settings.id;
+
+
+--
 -- Name: point_details id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -635,6 +667,13 @@ ALTER TABLE ONLY public.principles ALTER COLUMN id SET DEFAULT nextval('public.p
 --
 
 ALTER TABLE ONLY public.svie_post_requests ALTER COLUMN id SET DEFAULT nextval('public.svie_post_requests_id_seq'::regclass);
+
+
+--
+-- Name: view_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.view_settings ALTER COLUMN id SET DEFAULT nextval('public.view_settings_id_seq'::regclass);
 
 
 --
@@ -835,6 +874,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.usr_private_attrs
     ADD CONSTRAINT usr_private_attrs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: view_settings view_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.view_settings
+    ADD CONSTRAINT view_settings_pkey PRIMARY KEY (id);
 
 
 --
@@ -1148,5 +1195,9 @@ INSERT INTO schema_migrations (version) VALUES ('20180501175635');
 
 INSERT INTO schema_migrations (version) VALUES ('20180505152100');
 
+INSERT INTO schema_migrations (version) VALUES ('20180616023022');
+
 INSERT INTO schema_migrations (version) VALUES ('20180617081041');
+
+INSERT INTO schema_migrations (version) VALUES ('20180705121831');
 

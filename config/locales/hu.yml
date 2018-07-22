@@ -56,6 +56,10 @@ hu:
         irc: IRC
       post_type:
         name: Poszt neve
+      view_setting:
+        listing: Listázás módja
+        items_per_page: Elemek száma oldalanként
+        show_pictures: Képek mutatása
     errors:
       messages:
         blank: nem lehet üres!
