@@ -1,14 +1,8 @@
 $('#active_users').empty();
 $('#active_users').append('<%= escape_javascript(render 'active_users') %>');
-$('#active_users_paginate').empty();
-$('#active_users_paginate').html('<%= escape_javascript(paginate(@active_users, :param_name => 'active_users_page', :remote => true).to_s) %>');
 
 $('#inactive_users').empty();
 $('#inactive_users').append('<%= escape_javascript(render 'inactive_users') %>');
-$('#inactive_users_paginate').empty();
-$('#inactive_users_paginate').html('<%= escape_javascript(paginate(@inactive_users, :param_name => 'inactive_users_page', :remote => true).to_s) %>');
 
 $('#archived_users').empty();
 $('#archived_users').append('<%= escape_javascript(render 'archived_users') %>');
-$('#archived_users_paginate').empty();
-$('#archived_users_paginate').html('<%= escape_javascript(paginate(@archived_users, :param_name => 'archived_users_page', :remote => true).to_s) %>');

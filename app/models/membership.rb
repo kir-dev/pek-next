@@ -41,6 +41,10 @@ class Membership < ActiveRecord::Base
     !self.newbie? && self.end.nil? && !self.archived?
   end
 
+  def inactive?
+    !self.end.nil? && !self.archived?
+  end
+
   def post(post_type)
     posts.find_by(post_type_id: post_type)
   end
