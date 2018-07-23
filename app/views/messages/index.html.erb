@@ -1,0 +1,38 @@
+<% stylesheet 'groups' %>
+
+<h2 class="uk-h2">
+  Értékelés üzenetek - <%= current_group.name %>
+</h2>
+
+<div id="content-main" class="uk-panel uk-panel-box">
+
+  <% unless @semester.nil? %>
+    <div class="uk-clearfix">
+      <div class="uk-float-right">
+        <%= link_to 'Összes mutatása', group_messages_all_path(current_group),
+          class: 'uk-button uk-margin uk-display-block uk-align-center' %>
+      </div>
+    </div>
+  <% end %>
+
+  <% unless SystemAttribute.offseason? %>
+    <%= render 'form', group: current_group %>
+  <% end %>
+
+  <% if @evaluation_messages.empty? %>
+    <div class="uk-text-center uk-padding uk-text-muted">
+      Nincs megjelenítendő üzenet!
+    </div>
+  <% else %>
+    <ul class="uk-comment-list">
+      <% @evaluation_messages.each do |message| %>
+        <%= render 'message', message: message %>
+      <% end %>
+    </ul>
+
+    <div class="uk-width-expand uk-text-center uk-margin-top">
+      <%= paginate @evaluation_messages %>
+    </div>
+  <% end %>
+
+</div>

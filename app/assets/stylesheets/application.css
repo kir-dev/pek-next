@@ -97,6 +97,10 @@ html, body {
 	color: #f5f5f5;
 }
 
+.profile-picture {
+	height: 30px;
+}
+
 .page-wrap {
 	min-height: 100%;
 	margin-bottom: -80px;

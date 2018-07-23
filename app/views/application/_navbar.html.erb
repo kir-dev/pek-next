@@ -52,7 +52,7 @@
         <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="{pos:'bottom-right'}">
           <%= link_to root_url, class: "nav-button" do %>
             Profilom
-            <%= image_tag photo_path(current_user.screen_name), style: "height: 30px;", alt: current_user.full_name, id: 'profile-picture' %>
+            <%= image_tag photo_path(current_user.screen_name), alt: current_user.full_name, class: 'profile-picture', id: 'profile-picture' %>
           <% end %>
           <div class="uk-dropdown uk-dropdown-navbar">
             <ul class="uk-nav uk-nav-navbar">

@@ -18,7 +18,7 @@ class GroupDecorator < Draper::Decorator
                   wrapper_tag: 'div')
   end
 
-  def goup_leader_link
+  def group_leader_link
     return unless group.leader
     link_to(group.leader.user.full_name,
             profile_path(group.leader.user.screen_name))
@@ -31,6 +31,11 @@ class GroupDecorator < Draper::Decorator
 
   def svie_state
     group.issvie ? 'Igen' : 'Nem'
+  end
+
+  def parent
+    return '-' unless group.parent
+    link_to group.parent.name, group.parent
   end
 
   private

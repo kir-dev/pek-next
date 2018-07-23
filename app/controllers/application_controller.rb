@@ -35,8 +35,25 @@ class ApplicationController < ActionController::Base
     unauthorized_page unless current_user.roles.rvt_leader?
   end
 
+  def require_resort_leader
+    unauthorized_page unless current_user.roles.resort_leader?(current_group)
+  end
+
+  def require_resort_or_group_leader
+    unauthorized_page unless current_user.leader_of?(current_group) || current_user.roles.resort_leader?(current_group)
+  end
+
   def require_pek_admin
     unauthorized_page unless current_user.roles.pek_admin?
+  end
+
+  def require_application_or_evaluation_season
+    redirect_to root_url if SystemAttribute.offseason?
+  end
+
+  def require_leader_or_rvt_member
+    membership = current_user.membership_for(current_group)
+    unauthorized_page unless (membership && membership.leader?) || current_user.roles.rvt_member?
   end
 
   def current_user
