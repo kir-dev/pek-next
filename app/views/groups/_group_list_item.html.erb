@@ -1,27 +1,13 @@
-<% if list? %>
-
-  <li class="uk-grid uk-grid-collapse uk-panel link" onclick="window.location='<%= group_path(group.id) %>'">
-    <% if show_images? %>
-      <div class="uk-width" style="width:80px;">
-        <%= image_tag "/img/circle.jpg", class: 'uk-thumbnail' %>
-      </div>
-    <% end %>
-    <div class="uk-padding-small" class="uk-width" style="width:calc(100% - 100px)">
-      <div class="uk-panel-title">
-        <%= link_to group.name, group_path(group.id), class: "uk-text-primary" %>
-      </div>
-      <%= group.truncated_description %>
-    </div>
-  </li>
-
-<% else %>
-
-  <div class="uk-width-1-1 uk-width-medium-1-3">
-    <div class="uk-panel uk-panel-box dark link" onclick="window.location='<%= group_path(group.id) %>'">
-      <div class="uk-panel-title">
-        <%= link_to group.name, group_path(group.id), class: "uk-text-primary" %>
-      </div>
-      <%= group.truncated_description %>
-    </div>
+<li class="uk-panel-box uk-grid uk-grid-collapse dark group-search group-result hover uk-padding-remove" onclick="window.location='<%= group_path(group.id) %>'">
+  <div style="width:80px;">
+    <%= image_tag "/img/circle.jpg", class: 'uk-thumbnail' %>
   </div>
-<% end %>
+  <div class="uk-padding-small" style="width:calc(100% - 100px)">
+    <div>
+      <%= link_to group.name, group_path(group.id), class: 'uk-text-large' %>
+    </div>
+    <div class="uk-text-break">
+      <%= group.truncated_description %>
+    <div>
+  </div>
+</li>

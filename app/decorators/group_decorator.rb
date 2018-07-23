@@ -33,10 +33,6 @@ class GroupDecorator < Draper::Decorator
     group.issvie ? 'Igen' : 'Nem'
   end
 
-  def list_item
-    render 'group_list_item', group: self
-  end
-
   private
 
   def format_description

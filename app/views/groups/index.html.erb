@@ -5,8 +5,24 @@
   <div class="uk-container-center uk-panel uk-panel-box">
     <p id="notice"><%= notice %></p>
 
-    <%= render 'list', items: @groups %>
-    <div class="uk-width-expand uk-text-center uk-margin-top">
+    <% if list? %>
+
+      <ul class="uk-list uk-list-divider uk-list-hover">
+        <% @groups.each do |group| %>
+          <%= render 'group_list_item', group: group %>
+        <% end %>
+      </ul>
+
+    <% else %>
+
+      <div class="uk-grid uk-grid-medium" data-uk-grid="{gutter: 15}">
+        <% @groups.each do |group| %>
+          <%= render 'group_grid_item', group: group %>
+        <% end %>
+      </div>
+
+    <% end %>
+    <div class="uk-width-expand uk-text-center uk-margin-large-top">
       <%= paginate @groups %>
     </div>
 

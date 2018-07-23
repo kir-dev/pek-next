@@ -32,8 +32,8 @@
 	background-color: #fff;
 }
 
-.uk-dropdown, .uk-panel-box {
-	outline: 1px solid #d4d4d4;
+.uk-dropdown, .uk-panel-box, .uk-notify-message {
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 4px 1px rgba(0, 0, 0, 0.09) !important;
 }
 
 .uk-light {
@@ -45,9 +45,14 @@
 }
 
 .uk-list-divider>li {
-	padding-bottom: 2px;
-	border-bottom: 2px solid #eee;
-	margin-bottom: 2px;
+	box-shadow: 0 1px 0 #fff;
+	margin-bottom: 5px;
+	background-color: rgba(245, 245, 245);
+}
+
+.uk-list-hover>li:hover, .hover:hover {
+	cursor: pointer;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 1px rgba(0, 0, 0, 0.19) !important;
 }
 
 .dark {
@@ -87,11 +92,6 @@ html, body {
 .page-wrap:after {
 	content: "";
 	display: block;
-}
-
-.link:hover {
-	cursor: pointer;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 3px 0 rgba(0, 0, 0, 0.19);
 }
 
 .tm-footer, .page-wrap:after {
