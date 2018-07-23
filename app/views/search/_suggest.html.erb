@@ -3,10 +3,10 @@
 <% end %>
 <% users.each do |user| %>
   <li class="uk-panel-box uk-grid uk-grid-collapse dark user-search user-result hover uk-padding-remove" onclick="window.location='<%= profile_path(user.screen_name) %>'">
-    <div style="width:80px;">
+    <div class="thumbnail">
       <%= image_tag photo_path(user.screen_name), class: 'uk-thumbnail' %>
     </div>
-    <div class="uk-padding-small" style="width:calc(100% - 100px)">
+    <div class="uk-padding-small next-to-thumbnail">
       <div>
         <%= link_to user.compact_name, profile_path(user.screen_name), class: 'uk-text-large' %>
       </div>

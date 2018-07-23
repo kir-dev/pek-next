@@ -7,7 +7,7 @@
             <%= link_to membership.group_name, group_path(membership.group_id) %>
           </div>
           <div class="uk-text-bold uk-float-left"><%= membership.posts %></div>
-          <div class="uk-text-bold uk-float-right uk-margin-right uk-width" style="width: 180px"><%= membership.membership_time %></div>
+          <div class="uk-text-bold uk-float-right uk-margin-right uk-width membership-timer"><%= membership.membership_time %></div>
       </li>
     <% end %>
   </ul>

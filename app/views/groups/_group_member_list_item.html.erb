@@ -1,10 +1,10 @@
 <li class="uk-grid uk-grid-collapse">
   <% if show_images? %>
-    <div class="uk-width" style="width:80px;">
+    <div class="thumbnail">
       <%= image_tag photo_path(member.screen_name), class: 'uk-thumbnail' %>
     </div>
   <% end %>
-  <div class="uk-padding-small uk-clearfix" style="width: calc(100% - 100px)">
+  <div class="uk-padding-small uk-clearfix next-to-thumbnail">
     <div class="uk-padding-remove uk-float-left uk-text-large uk-width-medium-1-4">
       <%= link_to member.compact_name, profile_path(member.screen_name) %>
     </div>
@@ -13,7 +13,7 @@
 
     <% if @viewmodel.leader? %>
       <div class="uk-text-right uk-float-right uk-flex uk-text-right">
-        <div class="uk-margin-large-left">
+        <div class="uk-margin-left">
           <%= member.svie_status_icon %>
         </div>
         <div class="uk-margin-left">
@@ -29,7 +29,7 @@
         </div>
       </div>
     <% end %>
-    <div class="uk-text-bold uk-float-right"><%= member.membership_time %></div>
+    <div class="uk-text-bold uk-float-right membership-timer"><%= member.membership_time %></div>
   </div>
 
 </li>
