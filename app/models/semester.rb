@@ -4,7 +4,7 @@ class Semester
   # @param [String] semester The semester in the format of '201620171'
   def initialize(semester)
     @starting_year = semester[0, 4].to_i
-    @autumn = semester.chars.last == "1"
+    @autumn = semester.chars.last == '1'
   end
 
   def self.from_year(year, autumn)
@@ -12,27 +12,31 @@ class Semester
   end
 
   def previous
-    if autumn
-      @starting_year -= 1
-    end
+    Semester.new(to_s).previous!
+  end
+
+  def previous!
+    @starting_year -= 1 if autumn
     @autumn = !autumn
-    return Semester.new(to_s)
+    self
   end
 
   def next
-    if !autumn
-      @starting_year += 1
-    end
+    Semester.new(to_s).next!
+  end
+
+  def next!
+    @starting_year += 1 unless autumn
     @autumn = !autumn
-    return Semester.new(to_s)
+    self
   end
 
   def to_s
-    starting_year.to_s + second_year.to_s + (autumn ? 1 : 2).to_s
+    "#{starting_year}#{second_year}#{autumn ? 1 : 2}"
   end
 
   def to_readable
-    starting_year.to_s + "/" + second_year.to_s + (autumn ? " ősz" : " tavasz")
+    "#{starting_year}/#{second_year} #{autumn ? 'ősz' : 'tavasz'}"
   end
 
   def save
