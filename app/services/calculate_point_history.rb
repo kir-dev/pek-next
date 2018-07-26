@@ -31,7 +31,7 @@ class CalculatePointHistory
     end
     sum = 0
     user_points.each { |_, point| sum += Math.sqrt(point) }
-    sum
+    [sum, 100].min
   end
 
   def valid_point_request?(point_request)
