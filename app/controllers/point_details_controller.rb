@@ -5,12 +5,15 @@ class PointDetailsController < ApplicationController
   before_action :changeable_evaluation
 
   def update
-    point_request = PointRequest.find_or_create_by(evaluation: @evaluation, user: @user)
-    @point_detail = PointDetail.find_or_create_by(point_request: point_request, principle: @principle)
-    @point_detail.update(point: valid_point)
-
-    @point_details = PointDetail.includes(%i[point_request principle]).select do |pd|
-      pd.point_request.evaluation == @evaluation && pd.point_request.user_id == @user.id
+    point_request =
+      PointRequest.find_or_create_by(evaluation: @evaluation, user: @user)
+    @point_detail = PointDetail.find_or_create_by(point_request: point_request,
+                                                  principle: @principle)
+    @point_detail.update(point: params[:point])
+    @point_details = PointDetail.includes(%i[point_request principle])
+                                .select do |pd|
+      pd.point_request.evaluation == @evaluation &&
+        pd.point_request.user_id == @user.id
     end
   end
 
@@ -20,14 +23,6 @@ class PointDetailsController < ApplicationController
     @user = User.find params[:user_id]
     @principle = Principle.find params[:principle_id]
     @evaluation = Evaluation.find params[:evaluation_id]
-  end
-
-  def valid_point
-    max_point = @principle.max_per_member
-    point = params[:point].to_i
-    return 0 if point < 0
-    return max_point if point > max_point
-    point
   end
 
   def changeable_evaluation
