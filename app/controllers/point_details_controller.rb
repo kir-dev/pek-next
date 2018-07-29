@@ -5,15 +5,13 @@ class PointDetailsController < ApplicationController
   before_action :changeable_evaluation
 
   def update
-    point_request =
-      PointRequest.find_or_create_by(evaluation: @evaluation, user: @user)
+    point_request = PointRequest.find_or_create_by(evaluation: @evaluation, user: @user)
     @point_detail = PointDetail.find_or_create_by(point_request: point_request,
                                                   principle: @principle)
     @point_detail.update(point: params[:point])
-    @point_details = PointDetail.includes(%i[point_request principle])
-                                .select do |pd|
-      pd.point_request.evaluation == @evaluation &&
-        pd.point_request.user_id == @user.id
+
+    @point_details = PointDetail.includes(%i[point_request principle]).select do |pd|
+      pd.point_request.evaluation == @evaluation && pd.point_request.user_id == @user.id
     end
   end
 
