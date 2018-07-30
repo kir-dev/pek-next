@@ -31,7 +31,7 @@ class CalculatePointHistory
     end
     sum = 0
     user_points.each { |_, point| sum += Math.sqrt(point) }
-    [sum, 100].min
+    [sum, SystemAttribute.max_point_for_semester].min
   end
 
   def valid_point_request?(point_request)

@@ -12,6 +12,14 @@ class SystemAttribute < ActiveRecord::Base
     find_by(name: 'szemeszter').update(value: semester)
   end
 
+  def self.max_point_for_semester
+    find_by(name: 'max_point_for_semester').value.to_i
+  end
+
+  def self.update_max_point_for_semester(point)
+    find_by(name: 'max_point_for_semester').update(value: point)
+  end
+
   def self.season
     find_by(name: 'ertekeles_idoszak')
   end

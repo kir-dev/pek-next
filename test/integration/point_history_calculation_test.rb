@@ -30,6 +30,6 @@ class PointHistoryCalculationTest < ActionController::TestCase
     SystemAttribute.update_season(SystemAttribute::OFFSEASON)
     point_history = PointHistory.find_by(user: user)
 
-    assert point_history.point == 100
+    assert point_history.point == SystemAttribute.max_point_for_semester
   end
 end
