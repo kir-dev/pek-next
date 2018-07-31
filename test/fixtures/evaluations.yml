@@ -11,3 +11,31 @@ babhamozo_2018:
   grp_id: 1
   felado_usr_id: 4001
   pontozasi_elvek: Aki dolgozik az kap pontot
+
+babhamozo_2018_2:
+  id: 2
+  belepoigeny_statusz: ELFOGADVA
+  feladas: 2018-06-02
+  pontigeny_statusz: ELFOGADVA
+  semester: 201720182
+  szoveges_ertekeles: Lyo lesz
+  utolso_elbiralas: 2018-06-20
+  utolso_modositas: 2018-07-03
+  elbiralo_usr_id: 6001
+  grp_id: 1
+  felado_usr_id: 4001
+  pontozasi_elvek: Aki dolgozik az kap pontot
+
+kir_dev_2018_2:
+  id: 3
+  belepoigeny_statusz: ELFOGADVA
+  feladas: 2018-06-02
+  pontigeny_statusz: ELFOGADVA
+  semester: 201720182
+  szoveges_ertekeles: Lyo lesz
+  utolso_elbiralas: 2018-06-20
+  utolso_modositas: 2018-07-03
+  elbiralo_usr_id: 6001
+  grp_id: 106
+  felado_usr_id: 4001
+  pontozasi_elvek: Aki dolgozik az kap pontot

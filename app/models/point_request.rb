@@ -1,5 +1,5 @@
 class PointRequest < ActiveRecord::Base
-  self.table_name = "pontigenyles"
+  self.table_name = 'pontigenyles'
   self.primary_key = :id
 
   alias_attribute :point, :pont
@@ -11,7 +11,7 @@ class PointRequest < ActiveRecord::Base
   has_many :point_details
 
   def recalculate!
-    self.point = point_details.sum(:point)
+    self.point = ApplicationController.helpers.sum_all_details(point_details, user)
     save!
     evaluation.update_last_change!
   end
