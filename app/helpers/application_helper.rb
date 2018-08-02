@@ -9,9 +9,7 @@ module ApplicationHelper
   end
 
   def list?
-    view_setting = current_user.view_setting
-    return view_setting.list? if view_setting
-    false
+    !!current_user.view_setting&.list?
   end
 
   def show_images?

@@ -25,7 +25,7 @@ var Helpers = (function () {
 
   function openTab(switcherId) {
     var hash = window.location.hash;
-    if (!hash) { return }
+    if (!hash) { return; }
 
     var link = $('#' + switcherId + ' a[href="' + hash + '"]');
     link.click();
@@ -34,10 +34,9 @@ var Helpers = (function () {
   function initLinks(switcherId) {
     $('#' + switcherId + ' a').click(function() {
       var val = $(this).attr('href');
-      window.location.hash = val.replace("#", "");
-      links = $('.uk-pagination a');
-      links.each(function(id) {
-        links[id].href = links[id].href.split('#')[0] + val;
+      window.location.hash = val.replace('#', '');
+      $('.uk-pagination a').each(function(id) {
+        this.href = this.href.split('#')[0] + val;
       });
     });
   }
