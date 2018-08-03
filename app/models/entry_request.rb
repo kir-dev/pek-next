@@ -22,4 +22,8 @@ class EntryRequest < ActiveRecord::Base
   def self.remove_justifications
     where(entry_type: KDO).update_all(szoveges_ertekeles: '')
   end
+
+  def accepted?
+    evaluation.entry_request_accepted?
+  end
 end
