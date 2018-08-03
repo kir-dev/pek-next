@@ -20,6 +20,9 @@ class Group < ActiveRecord::Base
   has_many :memberships, foreign_key: :grp_id
   has_many :members, through: :memberships, source: :user
   has_many :post_types, foreign_key: :grp_id
+  has_many :evaluations, foreign_key: :grp_id
+  has_many :point_requests, through: :evaluations
+  has_many :entry_requests, through: :evaluations
   belongs_to :group, foreign_key: :grp_parent
   alias :own_post_types :post_types
 
