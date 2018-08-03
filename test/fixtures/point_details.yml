@@ -1,0 +1,14 @@
+point_detail_1:
+  principle_id: 1
+  point_request_id: 1
+  point: 3
+
+point_detail_2:
+  principle_id: 2
+  point_request_id: 1
+  point: 30
+
+point_detail_3:
+  principle_id: 3
+  point_request_id: 1
+  point: 30

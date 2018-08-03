@@ -16,8 +16,9 @@ var settings = (function() {
 
   function cropDone() {
     var croppedData = cropper.getCroppedCanvas({
-      width: 300,
-      height: 300
+      width: 600,
+      height: 600,
+      imageSmoothingQuality: 'high'
     }).toDataURL();
     $.ajax({
       type: "PUT",

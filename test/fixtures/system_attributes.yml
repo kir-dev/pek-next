@@ -5,3 +5,7 @@ semester:
 app_season:
   attributename: ertekeles_idoszak
   attributevalue: NINCSERTEKELES
+
+max_point_for_semester:
+  attributename: max_point_for_semester
+  attributevalue: 100

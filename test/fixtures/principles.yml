@@ -1,0 +1,20 @@
+work_principle_1:
+  id: 1
+  max_per_member: 20
+  type: Principle.WORK
+  name: csak a munka
+  evaluation_id: 1
+
+work_principle_2:
+  id: 2
+  max_per_member: 30
+  type: Principle.WORK
+  name: csak a munka
+  evaluation_id: 1
+
+responsibility_principle_1:
+  id: 3
+  max_per_member: 30
+  type: Principle.RESPONSIBILITY
+  name: egy kis felelőség
+  evaluation_id: 1
