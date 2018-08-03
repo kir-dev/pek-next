@@ -1,110 +1,31 @@
 <% stylesheet 'profile' %>
 
-<h1>Profil szerkesztése</h1>
+<h1><%= @user.full_name %></h1>
 <div id="content-main" class="uk-panel uk-panel-box">
-  <div class="uk-width-large-1-2 uk-container-center uk-overflow-container">
-    <%= form_for @user, as: :profile, url: profile_path(@user.screen_name), html: {class: 'uk-form'} do |f| %>
-        <%= render 'form_errors', errors: f.object.errors %>
-
-        <table class="uk-table">
-          <tr>
-            <th></th>
-            <th></th>
-            <th class="uk-text-center">Láthatóság</th>
-          </tr>
-          <tr>
-            <td><%= f.label :lastname, class: "form-label-required" %></td>
-            <td><%= f.text_field :lastname, class: 'uk-input uk-width-1-1', required: true %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :firstname, class: "form-label-required" %></td>
-            <td><%= f.text_field :firstname, class: 'uk-input uk-width-1-1', required: true %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :nickname %></td>
-            <td><%= f.text_field :nickname, class: 'uk-input uk-width-1-1' %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :gender %></td>
-            <td><%= f.select :gender,
-                      options_for_select(Rails.configuration.x.genders.invert, f.object.gender),
-                      {}, class: 'uk-select uk-width-1-1' %>
-            </td>
-            <td class="uk-text-center">
-              <%= check_box_tag 'private', 'GENDER', Privacy.for(@user, 'GENDER').visible,
-                    class: 'privacy-setting', user: @user.id %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :date_of_birth %></td>
-            <td><%= f.text_field :date_of_birth, class: 'uk-input uk-width-1-1' %></td>
-            <td class="uk-text-center">
-              <%= check_box_tag 'private', 'DATE_OF_BIRTH', Privacy.for(@user, 'DATE_OF_BIRTH').visible,
-                    class: 'privacy-setting', user: @user.id %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :home_address %></td>
-            <td><%= f.text_field :home_address, class: 'uk-input uk-width-1-1' %></td>
-            <td class="uk-text-center">
-              <%= check_box_tag 'private', 'HOME_ADDRESS', Privacy.for(@user, 'HOME_ADDRESS').visible,
-            class: 'privacy-setting', user: @user.id %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :email %></td>
-            <td><%= f.text_field :email, class: 'uk-input uk-width-1-1' %></td>
-            <td class="uk-text-center">
-              <%= check_box_tag 'private', 'EMAIL', Privacy.for(@user, 'EMAIL').visible,
-                    class: 'privacy-setting', user: @user.id %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :cell_phone %></td>
-            <td><%= f.text_field :cell_phone, class: 'uk-input uk-width-1-1' %></td>
-            <td class="uk-text-center">
-              <%= check_box_tag 'private', 'CELL_PHONE', Privacy.for(@user, 'CELL_PHONE').visible,
-                    class: 'privacy-setting', user: @user.id %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :webpage %></td>
-            <td><%= f.text_field :webpage, class: 'uk-input uk-width-1-1' %></td>
-            <td class="uk-text-center">
-              <%= check_box_tag 'private', 'WEBPAGE', Privacy.for(@user, 'WEBPAGE').visible,
-                    class: 'privacy-setting', user: @user.id %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :dormitory %></td>
-            <td><%= f.select :dormitory,
-                      options_for_select(Rails.configuration.x.dorms.invert, f.object.dormitory),
-                      {}, class: 'uk-select uk-width-1-1' %>
-            </td>
-            <td class="uk-text-center">
-              <%= check_box_tag 'private', 'ROOM_NUMBER', Privacy.for(@user, 'ROOM_NUMBER').visible,
-                    class: 'privacy-setting', user: @user.id %></td>
-          </tr>
-
-          <tr>
-            <td><%= f.label :room %></td>
-            <td><%= f.text_field :room, class: 'uk-input uk-width-1-1' %></td>
-          </tr>
-        </table>
-
-        <div class="uk-text-center">
-            <div class="inline-block">
-                <input class="uk-button" type="submit" value="Módosítás" name="submitButton"/>
-            </div>
-        </div>
-    <% end %>
-
-    <%= render 'im_accounts/im_accounts', user: @user %>
-
-    <%= render 'profile_picture_upload' %>
-
+  <div class="uk-container-center uk-grid uk-grid-collapse">
+    <div class="uk-width-medium-1-4">
+      <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#settings'}" id="settings-tab">
+        <li><a href="#profile">Profil</a></li>
+        <li><a href="#im-accounts">IM Fiókok</a></li>
+        <li><a href="#profile-picture">Profilkép</a></li>
+        <li><a href="#view-settings">Megjelenítés</a></li>
+      </ul>
+    </div>
+    <div class="uk-width-medium-3-4 uk-padding">
+      <ul id="settings" class="uk-switcher uk-margin">
+        <li>
+          <%= render 'user_settings' %>
+        </li>
+        <li>
+          <%= render 'im_accounts/im_accounts', im_account: @im_account, user: @user %>
+        </li>
+        <li>
+          <%= render 'profile_picture_upload' %>
+        </li>
+        <li>
+          <%= render 'view_settings' %>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

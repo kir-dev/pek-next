@@ -1,4 +1,5 @@
 class GroupMember
+  attr_reader :membership
 
   def initialize(membership)
     @membership = membership
@@ -17,6 +18,11 @@ class GroupMember
 
   def nickname
     @membership.user.nickname
+  end
+
+  def compact_name
+    return full_name if nickname.blank?
+    "#{full_name} (#{nickname})"
   end
 
   def screen_name
@@ -59,8 +65,5 @@ class GroupMember
     end
   end
 
-  def membership
-    @membership
-  end
 
 end

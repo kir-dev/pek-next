@@ -4,6 +4,12 @@
   <div class="uk-height-viewport uk-responsive-width">
     <h1 class="uk-h1"><%= @user_presenter.compact_name %></h1>
     <div class="uk-container-center uk-panel uk-panel-box">
+      <% if @user_presenter.id == current_user.id %>
+        <div class="uk-alert">
+          <i class="uk-icon-info"></i>
+          Legutoló release során személyre szabhatóvá tettük a megjelenítési beállításokat, melyeket <%= link_to 'itt', edit_profile_path(@user_presenter.screen_name, anchor: 'view-settings') %> tudsz ellenőrizni.
+        </div>
+      <% end %>
       <div class="uk-grid uk-flex-middle">
 
         <figure class="uk-overlay uk-width-medium-1-3 uk-flex-center uk-padding-large uk-overlay-hover">

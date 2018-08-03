@@ -16,5 +16,30 @@ var Helpers = (function () {
     }
   };
 
+  helpers.initSwitcher = function(switcherId) {
+    window.setTimeout(function() {
+      openTab(switcherId);
+    }, 50);
+    initLinks(switcherId);
+  }
+
+  function openTab(switcherId) {
+    var hash = window.location.hash;
+    if (!hash) { return; }
+
+    var link = $('#' + switcherId + ' a[href="' + hash + '"]');
+    link.click();
+  }
+
+  function initLinks(switcherId) {
+    $('#' + switcherId + ' a').click(function() {
+      var val = $(this).attr('href');
+      window.location.hash = val.replace('#', '');
+      $('.uk-pagination a').each(function(id) {
+        this.href = this.href.split('#')[0] + val;
+      });
+    });
+  }
+
   return helpers;
 }());

@@ -13,6 +13,7 @@ var profiles = (function(Helpers, Rx, $) {
         }
       });
     });
+    Helpers.initSwitcher('settings-tab');
     $('#share-profile').bind('click', copyToClipboard);
   }
 

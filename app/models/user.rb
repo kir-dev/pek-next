@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
 
   has_one :primary_membership, class_name: "Membership", foreign_key: :id, primary_key: :usr_svie_primary_membership
   has_one :svie_post_request, foreign_key: :usr_id, primary_key: :id
+  has_one :view_setting
 
   validates :screen_name, uniqueness: true
   validates :auth_sch_id, uniqueness: true, allow_nil: true
@@ -54,8 +55,8 @@ class User < ActiveRecord::Base
   # If primary group is not SVIE
   # validates_with PrimaryMembershipValidator
 
-#  Before validation need to fix cell phone numbers
-#  validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
+  # Before validation need to fix cell phone numbers
+  # validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
   validates_format_of :screen_name, without: /[\\\/]+/
 
   def full_name

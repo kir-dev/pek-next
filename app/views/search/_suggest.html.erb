@@ -1,30 +1,18 @@
 <% groups.each do |group| %>
-    <div class="uk-grid uk-grid-collapse uk-panel uk-panel-box dark uk-margin-small-top uk-margin-small-bottom uk-width-1-1 group-search group-result uk-padding-remove">
-      <div style="width:80px">
-        <%= image_tag "/img/circle.jpg", class: 'uk-thumbnail' %>
-      </div>
-      <div class="uk-grid uk-padding" style="width: calc(100% - 80px)">
-        <div class="uk-width-1-1">
-          <%= link_to group.name, group_path(group.id), class: 'result-name uk-h3' %>
-        </div>
-        <div class="uk-width-1-1 uk-text-break">
-          <%= truncate group.description, length: 200 %>
-        </div>
-      </div>
-    </div>
+    <%= render 'groups/group_list_item', group: group %>
 <% end %>
 <% users.each do |user| %>
-    <div class="uk-grid uk-grid-collapse uk-panel uk-panel-box dark uk-margin-small-top uk-margin-small-bottom uk-width-1-1 user-search user-result uk-padding-remove">
-      <div style="width:80px">
-        <%= image_tag photo_path(user.screen_name), class: 'uk-thumbnail' %>
-      </div>
-      <div class="uk-grid uk-padding" style="width: calc(100% - 80px)">
-        <div class="uk-width-1-1">
-          <%= link_to user.compact_name, profile_path(user.screen_name), class: 'result-name uk-h3' %>
-        </div>
-        <div class="uk-width-1-1">
-          <%= user.room %>
-        </div>
-      </div>
+  <li class="uk-panel-box uk-grid uk-grid-collapse dark user-search user-result hover uk-padding-remove" onclick="window.location='<%= profile_path(user.screen_name) %>'">
+    <div class="thumbnail">
+      <%= image_tag photo_path(user.screen_name), class: 'uk-thumbnail' %>
     </div>
+    <div class="uk-padding-small next-to-thumbnail">
+      <div>
+        <%= link_to user.compact_name, profile_path(user.screen_name), class: 'uk-text-large' %>
+      </div>
+      <div class="uk-text-break">
+        <%= user.room %>
+      <div>
+    </div>
+  </li>
 <% end %>

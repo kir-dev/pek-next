@@ -15,12 +15,13 @@ class GroupDecorator < Draper::Decorator
     return unless group.description
     description = truncate(format_description, length: 100)
     simple_format(description, { class: 'uk-panel-body uk-padding-small' },
-      wrapper_tag: 'div')
+                  wrapper_tag: 'div')
   end
 
   def group_leader_link
     return unless group.leader
-    link_to(group.leader.user.full_name, profile_path(group.leader.user.screen_name))
+    link_to(group.leader.user.full_name,
+            profile_path(group.leader.user.screen_name))
   end
 
   def webpage_link
@@ -38,8 +39,8 @@ class GroupDecorator < Draper::Decorator
   end
 
   private
-    def format_description
-      group.description.gsub('[-----------------------------------------]','<br/>')
-    end
 
+  def format_description
+    group.description.gsub('[-----------------------------------------]', '<br/>')
+  end
 end

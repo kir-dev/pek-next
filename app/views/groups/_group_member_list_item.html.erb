@@ -1,0 +1,35 @@
+<li class="uk-grid uk-grid-collapse">
+  <% if show_images? %>
+    <div class="thumbnail">
+      <%= image_tag photo_path(member.screen_name), class: 'uk-thumbnail' %>
+    </div>
+  <% end %>
+  <div class="uk-padding-small uk-clearfix next-to-thumbnail">
+    <div class="uk-padding-remove uk-float-left uk-text-large uk-width-medium-1-4">
+      <%= link_to member.compact_name, profile_path(member.screen_name) %>
+    </div>
+
+    <div class="uk-text-bold uk-float-left"><%= member.posts %></div>
+
+    <% if @viewmodel.leader? %>
+      <div class="uk-text-right uk-float-right uk-flex uk-text-right">
+        <div class="uk-margin-left">
+          <%= member.svie_status_icon %>
+        </div>
+        <div class="uk-margin-left">
+          <%= member.edit_post_button(@viewmodel.group) %>
+        </div>
+
+        <div class="uk-margin-small-left uk-grid-small uk-width-auto uk-flex">
+          <%= member.approve_join_button(@viewmodel.group) %>
+          <%= member.inactivate_user_button(@viewmodel.group) %>
+          <%= member.reactivate_user_button(@viewmodel.group) %>
+          <%= member.archive_user_button(@viewmodel.group) %>
+          <%= member.unarchive_user_button(@viewmodel.group) %>
+        </div>
+      </div>
+    <% end %>
+    <div class="uk-text-bold uk-float-right membership-timer"><%= member.membership_time %></div>
+  </div>
+
+</li>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :photos, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
   get '/profiles/me/', to: 'profiles#show_self'
   resources :profiles, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
+  post '/profiles/:id/view-settings', to: 'profiles#update_view_setting', constraints: { id: /[^\/]+/ }, as: :update_view_setting
+  patch '/profiles/:id/view-settings', to: 'profiles#update_view_setting', constraints: { id: /[^\/]+/ }
   get '/profile/show/uid/:id', to: redirect('/profiles/%{id}'), constraints: { id: /[^\/]+/ }
 
   get '/photo/raw', to: 'raw_photos#show'
