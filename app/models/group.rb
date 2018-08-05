@@ -39,6 +39,22 @@ class Group < ActiveRecord::Base
     find RVT_ID
   end
 
+  def inactive_members
+    memberships.select &:inactive?
+  end
+
+  def active_members
+    memberships.select &:active?
+  end
+
+  def archived_members
+    memberships.select &:archived?
+  end
+
+  def newbie_members
+    memberships.select &:newbie?
+  end
+
   def member?(user)
     user.membership_for(self)
   end
