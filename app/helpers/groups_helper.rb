@@ -1,35 +1,38 @@
 module GroupsHelper
   def active_users(group)
-    active_memberships =
-      group.memberships.reject { |m| m.inactive? || m.archived? }
-           .sort { |a, b| a.user.lastname <=> b.user.lastname }
-    @active_users = Kaminari.paginate_array(active_memberships)
+    newbie_memberships = group.newbie_members.sort { |m1, m2| m1.user.lastname <=> m2.user.lastname }
+    active_memberships = group.active_members.sort { |m1, m2| m1.user.lastname <=> m2.user.lastname }
+
+    @active_users = Kaminari.paginate_array( newbie_memberships + active_memberships )
                             .page(params[:active_users_page])
                             .per(items_per_page)
+
     @active_users.each do |membership|
       yield GroupMemberDecorator.decorate(GroupMember.new(membership))
     end
   end
 
   def inactive_users(group)
-    inactive_memberhips =
-      group.memberships.select(&:inactive?)
-           .sort { |a, b| a.user.lastname <=> b.user.lastname }
-    @inactive_users = Kaminari.paginate_array(inactive_memberhips)
+    inactive_memberships = group.inactive_members
+      .sort { |m1, m2| m1.user.lastname <=> m2.user.lastname }
+
+    @inactive_users = Kaminari.paginate_array(inactive_memberships)
                               .page(params[:inactive_users_page])
                               .per(items_per_page)
+
     @inactive_users.each do |membership|
       yield GroupMemberDecorator.decorate(GroupMember.new(membership))
     end
   end
 
   def archived_users(group)
-    archived_memberships =
-      group.memberships.select(&:archived?)
-           .sort { |a, b| a.user.lastname <=> b.user.lastname }
+    archived_memberships = group.archived_members
+      .sort { |m1, m2| m1.user.lastname <=> m2.user.lastname }
+
     @archived_users = Kaminari.paginate_array(archived_memberships)
                               .page(params[:archived_users_page])
                               .per(items_per_page)
+
     @archived_users.each do |membership|
       yield GroupMemberDecorator.decorate(GroupMember.new(membership))
     end
