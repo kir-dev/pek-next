@@ -22,7 +22,7 @@ class Membership < ActiveRecord::Base
   end
 
   def newbie?
-    has_post?(DEFAULT_POST_ID)
+    has_post?(DEFAULT_POST_ID) && self.end.nil? && !self.archived?
   end
 
   def pek_admin?
