@@ -1,9 +1,11 @@
 module GroupsHelper
-  def active_users(group)
-    newbie_memberships = group.newbie_members.sort { |m1, m2| m1.user.lastname <=> m2.user.lastname }
-    active_memberships = group.active_members.sort { |m1, m2| m1.user.lastname <=> m2.user.lastname }
+  require 'array'
 
-    @active_users = Kaminari.paginate_array( newbie_memberships + active_memberships )
+  def active_users(group)
+    newbie_memberships = group.newbie_members.sort_by_name
+    active_memberships = group.active_members.sort_by_name
+
+    @active_users = Kaminari.paginate_array(newbie_memberships + active_memberships)
                             .page(params[:active_users_page])
                             .per(items_per_page)
 
@@ -13,8 +15,7 @@ module GroupsHelper
   end
 
   def inactive_users(group)
-    inactive_memberships = group.inactive_members
-      .sort { |m1, m2| m1.user.lastname <=> m2.user.lastname }
+    inactive_memberships = group.inactive_members.sort_by_name
 
     @inactive_users = Kaminari.paginate_array(inactive_memberships)
                               .page(params[:inactive_users_page])
@@ -26,8 +27,7 @@ module GroupsHelper
   end
 
   def archived_users(group)
-    archived_memberships = group.archived_members
-      .sort { |m1, m2| m1.user.lastname <=> m2.user.lastname }
+    archived_memberships = group.archived_members.sort_by_name
 
     @archived_users = Kaminari.paginate_array(archived_memberships)
                               .page(params[:archived_users_page])
