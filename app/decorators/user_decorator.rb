@@ -22,7 +22,9 @@ class UserDecorator < Draper::Decorator
   def email
     return if user.email.blank?
     return unless Privacy.for(user, 'EMAIL').visible
-    email = [content_tag(:i, "", class: 'uk-icon-envelope'), user.email]
+    email_link = content_tag(:a, user.email,
+			     href: "mailto:" + user.email).html_safe
+    email = [content_tag(:i, "", class: 'uk-icon-envelope'), email_link]
       .join(' ').html_safe
     content_tag(:h4, email, class: 'uk-h4')
   end
