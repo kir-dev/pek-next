@@ -6,6 +6,8 @@
 [![Code Climate](https://codeclimate.com/github/kir-dev/pek-next.png)](https://codeclimate.com/github/kir-dev/pek-next)
 [![Dependency Status](https://gemnasium.com/kir-dev/pek-next.png)](https://gemnasium.com/kir-dev/pek-next)
 
+[![](https://codescene.io/projects/3358/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/3358/jobs/latest-successful/results)
+
 ## Running
 
 **To run PéK you will need the following:**
