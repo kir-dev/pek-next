@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
     user = User.find_by(auth_sch_id: raw_user['internal_id'])
     if user
       session[:user_id] = user.id
+      user.update_lastlogin!
       redirect_to redirect_url
     else
       session[:oauth_data] = raw_user

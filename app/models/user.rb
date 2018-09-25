@@ -85,4 +85,9 @@ class User < ActiveRecord::Base
     @svie_user ||= SvieUser.new(self)
   end
 
+  def update_lastlogin!
+    self.lastlogin = Time.now
+    save
+  end
+
 end
