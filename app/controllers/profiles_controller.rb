@@ -10,6 +10,13 @@ class ProfilesController < ApplicationController
     @user_presenter = user.decorate
   end
 
+  def show_by_id
+    user = User.find_by(id: params[:id])
+    return redirect_to profiles_me_path unless user
+
+    redirect_to profile_path(user.screen_name)
+  end
+
   def show_self
     @user_presenter = current_user.decorate
     render :show
