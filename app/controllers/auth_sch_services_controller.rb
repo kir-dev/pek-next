@@ -41,13 +41,13 @@ private
     user.memberships.each do |membership|
       next if membership.newbie? || membership.archived?
       memberships_array.push({
-        start: membership.start,
-        end: membership.end,
+        start: membership.start_date,
+        end: membership.end_date,
         group_name: membership.group.name,
         group_id: membership.group.id,
         posts: membership.posts.map { |p| p.post_type.name }
         })
-      memberships_array.last[:posts].push(membership.end ? 'öregtag' : 'tag')
+      memberships_array.last[:posts].push(membership.end_date ? 'öregtag' : 'tag')
     end
     memberships_array
   end

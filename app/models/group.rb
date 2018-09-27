@@ -74,7 +74,7 @@ class Group < ActiveRecord::Base
   def current_delegated_count
     return @currently_delegated_cache if @currently_delegated_cache
     delegates = members.includes(:primary_membership).where(delegated: true)
-     .select { |user| user.primary_membership.group_id == self.id && user.primary_membership.end.nil? }
+     .select { |user| user.primary_membership.group_id == self.id && user.primary_membership.end_date.nil? }
     @currently_delegated_cache = delegates.length
   end
 
@@ -89,7 +89,7 @@ class Group < ActiveRecord::Base
   end
 
   def point_eligible_memberships
-    memberships.includes(:user).select { |m| m.end == nil && m.archived == nil }
+    memberships.includes(:user).select { |m| m.end_date == nil && m.archived == nil }
       .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
   end
 end

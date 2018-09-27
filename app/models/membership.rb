@@ -4,8 +4,8 @@ class Membership < ActiveRecord::Base
 
   alias_attribute :group_id, :grp_id
   alias_attribute :user_id, :usr_id
-  alias_attribute :start, :membership_start
-  alias_attribute :end, :membership_end
+  alias_attribute :start_date, :membership_start
+  alias_attribute :end_date, :membership_end
 
   belongs_to :group, foreign_key: :grp_id
   belongs_to :user, foreign_key: :usr_id
@@ -22,7 +22,7 @@ class Membership < ActiveRecord::Base
   end
 
   def newbie?
-    has_post?(DEFAULT_POST_ID) && self.end.nil? && !self.archived?
+    has_post?(DEFAULT_POST_ID) && self.end_date.nil? && !self.archived?
   end
 
   def pek_admin?
@@ -38,11 +38,11 @@ class Membership < ActiveRecord::Base
   end
 
   def active?
-    !self.newbie? && self.end.nil? && !self.archived?
+    !self.newbie? && self.end_date.nil? && !self.archived?
   end
 
   def inactive?
-    !self.end.nil? && !self.archived?
+    !self.end_date.nil? && !self.archived?
   end
 
   def post(post_type)
@@ -50,7 +50,7 @@ class Membership < ActiveRecord::Base
   end
 
   def inactivate!
-    self.end = Time.now
+    self.end_date = Time.now
 
     if self.user.delegated && self.user.primary_membership == self
       self.user.update(delegated: false)
@@ -59,7 +59,7 @@ class Membership < ActiveRecord::Base
   end
 
   def reactivate!
-    self.end = nil
+    self.end_date = nil
     save
   end
 
