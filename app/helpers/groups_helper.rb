@@ -4,8 +4,11 @@ module GroupsHelper
   def active_users(group)
     newbie_memberships = group.newbie_members.sort_by_name
     active_memberships = group.active_members.sort_by_name
+    memberships = newbie_memberships + active_memberships
 
-    @active_users = Kaminari.paginate_array(newbie_memberships + active_memberships)
+    memberships.sort_by_name unless current_user.leader_of? group
+
+    @active_users = Kaminari.paginate_array(memberships)
                             .page(params[:active_users_page])
                             .per(items_per_page)
 
