@@ -8,6 +8,8 @@
 
 [![](https://codescene.io/projects/3358/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/3358/jobs/latest-successful/results)
 
+[![codebeat badge](https://codebeat.co/badges/55f292f8-9e63-41f1-9fbd-68e15ecfcdaa)](https://codebeat.co/projects/github-com-kir-dev-pek-next-master)
+
 ## Running
 
 **To run PéK you will need the following:**

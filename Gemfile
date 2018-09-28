@@ -72,6 +72,10 @@ end
 
 group :test do
   gem 'timecop'
+
+  # For test coverage
+  gem 'simplecov', require: false
+  gem 'codeclimate-test-reporter', require: false
 end
 
 group :development do
