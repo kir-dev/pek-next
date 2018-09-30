@@ -15,4 +15,8 @@ class PointRequest < ActiveRecord::Base
     save!
     evaluation.update_last_change!
   end
+
+  def accepted?
+    evaluation.accepted
+  end
 end
