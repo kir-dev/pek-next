@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
 
   def show_by_id
     user = User.find_by(id: params[:id])
-    return redirect_to profiles_me_path unless user
+    return redirect_to profiles_me_path, alert: t(:virid_not_found) unless user
 
     redirect_to profile_path(user.screen_name)
   end

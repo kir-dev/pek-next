@@ -25,6 +25,7 @@ hu:
   invalid_id: Not valid id. It should be a UUID or a NEPTUN code.
   non_existent_id: Could not find user with %{id} id.
   successful_impersonation: Successful user impersonation
+  virid_not_found: Nem található felhasználó a megadott virid-val
   activerecord:
     attributes:
       user:
