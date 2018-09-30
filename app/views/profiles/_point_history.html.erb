@@ -20,7 +20,7 @@
 
   <div class="uk-accordion-content">
     <ul class="uk-list uk-list-line">
-      <% detailed_point_history(@user_presenter.pointrequests, year) do |point_history| %>
+      <% user_detailed_point_history(@user_presenter.pointrequests, year) do |point_history| %>
       <% point_history_presenter = PointHistoryDecorator.decorate(point_history) %>
       <li>
         <div class="uk-clearfix">

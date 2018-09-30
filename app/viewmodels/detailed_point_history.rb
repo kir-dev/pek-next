@@ -1,10 +1,11 @@
 class DetailedPointHistory
-  attr_reader :group, :point_request, :entry_request, :evaluation
+  attr_reader :group, :user, :point_request, :entry_request, :evaluation
 
   def initialize(point_request)
     @point_request = point_request
     @evaluation = point_request.evaluation
     @group = evaluation.group
+    @user = point_request.user
     @entry_request = evaluation.entry_requests.find_by user_id: point_request.user_id
   end
 
@@ -14,6 +15,14 @@ class DetailedPointHistory
 
   def group_id
     group.id
+  end
+
+  def user_screen_name
+    user.screen_name
+  end
+
+  def user_name
+    user.decorate.compact_name
   end
 
   def semester

@@ -79,4 +79,12 @@ class Group < ActiveRecord::Base
     memberships.includes(:user).select { |m| m.end == nil && m.archived == nil }
       .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
   end
+
+  def accepted_evaluations_by_date
+    # According to this measurement, this is the fastest way to reverse sort
+    # https://stackoverflow.com/questions/2642182/sorting-an-array-in-descending-order-in-ruby#2651028
+    evaluations.select(&:accepted)
+               .sort_by(&:date)
+               .reverse!
+  end
 end

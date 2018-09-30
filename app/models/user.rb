@@ -60,7 +60,11 @@ class User < ActiveRecord::Base
   validates_format_of :screen_name, without: /[\\\/]+/
 
   def full_name
-    [lastname, firstname].compact.join(' ')
+    "#{lastname} #{firstname}"
+  end
+
+  def transliterated_full_name
+    I18n.transliterate(full_name)
   end
 
   def membership_for(group)
