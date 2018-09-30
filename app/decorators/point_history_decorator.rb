@@ -12,4 +12,8 @@ class PointHistoryDecorator < Draper::Decorator
   def group_link
     link_to point_history.group_name, group_path(point_history.group_id)
   end
+
+  def nice_entry_card_type
+    Rails.configuration.x.entry_types[entry_card_type]
+  end
 end
