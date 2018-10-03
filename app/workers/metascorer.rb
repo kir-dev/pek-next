@@ -27,8 +27,8 @@ class Metascorer
     if !user.photo_path.nil?
       metascore += @config[:photo_reward]
     end
-    if !user.lastlogin.nil?
-      metascore += last_login_reward(user.lastlogin)
+    if !user.last_login.nil?
+      metascore += last_login_reward(user.last_login)
     end
     if !user.cell_phone.nil?
       metascore += @config[:phone_number_reward]
