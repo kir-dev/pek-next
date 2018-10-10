@@ -49,6 +49,11 @@ class Membership < ActiveRecord::Base
     posts.find_by(post_type_id: post_type)
   end
 
+  def primary?
+    active? && user.svie_member_type == SvieUser::INSIDE_MEMBER &&
+      user.primary_membership == self
+  end
+
   def inactivate!
     self.end_date = Time.now
 
