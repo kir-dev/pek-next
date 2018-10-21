@@ -6,7 +6,7 @@ module GroupsHelper
     active_memberships = group.active_members.sort_by_name
     memberships = newbie_memberships + active_memberships
 
-    memberships.sort_by_name unless current_user.leader_of? group
+    memberships = memberships.sort_by_name unless current_user.leader_of? group
 
     @active_users = Kaminari.paginate_array(memberships)
                             .page(params[:active_users_page])
