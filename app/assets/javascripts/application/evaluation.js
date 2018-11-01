@@ -5,7 +5,7 @@ var evaluation = (function(Rx, $) {
     var input = document.querySelectorAll('.point-input');
     if (input != null) {
       var inputStream = Rx.Observable.fromEvent(input, 'change')
-        .map(event => event.target);
+        .map(function(event) { return event.target; });
 
       inputStream.subscribe(inputChange);
     }
