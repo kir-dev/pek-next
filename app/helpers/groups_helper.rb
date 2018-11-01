@@ -1,5 +1,5 @@
 module GroupsHelper
-  require 'array'
+  using MembershipArray
 
   def active_users(group)
     newbie_memberships = group.newbie_members.sort_by_name
