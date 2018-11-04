@@ -24,19 +24,19 @@ class Metascorer
     if(last_year_point)
       metascore += last_year_point.point * @config[:last_year_multiplier]
     end
-    if !user.photo_path.nil?
+    if user.photo_path.present?
       metascore += @config[:photo_reward]
     end
-    if !user.last_login.nil?
+    if user.last_login.present?
       metascore += last_login_reward(user.last_login)
     end
-    if !user.cell_phone.nil?
+    if user.cell_phone.present?
       metascore += @config[:phone_number_reward]
     end
-    if !user.dormitory.nil?
+    if user.dormitory.present?
       metascore += @config[:dormitory_reward]
     end
-    if !user.email.nil?
+    if user.email.present?
       metascore += @config[:email_reward]
     end
     return metascore
