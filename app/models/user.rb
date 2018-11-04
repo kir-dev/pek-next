@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   alias_attribute :status, :usr_status
   alias_attribute :password, :usr_password
   alias_attribute :salt, :usr_salt
-  alias_attribute :lastlogin, :usr_lastlogin
+  alias_attribute :last_login, :usr_lastlogin
   alias_attribute :metascore, :usr_metascore
   alias_attribute :auth_sch_id, :usr_auth_sch_id
   alias_attribute :bme_id, :usr_bme_id
@@ -83,6 +83,10 @@ class User < ActiveRecord::Base
 
   def svie
     @svie_user ||= SvieUser.new(self)
+  end
+
+  def update_last_login!
+    self.update(last_login: Time.now)
   end
 
 end
