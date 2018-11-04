@@ -2,7 +2,7 @@ require 'date'
 
 class Metascorer
   include Sidekiq::Worker
-  sidekiq_options :retry => false
+  sidekiq_options retry: false
 
   def initialize
     @config = Rails.configuration.x.metascoring # Rails config is not threadsafe
@@ -28,13 +28,14 @@ class Metascorer
     metascore += @config[:photo_reward] if user.photo_path.present?
     metascore += last_login_reward(user.last_login) if user.last_login.present?
 
-    return metascore
+    metascore
   end
 
   def last_login_reward(last_login)
     @config[:login_rewards].each do |tier|
       return tier[:reward] if last_login > Date.today - tier[:time]
     end
-    return 0
+
+    0
   end
 end
