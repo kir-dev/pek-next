@@ -47,7 +47,7 @@ class AuthSchServicesControllerTest < ActionController::TestCase
     expected_response = [
       {
         'start' => '2010-02-02',
-        'end' => grp_membership(:babhamozo_member_into_group).end,
+        'end' => grp_membership(:babhamozo_member_into_group).end_date,
         'group_name' => groups(:babhamozo).name,
         'group_id' => groups(:babhamozo).id,
         'posts' => ['tag']
