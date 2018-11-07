@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'
     delete '/delegate', to: 'delegates#destroy'
+    get '/history', to: 'group_history#show'
   end
 
   get '/korok/showgroup/id/:id', to: redirect('/groups/%{id}')

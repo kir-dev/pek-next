@@ -20,6 +20,9 @@ class Group < ActiveRecord::Base
   has_many :memberships, foreign_key: :grp_id
   has_many :members, through: :memberships, source: :user
   has_many :post_types, foreign_key: :grp_id
+  has_many :evaluations, foreign_key: :grp_id
+  has_many :point_requests, through: :evaluations
+  has_many :entry_requests, through: :evaluations
   belongs_to :group, foreign_key: :grp_parent
   alias :own_post_types :post_types
 
@@ -91,5 +94,13 @@ class Group < ActiveRecord::Base
   def point_eligible_memberships
     memberships.includes(:user).select { |m| m.end_date == nil && m.archived == nil }
       .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
+  end
+
+  def accepted_evaluations_by_date
+    # According to this measurement, this is the fastest way to reverse sort
+    # https://stackoverflow.com/questions/2642182/sorting-an-array-in-descending-order-in-ruby#2651028
+    evaluations.select(&:accepted)
+               .sort_by(&:date)
+               .reverse!
   end
 end
