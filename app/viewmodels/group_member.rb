@@ -6,8 +6,8 @@ class GroupMember
   end
 
   def posts
-    return 'öregtag' unless @membership.end.nil? || @membership.archived
-    return 'archivált' if @membership.end && @membership.archived
+    return 'öregtag' unless @membership.end_date.nil? || @membership.archived
+    return 'archivált' if @membership.end_date && @membership.archived
     return 'tag' if @membership.post_types.empty?
     @membership.post_types.map(&:pttip_name).join(', ')
   end
@@ -30,11 +30,11 @@ class GroupMember
   end
 
   def membership_start
-    @membership.start
+    @membership.start_date
   end
 
   def membership_end
-    @membership.end
+    @membership.end_date
   end
 
   def membership_id
@@ -58,10 +58,10 @@ class GroupMember
   end
 
   def membership_timer
-    if @membership.end
-      [@membership.start, @membership.end].join(' - ')
+    if @membership.end_date
+      [@membership.start_date, @membership.end_date].join(' - ')
     else
-      "#{@membership.start} -"
+      "#{@membership.start_date} -"
     end
   end
 

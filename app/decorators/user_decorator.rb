@@ -14,15 +14,21 @@ class UserDecorator < Draper::Decorator
   def cell_phone
     return if user.cell_phone.blank?
     return unless Privacy.for(user, 'CELL_PHONE').visible
+    cell_phone_number = 
+	        content_tag(:a, 
+		user.cell_phone, 
+		href: "tel:" + user.cell_phone).html_safe
     cell_phone = [content_tag(:i, "", class: 'uk-icon-phone'),
-      user.cell_phone].join(' ').html_safe
+		  cell_phone_number].join(' ').html_safe
     content_tag(:h4, cell_phone, class: 'uk-h4')
   end
 
   def email
     return if user.email.blank?
     return unless Privacy.for(user, 'EMAIL').visible
-    email = [content_tag(:i, "", class: 'uk-icon-envelope'), user.email]
+    email_link = content_tag(:a, user.email,
+			     href: "mailto:" + user.email).html_safe
+    email = [content_tag(:i, "", class: 'uk-icon-envelope'), email_link]
       .join(' ').html_safe
     content_tag(:h4, email, class: 'uk-h4')
   end
