@@ -1,5 +1,4 @@
 class ProfilesController < ApplicationController
-  before_action :require_login
   before_action :correct_user, only: %I[edit update update_view_setting]
   before_action :set_entities_for_edit, only: %I[edit]
 

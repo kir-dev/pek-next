@@ -1,5 +1,4 @@
 class MessagesController < ApplicationController
-  before_action :require_login
   before_action :require_leader, except: :create
   before_action :require_leader_or_rvt_member, only: :create
   before_action :require_application_or_evaluation_season

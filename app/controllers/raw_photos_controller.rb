@@ -1,6 +1,4 @@
 class RawPhotosController < ApplicationController
-  before_action :require_login
-
   def show
     send_file PhotoService.raw_path(current_user.screen_name), type: 'image/png', disposition: 'inline'
   end

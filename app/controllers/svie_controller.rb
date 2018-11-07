@@ -1,5 +1,4 @@
 class SvieController < ApplicationController
-  before_action :require_login
   before_action :require_privileges_of_rvt, only: [:index, :approve]
 
   def new

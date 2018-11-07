@@ -1,6 +1,4 @@
 class PhotosController < ApplicationController
-  before_action :require_login
-
   def show
     sanitized = params[:id].gsub(/^.*(\\|\/)/, '')
     send_file PhotoService.photo_path(sanitized), type: 'image/png', disposition: 'inline'

@@ -1,6 +1,4 @@
 class ImAccountsController < ApplicationController
-  before_action :require_login
-
   def update
     @im_account = ImAccount.find(params[:id])
     respond_to do |format|

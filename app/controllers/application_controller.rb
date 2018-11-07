@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
     request.env['puma.config'].options.user_options.delete :app
   end
 
+  before_action :require_login
   def require_login
     unless session[:user_id] || ENV['NONAUTH']
       session[:redirect_url] = request.original_fullpath

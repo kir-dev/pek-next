@@ -1,5 +1,4 @@
 class EvaluationsController < ApplicationController
-  before_action :require_login
   before_action :require_resort_or_group_leader
   before_action :validate_correct_group, except: :current
   before_action :changeable_points, only: %i[edit update table submit_point_request]

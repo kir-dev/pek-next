@@ -1,5 +1,4 @@
 class JudgementsController < ApplicationController
-  before_action :require_login
   before_action :require_privileges_of_rvt
 
   def index
