@@ -4,19 +4,12 @@ class GroupMemberDecorator < Draper::Decorator
 
   def svie_status_icon
     return unless membership.active?
-    if !user.svie.member? || user.svie.in_processing?
-      content_tag(:span, '', class: 'uk-icon-remove', 'data-uk-tooltip': '',
-                  title: 'Nem SVIE tag')
-    elsif user.svie.outside_member?
-      content_tag(:span, '', class: 'uk-icon-heart', 'data-uk-tooltip': '',
-                  title: 'Pártolótag')
-    elsif !primary_member?
-      content_tag(:span, '', class: 'uk-icon-check-square',
-                  'data-uk-tooltip': '', title: 'Más elsődleges kör')
-    elsif user.svie.inside_member?
-      content_tag(:span, '', class: 'uk-icon-check', 'data-uk-tooltip': '',
-                  title: 'Rendes tag')
-    end
+    return icon_tag('uk-icon-remove', 'Nem SVIE tag') if !user.svie.member? ||
+                                                         user.svie.in_processing?
+    return icon_tag('uk-icon-heart', 'Pártolótag') if user.svie.outside_member?
+    return icon_tag('uk-icon-check-square', 'Más elsődleges kör') unless primary_member?
+
+    icon_tag('uk-icon-check', 'Rendes tag')
   end
 
   def membership_time

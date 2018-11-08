@@ -23,4 +23,8 @@ module ApplicationHelper
     return view_setting.items_per_page if view_setting
     Kaminari.config.default_per_page
   end
+
+  def icon_tag(icon, title = '')
+    content_tag(:i, '', class: icon, 'data-uk-tooltip': '', title: title)
+  end
 end
