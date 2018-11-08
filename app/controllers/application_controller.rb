@@ -57,6 +57,10 @@ class ApplicationController < ActionController::Base
     unauthorized_page unless (membership && membership.leader?) || current_user.roles.rvt_member?
   end
 
+  def current_semester
+    SystemAttribute.semester.to_s
+  end
+
   def current_user
     if ENV['NONAUTH']
       return impersonate_user

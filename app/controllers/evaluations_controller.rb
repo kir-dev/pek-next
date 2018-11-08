@@ -5,10 +5,10 @@ class EvaluationsController < ApplicationController
   before_action :changeable_entries, only: %i[submit_entry_request]
 
   def current
-    evaluation = Evaluation.find_by(group_id: current_group.id, semester: SystemAttribute.semester.to_s)
+    evaluation = Evaluation.find_by(group_id: current_group.id, semester: current_semester)
     evaluation ||= Evaluation.create(group_id: current_group.id,
                                      creator_user_id: current_user.id,
-                                     semester: SystemAttribute.semester.to_s)
+                                     semester: current_semester)
 
     redirect_to group_evaluation_path(evaluation.group, evaluation)
   end
@@ -18,7 +18,7 @@ class EvaluationsController < ApplicationController
   end
 
   def edit
-    @evaluation = Evaluation.find_by(group_id: current_group.id, semester: SystemAttribute.semester.to_s)
+    @evaluation = Evaluation.find_by(group_id: current_group.id, semester: current_semester)
   end
 
   def update

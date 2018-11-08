@@ -2,19 +2,18 @@ class JudgementsController < ApplicationController
   before_action :require_privileges_of_rvt
 
   def index
-    semester = SystemAttribute.semester.to_s
-    @evaluations = Evaluation.where(date: semester).page(params[:page]).decorate
+    @evaluations = Evaluation.where(date: current_semester).page(params[:page]).decorate
   end
 
   def show
-    semester = SystemAttribute.semester.to_s
     @evaluation = Evaluation.find(params[:evaluation_id])
     @point_details = PointDetail.includes(:point_request)
       .select { |pd| pd.point_request.evaluation == @evaluation }
-    @evaluation_messages = EvaluationMessage.where(group: @evaluation.group, semester: semester)
       .order(sent_at: :desc).page(params[:page]).decorate
     @entry_requests = EntryRequestDecorator.decorate_collection(@evaluation
       .entry_requests.reject { |er| er.entry_type == EntryRequest::KDO })
+    @evaluation_messages =
+      EvaluationMessage.where(group: @evaluation.group, semester: current_semester)
   end
 
   def update
