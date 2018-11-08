@@ -2,8 +2,12 @@ require 'test_helper'
 
 class RegistrationControllerTest < ActionController::TestCase
   setup do
-    session[:oauth_data] = { "internal_id" => 'abc', "mail" => 'abc@def.gh',
-      "givenName" => 'Károly', "sn" => 'Alma'}
+    session[:oauth_data] = {
+      internal_id: 'abc',
+      mail: 'abc@def.gh',
+      givenName: 'Károly',
+      sn: 'Alma'
+    }
   end
 
   test "show registration page" do

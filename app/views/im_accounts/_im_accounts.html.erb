@@ -2,7 +2,7 @@
 
 <div id="im_accounts">
   <% @user.im_accounts.each do |im_account| %>
-    <%= render 'im_accounts/im_account', :im_account => im_account, :user => @user %>
+    <%= render 'im_accounts/im_account', im_account: im_account, user: @user %>
   <% end %>
 </div>
 
@@ -10,13 +10,13 @@
   <hr>
 <% end %>
 
-<%= form_for im_account, :remote => true, :authenticity_token => true, html: {class: 'uk-form'} do |f| %>
+<%= form_for im_account, remote: true, authenticity_token: true, html: {class: 'uk-form'} do |f| %>
   <div class="uk-grid uk-margin uk-grid-small">
 
     <div class="uk-width-medium-1-5 uk-width-1-3 uk-margin-small-bottom">
       <%= f.select :protocol,
             options_for_select(Rails.configuration.x.im_accounts.invert, ''),
-            {}, { :class => 'uk-select uk-width-1-1' } %>
+            {}, { class: 'uk-select uk-width-1-1' } %>
     </div>
 
     <div class="uk-width-medium-1-2 uk-width-2-3">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="uk-width-medium-3-10 uk-width-1-1">
-      <%= f.hidden_field :user_id, :value => @user.id, class: 'uk-input uk-width-auto' %>
+      <%= f.hidden_field :user_id, value: @user.id, class: 'uk-input uk-width-auto' %>
       <%= f.submit 'Hozzáad', class: 'uk-button uk-width-1-1' %>
     </div>
 
