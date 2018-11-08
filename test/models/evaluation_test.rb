@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EvaluationTest < ActiveSupport::TestCase
-
   test 'creating a new evaluation sets default values' do
     evaluation = Evaluation.new
     evaluation.group = groups(:group1)
@@ -17,5 +16,4 @@ class EvaluationTest < ActiveSupport::TestCase
       assert evaluation.last_modification, Time.now
     end
   end
-
 end

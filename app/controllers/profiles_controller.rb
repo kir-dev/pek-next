@@ -1,11 +1,12 @@
 class ProfilesController < ApplicationController
-  before_action :correct_user, only: %I[edit update update_view_setting]
-  before_action :set_entities_for_edit, only: %I[edit]
+  before_action :correct_user, only: %i[edit update update_view_setting]
+  before_action :set_entities_for_edit, only: %i[edit]
 
   def show
-    user = User.includes( [ { pointrequests: [ { evaluation: [ :group, :entry_requests ] } ] },
-      { memberships: [ :group, :post_types ] } ]).find_by(screen_name: params[:id])
+    user = User.includes([{ pointrequests: [{ evaluation: %i[group entry_requests] }] },
+                          { memberships: %i[group post_types] }]).find_by(screen_name: params[:id])
     return redirect_to profiles_me_path unless user
+
     @user_presenter = user.decorate
   end
 
@@ -34,12 +35,11 @@ class ProfilesController < ApplicationController
 
   def update_view_setting
     @view_setting = ViewSetting.find_or_initialize_by(user: current_user)
-
     if @view_setting.update(view_setting_params)
       return redirect_to profiles_me_path, notice: t(:edit_successful)
     end
-    redirect_back fallback_location: edit_profile_path(current_user,
-                                                       anchor: 'view-settings')
+
+    redirect_back fallback_location: edit_profile_path(current_user, anchor: 'view-settings')
   end
 
   private
@@ -58,7 +58,6 @@ class ProfilesController < ApplicationController
   end
 
   def view_setting_params
-    params.require(:view_setting)
-          .permit(:listing, :show_pictures, :items_per_page)
+    params.require(:view_setting).permit(:listing, :show_pictures, :items_per_page)
   end
 end

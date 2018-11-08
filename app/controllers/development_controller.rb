@@ -1,8 +1,7 @@
 class DevelopmentController < ApplicationController
   skip_before_action :require_login
 
-  def index
-  end
+  def index; end
 
   def impersonate_someone
     impersonate(User.first)
@@ -10,7 +9,7 @@ class DevelopmentController < ApplicationController
   end
 
   def impersonate_user
-    impersonate(User.find params[:user_id])
+    impersonate(User.find(params[:user_id]))
     impersonated_successfully
   end
 
@@ -40,5 +39,4 @@ class DevelopmentController < ApplicationController
   def impersonated_successfully
     redirect_back fallback_location: development_path, notice: :successful_impersonation
   end
-
 end

@@ -9,6 +9,7 @@ class GroupMember
     return 'öregtag' unless @membership.end_date.nil? || @membership.archived
     return 'archivált' if @membership.end_date && @membership.archived
     return 'tag' if @membership.post_types.empty?
+
     @membership.post_types.map(&:pttip_name).join(', ')
   end
 
@@ -22,6 +23,7 @@ class GroupMember
 
   def compact_name
     return full_name if nickname.blank?
+
     "#{full_name} (#{nickname})"
   end
 
@@ -58,12 +60,8 @@ class GroupMember
   end
 
   def membership_timer
-    if @membership.end_date
-      [@membership.start_date, @membership.end_date].join(' - ')
-    else
-      "#{@membership.start_date} -"
-    end
+    return "#{@membership.start_date} - #{@membership.end_date}" if @membership.end_date
+
+    "#{@membership.start_date} -"
   end
-
-
 end

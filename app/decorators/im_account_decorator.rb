@@ -3,8 +3,7 @@ class ImAccountDecorator < Draper::Decorator
   include Draper::LazyHelpers
 
   def account
-    full_name = [ImAccount.human_attribute_name('protocol.' + protocol), account_name].join(': ')
-    content_tag(:h5, full_name, class: 'uk-h5')
+    humanized_protocol = ImAccount.human_attribute_name("protocol.#{protocol}")
+    content_tag(:h5, "#{humanized_protocol}: #{account_name}", class: 'uk-h5')
   end
-
 end

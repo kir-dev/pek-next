@@ -41,27 +41,28 @@ class UserDecorator < Draper::Decorator
   end
 
   def nickname
-    return if user.nickname.blank?
     user.nickname
   end
 
   def compact_name
     return user.full_name if user.nickname.blank?
-    [user.full_name, ' (', user.nickname, ')'].join
+
+    "#{user.full_name} (#{user.nickname})"
   end
 
   def edit_profile_picture_button
-    return unless user.id == current_user.id
+    return unless user == current_user
+
     icon = content_tag(:i, '', class: 'uk-icon-edit uk-contrast')
     link = link_to(icon, edit_photo_path(current_user.screen_name),
-      class: 'uk-align-right uk-link-muted uk-overlay-background uk-padding')
+                   class: 'uk-align-right uk-link-muted uk-overlay-background uk-padding')
     content_tag(:figcaption, link, class: 'uk-overlay-panel uk-overlay-top')
   end
 
   def delegated_for
     return unless user.delegated
 
-    content_tag(:h4, "Küldött itt: " + user.primary_membership.group.name, class: 'uk-h4')
+    content_tag(:h4, "Küldött itt: #{user.primary_membership.group.name}", class: 'uk-h4')
   end
 
   private

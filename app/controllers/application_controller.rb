@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
 
   before_action :require_login
   def require_login
-    unless session[:user_id] || ENV['NONAUTH']
-      session[:redirect_url] = request.original_fullpath
-      redirect_to login_path
-    end
+    return if session[:user_id] || ENV['NONAUTH']
+
+    session[:redirect_url] = request.original_fullpath
+    redirect_to login_path
   end
 
   def correct_user
@@ -41,7 +41,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_resort_or_group_leader
-    unauthorized_page unless current_user.leader_of?(current_group) || current_user.roles.resort_leader?(current_group)
+    unauthorized_page unless current_user.leader_of?(current_group) ||
+                             current_user.roles.resort_leader?(current_group)
   end
 
   def require_pek_admin
@@ -62,20 +63,16 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    if ENV['NONAUTH']
-      return impersonate_user
-    end
-    @current_user ||= User.includes([ { memberships: [ :group ] } ]).find(session[:user_id])
+    return impersonate_user if ENV['NONAUTH']
+
+    @current_user ||= User.includes([{ memberships: [:group] }]).find(session[:user_id])
   end
   helper_method :current_user
 
   def current_group
-    if params[:group_id]
-      @group ||= Group.find(params[:group_id])
-    else
-      @group ||= Group.find(params[:id])
-    end
-    @group
+    return @group ||= Group.find(params[:group_id]) if params[:group_id]
+
+    @group ||= Group.find(params[:id])
   end
   helper_method :current_group
 
@@ -92,13 +89,12 @@ class ApplicationController < ActionController::Base
     render 'application/401', status: :unauthorized
   end
 
-  # TODO delete when we upgrade to Rails5
+  # TODO: delete when we upgrade to Rails5
   # Maybe then the default fallback_location will break the app
   def redirect_back(fallback_location: root_url, **args)
-    if request.env['HTTP_REFERER'].present? and request.env['HTTP_REFERER'] != request.env["REQUEST_URI"]
-      redirect_to :back, args
-    else
-      redirect_to fallback_location, args
-    end
+    return redirect_to :back, args if request.env['HTTP_REFERER'].present? &&
+                                      request.env['HTTP_REFERER'] != request.env['REQUEST_URI']
+
+    redirect_to fallback_location, args
   end
 end

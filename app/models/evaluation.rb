@@ -1,5 +1,5 @@
 class Evaluation < ActiveRecord::Base
-  self.table_name = "ertekelesek"
+  self.table_name = 'ertekelesek'
   self.primary_key = :id
 
   before_save :set_default_values
@@ -21,10 +21,10 @@ class Evaluation < ActiveRecord::Base
   has_many :entry_requests, foreign_key: :ertekeles_id
   has_many :principles
 
-  NON_EXISTENT = 'NINCS'
-  ACCEPTED = 'ELFOGADVA'
-  REJECTED = 'ELUTASITVA'
-  NOT_YET_ASSESSED = 'ELBIRALATLAN'
+  NON_EXISTENT = 'NINCS'.freeze
+  ACCEPTED = 'ELFOGADVA'.freeze
+  REJECTED = 'ELUTASITVA'.freeze
+  NOT_YET_ASSESSED = 'ELBIRALATLAN'.freeze
 
   def point_request_accepted?
     point_request_status == ACCEPTED
@@ -43,7 +43,7 @@ class Evaluation < ActiveRecord::Base
   end
 
   def date_as_semester
-    Semester.new(self.date)
+    Semester.new(date)
   end
 
   def set_default_values
@@ -70,9 +70,10 @@ class Evaluation < ActiveRecord::Base
 
   private
 
-  def can_change_request_status_of? request_status
+  def can_change_request_status_of?(request_status)
     return true if SystemAttribute.evaluation_season? && request_status == REJECTED
-    return true if SystemAttribute.application_season? && ([NON_EXISTENT, REJECTED].include? request_status)
+    return true if SystemAttribute.application_season? &&
+                   ([NON_EXISTENT, REJECTED].include? request_status)
 
     false
   end

@@ -11,5 +11,4 @@ class SeasonAdminController < ApplicationController
     Semester.from_year(params[:semester_year], params[:semester_semester]).save
     redirect_to root_path, notice: t(:edit_successful)
   end
-
 end

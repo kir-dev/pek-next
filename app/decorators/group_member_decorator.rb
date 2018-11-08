@@ -14,20 +14,23 @@ class GroupMemberDecorator < Draper::Decorator
 
   def membership_time
     return "#{l membership_start} - #{l membership_end}" if membership.inactive?
+
     "#{l membership_start} -"
   end
 
   def edit_post_button(group)
     return if membership.inactive?
+
     form_tag(group_membership_posts_path(group.id, membership_id),
              method: :get, class: 'uk-form') do
-      button_tag('', name: nil, class: 'uk-icon-edit uk-button uk-button-small',
-                 'data-uk-tooltip': '', title: 'Posztok szerkesztése')
+      button_tag '', name: nil, class: 'uk-icon-edit uk-button uk-button-small',
+                     'data-uk-tooltip': '', title: 'Posztok szerkesztése'
     end
   end
 
   def approve_join_button(group)
     return unless membership.newbie? && membership.active?
+
     button_to 'Elfogadás',
               group_membership_accept_path(group.id, membership_id),
               method: :post, remote: true,
@@ -36,6 +39,7 @@ class GroupMemberDecorator < Draper::Decorator
 
   def inactivate_user_button(group)
     return unless !membership.newbie? && membership.active?
+
     button_to 'Öreggé avatás',
               group_membership_inactivate_path(group.id, membership_id),
               method: :post, remote: true,
@@ -44,6 +48,7 @@ class GroupMemberDecorator < Draper::Decorator
 
   def archive_user_button(group)
     return if membership.archived?
+
     button_to 'Archiválás',
               group_membership_archive_path(group.id, membership_id),
               method: :put, remote: true,
@@ -52,6 +57,7 @@ class GroupMemberDecorator < Draper::Decorator
 
   def reactivate_user_button(group)
     return unless membership.inactive?
+
     button_to 'Újraaktiválás',
               group_membership_reactivate_path(group.id, membership_id),
               method: :post, remote: true,
@@ -60,6 +66,7 @@ class GroupMemberDecorator < Draper::Decorator
 
   def unarchive_user_button(group)
     return unless membership.archived? && current_user.roles.pek_admin?
+
     button_to 'Archiválás visszavonása',
               group_membership_unarchive_path(group.id, membership_id),
               method: :put, remote: true,

@@ -16,8 +16,10 @@ class PointDetail < ActiveRecord::Base
 
   def valid_point
     return 0 if point.nil? || point < 0
+
     max_point = principle.max_per_member
     return max_point if point > max_point
+
     point
   end
 end

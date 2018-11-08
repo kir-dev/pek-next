@@ -29,7 +29,8 @@ class ImAccountsController < ApplicationController
   end
 
   private
-    def im_account_params
-      params.require(:im_account).permit(:protocol, :name, :user_id)
-    end
+
+  def im_account_params
+    params.require(:im_account).permit(:protocol, :name, :user_id)
+  end
 end

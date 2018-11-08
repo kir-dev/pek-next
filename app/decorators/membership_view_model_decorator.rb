@@ -16,9 +16,11 @@ class MembershipViewModelDecorator < Draper::Decorator
   end
 
   def join_group_button
-    return unless membership_view_model.group.users_can_apply && !current_user.membership_for(membership_view_model.group)
-    form_tag group_memberships_path(membership_view_model.group), {method: 'post'} do
-      button_tag('Jelentkezés körbe', {class: 'uk-button uk-button-primary uk-width-1-1'})
+    return unless membership_view_model.group.users_can_apply &&
+                  !current_user.membership_for(membership_view_model.group)
+
+    form_tag group_memberships_path(membership_view_model.group), method: :post do
+      button_tag('Jelentkezés körbe', class: 'uk-button uk-button-primary uk-width-1-1')
     end
   end
 
@@ -30,14 +32,14 @@ class MembershipViewModelDecorator < Draper::Decorator
 
   def leader_info_button
     return unless membership_view_model.leader?
-    button_tag('Help me!', {
-      class: 'uk-button uk-button-primary uk-width-1-1',
-      'data-uk-modal': '{target:\'#info\'}'
-    })
+
+    button_tag('Help me!', class: 'uk-button uk-button-primary uk-width-1-1',
+                           'data-uk-modal': '{target:\'#info\'}')
   end
 
   def leader_info
     return unless membership_view_model.leader?
+
     render 'leader_info'
   end
 

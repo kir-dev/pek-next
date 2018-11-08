@@ -24,8 +24,8 @@ class PrinciplesController < EvaluationsController
   end
 
   private
-    def principle_params
-      params.require(:principle).permit(:type, :name, :max_per_member, :description)
-    end
 
+  def principle_params
+    params.require(:principle).permit(:type, :name, :max_per_member, :description)
+  end
 end

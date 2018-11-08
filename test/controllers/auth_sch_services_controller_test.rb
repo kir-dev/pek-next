@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class AuthSchServicesControllerTest < ActionController::TestCase
-
-  test "basic data with invalid id" do
+  test 'basic data with invalid id' do
     get :sync, id: 'invalidid'
 
     assert_response :bad_request
@@ -11,7 +10,7 @@ class AuthSchServicesControllerTest < ActionController::TestCase
     assert_equal I18n.t(:invalid_id), resp_json['message']
   end
 
-  test "basic data with non-existing id" do
+  test 'basic data with non-existing id' do
     get :sync, id: 'ASDBSD'
 
     assert_response :not_found
@@ -20,7 +19,7 @@ class AuthSchServicesControllerTest < ActionController::TestCase
     assert_equal I18n.t(:non_existent_id, id: 'ASDBSD'), resp_json['message']
   end
 
-  test "basic data with correct neptun" do
+  test 'basic data with correct neptun' do
     get :sync, id: users(:sanyi).neptun
 
     assert_response :success
@@ -39,7 +38,7 @@ class AuthSchServicesControllerTest < ActionController::TestCase
     assert_equal expected_user, resp_json['user']
   end
 
-  test "memberships with correct auth.sch id" do
+  test 'memberships with correct auth.sch id' do
     get :memberships, id: users(:babhamozo_member).auth_sch_id
 
     assert_response :success
@@ -57,8 +56,9 @@ class AuthSchServicesControllerTest < ActionController::TestCase
     assert_equal expected_response, resp_json['memberships']
   end
 
-  test "entrants for a single semester and user" do
-    get :entrants, semester: evaluations(:babhamozo_2018).semester, id: users(:babhamozo_member).auth_sch_id
+  test 'entrants for a single semester and user' do
+    get :entrants, semester: evaluations(:babhamozo_2018).semester,
+                   id: users(:babhamozo_member).auth_sch_id
 
     assert_response :success
     resp_json = JSON.parse response.body
@@ -71,5 +71,4 @@ class AuthSchServicesControllerTest < ActionController::TestCase
     ]
     assert_equal expected_response, resp_json
   end
-
 end

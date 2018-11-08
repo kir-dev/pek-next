@@ -23,36 +23,43 @@ class EvaluationsController < ApplicationController
 
   def update
     current_evaluation.update(params.require(:evaluation).permit(:justification))
-    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:edit_successful)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation),
+                notice: t(:edit_successful)
   end
 
   def table
-    @point_details = PointDetail.includes(:point_request).select { |pd| pd.point_request.evaluation == current_evaluation }
+    @point_details = PointDetail.includes(:point_request).select do |pd|
+      pd.point_request.evaluation == current_evaluation
+    end
     @evaluation = current_evaluation
   end
 
   def submit_entry_request
     current_evaluation.update(entry_request_status: Evaluation::NOT_YET_ASSESSED)
 
-    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:submitted_entry_request)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation),
+                notice: t(:submitted_entry_request)
   end
 
   def submit_point_request
     current_evaluation.update(point_request_status: Evaluation::NOT_YET_ASSESSED)
 
-    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:submitted_point_request)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation),
+                notice: t(:submitted_point_request)
   end
 
   def cancel_entry_request
     current_evaluation.update(entry_request_status: Evaluation::NON_EXISTENT)
 
-    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:cancelled_entry_request)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation),
+                notice: t(:cancelled_entry_request)
   end
 
   def cancel_point_request
     current_evaluation.update(point_request_status: Evaluation::NON_EXISTENT)
 
-    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation), notice: t(:cancelled_point_request)
+    redirect_to group_evaluation_path(current_evaluation.group, current_evaluation),
+                notice: t(:cancelled_point_request)
   end
 
   private

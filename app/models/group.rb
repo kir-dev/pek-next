@@ -24,7 +24,7 @@ class Group < ActiveRecord::Base
   has_many :point_requests, through: :evaluations
   has_many :entry_requests, through: :evaluations
   belongs_to :group, foreign_key: :grp_parent
-  alias :own_post_types :post_types
+  alias own_post_types post_types
 
   SVIE_ID = 369
   RVT_ID = 146
@@ -43,19 +43,19 @@ class Group < ActiveRecord::Base
   end
 
   def inactive_members
-    memberships.select &:inactive?
+    memberships.select(&:inactive?)
   end
 
   def active_members
-    memberships.select &:active?
+    memberships.select(&:active?)
   end
 
   def archived_members
-    memberships.select &:archived?
+    memberships.select(&:archived?)
   end
 
   def newbie_members
-    memberships.select &:newbie?
+    memberships.select(&:newbie?)
   end
 
   def member?(user)
@@ -67,7 +67,7 @@ class Group < ActiveRecord::Base
   end
 
   def leader
-    memberships.find { |membership| membership.leader? }
+    memberships.find(&:leader?)
   end
 
   def post_types
@@ -76,8 +76,11 @@ class Group < ActiveRecord::Base
 
   def current_delegated_count
     return @currently_delegated_cache if @currently_delegated_cache
-    delegates = members.includes(:primary_membership).where(delegated: true)
-     .select { |user| user.primary_membership.group_id == self.id && user.primary_membership.end_date.nil? }
+
+    delegates =
+      members.includes(:primary_membership).where(delegated: true).select do |user|
+        user.primary_membership.group_id == id && user.primary_membership.end_date.nil?
+      end
     @currently_delegated_cache = delegates.length
   end
 
@@ -86,14 +89,16 @@ class Group < ActiveRecord::Base
   end
 
   def inactive?
-    previous_eval = Evaluation.where(group_id: self.id).where(date: SystemAttribute.semester.previous.to_s).empty?
-    pre_previous_eval = Evaluation.where(group_id: self.id).where(date: SystemAttribute.semester.previous.previous.to_s).empty?
-    previous_eval && pre_previous_eval
+    previous_semester = SystemAttribute.semester.previous
+    previous_eval = Evaluation.where(group_id: id, date: previous_semester.to_s)
+    pre_previous_semester = previous_semester.previous
+    pre_previous_eval = Evaluation.where(group_id: id, date: pre_previous_semester.to_s)
+    previous_eval.empty? && pre_previous_eval.empty?
   end
 
   def point_eligible_memberships
-    memberships.includes(:user).select { |m| m.end_date == nil && m.archived == nil }
-      .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
+    memberships.includes(:user).select { |m| m.end_date.nil? && m.archived.nil? }
+               .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
   end
 
   def accepted_evaluations_by_date

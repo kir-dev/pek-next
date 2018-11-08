@@ -1,6 +1,5 @@
 class SearchController < ApplicationController
-  def search
-  end
+  def search; end
 
   def suggest
     user_results = []
@@ -13,6 +12,6 @@ class SearchController < ApplicationController
       user_results = user_results.decorate
     end
 
-    render partial: 'suggest', locals: {users: user_results ||= [], groups: group_results ||= []}
+    render partial: 'suggest', locals: { users: user_results || [], groups: group_results || [] }
   end
 end

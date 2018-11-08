@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :require_leader, only: %I[edit update]
+  before_action :require_leader, only: %i[edit update]
 
   def index
     active_groups = Group.order(:name).reject(&:inactive?)
