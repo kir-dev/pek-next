@@ -20,7 +20,7 @@ class SearchControllerTest < ActionController::TestCase
     query = SearchQuery.new.user_search('', nil, page_size)
     assert_equal page_size, query.size
     expected_result = [users(:bela), users(:sanyi)]
-    [2..9].each do |result|
+    (2..9).step 1 do |result|
       expected_result.push(users('user_' + (101 - result).to_s))
     end
     assert_equal expected_result, query.take(page_size)
@@ -49,7 +49,7 @@ class SearchControllerTest < ActionController::TestCase
     query = SearchQuery.new.user_search('pék', page_size, page_size)
     assert_equal page_size, query.size
     expected_result = []
-    [0..9].each do |result|
+    (0..9).step 1 do |result|
       expected_result.push(users('user_' + (89 - result).to_s))
     end
     assert_equal expected_result, query.take(page_size)
