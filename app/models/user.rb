@@ -57,8 +57,8 @@ class User < ActiveRecord::Base
   # validates_with PrimaryMembershipValidator
 
   # Before validation need to fix cell phone numbers
-  # validates_format_of :cell_phone, with: %r{ \A\+?[0-9x]+$\z }, allow_blank: true
-  validates_format_of :screen_name, without: %r{ [\\\/]+ }
+  # validates_format_of :cell_phone, with: %r{\A\+?[0-9x]+$\z}, allow_blank: true
+  validates_format_of :screen_name, without: %r{[\\/]+}
 
   def full_name
     "#{lastname} #{firstname}"

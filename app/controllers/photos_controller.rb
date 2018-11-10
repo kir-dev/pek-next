@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   def show
-    sanitized = params[:id].gsub(%r{ ^.*(\\|\/) }, '')
+    sanitized = params[:id].gsub(%r{^.*(\\|/)}, '')
     send_file PhotoService.photo_path(sanitized), type: 'image/png', disposition: 'inline'
   end
 
