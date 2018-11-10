@@ -3,10 +3,10 @@ require 'test_helper'
 class RegistrationControllerTest < ActionController::TestCase
   setup do
     session[:oauth_data] = {
-      internal_id: 'abc',
-      mail: 'abc@def.gh',
-      givenName: 'Károly',
-      sn: 'Alma'
+      'internal_id' => 'abc',
+      'mail' => 'abc@def.gh',
+      'givenName' => 'Károly',
+      'sn' => 'Alma'
     }
   end
 

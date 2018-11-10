@@ -8,10 +8,10 @@ class RegistrationController < ApplicationController
   def create
     oauth_data = session[:oauth_data]
     oauth_params = {
-      auth_sch_id: oauth_data[:internal_id],
-      email: oauth_data[:mail],
-      firstname: oauth_data[:givenName],
-      lastname: oauth_data[:sn]
+      auth_sch_id: oauth_data['internal_id'],
+      email: oauth_data['mail'],
+      firstname: oauth_data['givenName'],
+      lastname: oauth_data['sn']
     }
     @user = User.create(create_params.merge(oauth_params))
     if @user.valid?
