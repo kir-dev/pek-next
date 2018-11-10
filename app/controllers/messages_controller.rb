@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
 
   def create
     EvaluationMessage.create(message: params[:message], group: current_group,
-                             sender_user: current_user, sent_at: DateTime.now,
+                             sender_user: current_user, sent_at: Time.now,
                              semester: current_semester)
     redirect_back fallback_location: group_messages_path(current_group)
   end

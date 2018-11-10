@@ -95,7 +95,7 @@ class MembershipsControllerTest < ActionController::TestCase
     login_as_user(:non_babhamozo_member)
 
     xhr :get, :unarchive, format: :js, group_id: groups(:babhamozo).id,
-                          membership_id:  grp_membership(:babhamozo_leader_into_group).id
+                          membership_id: grp_membership(:babhamozo_leader_into_group).id
 
     assert_template 'application/401'
   end

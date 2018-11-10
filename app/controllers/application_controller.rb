@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   def require_leader_or_rvt_member
     membership = current_user.membership_for(current_group)
-    unauthorized_page unless (membership && membership.leader?) || current_user.roles.rvt_member?
+    unauthorized_page unless (membership&.leader?) || current_user.roles.rvt_member?
   end
 
   def current_semester
@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
 
   def require_leader
     membership = current_user.membership_for(current_group)
-    unauthorized_page unless membership && membership.leader?
+    unauthorized_page unless membership&.leader?
   end
 
   def impersonate_user

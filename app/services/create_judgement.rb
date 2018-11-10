@@ -10,7 +10,7 @@ class CreateJudgement
     return false unless changed?
 
     message = create_message
-    EvaluationMessage.create(sent_at: DateTime.now, message: message, from_system: true,
+    EvaluationMessage.create(sent_at: Time.now, message: message, from_system: true,
                              semester: evaluation.semester, sender_user: nil,
                              group: evaluation.group)
     evaluation.update(params)

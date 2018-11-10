@@ -74,12 +74,12 @@ class User < ActiveRecord::Base
 
   def leader_of?(group)
     membership = membership_for(group)
-    membership && membership.leader?
+    membership&.leader?
   end
 
   def member_of?(group)
     membership = membership_for(group)
-    membership && membership.active?
+    membership&.active?
   end
 
   def roles
