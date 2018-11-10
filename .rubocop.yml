@@ -4,9 +4,10 @@ AllCops:
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
-    - 'script/**/*'
     - 'bin/**/*'
     - 'lib/**/*'
     - 'node_modules/**/*'
     - 'vendor/**/*'
     - '.git/**/*'
+Documentation:
+    Enabled: false
