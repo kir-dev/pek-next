@@ -60,8 +60,6 @@ class GroupMember
   end
 
   def membership_timer
-    return "#{@membership.start_date} - #{@membership.end_date}" if @membership.end_date
-
-    "#{@membership.start_date} -"
+    "#{@membership.start_date} - #{@membership.end_date}"
   end
 end
