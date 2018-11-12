@@ -6,7 +6,6 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'bin/**/*'
-    - 'lib/**/*'
     - 'node_modules/**/*'
     - 'vendor/**/*'
     - '.git/**/*'
