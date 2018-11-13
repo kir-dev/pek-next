@@ -16,6 +16,7 @@
 //= require uikit/uikit.min
 //= require_tree ./uikit/core
 //= require uikit/components/accordion.min
+//= require uikit/components/datepicker.min
 //= require uikit/components/form-password.min
 //= require uikit/components/form-select.min
 //= require uikit/components/grid-parallax.min
