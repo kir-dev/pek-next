@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :update, :edit], constraints: { id: /[^\/]+/ }
   post '/profiles/:id/view-settings', to: 'profiles#update_view_setting', constraints: { id: /[^\/]+/ }, as: :update_view_setting
   patch '/profiles/:id/view-settings', to: 'profiles#update_view_setting', constraints: { id: /[^\/]+/ }
+  # These are for linking vir urls
   get '/profile/show/uid/:id', to: redirect('/profiles/%{id}'), constraints: { id: /[^\/]+/ }
+  get '/profile/show/virid/:id', to: 'profiles#show_by_id', constraints: { id: /\d+/ }
 
   get '/photo/raw', to: 'raw_photos#show'
   post '/photo/raw', to: 'raw_photos#update'
@@ -66,6 +68,7 @@ Rails.application.routes.draw do
     get '/delegates', to: 'delegates#show'
     post '/delegate', to: 'delegates#create'
     delete '/delegate', to: 'delegates#destroy'
+    get '/history', to: 'group_history#show'
   end
 
   get '/korok/showgroup/id/:id', to: redirect('/groups/%{id}')

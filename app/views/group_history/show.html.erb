@@ -1,0 +1,41 @@
+<% stylesheet 'groups' %>
+
+<div id="content-main" class="group-container">
+  <div class="uk-responsive-width">
+    <h1 class="uk-h1"><%= @group.name %> - értékelései <%= @semester.to_readable %></h1>
+    <div class="uk-container-center uk-panel uk-panel-box">
+      <%= form_tag group_history_path, :method => :get,
+        class: 'uk-form uk-form-horizontal uk-margin', id: 'point-history-form' do |f| %>
+        <div class="uk-form-row uk-text-center">
+          <%= label_tag 'Félév', nil, class: 'uk-form-label form-label-required' %>
+          <%= select_tag :semester, options_for_select(evaluations_to_semester_options(@evaluations), @semester),
+            class: 'uk-width-1-1 uk-width-large-1-4 uk-select',
+            id: 'point-history-select' %>
+        </div>
+      <% end %>
+      <ul class="uk-list uk-list-line">
+        <% group_detailed_point_history(@evaluation) do |point_history_presenter| %>
+          <li>
+            <div class="uk-clearfix">
+              <div class="uk-float-left uk-text-bold">
+                <%= link_to point_history_presenter.user_name, profile_path(point_history_presenter.user_screen_name) %>
+              </div>
+              <div class="uk-float-right uk-text-center" style="width: 110px">
+                <div>
+                  <%= point_history_presenter.point %>
+                </div>
+                <div class="uk-float-right uk-visible-small" style="width: 110px">
+                  <%= point_history_presenter.nice_entry_card_type %>
+                </div>
+              </div>
+              <div class="uk-float-right uk-text-center uk-hidden-small" style="width: 110px">
+                <%= point_history_presenter.nice_entry_card_type %>
+              </div>
+            </div>
+            <%= point_history_presenter.explanation %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
