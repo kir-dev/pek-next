@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def unauthorized_page
-    render 'application/401', status: :unauthorized
+    render 'application/403', status: :unauthorized
   end
 
   # TODO delete when we upgrade to Rails5

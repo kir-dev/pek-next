@@ -28,7 +28,7 @@ class MembershipsControllerTest < ActionController::TestCase
     post :create, group_and_user_ids_hash
     assert_equal Membership.where( group_and_user_ids_hash ).count, 1
 
-    assert_template 'application/401'
+    assert_response :unauthorized
   end
 
   test "archive active_member of group" do
@@ -90,7 +90,7 @@ class MembershipsControllerTest < ActionController::TestCase
 
     xhr :get, :unarchive, format: :js, group_id: groups(:babhamozo).id, membership_id:  grp_membership(:babhamozo_leader_into_group).id
 
-    assert_template 'application/401'
+    assert_response :unauthorized
   end
 
   test "inactivation of a group member" do
