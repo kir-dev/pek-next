@@ -28,23 +28,23 @@ class ApplicationController < ActionController::Base
   end
 
   def require_privileges_of_rvt
-    unauthorized_page unless current_user.roles.rvt_member?
+    forbidden_page unless current_user.roles.rvt_member?
   end
 
   def require_rvt_leader
-    unauthorized_page unless current_user.roles.rvt_leader?
+    forbidden_page unless current_user.roles.rvt_leader?
   end
 
   def require_resort_leader
-    unauthorized_page unless current_user.roles.resort_leader?(current_group)
+    forbidden_page unless current_user.roles.resort_leader?(current_group)
   end
 
   def require_resort_or_group_leader
-    unauthorized_page unless current_user.leader_of?(current_group) || current_user.roles.resort_leader?(current_group)
+    forbidden_page unless current_user.leader_of?(current_group) || current_user.roles.resort_leader?(current_group)
   end
 
   def require_pek_admin
-    unauthorized_page unless current_user.roles.pek_admin?
+    forbidden_page unless current_user.roles.pek_admin?
   end
 
   def require_application_or_evaluation_season
@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   def require_leader_or_rvt_member
     membership = current_user.membership_for(current_group)
-    unauthorized_page unless (membership && membership.leader?) || current_user.roles.rvt_member?
+    forbidden_page unless (membership && membership.leader?) || current_user.roles.rvt_member?
   end
 
   def current_user
@@ -76,15 +76,15 @@ class ApplicationController < ActionController::Base
 
   def require_leader
     membership = current_user.membership_for(current_group)
-    unauthorized_page unless membership && membership.leader?
+    forbidden_page unless membership && membership.leader?
   end
 
   def impersonate_user
     @user ||= User.first
   end
 
-  def unauthorized_page
-    render 'application/403', status: :unauthorized
+  def forbidden_page
+    render 'application/403', status: :forbidden
   end
 
   # TODO delete when we upgrade to Rails5
