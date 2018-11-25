@@ -91,6 +91,14 @@ user_with_primary_membership:
   usr_svie_primary_membership: 4
   usr_svie_member_type: RENDESTAG
 
+not_svie_member:
+  usr_id: 5001
+  usr_firstname: Svie
+  usr_lastname: Tag Leszek
+  usr_screen_name: nagyravagyo
+  usr_svie_member_type: NEMTAG
+  usr_svie_primary_membership: 16
+
 archived_active_babhamozo_member:
   usr_id: 5005
   usr_firstname: Archi

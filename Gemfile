@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'aasm'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
 # Use sqlite3 as the database for Active Record
@@ -75,8 +75,14 @@ group :test do
 end
 
 group :development do
+<<<<<<< HEAD
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+=======
+  # Spring speeds up development by keeping your application running in the background.
+  # Read more: https://github.com/rails/spring
+  # gem 'spring'
+>>>>>>> 63a6a8c... WIP
 
   gem 'better_errors', '~> 1.1.0'
   gem 'binding_of_caller', '~> 0.7.3.pre1'

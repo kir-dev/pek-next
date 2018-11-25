@@ -72,3 +72,8 @@ evaluation_giver_group2:
   id: 15
   usr_id: 8000
   grp_id: 301
+
+user_with_primary_membership_not_svie_member:
+  id: 16
+  usr_id: 5001
+  grp_id: 4005

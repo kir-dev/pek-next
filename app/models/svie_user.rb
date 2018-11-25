@@ -4,6 +4,29 @@ class SvieUser
   OUTSIDE_MEMBER = 'KULSOSTAG'.freeze
   INACTIVE_MEMBER = 'OREGTAG'.freeze
 
+
+  include AASM
+  aasm do
+    state :not_member, initial: true
+    state :inside_member, :outside_member, :inactive_member
+
+    event :inside do
+      transitions from: [:not_member, :outside_member], to: :inside_member
+    end
+
+    event :outside do
+      transitions from: [:not_member, :inside_member], to: :outside_member
+    end
+
+    event :inactive do
+      transitions from: [:inside_member, :outside_member], to: :inactive_member
+    end
+
+    event :not do
+      transitions from: [:inside_member, :outside_member, :inactive_member]
+    end
+  end
+
   def initialize(user)
     @user = user
   end
