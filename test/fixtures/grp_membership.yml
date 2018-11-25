@@ -40,6 +40,11 @@ babhamozo_member_who_delegated:
   grp_id: 1
   usr_id: 4005
 
+rvt_membership:
+  id: 9
+  grp_id: 146
+  usr_id: 6000
+
 inactive_archived_babhamozo_member:
   id: 10
   grp_id: 1
@@ -52,16 +57,6 @@ active_archived_babhamozo_member:
   grp_id: 1
   usr_id: 5006
   archived: <%= Time.now %>
-
-babhamozo_member_who_delegated:
-  id: 8
-  grp_id: 1
-  usr_id: 4005
-
-rvt_membership:
-  id: 9
-  grp_id: 146
-  usr_id: 6000
 
 pek_admin_membership:
   id: 12
