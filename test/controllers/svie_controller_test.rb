@@ -29,9 +29,9 @@ class SvieControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'applications page unauthorized for not rvt members' do
+  test 'applications page forbidden for not rvt members' do
     login_as_user(:rvt_member)
     get :index
-    assert_response :unauthorized
+    assert_response :forbidden
   end
 end

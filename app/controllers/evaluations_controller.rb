@@ -65,7 +65,7 @@ class EvaluationsController < ApplicationController
   private
 
   def validate_correct_group
-    unauthorized_page unless current_evaluation.group == current_group
+    forbidden_page unless current_evaluation.group == current_group
   end
 
   def changeable_entries

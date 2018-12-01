@@ -26,16 +26,16 @@ class PostTypesControllerTest < ActionController::TestCase
     assert_not_empty flash[:alert]
   end
 
-  test 'return unauthorized for creating post type for other group' do
+  test 'return forbidden for creating post type for other group' do
     post :create, group_id: groups(:group0).id, post_type: { name: 'fontos' }
 
-    assert_response :unauthorized
+    assert_response :forbidden
   end
 
-  test 'return unauthorized for creating post type as non leader' do
+  test 'return forbidden for creating post type as non leader' do
     login_as_user(:babhamozo_member)
     post :create, group_id: groups(:babhamozo).id, post_type: { name: 'fontos' }
 
-    assert_response :unauthorized
+    assert_response :forbidden
   end
 end

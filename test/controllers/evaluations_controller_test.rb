@@ -5,11 +5,11 @@ class EvaluationsControllerTest < ActionController::TestCase
     login_as_user(:evaluation_giver)
   end
 
-  test 'unauthorized page for non group leaders' do
+  test 'forbidden page for non group leaders' do
     login_as_user(:sanyi)
     get :current, group_id: groups(:group_with_no_evaluation).id
 
-    assert_response :unauthorized
+    assert_response :forbidden
   end
 
   test 'create new evaluation if missing' do

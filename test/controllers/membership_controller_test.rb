@@ -20,7 +20,7 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_redirected_to :back
   end
 
-  test 'unauthorized if already member of group' do
+  test 'forbidden if already member of group' do
     group_and_user_ids_hash = { group_id: groups(:babhamozo).id,
                                 user_id: users(:babhamozo_member).id }
 
@@ -28,7 +28,7 @@ class MembershipsControllerTest < ActionController::TestCase
     post :create, group_and_user_ids_hash
     assert_equal Membership.where(group_and_user_ids_hash).count, 1
 
-    assert_template 'application/401'
+    assert_response :forbidden
   end
 
   test 'archive active_member of group' do
@@ -59,7 +59,7 @@ class MembershipsControllerTest < ActionController::TestCase
     xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id,
                           membership_id: membership.id
 
-    assert_response :unauthorized
+    assert_response :forbidden
   end
 
   test 'unarchive inactive_member of group with group leader' do
@@ -68,7 +68,7 @@ class MembershipsControllerTest < ActionController::TestCase
     xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id,
                           membership_id: membership.id
 
-    assert_response :unauthorized
+    assert_response :forbidden
   end
 
   test 'unarchive active_member of group' do
@@ -91,13 +91,13 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'unauthorized archive of member' do
+  test 'forbidden archive of member' do
     login_as_user(:non_babhamozo_member)
 
     xhr :get, :unarchive, format: :js, group_id: groups(:babhamozo).id,
                           membership_id: grp_membership(:babhamozo_leader_into_group).id
 
-    assert_template 'application/401'
+    assert_response :forbidden
   end
 
   test 'inactivation of a group member' do
