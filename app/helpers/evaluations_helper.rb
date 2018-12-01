@@ -1,6 +1,8 @@
 module EvaluationsHelper
   def single_detail(point_details, user, principle)
-    point_detail = point_details.find { |pd| pd.point_request.user == user && pd.principle_id == principle.id }&.point
+    point_details.find do |pd|
+      pd.point_request.user == user && pd.principle_id == principle.id
+    end&.point
   end
 
   def sum_work_details(point_details, user)
@@ -15,23 +17,24 @@ module EvaluationsHelper
     sum = sum_responsibility_details(point_details, user) + sum_work_details(point_details, user)
     return 5 if [3, 4].include? sum
     return 0 if [1, 2].include? sum
+
     sum
   end
 
   def entry_request(evaluation, user)
-    evaluation.entry_requests.find { |er| er.user == user }&.entry_type || EntryRequest::DEFAULT_TYPE
+    evaluation.entry_requests.find { |er| er.user == user }&.entry_type ||
+      EntryRequest::DEFAULT_TYPE
   end
 
   def sum_principle_details(point_details, principle)
-    point_details.select { |pd| pd.principle == principle }
-    .sum { |pd| pd.point }
+    point_details.select { |pd| pd.principle == principle }.sum(&:point)
   end
 
   private
 
   def sum_details(point_details, user, principle_type)
-    point_details.select { |pd| pd.point_request.user == user && pd.principle.type == principle_type }
-    .sum { |pd| pd.point }
+    point_details.select do |pd|
+      pd.point_request.user == user && pd.principle.type == principle_type
+    end.sum(&:point)
   end
-
 end

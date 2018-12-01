@@ -1,5 +1,5 @@
 class Membership < ActiveRecord::Base
-  self.table_name = :grp_membership
+  self.table_name = 'grp_membership'
   self.primary_key = :id
 
   alias_attribute :group_id, :grp_id
@@ -22,7 +22,7 @@ class Membership < ActiveRecord::Base
   end
 
   def newbie?
-    has_post?(DEFAULT_POST_ID) && self.end_date.nil? && !self.archived?
+    has_post?(DEFAULT_POST_ID) && end_date.nil? && !archived?
   end
 
   def pek_admin?
@@ -34,15 +34,15 @@ class Membership < ActiveRecord::Base
   end
 
   def archived?
-    !self.archived.nil?
+    !archived.nil?
   end
 
   def active?
-    !self.newbie? && self.end_date.nil? && !self.archived?
+    !newbie? && end_date.nil? && !archived?
   end
 
   def inactive?
-    !self.end_date.nil? && !self.archived?
+    !end_date.nil? && !archived?
   end
 
   def post(post_type)
@@ -52,9 +52,7 @@ class Membership < ActiveRecord::Base
   def inactivate!
     self.end_date = Time.now
 
-    if self.user.delegated && self.user.primary_membership == self
-      self.user.update(delegated: false)
-    end
+    user.update(delegated: false) if user.delegated && user.primary_membership == self
     save
   end
 
@@ -66,10 +64,7 @@ class Membership < ActiveRecord::Base
   def archive!
     self.archived = Time.now
 
-    if self.user.delegated && self.user.primary_membership == self
-      self.user.update(delegated: false)
-    end
-
+    user.update(delegated: false) if user.delegated && user.primary_membership == self
     save
   end
 
@@ -82,5 +77,4 @@ class Membership < ActiveRecord::Base
     newbie_post = posts.find { |post| post.post_type.id == DEFAULT_POST_ID }
     newbie_post.destroy
   end
-
 end

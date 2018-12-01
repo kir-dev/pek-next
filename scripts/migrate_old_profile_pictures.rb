@@ -24,7 +24,7 @@ photos_path = ''
 @output_path = ''
 
 def check_directory(path, name)
-  File.directory?( File.join(path, name) ) && name != '.' && name != '..'
+  File.directory?(File.join(path, name)) && name != '.' && name != '..'
 end
 
 def copy(first_letter_dir, screenname_dir, photo_path, photo)
@@ -37,7 +37,6 @@ def copy(first_letter_dir, screenname_dir, photo_path, photo)
   Dir.mkdir(screenname_path) unless Dir.exist?(screenname_path)
 
   original_photo_path = File.join(photo_path, photo)
-  extension = File.extname(original_photo_path)
 
   thumb = Magick::Image.read(original_photo_path).first
   resolution = [thumb.rows, thumb.columns].min
@@ -49,12 +48,15 @@ end
 
 Dir.entries(photos_path).select do |first_letter_dir|
   next unless check_directory(photos_path, first_letter_dir)
+
   path = File.join(photos_path, first_letter_dir)
   Dir.entries(path).select do |screenname_dir|
     next unless check_directory(path, screenname_dir)
+
     photo_path = File.join(path, screenname_dir)
     Dir.entries(photo_path).select do |photo|
-      next if File.directory?( File.join(photo_path, photo) )
+      next if File.directory?(File.join(photo_path, photo))
+
       puts photo
       copy(first_letter_dir, screenname_dir, photo_path, photo)
     end

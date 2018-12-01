@@ -1,5 +1,4 @@
 class PrinciplesController < EvaluationsController
-  before_action :require_login
   before_action :require_resort_or_group_leader
   before_action :validate_correct_group
 
@@ -25,8 +24,8 @@ class PrinciplesController < EvaluationsController
   end
 
   private
-    def principle_params
-      params.require(:principle).permit(:type, :name, :max_per_member, :description)
-    end
 
+  def principle_params
+    params.require(:principle).permit(:type, :name, :max_per_member, :description)
+  end
 end

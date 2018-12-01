@@ -1,5 +1,5 @@
 class PostType < ActiveRecord::Base
-  self.table_name = "poszttipus"
+  self.table_name = 'poszttipus'
   self.primary_key = :pttip_id
 
   alias_attribute :id, :pttip_id

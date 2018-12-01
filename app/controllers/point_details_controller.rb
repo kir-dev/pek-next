@@ -1,5 +1,4 @@
 class PointDetailsController < ApplicationController
-  before_action :require_login
   before_action :require_leader
   before_action :set_entities
   before_action :changeable_evaluation

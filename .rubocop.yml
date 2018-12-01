@@ -1,0 +1,15 @@
+Metrics/LineLength:
+  Max: 99
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Documentation:
+  Enabled: false

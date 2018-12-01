@@ -4,9 +4,9 @@ class PointHistoryDecorator < Draper::Decorator
 
   def explanation
     return if point_history.entry_card_explanation.blank?
-    return content_tag(:div,
-      point_history.entry_card_explanation,
-      class: 'uk-width-1-1 uk-text-justify uk-margin-top')
+
+    content_tag(:div, point_history.entry_card_explanation,
+                class: 'uk-width-1-1 uk-text-justify uk-margin-top')
   end
 
   def group_link

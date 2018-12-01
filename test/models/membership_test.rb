@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MembershipTest < ActionController::TestCase
-  test "delegation became false when archive" do
+  test 'delegation became false when archive' do
     membership = grp_membership(:babhamozo_member_who_delegated)
     assert membership.user.delegated
     membership.archive!

@@ -33,8 +33,9 @@ class SvieUser
   end
 
   def can_join_to?(member_type)
-    return false if(self.in_processing?) || @user.svie_member_type == member_type
-    return !inside_member? if(member_type == OUTSIDE_MEMBER)
+    return false if in_processing? || @user.svie_member_type == member_type
+    return !inside_member? if member_type == OUTSIDE_MEMBER
+
     true
   end
 
@@ -43,8 +44,9 @@ class SvieUser
   end
 
   def try_inactivate!
-    if @user.groups.select {|g| g.issvie?}.nil?
-      @user.update(svie_member_type: INACTIVE_MEMBER, primary_membership: nil)
-    end
+    user_svie_groups_count = @user.groups.select(&:issvie?).count
+    return unless user_svie_groups_count.zero?
+
+    @user.update(svie_member_type: INACTIVE_MEMBER, primary_membership: nil)
   end
 end

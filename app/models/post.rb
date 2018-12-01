@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  self.table_name = "poszt"
+  self.table_name = 'poszt'
   self.primary_key = :id
 
   alias_attribute :membership_id, :grp_member_id
