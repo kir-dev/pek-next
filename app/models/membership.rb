@@ -50,8 +50,7 @@ class Membership < ActiveRecord::Base
   end
 
   def primary?
-    active? && user.svie_member_type == SvieUser::INSIDE_MEMBER &&
-      user.primary_membership == self
+    active? && user.svie_member_type == SvieUser::INSIDE_MEMBER && user.primary_membership == self
   end
 
   def inactivate!
