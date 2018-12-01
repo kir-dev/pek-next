@@ -13,6 +13,7 @@
  *= require uikit/font-awesome.min
  *= require uikit/uikit.min
  *= require uikit/components/accordion.min
+ *= require uikit/components/datepicker.min
  *= require uikit/components/form-password.min
  *= require uikit/components/form-select.min
  *= require uikit/components/notify.min
