@@ -81,6 +81,7 @@ Rails.application.routes.draw do
     get 'delegates/count', to: 'delegates#count'
     get 'delegates/export', to: 'delegates#export'
     get 'delegates', to: 'delegates#index'
+    post 'delegates/update', to: 'delegates#update'
   end
 
   get '/seasons', to: 'season_admin#index'

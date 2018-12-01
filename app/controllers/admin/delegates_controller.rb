@@ -3,7 +3,10 @@ module Admin
     before_action :require_svie_admin
 
     def index
-      @groups = Group.order(:name).select { |group| group.delegate_count.positive? }
+      groups = Group.order(:name)
+      @groups = groups.select { |group| group.delegate_count.positive? }
+      @groups_without_delegates = groups.select(&:issvie)
+                                        .reject { |group| group.delegate_count.positive? }
     end
 
     def export
@@ -11,6 +14,11 @@ module Admin
                        .where(delegated: true)
                        .order(:lastname)
                        .select { |user| user.primary_membership.group.issvie }
+    end
+
+    def update
+      Group.find(params[:group_id]).update(delegate_count: params[:delegate_count])
+      redirect_back fallback_location: admin_delegates_path, notice: t(:edit_successful)
     end
 
     def count
