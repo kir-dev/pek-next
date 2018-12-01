@@ -4,8 +4,28 @@
 <h1>Pontozás - <%= @evaluation.group.name %></h1>
 
 <div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-clearfix">
+    <div class="uk-float-left">
+      A beírt adatok automatikusan mentődnek. Az üres mezők nulláknak számítanak.
+    </div>
+    <div class="uk-float-right">
+      <button class="uk-button uk-button-small" data-uk-modal="{target:'#hidden-users-modal'}">Elrejtett felhasználók</button>
+
+      <div id="hidden-users-modal" class="uk-modal">
+        <div class="uk-modal-dialog">
+          <a class="uk-modal-close uk-close"></a>
+          <h3>Elrejtett felhasználók</h3>
+          <ul class="uk-list uk-list-striped" id="hidden-users">
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="uk-float-right uk-margin-right">
+      <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: 'uk-button uk-button-small' %>
+    </div>
+  </div>
+
   <div class="uk-width-large-1-1 uk-container-center uk-overflow-container uk-width-1-1">
-    A beírt adatok automatikusan mentődnek. Az üres mezők nulláknak számítanak.
     <table class="uk-table uk-table-striped uk-table-hover uk-table-condensed">
       <thead>
         <tr>
@@ -13,7 +33,7 @@
           <% @evaluation.principles.order(:id).each do |principle| %>
             <th class="uk-text-center uk-link uk-link-muted principle" data-id="<%= principle.id %>"
             data-description="<%= principle.description %>">
-              <%= principle.name %> <i class="uk-icon-eye"></i>
+              <%= principle.name %> <i class="uk-icon-info"></i>
             </th>
           <% end %>
           <th>Szumma felelősség</th>
@@ -24,8 +44,11 @@
       </thead>
       <tbody>
         <% @evaluation.group.point_eligible_memberships.each do |membership| %>
-          <tr>
+          <tr data-id="<%= membership.user_id %>">
             <td class="uk-text-nowrap name-column" data-id="<%= membership.user_id %>">
+              <%= link_to '#', class: 'hide-button uk-link-muted', 'data-id': membership.user_id do %>
+                <i class="uk-icon-eye" title="elrejtés" uk-tooltip></i>
+              <% end %>
               <%= membership.user.full_name %>
             </td>
             <% @evaluation.principles.order(:id).each do |principle| %>
@@ -67,11 +90,7 @@
       </tbody>
     </table>
 
-    <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get,
-      class: "uk-button uk-align-center uk-margin-top" %>
-
     <div id="save-icon"></div>
-
   </div>
 </div>
 

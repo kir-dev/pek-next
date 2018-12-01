@@ -9,6 +9,23 @@ var evaluation = (function(Rx, $) {
 
       inputStream.subscribe(inputChange);
     }
+    $('.hide-button').on('click', hideRow);
+  }
+
+  function hideRow() {
+    const userId = this.getAttribute('data-id');
+    const element = $('tr*[data-id=' + userId + ']');
+    const name = $('.name-column*[data-id=' + userId + ']').text();
+    const hiddenUserList = $('#hidden-users');
+    element.addClass('uk-hidden');
+    hiddenUserList.append('<li class="hidden-user" data-id="' + userId + '"><a href="#" onclick="evaluation.showRow(' + userId + ')" title="mutatás" uk-tooltip>' + name + '<i class="uk-icon-eye"></i></a></li>');
+  }
+
+  module.showRow = function(userId) {
+    const button = $('.hidden-user*[data-id=' + userId + ']');
+    const element = $('tr*[data-id=' + userId + ']');
+    button.remove();
+    element.removeClass('uk-hidden');
   }
 
   function inputChange(input) {
