@@ -2,6 +2,10 @@ module Admin
   class DelegatesController < ApplicationController
     before_action :require_svie_admin
 
+    def index
+      @groups = Group.order(:name).select { |group| group.delegate_count.positive? }
+    end
+
     def export
       @delegates = User.includes([{ primary_membership: [:group] }])
                        .where(delegated: true)

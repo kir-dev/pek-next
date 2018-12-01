@@ -80,6 +80,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'delegates/count', to: 'delegates#count'
     get 'delegates/export', to: 'delegates#export'
+    get 'delegates', to: 'delegates#index'
   end
 
   get '/seasons', to: 'season_admin#index'

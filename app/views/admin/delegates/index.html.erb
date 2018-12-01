@@ -1,0 +1,25 @@
+<h1>Körös küldöttek száma</h1>
+
+<div id="content-main" class="uk-panel uk-panel-box">
+
+  <ul class="uk-list uk-list-striped">
+    <li class="uk-clearfix uk-text-bold">
+      <div class="uk-float-left">
+        Kör
+      </div>
+      <div class="uk-float-right uk-margin-right">
+        Delegálhat / delegáltak
+      </div>
+    </li>
+    <% @groups.each do |group| %>
+      <li class="uk-clearfix">
+        <div class="uk-text-bold uk-float-left">
+          <%= group.name %>
+        </div>
+        <div class="uk-float-right uk-margin-large-right">
+          <%= "#{group.delegate_count} / #{group.current_delegated_count}" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
