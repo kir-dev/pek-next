@@ -2,7 +2,9 @@ var grouphistory = (function() {
   var module = {};
 
   module.init = function() {
-    document.getElementById('point-history-select').addEventListener('change', function() {
+    var select = document.getElementById('point-history-select');
+    if (!select){ return; }
+    select.addEventListener('change', function() {
       document.getElementById('point-history-form').submit();
     });
   }

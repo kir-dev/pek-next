@@ -576,7 +576,7 @@ CREATE TABLE public.users (
     usr_home_address character varying(255),
     usr_est_grad character varying(10),
     usr_dormitory character varying(50),
-    usr_room character varying(10),
+    usr_room character varying(255),
     usr_status character varying(8) DEFAULT 'INACTIVE'::character varying NOT NULL,
     usr_password character varying(28),
     usr_salt character varying(12),
@@ -1200,4 +1200,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180617081041');
 INSERT INTO schema_migrations (version) VALUES ('20180705121831');
 
 INSERT INTO schema_migrations (version) VALUES ('20180730191308');
+
+INSERT INTO schema_migrations (version) VALUES ('20181112160701');
 

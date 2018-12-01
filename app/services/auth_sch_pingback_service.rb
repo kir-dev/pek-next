@@ -1,17 +1,17 @@
 class AuthSchPingbackService
-
   def self.call(access_token)
     return if Rails.env.test?
-    EventMachine.run {
-      http = EventMachine::HttpRequest.new(Rails.configuration.x.auth_sch_pingback_url + access_token).get
-      http.errback {
+
+    EventMachine.run do
+      url = Rails.configuration.x.auth_sch_pingback_url + access_token
+      http = EventMachine::HttpRequest.new(url).get
+      http.errback do
         Rails.logger.error 'Auth.sch pingback failed'
         EventMachine.stop
-      }
-      http.callback {
+      end
+      http.callback do
         EventMachine.stop
-      }
-    }
+      end
+    end
   end
-
 end

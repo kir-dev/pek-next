@@ -4,7 +4,7 @@
   <div class="uk-responsive-width">
     <h1 class="uk-h1"><%= @group.name %> - értékelései <%= @semester.to_readable %></h1>
     <div class="uk-container-center uk-panel uk-panel-box">
-      <%= form_tag group_history_path, :method => :get,
+      <%= form_tag group_history_path, method: :get,
         class: 'uk-form uk-form-horizontal uk-margin', id: 'point-history-form' do |f| %>
         <div class="uk-form-row uk-text-center">
           <%= label_tag 'Félév', nil, class: 'uk-form-label form-label-required' %>

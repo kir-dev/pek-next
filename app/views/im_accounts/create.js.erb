@@ -1,2 +1,2 @@
 UIkit.notify({message: "Sikeresen létrehozva!", timeout: 2000})
-$('#im_accounts').append('<%= j render("im_account", :im_account => @im_account, :user => @user) %>');
+$('#im_accounts').append('<%= j render("im_account", im_account: @im_account, user: @user) %>');

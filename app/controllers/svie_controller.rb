@@ -1,19 +1,16 @@
 class SvieController < ApplicationController
-  before_action :require_login
-  before_action :require_privileges_of_rvt, only: [:index, :approve]
+  before_action :require_privileges_of_rvt, only: %i[index approve]
 
   def new
     redirect_to svie_edit_path unless current_user.primary_membership
   end
 
   def create
-    params.permit(:svie_member_type)
-    update_params = params.permit(:home_address, :mother_name, :place_of_birth, :birth_name, :email)
     current_user.update(update_params)
 
     begin
       date_of_birth = params[:date_of_birth].to_date
-    rescue Exception => e
+    rescue Exception
       return redirect_to new_svie_path, alert: t(:bad_date_format)
     else
       current_user.update!(date_of_birth: date_of_birth)
@@ -31,11 +28,9 @@ class SvieController < ApplicationController
   def update
     current_user.update(svie_primary_membership: params[:svie][:primary_membership])
     current_user.update(delegated: false)
-    if current_user.svie.member?
-      redirect_to profiles_me_path, notice: t(:edit_successful)
-    else
-      redirect_to new_svie_path
-    end
+    return redirect_to profiles_me_path, notice: t(:edit_successful) if current_user.svie.member?
+
+    redirect_to new_svie_path
   end
 
   def index
@@ -56,8 +51,7 @@ class SvieController < ApplicationController
     redirect_back notice: user.full_name + ' ' + t(:abort_application)
   end
 
-  def successful_application
-  end
+  def successful_application; end
 
   def application_pdf
     html = GenerateMembershipPdf.new(current_user).as_html
@@ -86,7 +80,12 @@ class SvieController < ApplicationController
 
   def join_to(member_type)
     return forbidden_page unless current_user.svie.can_join_to?(member_type)
+
     current_user.svie.create_request(member_type)
     redirect_to profiles_me_path, notice: t(:edit_successful)
+  end
+
+  def update_params
+    params.permit(:home_address, :mother_name, :place_of_birth, :birth_name, :email)
   end
 end

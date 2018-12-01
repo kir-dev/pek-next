@@ -1,37 +1,33 @@
 class AuthSchServicesController < ApplicationController
+  skip_before_action :require_login
 
   def sync
     user = get_user(params[:id], [])
-    if user
-      render json: { success: true, user: user_json(user) }
-    end
+    render json: { success: true, user: user_json(user) } if user
   end
 
   def memberships
-    user = get_user(params[:id], [ :groups, { memberships: [ { posts: [ :post_type ] } ] } ])
-    if user
-      render json: { success: true, memberships: membership_json(user) }
-    end
+    user = get_user(params[:id], [:groups, { memberships: [{ posts: [:post_type] }] }])
+    render json: { success: true, memberships: membership_json(user) } if user
   end
 
   def entrants
-    user = get_user(params[:id], [ { entryrequests: [ { evaluation: [ :group ] } ] } ])
-    if user
-      render json: entrants_json(user, params[:semester])
-    end
+    user = get_user(params[:id], [{ entryrequests: [{ evaluation: [:group] }] }])
+    render json: entrants_json(user, params[:semester]) if user
   end
 
-private
+  private
 
   def entrants_json(user, semester)
-    entrants = user.entryrequests.select { |er| er.evaluation.accepted && er.evaluation.semester == semester }
+    entrants = user.entryrequests.select do |er|
+      er.evaluation.accepted && er.evaluation.semester == semester
+    end
     entrant_array = []
     entrants.each do |entrant|
-      entrant_array.push({
-        groupId: entrant.evaluation.group_id,
-        groupName: entrant.evaluation.group.name,
-        entrantType: entrant.entry_type
-        })
+      entrant = { groupId: entrant.evaluation.group_id,
+                  groupName: entrant.evaluation.group.name,
+                  entrantType: entrant.entry_type }
+      entrant_array.push entrant
     end
     entrant_array
   end
@@ -40,13 +36,13 @@ private
     memberships_array = []
     user.memberships.each do |membership|
       next if membership.newbie? || membership.archived?
-      memberships_array.push({
-        start: membership.start_date,
-        end: membership.end_date,
-        group_name: membership.group.name,
-        group_id: membership.group.id,
-        posts: membership.posts.map { |p| p.post_type.name }
-        })
+
+      membership_data = { start: membership.start_date,
+                          end: membership.end_date,
+                          group_name: membership.group.name,
+                          group_id: membership.group.id,
+                          posts: membership.posts.map { |p| p.post_type.name } }
+      memberships_array.push membership_data
       memberships_array.last[:posts].push(membership.end_date ? 'öregtag' : 'tag')
     end
     memberships_array
@@ -68,20 +64,18 @@ private
   def get_user(id, includes)
     type = id_type(id)
     return error_response(400, t(:invalid_id)) if type == :invalid
-    if type == :neptun
-      user = User.includes(includes)
-        .find_by({ type => id.upcase })
-    else
-      user = User.includes(includes)
-        .find_by({ type => id })
-    end
-    return error_response(404, t(:non_existent_id, id: id)) if !user
+
+    user = User.includes(includes) .find_by(type => id.upcase) if type == :neptun
+    user ||= User.includes(includes).find_by(type => id)
+    return error_response(404, t(:non_existent_id, id: id)) unless user
+
     user
   end
 
   def id_type(id)
     return :neptun if id =~ Rails.configuration.x.neptun_regex
     return :auth_sch_id if id =~ Rails.configuration.x.uuid_regex
+
     :invalid
   end
 
@@ -90,5 +84,4 @@ private
     render json: msg, status: error_code
     nil
   end
-
 end

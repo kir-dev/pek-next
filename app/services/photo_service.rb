@@ -1,6 +1,6 @@
 require 'fileutils'
 
-module PhotoService extend self
+module PhotoService
   def upload_cropped(screen_name, photo)
     dir_check(photo_dir(screen_name))
 
@@ -28,6 +28,7 @@ module PhotoService extend self
   def photo_path(screen_name)
     path = cropped_path(screen_name)
     return default_path unless File.file?(path)
+
     path
   end
 
@@ -37,9 +38,9 @@ module PhotoService extend self
   end
 
   def dir_check(dirname)
-    if !Dir.exists?(dirname)
-      FileUtils.mkdir_p(dirname)
-    end
+    return if Dir.exist?(dirname)
+
+    FileUtils.mkdir_p(dirname)
   end
 
   def photo_dir(screen_name)
@@ -49,4 +50,7 @@ module PhotoService extend self
   def default_path
     Rails.root.join('public', 'img', 'default_profile.png')
   end
+
+  module_function :upload_cropped, :upload_raw, :raw_path, :cropped_path, :photo_path, :raw_check,
+                  :dir_check, :photo_dir, :default_path
 end
