@@ -1,12 +1,12 @@
 <div id="im_account_<%= im_account.id %>">
 
-  <%= form_for im_account, :remote => true, html: {class: 'uk-form'} do |f| %>
+  <%= form_for im_account, remote: true, html: {class: 'uk-form'} do |f| %>
     <div class="uk-grid uk-grid-small uk-margin">
 
       <div class="uk-width-medium-1-5 uk-width-1-3 uk-margin-small-bottom">
         <%= f.select :protocol,
               options_for_select(Rails.configuration.x.im_accounts.invert, im_account.protocol),
-              {}, { :class => 'uk-select uk-width-1-1' } %>
+              {}, { class: 'uk-select uk-width-1-1' } %>
       </div>
 
       <div class="uk-width-medium-1-2 uk-width-2-3">

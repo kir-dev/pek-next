@@ -10,9 +10,9 @@ class EntryRequest < ActiveRecord::Base
   belongs_to :evaluation, foreign_key: :ertekeles_id
   belongs_to :user, foreign_key: :usr_id
 
-  AB = 'AB'
-  KB = 'KB'
-  KDO = 'KDO'
+  AB = 'AB'.freeze
+  KB = 'KB'.freeze
+  KDO = 'KDO'.freeze
   DEFAULT_TYPE = KDO
 
   after_save do

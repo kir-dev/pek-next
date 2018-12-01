@@ -35,11 +35,13 @@ class DetailedPointHistory
 
   def entry_card_type
     return EntryRequest::DEFAULT_TYPE unless entry_request&.accepted?
+
     entry_request.entry_type
   end
 
   def entry_card_explanation
     return '' unless entry_request&.accepted?
+
     entry_request.justification
   end
 end

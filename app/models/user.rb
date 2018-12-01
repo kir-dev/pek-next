@@ -36,15 +36,16 @@ class User < ActiveRecord::Base
   alias_attribute :auth_sch_id, :usr_auth_sch_id
   alias_attribute :bme_id, :usr_bme_id
 
-  has_many :memberships, class_name: "Membership", foreign_key: :usr_id
+  has_many :memberships, class_name: :Membership, foreign_key: :usr_id
   has_many :groups, through: :memberships
-  has_many :entryrequests, class_name: "EntryRequest", foreign_key: :usr_id
-  has_many :pointrequests, class_name: "PointRequest", foreign_key: :usr_id
+  has_many :entryrequests, class_name: :EntryRequest, foreign_key: :usr_id
+  has_many :pointrequests, class_name: :PointRequest, foreign_key: :usr_id
   has_many :im_accounts, foreign_key: :usr_id
   has_many :point_history, foreign_key: :usr_id
   has_many :privacies, foreign_key: :usr_id
 
-  has_one :primary_membership, class_name: "Membership", foreign_key: :id, primary_key: :usr_svie_primary_membership
+  has_one :primary_membership, class_name: :Membership, foreign_key: :id,
+                               primary_key: :usr_svie_primary_membership
   has_one :svie_post_request, foreign_key: :usr_id, primary_key: :id
   has_one :view_setting
 
@@ -56,8 +57,8 @@ class User < ActiveRecord::Base
   # validates_with PrimaryMembershipValidator
 
   # Before validation need to fix cell phone numbers
-  # validates_format_of :cell_phone, with: /\A\+?[0-9x]+$\z/, allow_blank: true
-  validates_format_of :screen_name, without: /[\\\/]+/
+  # validates_format_of :cell_phone, with: %r{\A\+?[0-9x]+$\z}, allow_blank: true
+  validates_format_of :screen_name, without: %r{[\\/]+}
 
   def full_name
     "#{lastname} #{firstname}"
@@ -73,12 +74,12 @@ class User < ActiveRecord::Base
 
   def leader_of?(group)
     membership = membership_for(group)
-    membership && membership.leader?
+    membership&.leader?
   end
 
   def member_of?(group)
     membership = membership_for(group)
-    membership && membership.active?
+    membership&.active?
   end
 
   def roles
@@ -90,7 +91,12 @@ class User < ActiveRecord::Base
   end
 
   def update_last_login!
-    self.update(last_login: Time.now)
+    update(last_login: Time.now)
   end
 
+  def eliglibe_member?(group_id)
+    return false unless primary_membership
+
+    primary_membership.active? && primary_membership.group_id == group_id
+  end
 end

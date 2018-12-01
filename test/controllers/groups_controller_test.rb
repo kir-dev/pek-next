@@ -29,16 +29,16 @@ class GroupsControllerTest < ActionController::TestCase
     assert_equal groups(:babhamozo).id, assigns(:viewmodel).group.id
   end
 
-  test 'unauthorized access to edit page' do
+  test 'forbidden access to edit page' do
     get :edit, id: groups(:babhamozo).id
 
-    assert_template 'application/401'
+    assert_response :forbidden
   end
 
-  test 'unauthorized save after editing' do
+  test 'forbidden save after editing' do
     get :update, id: groups(:babhamozo).id
 
-    assert_template 'application/401'
+    assert_response :forbidden
   end
 
   test 'render edit page for leaders' do

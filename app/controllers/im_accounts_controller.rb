@@ -1,6 +1,4 @@
 class ImAccountsController < ApplicationController
-  before_action :require_login
-
   def update
     @im_account = ImAccount.find(params[:id])
     respond_to do |format|
@@ -31,7 +29,8 @@ class ImAccountsController < ApplicationController
   end
 
   private
-    def im_account_params
-      params.require(:im_account).permit(:protocol, :name, :user_id)
-    end
+
+  def im_account_params
+    params.require(:im_account).permit(:protocol, :name, :user_id)
+  end
 end

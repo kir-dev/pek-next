@@ -8,11 +8,13 @@ class GroupDecorator < Draper::Decorator
 
   def formatted_description
     return unless group.description
+
     simple_format(format_description)
   end
 
   def truncated_description
     return unless group.description
+
     description = truncate(format_description, length: 100)
     simple_format(description, { class: 'uk-panel-body uk-padding-small' },
                   wrapper_tag: 'div')
@@ -20,12 +22,14 @@ class GroupDecorator < Draper::Decorator
 
   def group_leader_link
     return unless group.leader
+
     link_to(group.leader.user.full_name,
             profile_path(group.leader.user.screen_name))
   end
 
   def webpage_link
     return unless group.webpage
+
     link_to(group.webpage, group.webpage)
   end
 
@@ -35,6 +39,7 @@ class GroupDecorator < Draper::Decorator
 
   def parent
     return '-' unless group.parent
+
     link_to group.parent.name, group.parent
   end
 

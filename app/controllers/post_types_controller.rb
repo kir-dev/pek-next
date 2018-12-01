@@ -1,5 +1,4 @@
 class PostTypesController < ApplicationController
-  before_action :require_login
   before_action :require_leader
 
   def create
@@ -8,7 +7,7 @@ class PostTypesController < ApplicationController
 
     group_url = group_path(params[:group_id])
     return redirect_back fallback_location: group_url unless post_type.errors.any?
-    redirect_back fallback_location: group_url,
-      alert: post_type.errors.to_a.first
+
+    redirect_back fallback_location: group_url, alert: post_type.errors.to_a.first
   end
 end

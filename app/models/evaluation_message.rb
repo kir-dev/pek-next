@@ -8,5 +8,4 @@ class EvaluationMessage < ActiveRecord::Base
 
   belongs_to :group
   belongs_to :sender_user, class_name: 'User', foreign_key: :felado_usr_id
-
 end

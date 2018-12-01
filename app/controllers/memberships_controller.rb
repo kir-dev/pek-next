@@ -1,6 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :require_login
-  before_action :require_leader, only: [:inactivate, :destroy, :reactivate, :archive, :accept]
+  before_action :require_leader, only: %i[inactivate destroy reactivate archive accept]
   before_action :require_pek_admin, only: [:unarchive]
 
   def create
@@ -9,7 +8,7 @@ class MembershipsController < ApplicationController
       CreateMembership.call(@group, current_user)
       redirect_back(fallback_location: group_path(@group))
     else
-      unauthorized_page
+      forbidden_page
     end
   end
 

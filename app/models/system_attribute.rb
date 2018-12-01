@@ -28,6 +28,7 @@ class SystemAttribute < ActiveRecord::Base
     self.season.update(value: season)
     EntryRequest.remove_justifications unless application_season?
     return unless offseason?
+
     semester = SystemAttribute.semester
     calculate_point_history = CalculatePointHistory.new(semester)
     calculate_point_history.call
