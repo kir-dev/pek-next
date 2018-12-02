@@ -14,18 +14,22 @@ var evaluation = (function(Rx, $) {
 
   function hideRow() {
     const userId = this.getAttribute('data-id');
-    const element = $('tr*[data-id=' + userId + ']');
-    const name = $('.name-column*[data-id=' + userId + ']').text();
-    const hiddenUserList = $('#hidden-users');
-    element.addClass('uk-hidden');
-    hiddenUserList.append('<li class="hidden-user" data-id="' + userId + '"><a href="#" onclick="evaluation.showRow(' + userId + ')" title="mutatás" uk-tooltip>' + name + '<i class="uk-icon-eye"></i></a></li>');
+    const row = $('tr*[data-id=' + userId + ']');
+    const listItem = $('.name-list-item*[data-id=' + userId + ']');
+    const name = listItem.text();
+    const hiddenUsersList = $('#hidden-users-list');
+    row.addClass('uk-hidden');
+    listItem.addClass('uk-hidden');
+    hiddenUsersList.append('<li class="hidden-user" data-id="' + userId + '"><a href="#" onclick="evaluation.showRow(' + userId + ')" title="mutatás" uk-tooltip>' + name + '<i class="uk-icon-eye"></i></a></li>');
   }
 
   module.showRow = function(userId) {
     const button = $('.hidden-user*[data-id=' + userId + ']');
-    const element = $('tr*[data-id=' + userId + ']');
+    const row = $('tr*[data-id=' + userId + ']');
+    const listItem = $('.name-list-item*[data-id=' + userId + ']');
     button.remove();
-    element.removeClass('uk-hidden');
+    row.removeClass('uk-hidden');
+    listItem.removeClass('uk-hidden');
   }
 
   function inputChange(input) {

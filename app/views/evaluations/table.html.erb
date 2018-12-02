@@ -4,7 +4,7 @@
 <h1>Pontozás - <%= @evaluation.group.name %></h1>
 
 <div id="content-main" class="uk-panel uk-panel-box">
-  <div class="uk-clearfix">
+  <div class="uk-clearfix uk-margin-bottom">
     <div class="uk-float-left">
       A beírt adatok automatikusan mentődnek. Az üres mezők nulláknak számítanak.
     </div>
@@ -15,8 +15,7 @@
         <div class="uk-modal-dialog">
           <a class="uk-modal-close uk-close"></a>
           <h3>Elrejtett felhasználók</h3>
-          <ul class="uk-list uk-list-striped" id="hidden-users">
-          </ul>
+          <ul class="uk-list uk-list-striped" id="hidden-users-list"></ul>
         </div>
       </div>
     </div>
@@ -25,73 +24,85 @@
     </div>
   </div>
 
-  <div class="uk-width-large-1-1 uk-container-center uk-overflow-container uk-width-1-1">
-    <table class="uk-table uk-table-striped uk-table-hover uk-table-condensed">
-      <thead>
-        <tr>
-          <th>Körtagok</th>
-          <% @evaluation.principles.order(:id).each do |principle| %>
-            <th class="uk-text-center uk-link uk-link-muted principle" data-id="<%= principle.id %>"
-            data-description="<%= principle.description %>">
-              <%= principle.name %> <i class="uk-icon-info"></i>
-            </th>
-          <% end %>
-          <th>Szumma felelősség</th>
-          <th>Szumma munka</th>
-          <th>Szumma pont</th>
-          <th>Belépő</th>
-        </tr>
-      </thead>
-      <tbody>
+  <div class="uk-grid uk-grid-collapse uk-padding-remove uk-margin-remove">
+    <div style="border-right: 2px solid #BDBDBD">
+      <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
         <% @evaluation.group.point_eligible_memberships.each do |membership| %>
-          <tr data-id="<%= membership.user_id %>">
-            <td class="uk-text-nowrap name-column" data-id="<%= membership.user_id %>">
-              <%= link_to '#', class: 'hide-button uk-link-muted', 'data-id': membership.user_id do %>
-                <i class="uk-icon-eye" title="elrejtés" uk-tooltip></i>
-              <% end %>
-              <%= membership.user.full_name %>
-            </td>
-            <% @evaluation.principles.order(:id).each do |principle| %>
-              <td>
-                <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
-                data-user-name="<%= membership.user.full_name %>"
-                data-principle-type="<%= principle.type %>"
-                class="uk-input uk-width-auto point-input" type="number" value="<%=
-                  single_detail(@point_details, membership.user, principle) %>">
-              </td>
-            <% end %>
-            <td>
-              <input disabled data-user="<%= membership.user_id %>"
-                class="uk-input uk-width-auto uk-text-center sum-resp" type="number"
-                value="<%= sum_responsibility_details(@point_details, membership.user) %>">
-            </td>
-            <td>
-              <input disabled data-user="<%= membership.user_id %>"
-                class="uk-input uk-width-auto uk-text-center sum-work" type="number"
-                value="<%= sum_work_details(@point_details, membership.user) %>">
-            </td>
-            <td>
-              <input disabled data-user="<%= membership.user_id %>"
-                class="uk-input uk-width-auto uk-text-center sum-all" type="number"
-                value="<%= sum_all_details(@point_details, membership.user) %>">
-            </td>
-            <td>
-              <%= form_tag(group_evaluation_entryrequests_update_path(@group, @evaluation),
-                mehtod: :post, remote: true, html: { class: 'uk-form' }) do %>
-                <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
-                  entry_request(@evaluation, membership.user)),
-                  onchange: 'javascript: $( this ).trigger("submit.rails")',
-                  class: 'uk-select uk-width-auto' %>
-                <%= hidden_field_tag :user_id, membership.user_id %>
-              <% end %>
-            </td>
-          </tr>
+          <li class="uk-text-truncate name-list-item" data-id="<%= membership.user_id %>">
+            <%= link_to '#', class: 'hide-button uk-link-muted', 'data-id': membership.user_id do %>
+                  <i class="uk-icon-eye" title="elrejtés" uk-tooltip></i>
+                <% end %>
+                <%= link_to membership.user.full_name, profile_path(membership.user.screen_name),
+                            class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
+          </li>
         <% end %>
-      </tbody>
-    </table>
-
-    <div id="save-icon"></div>
+      </ul>
+    </div>
+    <div class="uk-overflow-container" id="points-table-container">
+      <table class="uk-table uk-table-striped uk-table-hover uk-table-condensed uk-text-center" id="points-table">
+        <thead class="rotated">
+          <tr>
+            <% @evaluation.principles.order(:id).each do |principle| %>
+              <th class="uk-text-center uk-link uk-link-muted principle" data-id="<%= principle.id %>"
+              data-description="<%= principle.description %>">
+                <div>
+                  <span>
+                    <i class="uk-icon-info"></i>
+                    <%= principle.name.truncate 20 %>
+                  </span>
+                </div>
+              </th>
+            <% end %>
+              <th><div><span>Szumma felelősség</span></div></th>
+              <th><div><span>Szumma munka</span></div></th>
+              <th><div><span>Szumma pont</span></div></th>
+              <th><div><span>Belépő</span></div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @evaluation.group.point_eligible_memberships.each do |membership| %>
+            <tr data-id="<%= membership.user_id %>">
+              <% @evaluation.principles.order(:id).each do |principle| %>
+                <td>
+                  <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
+                  data-user-name="<%= membership.user.full_name %>"
+                  data-principle-type="<%= principle.type %>"
+                  class="uk-input uk-width-auto point-input" type="number" value="<%=
+                    single_detail(@point_details, membership.user, principle) %>">
+                </td>
+              <% end %>
+              <td>
+                <input disabled data-user="<%= membership.user_id %>"
+                  class="uk-input uk-width-auto uk-text-center sum-resp" type="number"
+                  value="<%= sum_responsibility_details(@point_details, membership.user) %>">
+              </td>
+              <td>
+                <input disabled data-user="<%= membership.user_id %>"
+                  class="uk-input uk-width-auto uk-text-center sum-work" type="number"
+                  value="<%= sum_work_details(@point_details, membership.user) %>">
+              </td>
+              <td>
+                <input disabled data-user="<%= membership.user_id %>"
+                  class="uk-input uk-width-auto uk-text-center sum-all" type="number"
+                  value="<%= sum_all_details(@point_details, membership.user) %>">
+              </td>
+              <td>
+                <%= form_tag(group_evaluation_entryrequests_update_path(@group, @evaluation),
+                  mehtod: :post, remote: true, html: { class: 'uk-form' }) do %>
+                  <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
+                    entry_request(@evaluation, membership.user)),
+                    onchange: 'javascript: $( this ).trigger("submit.rails")',
+                    class: 'uk-select uk-width-auto' %>
+                  <%= hidden_field_tag :user_id, membership.user_id %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
+  <div id="save-icon"></div>
 </div>
 
 <script type="text/javascript">
