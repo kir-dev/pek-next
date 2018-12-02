@@ -29,11 +29,9 @@
       <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
         <% @evaluation.group.point_eligible_memberships.each do |membership| %>
           <li class="uk-text-truncate name-list-item" data-id="<%= membership.user_id %>">
-            <%= link_to '#', class: 'hide-button uk-link-muted', 'data-id': membership.user_id do %>
-                  <i class="uk-icon-eye" title="elrejtés" uk-tooltip></i>
-                <% end %>
-                <%= link_to membership.user.full_name, profile_path(membership.user.screen_name),
-                            class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
+            <i class="uk-icon-eye-slash hide-button uk-link uk-link-muted" data-id="<%= membership.user_id %>" title="elrejtés" uk-tooltip></i>
+            <%= link_to membership.user.full_name, profile_path(membership.user.screen_name),
+                        class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
           </li>
         <% end %>
       </ul>
