@@ -21,6 +21,7 @@ var evaluation = (function(Rx, $) {
     row.addClass('uk-hidden');
     listItem.addClass('uk-hidden');
     hiddenUsersList.append('<li class="hidden-user" data-id="' + userId + '"><a href="#" onclick="evaluation.showRow(' + userId + ')" title="mutatás" uk-tooltip>' + name + '<i class="uk-icon-eye"></i></a></li>');
+    updateHiddenUserButtonState();
   }
 
   module.showRow = function(userId) {
@@ -30,6 +31,16 @@ var evaluation = (function(Rx, $) {
     button.remove();
     row.removeClass('uk-hidden');
     listItem.removeClass('uk-hidden');
+    updateHiddenUserButtonState();
+  }
+
+  function updateHiddenUserButtonState() {
+    const hiddenUsersList = $('#hidden-users-list');
+    const hiddenUsersButton = $('#hidden-users-button');
+    if (hiddenUsersList.children().length == 0)
+      hiddenUsersButton.removeClass('uk-button-danger');
+    else
+      hiddenUsersButton.addClass('uk-button-danger');
   }
 
   function inputChange(input) {
