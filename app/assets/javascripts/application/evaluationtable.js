@@ -9,6 +9,7 @@ var evaluationTable = (function($) {
     $('.hide-button').on('click', hideRow);
     hiddenUsersList = $('#hidden-users-list');
     hiddenUsersButton = $('#hidden-users-button');
+    table.arrowTable();
   }
 
   module.showRow = function(userId) {
