@@ -20,6 +20,7 @@ class Evaluation < ActiveRecord::Base
   has_many :point_requests, foreign_key: :ertekeles_id
   has_many :entry_requests, foreign_key: :ertekeles_id
   has_many :principles
+  has_many :ordered_principles, -> { order(:id) }, class_name: :Principle
 
   NON_EXISTENT = 'NINCS'.freeze
   ACCEPTED = 'ELFOGADVA'.freeze
