@@ -69,11 +69,6 @@
   100% { transform: rotate(360deg); }
 }
 
-.principle {
-  /*transform-origin: left top 0;
-  transform: rotate(-90deg) translate(-100px, 0);*/
-}
-
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
