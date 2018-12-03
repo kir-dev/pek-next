@@ -1,76 +1,60 @@
 <div id="principle_<%= principle.id %>">
 
-  <%= form_for [ @evaluation.group, @evaluation, principle ], remote: true, html: { class: 'uk-form' } do |f| %>
+  <%= form_for [ @evaluation.group, @evaluation, principle ], remote: true, html: { class: 'uk-form uk-form-horizontal' } do |f| %>
 
     <div class="uk-accordion-title">
       <div class="uk-grid uk-grid-small">
-        <div class="uk-width-2-10" id="principle_type_<%= principle.id %>">
+        <div class="uk-width-2-10 uk-text-truncate" id="principle_type_<%= principle.id %>">
           <%= Rails.configuration.x.principle_types[principle.type] %>
         </div>
-        <div class="uk-width-5-10" id="principle_name_<%= principle.id %>">
+        <div class="uk-width-6-10" id="principle_name_<%= principle.id %>">
           <%= principle.name %>
         </div>
-        <div class="uk-width-3-10" id="principle_max_per_member_<%= principle.id %>">
+        <div class="uk-width-2-10 uk-text-center" id="principle_max_per_member_<%= principle.id %>">
           <%= principle.max_per_member %>
         </div>
       </div>
     </div>
 
     <div class="uk-accordion-content">
-
-      <div class="uk-grid uk-grid-small">
-        <div class="uk-width-2-5">
-          Típus
-        </div>
-        <div class="uk-width-3-5">
+      <div class="uk-form-row">
+        <%= f.label :type, 'Típus', class: 'uk-form-label' %>
+        <div class="uk-form-controls">
           <%= f.select :type,
                        options_for_select(Rails.configuration.x.principle_types.invert, principle.type),
                        {}, { class: 'uk-select uk-width-1-1' } %>
         </div>
       </div>
-      <div class="uk-grid uk-grid-small">
-        <div class="uk-width-2-5">
-          Megnevezés
-        </div>
-        <div class="uk-width-3-5">
+
+      <div class="uk-form-row">
+        <%= f.label :name, 'Megnevezés', class: 'uk-form-label' %>
+        <div class="uk-form-controls">
           <%= f.text_field :name, class: 'uk-input uk-width-1-1' %>
         </div>
       </div>
 
-      <div class="uk-grid uk-grid-small">
-        <div class="uk-width-2-5">
-          Maximum adható pont / fő
-        </div>
-        <div class="uk-width-3-5">
-          <%= f.number_field :max_per_member, class: 'uk-input uk-width-auto' %>
+      <div class="uk-form-row">
+        <%= f.label :name, 'Maximum adható pont / fő', class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+          <%= f.number_field :max_per_member, class: 'uk-input uk-width-1-1' %>
         </div>
       </div>
 
-      <div class="uk-grid uk-grid-small">
-        <div class="uk-width-2-5">
-          Leírás
+      <div class="uk-form-row">
+        <%= f.label :description, 'Leírás', class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+          <%= f.text_area :description, class: 'uk-input uk-width-1-1' , placeholder: 'Leírás..' %>
         </div>
-
-      <div class="uk-width-3-5">
-        <%= f.text_area :description, class: 'uk-input uk-width-1-1' , placeholder: 'Leírás..' %>
       </div>
-      </div>
-      <div class="uk-width-2-10">
-        <div class="uk-grid">
-          <div class="uk-width-2-5">
-            <%= f.submit 'Mentés', class: 'uk-button' %>
-          </div>
 
-          <div class="uk-width-3-5">
-            <%= link_to 'Törlés', group_evaluation_principle_path(@evaluation.group, @evaluation, principle),
-                        method: :delete, class: 'uk-button uk-button-danger', remote: true,
-                        data: { confirm: 'Biztosan törlöd?' } %>
-          </div>
+      <div class="uk-form-row">
+        <%= f.submit 'Mentés', class: 'uk-button' %>
 
-        </div>
+        <%= link_to 'Törlés', group_evaluation_principle_path(@evaluation.group, @evaluation, principle),
+                    method: :delete, class: 'uk-button uk-button-danger', remote: true,
+                    data: { confirm: 'Biztosan törlöd?' } %>
       </div>
     </div>
-
   <% end %>
 
 </div>

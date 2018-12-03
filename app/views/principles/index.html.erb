@@ -4,15 +4,15 @@
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-width-large-2-3 uk-container-center uk-overflow-container uk-width-1-1">
 
-    <div class="uk-grid uk-margin">
+    <div class="uk-grid uk-margin uk-text-bold">
       <div class="uk-width-2-10">
         Típus
       </div>
-      <div class="uk-width-5-10">
+      <div class="uk-width-6-10">
         Megnevezés
       </div>
-      <div class="uk-width-3-10">
-        Maximum adható pont / fő
+      <div class="uk-width-2-10 uk-text-center">
+        Maximum pont / fő
       </div>
     </div>
 
@@ -28,29 +28,29 @@
 
     <%= form_for [ @evaluation.group, @evaluation, Principle.new ], remote: true,
       authenticity_token: true, html: { class: 'uk-form' } do |f| %>
-      <div class="uk-grid uk-margin uk-grid-small">
+      <div class="uk-grid uk-grid-small">
 
-        <div class="uk-width-2-10">
+        <div class="uk-width-medium-2-10 uk-width-1-2 uk-margin-small-top">
           <%= f.select :type, options_for_select(Rails.configuration.x.principle_types.invert, ""), {},
             class: 'uk-select uk-width-1-1' %>
         </div>
 
-        <div class="uk-width-4-10">
+        <div class="uk-width-medium-4-10 uk-width-1-2 uk-margin-small-top">
           <%= f.text_field :name, class: 'uk-input uk-width-expand',
             id: 'principle_new_name', placeholder: 'Megenvezés' %>
         </div>
 
-        <div class="uk-width-2-10">
+        <div class="uk-width-medium-2-10 uk-width-1-2 uk-margin-small-top">
           <%= f.number_field :max_per_member, class: 'uk-input uk-width-expand',
             id: 'principle_new_max_per_member', placeholder: 'Max pont'  %>
         </div>
 
-        <div class="uk-width-2-10">
+        <div class="uk-width-medium-2-10 uk-width-1-2 uk-margin-small-top">
           <%= f.submit 'Hozzáad', class: 'uk-button uk-width-expand' %>
         </div>
 
       </div>
-      <div class="uk-width-1-1">
+      <div class="uk-width-1-1 uk-margin-small-top">
         <%= f.text_area :description, class: 'uk-input uk-width-1-1',
           id: 'principle_new_description', placeholder: 'Leírás..'  %>
       </div>
