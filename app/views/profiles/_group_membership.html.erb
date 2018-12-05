@@ -30,6 +30,9 @@
             <div class="uk-clearfix uk-margin-small-bottom">
               <div class="uk-float-right">
                 <%= membership.membership_time %>
+                <% if membership.group_member.user == current_user %>
+                  <%= membership.inactivate_user_button %>
+                <% end %>
               </div>
             </div>
           </div>

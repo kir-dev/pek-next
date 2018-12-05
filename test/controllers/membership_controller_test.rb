@@ -111,6 +111,30 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'inactivation of own membership' do
+    login_as_user(:babhamozo_member)
+    membership = grp_membership(:babhamozo_member_into_group)
+    Timecop.freeze do
+      xhr :get, :inactivate, format: :js, group_id: groups(:babhamozo).id,
+          membership_id: membership.id
+
+      assert membership.reload.membership_end.today?
+    end
+    assert_response :success
+  end
+
+  test 'inactivation of random membership' do
+    login_as_user(:babhamozo_member_2)
+    membership = grp_membership(:babhamozo_member_into_group)
+    Timecop.freeze do
+      xhr :get, :inactivate, format: :js, group_id: groups(:babhamozo).id,
+          membership_id: membership.id
+
+      assert membership.reload.membership_end.nil?
+    end
+    assert_response :forbidden
+  end
+
   test 'reactivation of an inactive member' do
     membership = grp_membership(:inactive_babhamozo_member)
     xhr :get, :reactivate, format: :js, group_id: groups(:babhamozo).id,

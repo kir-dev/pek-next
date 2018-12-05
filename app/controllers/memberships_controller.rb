@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :require_leader, only: %i[inactivate destroy reactivate archive accept]
+  before_action :require_leader, only: %i[destroy reactivate archive accept]
   before_action :require_pek_admin, only: [:unarchive]
 
   def create
@@ -24,6 +24,7 @@ class MembershipsController < ApplicationController
 
   def inactivate
     membership = Membership.find(params[:membership_id])
+    (require_leader && return) unless membership.user == current_user
     membership.inactivate!
     membership.user.svie.try_inactivate!
   end

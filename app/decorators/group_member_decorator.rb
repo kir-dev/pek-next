@@ -37,11 +37,12 @@ class GroupMemberDecorator < Draper::Decorator
               class: 'uk-button uk-button-success uk-button-small uk-width-auto'
   end
 
-  def inactivate_user_button(group)
+  # TODO: remove parameter if no usage found
+  def inactivate_user_button(_group = nil)
     return unless !membership.newbie? && membership.active?
 
     button_to 'Öreggé avatás',
-              group_membership_inactivate_path(group.id, membership_id),
+              group_membership_inactivate_path(membership.group_id, membership_id),
               method: :post, remote: true,
               class: 'uk-button uk-button-primary uk-button-small uk-width-auto'
   end

@@ -63,6 +63,12 @@ babhamozo_member:
   usr_screen_name: lali
   usr_auth_sch_id: AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE
 
+babhamozo_member_2:
+  usr_id: 4006
+  usr_firstname: Babos
+  usr_lastname: Tihamér
+  usr_screen_name: Tihi
+
 non_babhamozo_member:
   usr_id: 4003
   usr_firstname: Borsó
