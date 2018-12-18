@@ -14,8 +14,8 @@
         Delegálhat / delegáltak
       </div>
     </li>
-      <li class="uk-clearfix">
     <% @groups_witht_delegates.each do |group| %>
+      <li class="uk-clearfix <%= delegates_warning_status(group.delegate_count, group.current_delegated_count) %>">
         <div class="uk-text-bold uk-float-left">
           <%= group.name %>
         </div>
