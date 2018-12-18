@@ -23,7 +23,7 @@ module Admin
 
     def count
       CountDelegates.new.call
-      redirect_back fallback_location: '/', notice: t(:successful_count)
+      redirect_to admin_delegates_path, notice: t(:successful_count)
     end
   end
 end
