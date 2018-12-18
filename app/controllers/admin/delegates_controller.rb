@@ -4,7 +4,7 @@ module Admin
 
     def index
       groups = Group.order(:name)
-      @groups_witht_delegates, @groups_without_delegates =
+      @groups_with_delegates, @groups_without_delegates =
         groups.partition { |group| group.delegate_count.positive? }
       @groups_without_delegates = @groups_without_delegates.select(&:issvie)
     end
