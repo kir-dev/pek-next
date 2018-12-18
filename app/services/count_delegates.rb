@@ -1,7 +1,7 @@
 class CountDelegates
   def initialize
     @primary_users =
-      User.primary_svie_member
+      User.primary_svie_members
           .includes(primary_membership: [:posts, :post_types, { user: [:primary_membership] }])
           .select { |user| user.primary_membership&.primary? }
   end
