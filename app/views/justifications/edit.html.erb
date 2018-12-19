@@ -1,44 +1,27 @@
-<% stylesheet 'groups' %>
+<% stylesheet 'evaluation' %>
 
 <h1>Belépőigény indoklások</h1>
 <div id="content-main" class="uk-panel uk-panel-box">
-  <div class="uk-width-large-2-3 uk-container-center uk-overflow-container uk-width-1-1">
+  <div class="uk-width-large-2-3 uk-container-center uk-width-1-1">
 
-    <div class="uk-grid uk-margin">
-      <div class="uk-width-3-10">
-        Név
-      </div>
-      <div class="uk-width-2-10">
-        Belépő
-      </div>
-      <div class="uk-width-5-10">
-        Indoklás
-      </div>
-    </div>
-
-    <%= form_tag group_evaluation_justifications_update_path do %>
+    <%= form_tag group_evaluation_justifications_update_path, class: 'uk-form uk-form-horizontal' do %>
       <% @entry_requests.each do |entry_request| %>
 
-        <div class="uk-grid uk-margin">
-
-          <div class="uk-width-3-10">
+        <div class="uk-form-row">
+          <label class="uk-form-label uk-text-bold">
             <%= entry_request.user.full_name %>
-          </div>
-
-          <div class="uk-width-2-10">
-            <%= entry_request.entry_type %>
-          </div>
-
-          <div class="uk-width-5-10">
+            (<%= entry_request.entry_type %>)
+          </label>
+          <div class="uk-form-controls">
             <%= fields_for "entry_requests[]", entry_request do |er| %>
-              <%= er.text_area :justification, class: 'uk-textarea', cols: 35, rows: 5 %>
+              <%= er.text_area :justification, class: 'uk-textarea uk-width-1-1', rows: 4 %>
             <% end %>
           </div>
         </div>
 
       <% end %>
 
-      <div class="uk-text-center uk-margin">
+      <div class="uk-form-row uk-text-center">
         <%= submit_tag 'Mentés', class: 'uk-button uk-button-success' %>
       </div>
 

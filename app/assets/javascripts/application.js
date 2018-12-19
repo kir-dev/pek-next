@@ -27,6 +27,7 @@
 //= require uikit/components/sticky.min
 
 //= require cropper.min
+//= require arrow-table.min
 
 //= require rx.all
 

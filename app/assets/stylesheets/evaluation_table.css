@@ -6,12 +6,57 @@
   min-width: 150px;
 }
 
+#name-list {
+  margin-top: 132px;
+  width: 150px !important;
+  border-right: solid 0px #BDBDBD;
+}
+
+#name-list > * {
+  height: 20px !important;
+}
+
+#points-table-container {
+  width: calc(100% - 152px);
+}
+
+.rotated {
+  border-bottom: 1px #E0E0E0 solid;
+}
+
+.rotated > tr > * {
+  height: 115px;
+  white-space: nowrap;
+}
+
+.rotated > tr > * > div {
+  transform:
+    translate(13px, -10px)
+    rotate(315deg);
+  width: 40px;
+}
+
+.rotated > tr > * > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+#points-table > * > tr {
+  height: 30px !important;
+}
+
+#points-table > * > tr > td {
+  width: 40px !important;
+  padding: 3px 2px !important;
+}
+
 #save-icon {
   position: fixed;
   bottom: 30px;
-  left: 30px;
-  border: 5px solid #acf4a6;
-  border-top: 5px solid #14700c;
+  right: 30px;
+  z-index: 1;
+  border: 5px solid #66BB6A;
+  border-top: 5px solid #1B5E20;
   border-radius: 50%;
   width: 50px;
   height: 50px;
