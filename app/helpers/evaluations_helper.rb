@@ -1,7 +1,7 @@
 module EvaluationsHelper
   def single_detail(point_details, user, principle)
     point_details.find do |pd|
-      pd.point_request.user == user && pd.principle_id == principle.id
+      pd.point_request.user_id == user.id && pd.principle_id == principle.id
     end&.point
   end
 
@@ -22,19 +22,19 @@ module EvaluationsHelper
   end
 
   def entry_request(evaluation, user)
-    evaluation.entry_requests.find { |er| er.user == user }&.entry_type ||
+    evaluation.entry_requests.find { |er| er.user_id == user.id }&.entry_type ||
       EntryRequest::DEFAULT_TYPE
   end
 
   def sum_principle_details(point_details, principle)
-    point_details.select { |pd| pd.principle == principle }.sum(&:point)
+    point_details.select { |pd| pd.principle_id == principle.id }.sum(&:point)
   end
 
   private
 
   def sum_details(point_details, user, principle_type)
     point_details.select do |pd|
-      pd.point_request.user == user && pd.principle.type == principle_type
+      pd.point_request.user_id == user.id && pd.principle.type == principle_type
     end.sum(&:point)
   end
 end

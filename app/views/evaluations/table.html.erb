@@ -60,7 +60,7 @@
         <tbody>
           <% @evaluation.group.point_eligible_memberships.each do |membership| %>
             <tr data-id="<%= membership.user_id %>">
-              <% @evaluation.principles.order(:id).each do |principle| %>
+              <% @evaluation.ordered_principles.each do |principle| %>
                 <td>
                   <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
                   data-user-name="<%= membership.user.full_name %>"
