@@ -1,12 +1,5 @@
 class DelegatesController < ApplicationController
   before_action :require_leader, only: %i[show create destroy]
-  before_action :require_svie_admin, only: %i[index export]
-
-  def index
-    @delegates = User.includes([{ primary_membership: [:group] }])
-                     .where(delegated: true).order(:lastname)
-                     .select { |user| user.primary_membership.group.issvie }
-  end
 
   def show
     # There are 68 active svie members without a primary group

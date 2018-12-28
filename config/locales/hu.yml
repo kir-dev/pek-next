@@ -26,6 +26,7 @@ hu:
   non_existent_id: Could not find user with %{id} id.
   successful_impersonation: Successful user impersonation
   virid_not_found: Nem található felhasználó a megadott VIR ID-val
+  successful_count: Sikeres számolás
   activerecord:
     attributes:
       user:

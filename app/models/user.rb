@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   self.primary_key = :usr_id
+  scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
 
   alias_attribute :id, :usr_id
   alias_attribute :email, :usr_email

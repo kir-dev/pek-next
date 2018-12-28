@@ -1,0 +1,38 @@
+<h1>Körös küldöttek száma</h1>
+
+<div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-margin-large">
+    <%= button_tag 'Hozzáadás', class: 'uk-button uk-align-right', 'data-uk-modal': '{target:"#new-modal"}' %>
+  </div>
+
+  <ul class="uk-list uk-list-striped">
+    <li class="uk-clearfix uk-text-bold">
+      <div class="uk-float-left">
+        Kör
+      </div>
+      <div class="uk-float-right uk-margin-right">
+        Delegálhat / delegáltak
+      </div>
+    </li>
+    <% @groups_with_delegates.each do |group| %>
+      <li class="uk-clearfix <%= delegates_warning_status(group.delegate_count, group.current_delegated_count) %>">
+        <div class="uk-text-bold uk-float-left">
+          <%= group.name %>
+        </div>
+        <div class="uk-float-right">
+          <%= button_tag class: 'uk-button uk-button-small update-delegates',
+                         'data-group-id': group.id, 'data-count': group.delegate_count,
+                         'data-uk-modal': '{target:"#update-modal"}' do %>
+            <i class="uk-icon-edit"></i>
+          <% end %>
+        </div>
+        <div class="uk-float-right uk-margin-large-right">
+          <%= "#{group.delegate_count} / #{group.current_delegated_count}" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= render 'update' %>
+  <%= render 'new' %>
+</div>

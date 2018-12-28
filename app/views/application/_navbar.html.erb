@@ -15,7 +15,9 @@
 
             <div class="uk-dropdown uk-dropdown-navbar">
               <ul class="uk-nav uk-nav-navbar">
-                <li><%= link_to "Küldöttek export", delegates_path %></li>
+                <li><%= link_to 'Küldöttek számolása', admin_delegates_count_path %></li>
+                <li><%= link_to 'Küldöttek szerkesztése', admin_delegates_path %></li>
+                <li><%= link_to 'Küldöttek export', admin_delegates_export_path %></li>
               </ul>
             </div>
           </li>
@@ -117,7 +119,9 @@
 
       <% if current_user.roles.svie_admin? %>
       <li class="uk-nav-header">SVIE admin</li>
-      <li><%= link_to "Küldöttek export", delegates_path %></li>
+      <li><%= link_to 'Küldöttek számolása', admin_delegates_count_path %></li>
+      <li><%= link_to 'Küldöttek szerkesztése', admin_delegates_path %></li>
+      <li><%= link_to 'Küldöttek export', admin_delegates_export_path %></li>
       <% end %>
 
       <li class="uk-nav-divider"></li>

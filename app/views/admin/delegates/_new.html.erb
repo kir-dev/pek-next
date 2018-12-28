@@ -1,0 +1,22 @@
+<div id="new-modal" class="uk-modal">
+  <div class="uk-modal-dialog">
+    <a class="uk-modal-close uk-close"></a>
+    <%= form_tag admin_delegates_update_path, class: 'uk-form uk-form-stacked' do %>
+      <h3>Delegáltak hazzáadása</h3>
+
+      <div class="uk-form-row">
+        <label class="uk-form-label" for="delegate_count">Kör: </label>
+        <%= select_tag :group_id, options_from_collection_for_select(@groups_without_delegates, 'id', 'name'),
+                       class: 'uk-select uk-form-small' %>
+      </div>
+
+      <div class="uk-form-row">
+        <label class="uk-form-label" for="delegate_count">Delegltak száma: </label>
+        <%= number_field_tag :delegate_count, '', class: 'uk-form-small', id: 'delegate-count' %>
+      </div>
+      <div class="uk-form-row uk-margin-top">
+        <%= submit_tag 'Mentés', class: 'uk-button uk-align-center' %>
+      </div>
+    <% end %>
+  </div>
+</div>
