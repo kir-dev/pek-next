@@ -1,4 +1,4 @@
-var evaluation = (function(Rx, $) {
+var evaluationSync = (function(Rx, $) {
   var module = {};
 
   module.init = function() {
@@ -40,4 +40,4 @@ var evaluation = (function(Rx, $) {
   return module;
 }(Rx, jQuery));
 
-$(document).ready(evaluation.init);
+$(document).ready(evaluationSync.init);

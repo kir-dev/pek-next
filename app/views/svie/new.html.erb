@@ -23,7 +23,7 @@
             </tr>
             <tr>
               <td><%= label_tag :date_of_birth, 'Születési idő:' %></td>
-              <td><%= date_field_tag :date_of_birth, current_user.date_of_birth, class: 'uk-input uk-width-expand', required: true %></td>
+              <td><%= text_field_tag :date_of_birth, current_user.date_of_birth, class: 'uk-width-expand', :data => { 'uk-datepicker' => "{format:'YYYY-MM-DD'}" }, required: true %></td>
             </tr>
             <tr>
               <td><%= label_tag :birth_name, 'Születési név:' %></td>

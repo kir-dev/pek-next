@@ -37,7 +37,7 @@
 
       <tr>
         <td><%= f.label :date_of_birth %></td>
-        <td><%= f.text_field :date_of_birth, class: 'uk-input uk-width-1-1' %></td>
+        <td><%= f.text_field :date_of_birth, class: 'uk-input uk-width-1-1', :data => { 'uk-datepicker' => "{format:'YYYY-MM-DD'}" } %></td>
         <td class="uk-text-center">
           <%= check_box_tag 'private', 'DATE_OF_BIRTH', Privacy.for(@user, 'DATE_OF_BIRTH').visible,
                 class: 'privacy-setting', user: @user.id %></td>

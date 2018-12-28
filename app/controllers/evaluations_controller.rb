@@ -28,9 +28,10 @@ class EvaluationsController < ApplicationController
   end
 
   def table
-    @point_details = PointDetail.includes(:point_request).select do |pd|
-      pd.point_request.evaluation == current_evaluation
-    end
+    @point_details =
+      PointDetail.includes([{ point_request: [:evaluation] }, :principle]).select do |pd|
+        pd.point_request.evaluation == current_evaluation
+      end
     @evaluation = current_evaluation
   end
 
@@ -77,6 +78,7 @@ class EvaluationsController < ApplicationController
   end
 
   def current_evaluation
-    @current_evaluation ||= Evaluation.find(params[:evaluation_id] || params[:id])
+    @current_evaluation ||= Evaluation.includes(:principles)
+                                      .find(params[:evaluation_id] || params[:id])
   end
 end
