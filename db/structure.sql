@@ -282,6 +282,39 @@ CREATE TABLE public.lostpw_tokens (
 
 
 --
+-- Name: point_detail_comments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.point_detail_comments (
+    id integer NOT NULL,
+    comment text,
+    user_id integer,
+    point_detail_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: point_detail_comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.point_detail_comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: point_detail_comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.point_detail_comments_id_seq OWNED BY public.point_detail_comments.id;
+
+
+--
 -- Name: point_details; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -649,6 +682,13 @@ ALTER SEQUENCE public.view_settings_id_seq OWNED BY public.view_settings.id;
 
 
 --
+-- Name: point_detail_comments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.point_detail_comments ALTER COLUMN id SET DEFAULT nextval('public.point_detail_comments_id_seq'::regclass);
+
+
+--
 -- Name: point_details id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -746,6 +786,14 @@ ALTER TABLE ONLY public.lostpw_tokens
 
 ALTER TABLE ONLY public.lostpw_tokens
     ADD CONSTRAINT lostpw_tokens_token_key UNIQUE (token);
+
+
+--
+-- Name: point_detail_comments point_detail_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.point_detail_comments
+    ADD CONSTRAINT point_detail_comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -934,6 +982,20 @@ CREATE INDEX idx_groups_grp_type ON public.groups USING btree (grp_type);
 
 
 --
+-- Name: index_point_detail_comments_on_point_detail_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_point_detail_comments_on_point_detail_id ON public.point_detail_comments USING btree (point_detail_id);
+
+
+--
+-- Name: index_point_detail_comments_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_point_detail_comments_on_user_id ON public.point_detail_comments USING btree (user_id);
+
+
+--
 -- Name: membership_usr_fk_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1078,6 +1140,22 @@ ALTER TABLE ONLY public.ertekelesek
 
 
 --
+-- Name: point_detail_comments fk_rails_14e0ee0629; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.point_detail_comments
+    ADD CONSTRAINT fk_rails_14e0ee0629 FOREIGN KEY (point_detail_id) REFERENCES public.point_details(id);
+
+
+--
+-- Name: point_detail_comments fk_rails_fd72f0d605; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.point_detail_comments
+    ADD CONSTRAINT fk_rails_fd72f0d605 FOREIGN KEY (user_id) REFERENCES public.users(usr_id);
+
+
+--
 -- Name: pontigenyles fkaa1034cd6958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1202,4 +1280,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180705121831');
 INSERT INTO schema_migrations (version) VALUES ('20180730191308');
 
 INSERT INTO schema_migrations (version) VALUES ('20181112160701');
+
+INSERT INTO schema_migrations (version) VALUES ('20181220204207');
 

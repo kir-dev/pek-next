@@ -3,6 +3,7 @@ class PointDetail < ActiveRecord::Base
 
   belongs_to :principle
   belongs_to :point_request
+  has_many :point_detail_comments
 
   before_save do
     self.point = valid_point
