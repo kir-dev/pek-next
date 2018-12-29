@@ -1,4 +1,5 @@
-<article class="uk-comment uk-panel uk-panel-box uk-panel-box-secondary uk-margin-small-bottom">
+<article class="uk-comment uk-panel uk-panel-box uk-panel-box-secondary uk-margin-small-bottom"
+         data-comment-id="<%= comment.id %>">
   <header class="uk-comment-header uk-margin-remove">
     <%= comment.image_tag %>
     <h4 class="uk-comment-title uk-margin-remove">
@@ -6,6 +7,7 @@
     </h4>
 
     <div class="uk-comment-meta">
+      <%= comment.edit_button %>
       <%= comment.created_at %>
     </div>
   </header>

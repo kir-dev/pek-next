@@ -1,4 +1,6 @@
 class PointDetailCommentsController < ApplicationController
+  before_action :set_point_detail_comment, only: %i[edit update]
+
   def index
     comments = comments_by_principle_user_id(params[:principle_id].to_i, params[:user_id].to_i)
     @point_detail_comments = PointDetailCommentDecorator.decorate_collection(comments)
@@ -9,10 +11,24 @@ class PointDetailCommentsController < ApplicationController
   def create
     create_comment = CreatePointDetailComment.new(params[:evaluation_id], params[:principle_id],
                                                   params[:user_id], current_user)
-    @point_detail_comment = create_comment.call(params[:comment]).decorate
+    @point_detail_comment = create_comment.call(update_params[:comment]).decorate
   end
 
+  def update
+    @point_detail_comment.update update_params
+  end
+
+  def edit; end
+
   private
+
+  def set_point_detail_comment
+    @point_detail_comment = PointDetailComment.find(params[:id]).decorate
+  end
+
+  def update_params
+    params.require(:point_detail_comment).permit(:comment)
+  end
 
   def comments_by_principle_user_id(principle_id, user_id)
     PointDetailComment.includes([{ point_detail: [:point_request] }])
