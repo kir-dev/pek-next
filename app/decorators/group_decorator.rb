@@ -23,8 +23,7 @@ class GroupDecorator < Draper::Decorator
   def group_leader_link
     return unless group.leader
 
-    link_to(group.leader.user.full_name,
-            profile_path(group.leader.user.screen_name))
+    group.leader.user.decorate.link
   end
 
   def webpage_link
