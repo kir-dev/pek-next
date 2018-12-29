@@ -5,19 +5,20 @@
 
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-clearfix uk-margin-bottom">
-    <div class="uk-float-left">
-      A beírt adatok automatikusan mentődnek. Az üres mezők nulláknak számítanak.
-    </div>
     <div class="uk-float-right">
-      <button class="uk-button uk-button-small" id="hidden-users-button" data-uk-modal="{target:'#hidden-users-modal'}">Elrejtett felhasználók</button>
+      <button class="uk-button uk-button-small" id="hidden-users-button" data-uk-modal="{target:'#hidden-users-modal'}">Elrejtett tagok</button>
 
       <div id="hidden-users-modal" class="uk-modal">
         <div class="uk-modal-dialog">
           <a class="uk-modal-close uk-close"></a>
-          <h3>Elrejtett felhasználók</h3>
+          <h3>Elrejtett tagok</h3>
           <ul class="uk-list uk-list-striped" id="hidden-users-list"></ul>
         </div>
       </div>
+    </div>
+    <div class="uk-float-right uk-margin-right">
+      <button class="uk-button uk-button-small uk-button-primary" data-uk-modal="{target:'#eval-table-info'}">Help me!</button>
+      <%= render 'table_info' %>
     </div>
     <div class="uk-float-right uk-margin-right">
       <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: 'uk-button uk-button-small' %>
