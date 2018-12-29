@@ -1,0 +1,13 @@
+<article class="uk-comment uk-panel uk-panel-box uk-panel-box-secondary uk-margin-small-bottom">
+  <header class="uk-comment-header uk-margin-remove">
+    <%= image_tag photo_path(comment.user.screen_name), alt: comment.user.full_name, class: 'uk-comment-avatar uk-margin-small-top profile-picture' %>
+    <h4 class="uk-comment-title uk-margin-remove">
+      <%= comment.user.full_name %>
+    </h4>
+
+    <div class="uk-comment-meta">
+      <%= comment.created_at %>
+    </div>
+  </header>
+  <div class="uk-comment-body"><%= comment.comment %></div>
+</article>

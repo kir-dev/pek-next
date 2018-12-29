@@ -62,11 +62,14 @@
             <tr data-id="<%= membership.user_id %>">
               <% @evaluation.ordered_principles.each do |principle| %>
                 <td>
-                  <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
-                  data-user-name="<%= membership.user.full_name %>"
-                  data-principle-type="<%= principle.type %>"
-                  class="uk-input uk-width-auto point-input" type="number" value="<%=
-                    single_detail(@point_details, membership.user, principle) %>">
+                  <div class="uk-form-icon">
+                    <i class="uk-icon-comment uk-hidden"></i>
+                    <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
+                    data-user-name="<%= membership.user.full_name %>"
+                    data-principle-type="<%= principle.type %>"
+                    class="uk-input uk-width-auto point-input" type="number"
+                    value="<%= single_detail(@point_details, membership.user, principle) %>">
+                  </div>
                 </td>
               <% end %>
               <td>
@@ -101,6 +104,26 @@
     </div>
   </div>
   <div id="save-icon"></div>
+</div>
+
+<div class="dark shadow" id="comment-float">
+  <div class="uk-accordion" id="comment-accordion" data-uk-accordion="{showfirst:false}">
+    <h3 class="uk-accordion-title uk-margin-remove">
+      <div class="uk-clearfix">
+        <div class="uk-float-left">
+          Megjegyzések
+        </div>
+        <div class="uk-float-right">
+          <i class="uk-icon-angle-up"></i>
+        </div>
+      </div>
+    </h3>
+    <div class="uk-accordion-content uk-padding-remove uk-overflow-container" id="comment-container">
+      <div class="uk-margin-large-top uk-text-center uk-text-bold uk-text-danger">
+        Nincs mező kijelölve!
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">

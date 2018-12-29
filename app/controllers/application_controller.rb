@@ -76,6 +76,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_group
 
+  def current_evaluation
+    @current_evaluation ||= Evaluation.includes(:principles)
+                                      .find(params[:evaluation_id] || params[:id])
+  end
+  helper_method :current_evaluation
+
   def require_leader
     membership = current_user.membership_for(current_group)
     forbidden_page unless membership&.leader?
