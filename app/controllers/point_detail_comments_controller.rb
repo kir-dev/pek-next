@@ -1,12 +1,7 @@
 class PointDetailCommentsController < ApplicationController
   def index
-    @point_detail_comments =
-      PointDetailComment.includes([{ point_detail: [:point_request] }])
-                        .order(:created_at)
-                        .select do |comment|
-        comment.point_detail.principle_id == params[:principle_id].to_i &&
-          comment.point_detail.point_request.user_id == params[:user_id].to_i
-      end
+    comments = comments_by_principle_user_id(params[:principle_id].to_i, params[:user_id].to_i)
+    @point_detail_comments = PointDetailCommentDecorator.decorate_collection(comments)
     @point_detail_comment = PointDetailComment.new
     render layout: false
   end
@@ -14,6 +9,17 @@ class PointDetailCommentsController < ApplicationController
   def create
     create_comment = CreatePointDetailComment.new(params[:evaluation_id], params[:principle_id],
                                                   params[:user_id], current_user)
-    @point_detail_comment = create_comment.call(params[:comment])
+    @point_detail_comment = create_comment.call(params[:comment]).decorate
+  end
+
+  private
+
+  def comments_by_principle_user_id(principle_id, user_id)
+    PointDetailComment.includes([{ point_detail: [:point_request] }])
+                      .order(:created_at)
+                      .select do |comment|
+      comment.point_detail.principle_id == principle_id &&
+        comment.point_detail.point_request.user_id == user_id
+    end
   end
 end
