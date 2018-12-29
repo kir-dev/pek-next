@@ -21,6 +21,23 @@
   color: #fff;
 }
 
+.has-comment {
+  position: relative;
+}
+
+.has-comment::after{
+  content: '';
+  position: absolute;
+  top: 0.1em;
+  right: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-radius: 0.2em;
+  border-width: 0.4em;
+  border-right-color: #9ccdc8;
+  border-top-color: #9ccdc8;
+}
+
 .name-column {
   min-width: 150px;
 }
