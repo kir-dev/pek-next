@@ -43,6 +43,10 @@ class GroupDecorator < Draper::Decorator
     link_to group.parent.name, group.parent
   end
 
+  def link(options = {})
+    link_to group.name, group_path(group.id), options
+  end
+
   private
 
   def format_description

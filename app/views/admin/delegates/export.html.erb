@@ -18,7 +18,7 @@
     <% @delegates.each do |u| %>
       <tr>
         <td><%= u.full_name %></td>
-        <td><%= link_to u.primary_membership.group.name, group_path( u.primary_membership.group.id) %></td>
+        <td><%= u.primary_membership.group.decorate.link %></td>
         <td><%= u.home_address %></td>
         <td height="40"></td>
       </tr>
