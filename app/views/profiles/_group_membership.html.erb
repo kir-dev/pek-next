@@ -4,7 +4,7 @@
     <% own_memberships do |membership| %>
       <li class="uk-padding-small uk-clearfix">
           <div class="uk-padding-remove uk-float-left uk-width-medium-1-3">
-            <%= link_to membership.group_name, group_path(membership.group_id) %>
+            <%= membership.group_link %>
           </div>
           <div class="uk-text-bold uk-float-left"><%= membership.posts %></div>
           <div class="uk-text-bold uk-float-right uk-margin-right uk-width membership-timer"><%= membership.membership_time %></div>
@@ -21,7 +21,7 @@
 
           <div class="uk-panel-title uk-margin-remove uk-clearfix">
             <div class="uk-padding-remove uk-float-left">
-              <%= link_to membership.group_name, group_path(membership.group_id) %>
+              <%= membership.group_link %>
             </div>
           </div>
 
