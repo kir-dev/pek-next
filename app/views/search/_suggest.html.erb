@@ -8,7 +8,7 @@
     </div>
     <div class="uk-padding-small next-to-thumbnail">
       <div>
-        <%= link_to user.compact_name, profile_path(user.screen_name), class: 'uk-text-large' %>
+        <%= user.link_with_compact_name class: 'uk-text-large' %>
       </div>
       <div class="uk-text-break">
         <%= user.room %>

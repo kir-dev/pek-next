@@ -69,6 +69,10 @@ class UserDecorator < Draper::Decorator
     link_to user.full_name, profile_path(user.screen_name), options
   end
 
+  def link_with_compact_name(options = {})
+    link_to compact_name, profile_path(user.screen_name), options
+  end
+
   private
 
   def info_box(content, icon)
