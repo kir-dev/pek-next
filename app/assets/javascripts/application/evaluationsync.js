@@ -8,6 +8,7 @@ var evaluationSync = (function(Rx, $) {
         .map(function(event) { return event.target; });
 
       inputStream.subscribe(inputChange);
+      inputStream.subscribe(evaluationTable.refreshSumOfPrinciple);
     }
   }
 

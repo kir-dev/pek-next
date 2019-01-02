@@ -86,6 +86,25 @@ var evaluationTable = (function($) {
     localStorage.setItem('hiddenUsers', JSON.stringify(list));
   }
 
+  module.refreshSumOfPrinciple = function(input) {
+    var principle_id = input.getAttribute('data-principle');
+
+    total = calcSum(principle_id);
+
+    $('#sum-of-principle-' + principle_id).html(total);
+  }
+
+  function calcSum(principle_id) {
+    var total = 0;
+
+    principleArray = $('*[data-principle="' + principle_id + '"]');
+    for (var i = 0; i < principleArray.length; i++){
+      total += Number(principleArray[i].value);
+    }
+
+    return total;
+  }
+
   return module;
 }(jQuery));
 

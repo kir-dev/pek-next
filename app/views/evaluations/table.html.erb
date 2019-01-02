@@ -101,8 +101,8 @@
         <tfoot>
           <tr>
             <% @evaluation.ordered_principles.each do |principle| %>
-              <td>
-                <b>
+              <td data-sum-principle="<%= principle.id %>">
+                <b id="sum-of-principle-<%= principle.id %>">
                   <%= sum_principle_details(@point_details, principle) %>
                 </b>
               </td>
