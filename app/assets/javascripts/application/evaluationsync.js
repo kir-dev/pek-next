@@ -8,7 +8,6 @@ var evaluationSync = (function(Rx, $) {
         .map(function(event) { return event.target; });
 
       inputStream.subscribe(inputChange);
-      inputStream.subscribe(evaluationTable.refreshSumOfPrinciple);
     }
   }
 
@@ -17,6 +16,8 @@ var evaluationSync = (function(Rx, $) {
     var value = input.value;
     var principle = input.getAttribute('data-principle');
     var user = input.getAttribute('data-user');
+
+    evaluationTable.overwritePrincipleSumText(principle);
 
     $.ajax({
       method: 'POST',
@@ -27,6 +28,7 @@ var evaluationSync = (function(Rx, $) {
         point: value
       }
     }).done(function (resp) {
+      evaluationTable.refreshSumOfPrinciple(input)
       $('#save-icon').fadeOut();
     }).error(function () {
       UIkit.notify({

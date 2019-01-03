@@ -88,10 +88,13 @@ var evaluationTable = (function($) {
 
   module.refreshSumOfPrinciple = function(input) {
     const principleId = input.getAttribute('data-principle');
-
     const total = calcSum(principleId);
 
-    $('#sum-of-principle-' + principleId).text(total);
+    module.overwritePrincipleSumText(principleId, total);
+  }
+
+  module.overwritePrincipleSumText = function(principleId, text = '---'){
+    $('#sum-of-principle-' + principleId).text(text);
   }
 
   function calcSum(principleId) {
