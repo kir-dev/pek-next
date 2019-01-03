@@ -91,7 +91,7 @@ var evaluationTable = (function($) {
 
     const total = calcSum(principleId);
 
-    $('#sum-of-principle-' + principleId).html(total);
+    $('#sum-of-principle-' + principleId).text(total);
   }
 
   function calcSum(principleId) {
