@@ -95,14 +95,12 @@ var evaluationTable = (function($) {
   }
 
   function calcSum(principleId) {
-    var total = 0;
+    const principleArray = $('*[data-principle="' + principleId + '"]').toArray();
 
-    const principleArray = $('*[data-principle="' + principleId + '"]');
-    for (var i = 0; i < principleArray.length; i++){
-      total += Number(principleArray[i].value);
-    }
+    const initialValue = 0;
+    const reducer = (accumulator, currentValue) => accumulator + Number(currentValue.value);
 
-    return total;
+    return principleArray.reduce(reducer, initialValue);
   }
 
   return module;
