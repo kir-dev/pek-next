@@ -87,17 +87,17 @@ var evaluationTable = (function($) {
   }
 
   module.refreshSumOfPrinciple = function(input) {
-    var principle_id = input.getAttribute('data-principle');
+    const principleId = input.getAttribute('data-principle');
 
-    total = calcSum(principle_id);
+    const total = calcSum(principleId);
 
-    $('#sum-of-principle-' + principle_id).html(total);
+    $('#sum-of-principle-' + principleId).html(total);
   }
 
-  function calcSum(principle_id) {
+  function calcSum(principleId) {
     var total = 0;
 
-    principleArray = $('*[data-principle="' + principle_id + '"]');
+    const principleArray = $('*[data-principle="' + principleId + '"]');
     for (var i = 0; i < principleArray.length; i++){
       total += Number(principleArray[i].value);
     }
