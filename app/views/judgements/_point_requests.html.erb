@@ -18,7 +18,7 @@
           <td class="uk-text-left uk-text-bold"><%= membership.user.full_name %></td>
           <% @evaluation.principles.order(:id).each do |principle| %>
             <td class="col-vertical-border">
-              <%= single_detail(@point_details, membership.user, principle) %>
+              <%= single_detail(@point_details, membership.user, principle)&.point %>
             </td>
           <% end %>
           <td class="col-vertical-border">
