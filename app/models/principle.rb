@@ -3,7 +3,7 @@ class Principle < ActiveRecord::Base
   self.inheritance_column = nil # So it won't try to interpret the type column as STI
 
   belongs_to :evaluation
-  has_many :point_details
+  has_many :point_details, inverse_of: :principle
 
   before_destroy :destroy_associated_point_details
 

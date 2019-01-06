@@ -17,7 +17,7 @@ class Evaluation < ActiveRecord::Base
   alias_attribute :principle, :pontozasi_elvek
 
   belongs_to :group, foreign_key: :grp_id
-  has_many :point_requests, foreign_key: :ertekeles_id
+  has_many :point_requests, foreign_key: :ertekeles_id, inverse_of: :evaluation
   has_many :entry_requests, foreign_key: :ertekeles_id
   has_many :principles
   has_many :ordered_principles, -> { order(:id) }, class_name: :Principle

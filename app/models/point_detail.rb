@@ -3,6 +3,9 @@ class PointDetail < ActiveRecord::Base
 
   belongs_to :principle
   belongs_to :point_request
+
+  validates :principle, presence: true
+  validates :point_request, presence: true
   validate :correct_evaluation
 
   before_save do
