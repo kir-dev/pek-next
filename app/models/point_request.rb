@@ -5,6 +5,7 @@ class PointRequest < ActiveRecord::Base
   alias_attribute :point, :pont
   alias_attribute :evaluation_id, :ertekeles_id
   alias_attribute :user_id, :usr_id
+  validate :correct_user
 
   belongs_to :evaluation, foreign_key: :ertekeles_id
   belongs_to :user, foreign_key: :usr_id
@@ -18,5 +19,13 @@ class PointRequest < ActiveRecord::Base
 
   def accepted?
     evaluation.accepted
+  end
+
+  private
+
+  def correct_user
+    return if user.member_of?(evaluation&.group)
+
+    errors.add(:user, 'not member of evaluation group')
   end
 end
