@@ -4,6 +4,7 @@ class PointDetail < ActiveRecord::Base
   belongs_to :principle
   belongs_to :point_request
   has_many :point_detail_comments
+  before_destroy :destroy_associated_point_detail_comments
 
   before_save do
     self.point = valid_point
@@ -22,5 +23,9 @@ class PointDetail < ActiveRecord::Base
     return max_point if point > max_point
 
     point
+  end
+
+  def destroy_associated_point_detail_comments
+    point_detail_comments.destroy_all
   end
 end
