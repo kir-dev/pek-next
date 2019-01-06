@@ -5,6 +5,8 @@ class Principle < ActiveRecord::Base
   belongs_to :evaluation
   has_many :point_details
 
+  delegate :group, to: :evaluation
+
   before_destroy :destroy_associated_point_details
 
   WORK = 'WORK'.freeze
