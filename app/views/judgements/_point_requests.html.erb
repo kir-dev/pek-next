@@ -1,40 +1,70 @@
-<div class="uk-overflow-container">
-  <table class="uk-table uk-table-striped uk-table-hover uk-text-center uk-text-nowrap">
-    <thead>
-      <tr>
-        <th class="uk-text-left">Körtagok</th>
-        <% @evaluation.principles.order(:id).each do |principle| %>
-          <th><%= principle.name %></th>
-        <% end %>
-        <th>Szumma felelősség</th>
-        <th>Szumma munka</th>
-        <th>Szumma pont</th>
-        <th>Belépő</th>
-      </tr>
-    </thead>
-    <tbody>
+<% stylesheet 'evaluation_table' %>
+
+<div class="uk-grid uk-grid-collapse uk-padding-remove uk-margin-remove">
+  <div style="border-right: 2px solid #BDBDBD">
+    <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
       <% @evaluation.group.point_eligible_memberships.each do |membership| %>
+        <li class="uk-text-truncate name-list-item" data-id="<%= membership.user_id %>">
+          <%= link_to membership.user.full_name, profile_path(membership.user.screen_name),
+                      target: :_blank, class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
+        </li>
+      <% end %>
+      <li>Összegzések:</li>
+    </ul>
+  </div>
+  <div class="uk-overflow-container" id="points-table-container">
+    <table class="uk-table uk-table-striped uk-table-hover uk-table-condensed uk-text-center" id="points-table">
+      <thead class="rotated">
         <tr>
-          <td class="uk-text-left uk-text-bold"><%= membership.user.full_name %></td>
           <% @evaluation.principles.order(:id).each do |principle| %>
-            <td class="col-vertical-border">
-              <%= single_detail(@point_details, membership.user, principle) %>
+            <th>
+              <div>
+                <span>
+                  <%= principle.name.truncate 20 %>
+                </span>
+              </div>
+            </th>
+          <% end %>
+          <th><div><span>Szumma felelősség</span></div></th>
+          <th><div><span>Szumma munka</span></div></th>
+          <th><div><span>Szumma pont</span></div></th>
+          <th><div><span>Belépő</span></div></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @evaluation.group.point_eligible_memberships.each do |membership| %>
+          <tr>
+            <% @evaluation.ordered_principles.each do |principle| %>
+              <td class="col-vertical-border">
+                <%= single_detail(@point_details, membership.user, principle) %>
+              </td>
+            <% end %>
+            <td class="col-vertical-border uk-text-bold">
+              <%= sum_responsibility_details(@point_details, membership.user) %>
+            </td>
+            <td class="col-vertical-border uk-text-bold">
+              <%= sum_work_details(@point_details, membership.user) %>
+            </td>
+            <td class="col-vertical-border uk-text-bold">
+              <%= sum_all_details(@point_details, membership.user) %>
+            </td>
+            <td class="col-vertical-border uk-text-bold">
+              <%= Rails.configuration.x.entry_types[entry_request(@evaluation, membership.user)] %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <% @evaluation.ordered_principles.each do |principle| %>
+            <td data-sum-principle="<%= principle.id %>">
+              <b id="sum-of-principle-<%= principle.id %>">
+                <%= sum_principle_details(@point_details, principle) %>
+              </b>
             </td>
           <% end %>
-          <td class="col-vertical-border">
-            <%= sum_responsibility_details(@point_details, membership.user) %>
-          </td>
-          <td class="col-vertical-border">
-            <%= sum_work_details(@point_details, membership.user) %>
-          </td>
-          <td class="col-vertical-border">
-            <%= sum_all_details(@point_details, membership.user) %>
-          </td>
-          <td class="col-vertical-border">
-            <%= Rails.configuration.x.entry_types[entry_request(@evaluation, membership.user)] %>
-          </td>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tfoot>
+    </table>
+  </div>
 </div>
