@@ -1102,6 +1102,14 @@ ALTER TABLE ONLY public.principles
 
 
 --
+-- Name: svie_post_requests fk_rails_a0009aa5e4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.svie_post_requests
+    ADD CONSTRAINT fk_rails_a0009aa5e4 FOREIGN KEY (usr_id) REFERENCES public.users(usr_id);
+
+
+--
 -- Name: point_details fk_rails_dcebb805db; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
