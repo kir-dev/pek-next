@@ -16,6 +16,10 @@
   height: 20px !important;
 }
 
+#name-list-container {
+  border-right: 2px solid #BDBDBD;
+}
+
 #points-table-container {
   width: calc(100% - 152px);
 }
