@@ -75,4 +75,26 @@
       </tfoot>
     </table>
   </div>
+  <div class="uk-width-1-1 uk-clearfix">
+    <div class="uk-float-right uk-text-bold uk-panel uk-panel-box dark uk-margin-right">
+      <div class="uk-clearfix">
+        Átlag felelősség:
+        <div class="uk-float-right uk-margin-left">
+          <%= work_points_average(@point_details, point_eligible_memberships) %>
+        </div>
+      </div>
+      <div class="uk-clearfix">
+        Átlag munka:
+        <div class="uk-float-right uk-margin-left">
+          <%= responsibility_points_average(@point_details, point_eligible_memberships) %>
+        </div>
+      </div>
+      <div class="uk-clearfix">
+        Átlag:
+        <div class="uk-float-right uk-margin-left">
+          <%= all_points_average(@point_details, point_eligible_memberships) %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
