@@ -1078,6 +1078,46 @@ ALTER TABLE ONLY public.ertekelesek
 
 
 --
+-- Name: view_settings fk_rails_2450b9d422; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.view_settings
+    ADD CONSTRAINT fk_rails_2450b9d422 FOREIGN KEY (user_id) REFERENCES public.users(usr_id);
+
+
+--
+-- Name: point_details fk_rails_6ef8df1bae; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.point_details
+    ADD CONSTRAINT fk_rails_6ef8df1bae FOREIGN KEY (point_request_id) REFERENCES public.pontigenyles(id);
+
+
+--
+-- Name: principles fk_rails_84e8865fd0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.principles
+    ADD CONSTRAINT fk_rails_84e8865fd0 FOREIGN KEY (evaluation_id) REFERENCES public.ertekelesek(id);
+
+
+--
+-- Name: svie_post_requests fk_rails_a0009aa5e4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.svie_post_requests
+    ADD CONSTRAINT fk_rails_a0009aa5e4 FOREIGN KEY (usr_id) REFERENCES public.users(usr_id);
+
+
+--
+-- Name: point_details fk_rails_dcebb805db; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.point_details
+    ADD CONSTRAINT fk_rails_dcebb805db FOREIGN KEY (principle_id) REFERENCES public.principles(id);
+
+
+--
 -- Name: pontigenyles fkaa1034cd6958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1202,4 +1242,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180705121831');
 INSERT INTO schema_migrations (version) VALUES ('20180730191308');
 
 INSERT INTO schema_migrations (version) VALUES ('20181112160701');
+
+INSERT INTO schema_migrations (version) VALUES ('20190106175754');
 
