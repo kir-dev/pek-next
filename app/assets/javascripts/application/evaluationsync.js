@@ -28,7 +28,7 @@ var evaluationSync = (function(Rx, $) {
         point: value
       }
     }).done(function (resp) {
-      evaluationTable.refreshSumOfPrinciple(input)
+      evaluationTable.refreshSumOfPrinciple(input);
       $('#save-icon').fadeOut();
     }).error(function () {
       UIkit.notify({
