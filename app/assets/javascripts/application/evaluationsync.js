@@ -17,6 +17,8 @@ var evaluationSync = (function(Rx, $) {
     var principle = input.getAttribute('data-principle');
     var user = input.getAttribute('data-user');
 
+    evaluationTable.overwritePrincipleSumText(principle);
+
     $.ajax({
       method: 'POST',
       url: updateURL,
@@ -26,6 +28,7 @@ var evaluationSync = (function(Rx, $) {
         point: value
       }
     }).done(function (resp) {
+      evaluationTable.refreshSumOfPrinciple(input)
       $('#save-icon').fadeOut();
     }).error(function () {
       UIkit.notify({

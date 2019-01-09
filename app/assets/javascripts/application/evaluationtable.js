@@ -86,6 +86,26 @@ var evaluationTable = (function($) {
     localStorage.setItem('hiddenUsers', JSON.stringify(list));
   }
 
+  module.refreshSumOfPrinciple = function(input) {
+    const principleId = input.getAttribute('data-principle');
+    const total = calcSum(principleId);
+
+    module.overwritePrincipleSumText(principleId, total);
+  }
+
+  module.overwritePrincipleSumText = function(principleId, text = '---'){
+    $('#sum-of-principle-' + principleId).text(text);
+  }
+
+  function calcSum(principleId) {
+    const principleArray = $('*[data-principle="' + principleId + '"]').toArray();
+
+    const initialValue = 0;
+    const reducer = (accumulator, currentValue) => accumulator + Number(currentValue.value);
+
+    return principleArray.reduce(reducer, initialValue);
+  }
+
   return module;
 }(jQuery));
 
