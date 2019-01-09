@@ -32,7 +32,8 @@
         </tr>
       </thead>
       <tbody>
-        <% @evaluation.group.point_eligible_memberships.each do |membership| %>
+        <% point_eligible_memberships = @evaluation.group.point_eligible_memberships %>
+        <% point_eligible_memberships.each do |membership| %>
           <tr>
             <% @evaluation.ordered_principles.each do |principle| %>
               <td class="col-vertical-border">
@@ -54,15 +55,22 @@
           </tr>
         <% end %>
       </tbody>
-      <tfoot>
+      <tfoot class="uk-text-bold">
         <tr>
           <% @evaluation.ordered_principles.each do |principle| %>
-            <td data-sum-principle="<%= principle.id %>">
-              <b id="sum-of-principle-<%= principle.id %>">
-                <%= sum_principle_details(@point_details, principle) %>
-              </b>
+            <td>
+              <%= sum_principle_details(@point_details, principle) %>
             </td>
           <% end %>
+          <td>
+            <%= responsibility_points_sum(@point_details, point_eligible_memberships) %>
+          </td>
+          <td>
+            <%= work_points_sum(@point_details, point_eligible_memberships) %>
+          </td>
+          <td>
+            <%= all_points_sum(@point_details, point_eligible_memberships) %>
+          </td>
         </tr>
       </tfoot>
     </table>
