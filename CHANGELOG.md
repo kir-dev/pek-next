@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.6.1
+- Update evaluation table sum
+- Fix missing database and model validations
+
+## v1.6
+- Add UIKit date picker for date inputs
+- Change 401 (unauthorized) to 403 (forbidden)
+- **Add delegates counting and count editing**
+- Improve evaluation related pages
+  - Add user hiding
+  - Make user column sticky
+  - Add arrow navigation in table
+  - Optimize for smaller/mobile screens
+- Under the hood
+  - refactor codebase
+  - optimize evaluation related queries, decrease loading time ~66%
+
 ## v1.5
 - Add link to user's mail and phone number, thanks @kissadamfkut
 - Add redirect for old style VIR id links
