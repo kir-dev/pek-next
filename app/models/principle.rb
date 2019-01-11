@@ -3,11 +3,9 @@ class Principle < ActiveRecord::Base
   self.inheritance_column = nil # So it won't try to interpret the type column as STI
 
   belongs_to :evaluation
-  has_many :point_details
+  has_many :point_details, dependent: :destroy
 
   delegate :group, to: :evaluation
-
-  before_destroy :destroy_associated_point_details
 
   WORK = 'WORK'.freeze
   RESPONSIBILITY = 'RESPONSIBILITY'.freeze
@@ -15,10 +13,4 @@ class Principle < ActiveRecord::Base
   validates :name, presence: true
   validates :type, presence: true
   validates :max_per_member, presence: true
-
-  private
-
-  def destroy_associated_point_details
-    point_details.destroy_all
-  end
 end
