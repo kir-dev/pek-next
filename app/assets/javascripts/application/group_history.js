@@ -1,4 +1,4 @@
-var grouphistory = (function() {
+var groupHistory = (function() {
   var module = {};
 
   module.init = function() {
@@ -12,4 +12,4 @@ var grouphistory = (function() {
   return module;
 }());
 
-$(document).ready(grouphistory.init);
+$(document).ready(groupHistory.init);
