@@ -4,7 +4,7 @@
   <div id="name-list-container">
     <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
       <% @evaluation.group.point_eligible_memberships.each do |membership| %>
-        <li class="uk-text-truncate name-list-item" data-id="<%= membership.user_id %>">
+        <li class="uk-text-truncate name-list-item" data-user="<%= membership.user_id %>">
           <%= link_to membership.user.full_name, profile_path(membership.user.screen_name),
                       target: :_blank, class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
         </li>
@@ -17,7 +17,7 @@
       <thead class="rotated">
         <tr>
           <% @evaluation.principles.order(:id).each do |principle| %>
-            <th>
+            <th class="sortable-column">
               <div>
                 <span>
                   <%= principle.name.truncate 20 %>
@@ -25,16 +25,16 @@
               </div>
             </th>
           <% end %>
-          <th><div><span>Szumma felelősség</span></div></th>
-          <th><div><span>Szumma munka</span></div></th>
-          <th><div><span>Szumma pont</span></div></th>
+          <th class="sortable-column"><div><span>Szumma felelősség</span></div></th>
+          <th class="sortable-column"><div><span>Szumma munka</span></div></th>
+          <th class="sortable-column"><div><span>Szumma pont</span></div></th>
           <th><div><span>Belépő</span></div></th>
         </tr>
       </thead>
       <tbody>
         <% point_eligible_memberships = @evaluation.group.point_eligible_memberships %>
         <% point_eligible_memberships.each do |membership| %>
-          <tr>
+          <tr data-user="<%= membership.user_id %>">
             <% @evaluation.ordered_principles.each do |principle| %>
               <td class="col-vertical-border">
                 <%= single_detail(@point_details, membership.user, principle) %>
