@@ -35,6 +35,7 @@
                         class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
           </li>
         <% end %>
+        <li>Összegzések:</li>
       </ul>
     </div>
     <div class="uk-overflow-container" id="points-table-container">
@@ -102,6 +103,17 @@
             </tr>
           <% end %>
         </tbody>
+        <tfoot>
+          <tr>
+            <% @evaluation.ordered_principles.each do |principle| %>
+              <td data-sum-principle="<%= principle.id %>">
+                <b id="sum-of-principle-<%= principle.id %>">
+                  <%= sum_principle_details(@point_details, principle) %>
+                </b>
+              </td>
+            <% end %>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>

@@ -5,6 +5,10 @@ class PointDetail < ActiveRecord::Base
   belongs_to :point_request
   has_many :point_detail_comments, dependent: :destroy
 
+  validates :principle, presence: true
+  validates :point_request, presence: true
+  validate :correct_evaluation
+
   before_save do
     self.point = valid_point
   end
@@ -14,6 +18,12 @@ class PointDetail < ActiveRecord::Base
   end
 
   private
+
+  def correct_evaluation
+    return if principle&.evaluation == point_request&.evaluation
+
+    errors.add(:principle, 'does not match point request evaluation')
+  end
 
   def valid_point
     return 0 if point.nil? || point.negative?
