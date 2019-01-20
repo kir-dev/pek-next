@@ -24,6 +24,11 @@ var evaluationComments = (function($) {
 
   function loadComments(data) {
     $('#comment-container').html(data);
+    $('#comment-textarea').keypress(function(event){
+      if(event.ctrlKey && event.which == 13){
+           $(this).closest('form').submit();
+       }
+    });
   }
 
   function selectElement(input) {
