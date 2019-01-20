@@ -24,7 +24,7 @@ class CreatePointDetailComment
     principle = Principle.find principle_id
     evaluation = Evaluation.find evaluation_id
     point_detail_service = CreateOrUpdatePointDetail.new(member, principle, evaluation)
-    point_detail, = point_detail_service.call(0)
+    point_detail, _ = point_detail_service.call(0)
     point_detail
   end
 end
