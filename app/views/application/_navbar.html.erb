@@ -28,7 +28,7 @@
             <a class="nav-button">RVT funkciók</a>
 
             <div class="uk-dropdown uk-dropdown-navbar">
-              <ul class="uk-nav uk-nav-navbar"></li>
+              <ul class="uk-nav uk-nav-navbar">
                 <li><%= link_to "SVIE-be jelentkezettek", svie_index_path %></li>
                 <% if current_user.roles.rvt_leader? %>
                   <li><%= link_to "Időszakok állítása", seasons_path %></li>
@@ -77,15 +77,6 @@
   </div>
 </nav>
 
-<script type="text/javascript">
-  UIkit.notify({
-    message : '<a target="_blank" href="https://goo.gl/forms/0pP8bDKAD7jzprPK2">Az észrevételeidet itt tudod jelezni.</a>',
-    status  : 'primary',
-    timeout : 0,
-    pos     : 'bottom-left'
-  });
-</script>
-
 <nav class="data-uk-sticky uk-navbar uk-visible-small">
   <div class="uk-nav-content uk-navbar-flip search">
     <%= render 'search' %>
@@ -128,6 +119,7 @@
       <li><%= link_to "Kijelentkezés", logout_path %></li>
 
       <li class="uk-nav-divider"></li>
+      <li><a href="#support-modal" data-uk-modal>Support</a></li>
       <li>
         <div class="uk-container uk-container-center uk-text-center">
           <img src="/kirdev_bw.png" width="70" height="70" title="Kir-Dev" alt="Kir-Dev">
