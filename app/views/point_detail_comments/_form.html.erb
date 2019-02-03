@@ -1,6 +1,7 @@
 <% path = action_name == 'edit' ? @point_detail_comment : [current_group, current_evaluation, @point_detail_comment] %>
 <div data-comment-id="<%= @point_detail_comment.id %>">
   <%= form_for path, remote: true, class: 'uk-form' do |f| %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <article class="uk-comment uk-panel uk-panel-box uk-panel-box-secondary uk-margin-small-bottom">
       <header class="uk-comment-header">
         <%= image_tag photo_path(current_user.screen_name), alt: current_user.full_name, class: 'uk-comment-avatar uk-margin-small-top profile-picture' %>
