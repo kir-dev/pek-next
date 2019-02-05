@@ -7,8 +7,8 @@ class JudgementsController < ApplicationController
 
   def show
     @evaluation = Evaluation.find(params[:evaluation_id])
-    @point_details = PointDetail.includes(:point_request)
-                                .select { |pd| pd.point_request.evaluation == @evaluation }
+    @point_details = PointDetail.includes(%i[point_request principle])
+                                .select { |pd| pd.point_request.evaluation_id == @evaluation.id }
     @evaluation_messages =
       EvaluationMessage.where(group: @evaluation.group, semester: current_semester)
                        .order(sent_at: :desc).page(params[:page]).decorate
