@@ -39,7 +39,7 @@ class GroupDecorator < Draper::Decorator
   def parent
     return '-' unless group.parent
 
-    link_to group.parent.name, group.parent
+    group.parent.decorate.link
   end
 
   def link(options = {})
