@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :evaluations, only: [:show, :edit, :update] do
       resources :principles, only: [:index, :update, :create, :destroy]
       post '/pointdetails/update', to: 'point_details#update'
+      resources :point_detail_comments, shallow: true, only: %i[index create update edit]
       post '/entryrequests', to: 'evaluations#submit_entry_request'
       delete '/entryrequests', to: 'evaluations#cancel_entry_request', as: :cancel_entry_request
       post '/entryrequests/update', to: 'entry_requests#update'

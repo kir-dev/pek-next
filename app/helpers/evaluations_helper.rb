@@ -2,7 +2,7 @@ module EvaluationsHelper
   def single_detail(point_details, user, principle)
     point_details.find do |pd|
       pd.point_request.user_id == user.id && pd.principle_id == principle.id
-    end&.point
+    end
   end
 
   def sum_work_details(point_details, user)

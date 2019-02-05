@@ -29,7 +29,7 @@ class EvaluationsController < ApplicationController
 
   def table
     @point_details =
-      PointDetail.includes([{ point_request: [:evaluation] }, :principle]).select do |pd|
+      PointDetail.includes([{ point_request: [:evaluation] }, :principle, :point_detail_comments]).select do |pd|
         pd.point_request.evaluation == current_evaluation
       end
     @evaluation = current_evaluation
@@ -75,10 +75,5 @@ class EvaluationsController < ApplicationController
 
   def changeable_points
     redirect_to root_url unless current_evaluation.changeable_point_request_status?
-  end
-
-  def current_evaluation
-    @current_evaluation ||= Evaluation.includes(:principles)
-                                      .find(params[:evaluation_id] || params[:id])
   end
 end
