@@ -4,8 +4,8 @@ var evaluationTable = (function($) {
       hiddenUsersList = null;
 
   module.init = function() {
+    if (typeof initEvaluationTable === 'undefined') { return; }
     const table = $('#points-table');
-    if (!table) { return; }
     $('.hide-button').on('click', hideRow);
     hiddenUsersList = $('#hidden-users-list');
     hiddenUsersButton = $('#hidden-users-button');

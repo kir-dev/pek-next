@@ -26,7 +26,7 @@
   </div>
 
   <div class="uk-grid uk-grid-collapse uk-padding-remove uk-margin-remove">
-    <div style="border-right: 2px solid #BDBDBD">
+    <div id="name-list-container">
       <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
         <% @evaluation.group.point_eligible_memberships.each do |membership| %>
           <li class="uk-text-truncate name-list-item" data-id="<%= membership.user_id %>">
@@ -141,5 +141,6 @@
 </div>
 
 <script type="text/javascript">
-  var updateURL = "<%= group_evaluation_pointdetails_update_path(@group, @evaluation) %>";
+  const updateURL = "<%= group_evaluation_pointdetails_update_path(@group, @evaluation) %>";
+  const initEvaluationTable = true;
 </script>

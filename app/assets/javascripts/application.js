@@ -28,6 +28,7 @@
 
 //= require cropper.min
 //= require arrow-table.min
+//= require jquery.sortElements
 
 //= require rx.all
 

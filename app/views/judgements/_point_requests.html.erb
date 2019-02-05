@@ -1,40 +1,100 @@
-<div class="uk-overflow-container">
-  <table class="uk-table uk-table-striped uk-table-hover uk-text-center uk-text-nowrap">
-    <thead>
-      <tr>
-        <th class="uk-text-left">Körtagok</th>
-        <% @evaluation.principles.order(:id).each do |principle| %>
-          <th><%= principle.name %></th>
-        <% end %>
-        <th>Szumma felelősség</th>
-        <th>Szumma munka</th>
-        <th>Szumma pont</th>
-        <th>Belépő</th>
-      </tr>
-    </thead>
-    <tbody>
+<% stylesheet 'evaluation_table' %>
+
+<div class="uk-grid uk-grid-collapse uk-padding-remove uk-margin-remove">
+  <div id="name-list-container">
+    <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
       <% @evaluation.group.point_eligible_memberships.each do |membership| %>
+        <li class="uk-text-truncate name-list-item" data-user="<%= membership.user_id %>">
+          <%= link_to membership.user.full_name, profile_path(membership.user.screen_name),
+                      target: :_blank, class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
+        </li>
+      <% end %>
+      <li>Összegzések:</li>
+    </ul>
+  </div>
+  <div class="uk-overflow-container" id="points-table-container">
+    <table class="uk-table uk-table-striped uk-table-hover uk-table-condensed uk-text-center" id="points-table">
+      <thead class="rotated">
         <tr>
-          <td class="uk-text-left uk-text-bold"><%= membership.user.full_name %></td>
           <% @evaluation.principles.order(:id).each do |principle| %>
-            <td class="col-vertical-border">
-              <%= single_detail(@point_details, membership.user, principle)&.point %>
+            <th class="sortable-column">
+              <div>
+                <span>
+                  <%= principle.name.truncate 20 %>
+                </span>
+              </div>
+            </th>
+          <% end %>
+          <th class="sortable-column"><div><span>Szumma felelősség</span></div></th>
+          <th class="sortable-column"><div><span>Szumma munka</span></div></th>
+          <th class="sortable-column"><div><span>Szumma pont</span></div></th>
+          <th><div><span>Belépő</span></div></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% point_eligible_memberships = @evaluation.group.point_eligible_memberships %>
+        <% point_eligible_memberships.each do |membership| %>
+          <tr data-user="<%= membership.user_id %>">
+            <% @evaluation.ordered_principles.each do |principle| %>
+              <td class="col-vertical-border">
+                <%= single_detail(@point_details, membership.user, principle) %>
+              </td>
+            <% end %>
+            <td class="col-vertical-border uk-text-bold">
+              <%= sum_responsibility_details(@point_details, membership.user) %>
+            </td>
+            <td class="col-vertical-border uk-text-bold">
+              <%= sum_work_details(@point_details, membership.user) %>
+            </td>
+            <td class="col-vertical-border uk-text-bold">
+              <%= sum_all_details(@point_details, membership.user) %>
+            </td>
+            <td class="col-vertical-border uk-text-bold">
+              <%= Rails.configuration.x.entry_types[entry_request(@evaluation, membership.user)] %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot class="uk-text-bold">
+        <tr>
+          <% @evaluation.ordered_principles.each do |principle| %>
+            <td>
+              <%= sum_principle_details(@point_details, principle) %>
             </td>
           <% end %>
-          <td class="col-vertical-border">
-            <%= sum_responsibility_details(@point_details, membership.user) %>
+          <td>
+            <%= responsibility_points_sum(@point_details, point_eligible_memberships) %>
           </td>
-          <td class="col-vertical-border">
-            <%= sum_work_details(@point_details, membership.user) %>
+          <td>
+            <%= work_points_sum(@point_details, point_eligible_memberships) %>
           </td>
-          <td class="col-vertical-border">
-            <%= sum_all_details(@point_details, membership.user) %>
-          </td>
-          <td class="col-vertical-border">
-            <%= Rails.configuration.x.entry_types[entry_request(@evaluation, membership.user)] %>
+          <td>
+            <%= all_points_sum(@point_details, point_eligible_memberships) %>
           </td>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tfoot>
+    </table>
+  </div>
+  <div class="uk-width-1-1 uk-clearfix">
+    <div class="uk-float-right uk-text-bold uk-panel uk-panel-box dark uk-margin-right">
+      <div class="uk-clearfix">
+        Átlag felelősség:
+        <div class="uk-float-right uk-margin-left">
+          <%= responsibility_points_average(@point_details, point_eligible_memberships) %>
+        </div>
+      </div>
+      <div class="uk-clearfix">
+        Átlag munka:
+        <div class="uk-float-right uk-margin-left">
+          <%= work_points_average(@point_details, point_eligible_memberships) %>
+        </div>
+      </div>
+      <div class="uk-clearfix">
+        Átlag:
+        <div class="uk-float-right uk-margin-left">
+          <%= all_points_average(@point_details, point_eligible_memberships) %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
