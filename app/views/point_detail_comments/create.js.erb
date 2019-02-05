@@ -1,0 +1,3 @@
+$('#comment-container article:last').before('<%= j render "show", comment: @point_detail_comment %>');
+$('#comment-textarea').val('')
+$('[data-user="<%= @point_detail_comment.point_detail.point_request.user_id %>"][data-principle="<%= @point_detail_comment.point_detail.principle.id %>"]').parent().addClass('has-comment')

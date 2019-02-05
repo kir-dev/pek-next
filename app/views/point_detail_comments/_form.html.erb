@@ -1,0 +1,32 @@
+<% path = action_name == 'edit' ? @point_detail_comment : [current_group, current_evaluation, @point_detail_comment] %>
+<div data-comment-id="<%= @point_detail_comment.id %>">
+  <%= form_for path, remote: true, class: 'uk-form' do |f| %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <article class="uk-comment uk-panel uk-panel-box uk-panel-box-secondary uk-margin-small-bottom">
+      <header class="uk-comment-header">
+        <%= image_tag photo_path(current_user.screen_name), alt: current_user.full_name, class: 'uk-comment-avatar uk-margin-small-top profile-picture' %>
+        <h4 class="uk-comment-title uk-margin-remove">
+          <%= current_user.full_name %>
+        </h4>
+
+      </header>
+      <div class="uk-comment-body">
+        <div class="field">
+          <%= f.text_area :comment, class: 'uk-textarea uk-width-1-1', id: 'comment-textarea', rows: 4, required: true %>
+        </div>
+      </div>
+
+      <%= hidden_field_tag :principle_id, params[:principle_id], id: 'comment-principle' %>
+      <%= hidden_field_tag :user_id, params[:user_id], id: 'comment-user' %>
+
+      <div class="uk-clearfix">
+        <div class="uk-text-small uk-text-muted uk-float-left">
+          Küldés Ctrl+Enter
+        </div>
+        <div class="uk-float-right">
+          <%= f.submit 'Küldés', class: 'uk-button uk-button-primary uk-align-right' %>
+        </div>
+      </div>
+    </article>
+  <% end %>
+</div>
