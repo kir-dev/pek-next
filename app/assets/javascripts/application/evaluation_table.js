@@ -63,7 +63,7 @@ var evaluationTable = (function($) {
   }
 
   function removeFromHiddenList(userId) {
-    let newList = getHiddenListFromStorage();
+    const newList = getHiddenListFromStorage();
     const index = newList.indexOf(userId.toString());
     if (index<0) { return; }
     newList.splice(index, 1);
@@ -93,7 +93,8 @@ var evaluationTable = (function($) {
     module.overwritePrincipleSumText(principleId, total);
   }
 
-  module.overwritePrincipleSumText = function(principleId, text = '---'){
+  module.overwritePrincipleSumText = function(principleId, text){
+    text = typeof text !== 'undefined' ? text : '---';
     $('#sum-of-principle-' + principleId).text(text);
   }
 
@@ -101,7 +102,7 @@ var evaluationTable = (function($) {
     const principleArray = $('*[data-principle="' + principleId + '"]').toArray();
 
     const initialValue = 0;
-    const reducer = (accumulator, currentValue) => accumulator + Number(currentValue.value);
+    const reducer = function(accumulator, currentValue) { return accumulator + Number(currentValue.value); };
 
     return principleArray.reduce(reducer, initialValue);
   }

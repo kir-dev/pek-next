@@ -2,6 +2,42 @@
   max-width: 100%;
 }
 
+#comment-container {
+  min-height: 20vh;
+  max-height: 80vh
+}
+
+#comment-float {
+  position: fixed;
+  bottom: 0px;
+  right: 0;
+  width: 300px;
+  min-height: 30px;
+  z-index: 100;
+}
+
+#comment-float h3 {
+  background-color: #607d8b;
+  color: #fff;
+}
+
+.has-comment {
+  position: relative;
+}
+
+.has-comment::after{
+  content: '';
+  position: absolute;
+  top: 0.1em;
+  right: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-radius: 0.2em;
+  border-width: 0.4em;
+  border-right-color: #9ccdc8;
+  border-top-color: #9ccdc8;
+}
+
 .name-column {
   min-width: 150px;
 }

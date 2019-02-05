@@ -5,19 +5,20 @@
 
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-clearfix uk-margin-bottom">
-    <div class="uk-float-left">
-      A beírt adatok automatikusan mentődnek. Az üres mezők nulláknak számítanak.
-    </div>
     <div class="uk-float-right">
-      <button class="uk-button uk-button-small" id="hidden-users-button" data-uk-modal="{target:'#hidden-users-modal'}">Elrejtett felhasználók</button>
+      <button class="uk-button uk-button-small" id="hidden-users-button" data-uk-modal="{target:'#hidden-users-modal'}">Elrejtett tagok</button>
 
       <div id="hidden-users-modal" class="uk-modal">
         <div class="uk-modal-dialog">
           <a class="uk-modal-close uk-close"></a>
-          <h3>Elrejtett felhasználók</h3>
+          <h3>Elrejtett tagok</h3>
           <ul class="uk-list uk-list-striped" id="hidden-users-list"></ul>
         </div>
       </div>
+    </div>
+    <div class="uk-float-right uk-margin-right">
+      <button class="uk-button uk-button-small uk-button-primary" data-uk-modal="{target:'#eval-table-info'}">Help me!</button>
+      <%= render 'table_info' %>
     </div>
     <div class="uk-float-right uk-margin-right">
       <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: 'uk-button uk-button-small' %>
@@ -62,12 +63,16 @@
           <% @evaluation.group.point_eligible_memberships.each do |membership| %>
             <tr data-id="<%= membership.user_id %>">
               <% @evaluation.ordered_principles.each do |principle| %>
+                <% point_detail = single_detail(@point_details, membership.user, principle) %>
                 <td>
-                  <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
-                  data-user-name="<%= membership.user.full_name %>"
-                  data-principle-type="<%= principle.type %>"
-                  class="uk-input uk-width-auto point-input" type="number" value="<%=
-                    single_detail(@point_details, membership.user, principle) %>">
+                  <div class="uk-form-icon<%= ' has-comment' if point_detail&.point_detail_comments&.present? %>">
+                    <i class="uk-icon-comment uk-hidden"></i>
+                    <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
+                    data-user-name="<%= membership.user.full_name %>"
+                    data-principle-type="<%= principle.type %>"
+                    class="uk-input uk-width-auto point-input" type="number"
+                    value="<%= point_detail&.point %>">
+                  </div>
                 </td>
               <% end %>
               <td>
@@ -113,6 +118,26 @@
     </div>
   </div>
   <div id="save-icon"></div>
+</div>
+
+<div class="dark shadow" id="comment-float">
+  <div class="uk-accordion" id="comment-accordion" data-uk-accordion="{showfirst:false}">
+    <h3 class="uk-accordion-title uk-margin-remove">
+      <div class="uk-clearfix">
+        <div class="uk-float-left">
+          Megjegyzések
+        </div>
+        <div class="uk-float-right">
+          <i class="uk-icon-angle-up"></i>
+        </div>
+      </div>
+    </h3>
+    <div class="uk-accordion-content uk-padding-remove uk-overflow-container" id="comment-container">
+      <div class="uk-margin-large-top uk-text-center uk-text-bold uk-text-danger">
+        Nincs mező kijelölve!
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
