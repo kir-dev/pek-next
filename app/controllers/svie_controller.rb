@@ -8,7 +8,7 @@ class SvieController < ApplicationController
 
     begin
       date_of_birth = params[:date_of_birth].to_date
-    rescue Exception
+    rescue ArgumentError
       return redirect_to new_svie_path, alert: t(:bad_date_format)
     else
       current_user.update!(date_of_birth: date_of_birth)
