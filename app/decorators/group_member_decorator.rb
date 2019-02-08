@@ -34,7 +34,8 @@ class GroupMemberDecorator < Draper::Decorator
     button_to 'Elfogadás',
               group_membership_accept_path(group.id, membership_id),
               method: :post, remote: true,
-              class: 'uk-button uk-button-success uk-button-small uk-width-auto'
+              class: 'uk-button uk-button-success uk-button-small uk-width-auto',
+              id: "approve-button-#{membership_id}"
   end
 
   def inactivate_user_button(group)
@@ -43,7 +44,8 @@ class GroupMemberDecorator < Draper::Decorator
     button_to 'Öreggé avatás',
               group_membership_inactivate_path(group.id, membership_id),
               method: :post, remote: true,
-              class: 'uk-button uk-button-primary uk-button-small uk-width-auto'
+              class: 'uk-button uk-button-primary uk-button-small uk-width-auto',
+              id: "inactive-button-#{membership_id}"
   end
 
   def archive_user_button(group)
@@ -52,7 +54,8 @@ class GroupMemberDecorator < Draper::Decorator
     button_to 'Archiválás',
               group_membership_archive_path(group.id, membership_id),
               method: :put, remote: true,
-              class: 'uk-button uk-button-danger uk-button-small uk-width-auto'
+              class: 'uk-button uk-button-danger uk-button-small uk-width-auto',
+              id: "archive-button-#{membership_id}"
   end
 
   def reactivate_user_button(group)
@@ -61,7 +64,8 @@ class GroupMemberDecorator < Draper::Decorator
     button_to 'Újraaktiválás',
               group_membership_reactivate_path(group.id, membership_id),
               method: :post, remote: true,
-              class: 'uk-button uk-button-primary uk-button-small uk-width-auto'
+              class: 'uk-button uk-button-primary uk-button-small uk-width-auto',
+              id: "reactivate-button-#{membership_id}"
   end
 
   def unarchive_user_button(group)
@@ -70,7 +74,8 @@ class GroupMemberDecorator < Draper::Decorator
     button_to 'Archiválás visszavonása',
               group_membership_unarchive_path(group.id, membership_id),
               method: :put, remote: true,
-              class: 'uk-button uk-button-danger uk-button-small uk-width-auto'
+              class: 'uk-button uk-button-danger uk-button-small uk-width-auto',
+              id: "unarchive-button-#{membership_id}"
   end
 
   def group_link(options = {})
