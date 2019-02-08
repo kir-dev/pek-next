@@ -23,8 +23,7 @@ class GroupDecorator < Draper::Decorator
   def group_leader_link
     return unless group.leader
 
-    link_to(group.leader.user.full_name,
-            profile_path(group.leader.user.screen_name))
+    group.leader.user.decorate.link
   end
 
   def webpage_link
@@ -40,7 +39,11 @@ class GroupDecorator < Draper::Decorator
   def parent
     return '-' unless group.parent
 
-    link_to group.parent.name, group.parent
+    group.parent.decorate.link
+  end
+
+  def link(options = {})
+    link_to group.name, group_path(group.id), options
   end
 
   private

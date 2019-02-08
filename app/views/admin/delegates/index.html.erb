@@ -17,7 +17,7 @@
     <% @groups_with_delegates.each do |group| %>
       <li class="uk-clearfix <%= delegates_warning_status(group.delegate_count, group.current_delegated_count) %>">
         <div class="uk-text-bold uk-float-left">
-          <%= group.name %>
+          <%= group.decorate.link class: delegates_warning_status(group.delegate_count, group.current_delegated_count) %>
         </div>
         <div class="uk-float-right">
           <%= button_tag class: 'uk-button uk-button-small update-delegates',
