@@ -105,23 +105,26 @@ Easiest way for deployment is docker-compose.
 
 Copy `.env` from `.env.example`, add `APP_ID` and `APP_SECRET` according to auth.sch and generate a `SECRET_KEY_BASE` using `bundle exec rake secret`.
 
-Then run the following command:
+Then run the following commands:
 
 ```bash
+# These volumes are not necessary and could be removed from docker-compose, but a named volume easier to find later on
+docker volume create pek_public
+docker volume create pek_database
 docker-compose up --build
 ```
 
-After creating, while the containers are runing run the following commands:
+After creating, while the containers are running run the following commands:
 
 ```bash
 # This is only necessary at new setups
-docker-compose run web bash -c "RAILS_ENV=production bundle exec rake db:setup"
+docker-compose run web bash -c "bundle exec rake db:setup"
 
 # This is only necessary after pending migrations
-docker-compose run web bash -c "RAILS_ENV=production bundle exec rake db:migrate"
+docker-compose run web bash -c "bundle exec rake db:migrate"
 
 # This is required at new setups and after changing in assets
-docker-compose run web bash -c "RAILS_ENV=production bundle exec rake assets:precompile"
+docker-compose run web bash -c "bundle exec rake assets:precompile"
 ```
 
 ## Problems you may encounter and the solutions
