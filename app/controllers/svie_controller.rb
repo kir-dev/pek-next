@@ -39,16 +39,14 @@ class SvieController < ApplicationController
 
   def approve
     svie_post_request = SviePostRequest.find(params[:id])
-    user = User.find(svie_post_request.usr_id)
-    user.update(svie_member_type: svie_post_request.member_type)
+    @user = svie_post_request.user
+    @user.update(svie_member_type: svie_post_request.member_type)
     svie_post_request.destroy
-    redirect_back notice: user.full_name + ' ' + t(:accept_application)
   end
 
   def reject
     svie_post_request = SviePostRequest.destroy(params[:id])
-    user = User.find(svie_post_request.usr_id)
-    redirect_back notice: user.full_name + ' ' + t(:abort_application)
+    @user = svie_post_request.user
   end
 
   def successful_application; end

@@ -14,7 +14,7 @@
       </li>
 
       <% @post_requests.each do |post_request| %>
-        <li class="uk-margin uk-padding-small uk-panel uk-panel-box dark uk-grid uk-grid-collapse">
+        <li id="request-<%= post_request.user.id %>" class="uk-margin uk-padding-small uk-panel uk-panel-box dark uk-grid uk-grid-collapse">
 
           <div class="uk-panel-body uk-padding-remove uk-grid uk-width-medium-2-3 uk-margin-small-top uk-margin-small-bottom">
             <div class="uk-width-1-3"><%= post_request.user.decorate.link %></div>
@@ -28,9 +28,9 @@
 
           <div class="uk-width-1-1 uk-width-medium-1-3 uk-margin-small-top uk-margin-small-bottom">
             <%= button_to 'Elfogadás', svie_approve_path(post_request.id), method: :post,
-                          class: "uk-button uk-button-success uk-float-right uk-margin-large-right", remote: false %>
+                          class: "uk-button uk-button-success uk-float-right uk-margin-large-right", remote: true %>
             <%= button_to 'Elutasítás', svie_reject_path(post_request.id), method: :post,
-                          class: "uk-button uk-button-danger uk-float-right uk-margin-right", remote: false %>
+                          class: "uk-button uk-button-danger uk-float-right uk-margin-right", remote: true %>
           </div>
 
         </li>
