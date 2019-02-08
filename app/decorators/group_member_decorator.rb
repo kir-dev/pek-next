@@ -55,7 +55,8 @@ class GroupMemberDecorator < Draper::Decorator
               group_membership_archive_path(group.id, membership_id),
               method: :put, remote: true,
               class: 'uk-button uk-button-danger uk-button-small uk-width-auto',
-              id: "archive-button-#{membership_id}"
+              id: "archive-button-#{membership_id}",
+              data: { confirm: "Biztos, hogy archiválni szeretnéd #{user.full_name}-t?" }
   end
 
   def reactivate_user_button(group)
