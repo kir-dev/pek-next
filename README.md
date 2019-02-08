@@ -67,7 +67,7 @@ Create a `.env` file using `.env.example` and replace the values with real ones.
 ###### The database
 
 ```bash
-sudo su postgres -c
+sudo su postgres
 psql -c 'create user "pek-next" with superuser password '\''pek-next'\'';'
 ```
 
