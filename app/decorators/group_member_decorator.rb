@@ -29,7 +29,7 @@ class GroupMemberDecorator < Draper::Decorator
   end
 
   def approve_join_button(group)
-    return unless membership.newbie? && membership.active?
+    return unless membership.newbie?
 
     button_to 'Elfogadás',
               group_membership_accept_path(group.id, membership_id),
@@ -39,7 +39,7 @@ class GroupMemberDecorator < Draper::Decorator
   end
 
   def inactivate_user_button(group)
-    return unless !membership.newbie? && membership.active?
+    return unless membership.active?
 
     button_to 'Öreggé avatás',
               group_membership_inactivate_path(group.id, membership_id),
