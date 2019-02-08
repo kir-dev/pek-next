@@ -22,16 +22,4 @@ class SvieControllerTest < ActionController::TestCase
     assert_equal grp_membership(:not_primary_membership).id,
                  users(:user_with_primary_membership).reload.svie_primary_membership
   end
-
-  test 'applications page enabled for rvt members' do
-    login_as_user(:not_rvt_member)
-    get :index
-    assert_response :success
-  end
-
-  test 'applications page forbidden for not rvt members' do
-    login_as_user(:rvt_member)
-    get :index
-    assert_response :forbidden
-  end
 end

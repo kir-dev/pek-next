@@ -1,40 +1,19 @@
-<% stylesheet 'admin' %>
+<% stylesheet 'profile' %>
 
-<div class="uk-height-viewport uk-responsive-width uk-margin-large">
-  <h1 class="uk-h1">SVIE-be jelentkezett felhasználók</h1>
-  <div class="uk-container-center uk-panel uk-panel-box">
-    <ul class="uk-list uk-width-1-1">
+<div id="content-main" class="neutral-container">
+  <div class="uk-height-viewport uk-responsive-width">
+    <h1 class="uk-h1">Jelentkezés leadása</h1>
+    <div class="uk-container-center uk-panel uk-panel-box">
+      <h2 class="uk-h2"><%= current_user.full_name %></h2>
 
-      <li class="uk-margin uk-text-bold uk-panel uk-panel-box dark">
-        <div class="uk-panel-body uk-padding-remove uk-grid uk-width-medium-2-3">
-          <div class="uk-width-1-3">Név</div>
-          <div class="uk-width-1-3 uk-text-center">Jelenlegi tagság típusa</div>
-          <div class="uk-width-1-3 uk-text-center">Kérvényezett tagság típusa</div>
-        </div>
-      </li>
+      <p>A regisztrációs folyamat befejezéséhez a lent letölthető kérvényt aláírva el kell juttatni a 1719-es gazdasági irodába. Figyeljetek arra oda, hogy a megadott adataitok ne tartalmazzanak hibát, valamint a tanuk is legyenek kitöltve.</p>
 
-      <% @post_requests.each do |post_request| %>
-        <li id="request-<%= post_request.user.id %>" class="uk-margin uk-padding-small uk-panel uk-panel-box dark uk-grid uk-grid-collapse">
+      <p>A papírok leadása után az Reszortvezetők Tanácsa adminisztrálni fogja az Egyesületi tagságot a rendszerben.</p>
 
-          <div class="uk-panel-body uk-padding-remove uk-grid uk-width-medium-2-3 uk-margin-small-top uk-margin-small-bottom">
-            <div class="uk-width-1-3"><%= post_request.user.decorate.link %></div>
-            <div class="uk-width-1-3 uk-text-center">
-              <%= Rails.configuration.x.svie_member_types[post_request.user.svie_member_type] %>
-            </div>
-            <div class="uk-width-1-3 uk-text-center">
-              <%= Rails.configuration.x.svie_member_types[post_request.member_type] %>
-            </div>
-          </div>
+      <p>További információkat a tagsággal kapcsolatban a https://svie.hu/ weboldalra feltöltött dokumentumok között találhatsz.</p>
 
-          <div class="uk-width-1-1 uk-width-medium-1-3 uk-margin-small-top uk-margin-small-bottom">
-            <%= button_to 'Elfogadás', svie_approve_path(post_request.id), method: :post,
-                          class: "uk-button uk-button-success uk-float-right uk-margin-large-right", remote: true %>
-            <%= button_to 'Elutasítás', svie_reject_path(post_request.id), method: :post,
-                          class: "uk-button uk-button-danger uk-float-right uk-margin-right", remote: true %>
-          </div>
-
-        </li>
-      <% end %>
-    </ul>
+      <%= button_to "Kérvény letöltése", svie_pdf_path, method: :get, class: "uk-button uk-button-success uk-align-center"%>
+      <%= button_to "Vissza", root_path, method: :get, class: "uk-button uk-align-center"%>
+    </div>
   </div>
 </div>

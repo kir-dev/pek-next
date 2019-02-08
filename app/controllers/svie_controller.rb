@@ -1,6 +1,4 @@
 class SvieController < ApplicationController
-  before_action :require_privileges_of_rvt, only: %i[index approve]
-
   def new
     redirect_to svie_edit_path unless current_user.primary_membership
   end
@@ -17,7 +15,7 @@ class SvieController < ApplicationController
     end
 
     current_user.svie.create_request(params[:svie_member_type])
-    redirect_to svie_successful_path, notice: t(:applied_succesful)
+    redirect_to svie_index_path, notice: t(:applied_succesful)
   end
 
   def edit
@@ -33,23 +31,7 @@ class SvieController < ApplicationController
     redirect_to new_svie_path
   end
 
-  def index
-    @post_requests = SviePostRequest.all
-  end
-
-  def approve
-    svie_post_request = SviePostRequest.find(params[:id])
-    @user = svie_post_request.user
-    @user.update(svie_member_type: svie_post_request.member_type)
-    svie_post_request.destroy
-  end
-
-  def reject
-    svie_post_request = SviePostRequest.destroy(params[:id])
-    @user = svie_post_request.user
-  end
-
-  def successful_application; end
+  def index; end
 
   def application_pdf
     html = GenerateMembershipPdf.new(current_user).as_html
