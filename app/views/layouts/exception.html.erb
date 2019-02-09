@@ -31,7 +31,14 @@
   <div class=" uk-padding-remove  page-wrap" id="content-container">
     <% image = random_cat_image %>
     <div class="uk-cover-background uk-margin uk-text-contrast uk-text-right uk-flex uk-flex-right uk-flex-bottom" data-uk-parallax="{scale: '2'}"
-    style="height: 450px; background-image: url('/img/cat.jpg'); background-size: 100%; background-position: -80%; background-repeat: no-repeat no-repeat;">
+    style="height: 450px; background-image: url('<%= image&.links&.download || '/img/cat.jpg' %>'); background-size: 100%; background-position: -80%; background-repeat: no-repeat no-repeat;">
+      <div class="uk-panel uk-panel-box-secondary uk-padding-small uk-text-muted uk-link-muted">
+        <% unless image.nil? %>
+          <%= link_to 'Photo', image.links.html, target: :blank %> by
+          <%= link_to image.user.name, image.user.links.html, target: :blank %> on
+          <%= link_to 'Unsplash', 'https://unsplash.com', target: :blank %>
+        <% end %>
+      </div>
     </div>
     <div class="uk-text-center uk-h2">
       <%= yield %>

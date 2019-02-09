@@ -44,6 +44,8 @@ gem 'render_anywhere'
 gem 'dotenv-rails'
 # Use exceprion_handler for nice error pages
 gem 'exception_handler', '~> 0.8.0.0'
+# Use unsplash for nice pictures
+gem 'unsplash'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
