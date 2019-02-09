@@ -5,6 +5,10 @@ hu:
   time:
     formats:
       default: "%Y.%m.%d. %H:%M"
+  exception_handler:
+    not_found: Ez a tartalom nem elérhető az országban!
+    unauthorized: A folytatáshoz be kell jelentkezned
+    internal_server_error: Ez a mi hibánk sajnos!
 
   no_entry_request: Nincs belépőigény leadva!
   submitted_entry_request: Belépőigény leadva!
