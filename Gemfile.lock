@@ -140,6 +140,8 @@ GEM
     pg (0.21.0)
     public_suffix (3.0.2)
     puma (3.10.0)
+    pundit (2.0.1)
+      activesupport (>= 3.0.0)
     rack (1.6.8)
     rack-protection (2.0.0)
       rack
@@ -245,6 +247,7 @@ DEPENDENCIES
   pdfkit
   pg
   puma
+  pundit
   rails (= 4.2.10)
   render_anywhere
   rollbar

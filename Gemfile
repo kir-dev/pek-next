@@ -28,6 +28,8 @@ gem 'draper'
 gem 'rxjs-rails'
 # Use kaminari for pagination
 gem 'kaminari'
+# Use pundit for authorization
+gem 'pundit'
 # Use puma for application server
 gem 'puma'
 # Use rollbar for live error tracking
