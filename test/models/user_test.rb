@@ -38,4 +38,16 @@ class UserTest < ActionController::TestCase
     membership = users(:sanyi).primary_membership
     assert_nil membership
   end
+
+  test 'when a user is a leader' do
+    user = users :babhamozo_leader
+    assert user.leader_of? groups(:babhamozo)
+    assert_not user.leader_of?(groups(:svie_group)), 'Not member the group'
+  end
+
+  test 'When a user is not a leader' do
+    user = users :babhamozo_member
+    assert_not user.leader_of? groups(:babhamozo)
+    assert_not user.leader_of?(groups(:svie_group)), 'Not member the group'
+  end
 end
