@@ -72,4 +72,12 @@ class GroupMemberDecorator < Draper::Decorator
               method: :put, remote: true,
               class: 'uk-button uk-button-danger uk-button-small uk-width-auto'
   end
+
+  def group_link(options = {})
+    membership.group.decorate.link options
+  end
+
+  def user_link(options = {})
+    membership.user.decorate.link_with_compact_name options
+  end
 end

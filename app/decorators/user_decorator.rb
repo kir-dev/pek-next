@@ -65,6 +65,14 @@ class UserDecorator < Draper::Decorator
     content_tag(:h4, "Küldött itt: #{user.primary_membership.group.name}", class: 'uk-h4')
   end
 
+  def link(options = {})
+    link_to user.full_name, profile_path(user.screen_name), options
+  end
+
+  def link_with_compact_name(options = {})
+    link_to compact_name, profile_path(user.screen_name), options
+  end
+
   private
 
   def info_box(content, icon)

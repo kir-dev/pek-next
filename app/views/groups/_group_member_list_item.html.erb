@@ -6,7 +6,7 @@
   <% end %>
   <div class="uk-padding-small uk-clearfix next-to-thumbnail">
     <div class="uk-padding-remove uk-float-left uk-text-large uk-width-medium-1-4">
-      <%= link_to member.compact_name, profile_path(member.screen_name) %>
+      <%= member.user_link %>
     </div>
 
     <div class="uk-text-bold uk-float-left"><%= member.posts %></div>

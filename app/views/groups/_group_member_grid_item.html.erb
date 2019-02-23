@@ -3,7 +3,7 @@
 
     <div class="uk-panel-title uk-margin-remove uk-clearfix">
       <div class="uk-padding-remove uk-float-left">
-        <%= link_to member.compact_name, profile_path(member.screen_name) %>
+        <%= member.user_link %>
       </div>
       <% if @viewmodel.leader? %>
         <div class="uk-float-right">
