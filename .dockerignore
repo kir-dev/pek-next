@@ -1,0 +1,12 @@
+/log/*
+!/log/.keep
+/tmp
+public/uploads
+.git
+.byebug_history
+.env.example
+.gitignore
+.rubocop.yml
+.travis.yml
+CHANGELOG.md
+README.md
