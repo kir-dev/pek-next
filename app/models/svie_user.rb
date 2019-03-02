@@ -40,7 +40,7 @@ class SvieUser
   end
 
   def create_request(member_type)
-    SviePostRequest.create(user: @user, member_type: member_type)
+    SviePostRequest.find_or_initialize_by(user: @user).update(member_type: member_type)
   end
 
   def try_inactivate!

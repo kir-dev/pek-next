@@ -25,11 +25,8 @@ Rails.application.routes.draw do
   post '/svie/destroy', to: 'svie#destroy'
   post '/svie/outside', to: 'svie#outside'
   post '/svie/inside', to: 'svie#inside'
-  resources :svie, only: [:index, :new, :create] # :edit, :update]
-  post '/svie/approve/:id', to: 'svie#approve', as: :svie_approve # has need refactor
-  post '/svie/reject/:id', to: 'svie#reject', as: :svie_reject # has need refactor
+  resources :svie, only: %i[index new create]
   get '/svie/pdf', to: 'svie#application_pdf'
-  get '/svie/successful', to: 'svie#successful_application'
 
   get '/judgement', to: 'judgements#index', as: :judgements
   get '/judgement/:evaluation_id', to: 'judgements#show', as: :judgement
@@ -83,6 +80,10 @@ Rails.application.routes.draw do
     get 'delegates/export', to: 'delegates#export'
     get 'delegates', to: 'delegates#index'
     post 'delegates/update', to: 'delegates#update'
+
+    resources :svie, only: [:index]
+    post '/svie/approve/:id', to: 'svie#approve', as: :svie_approve
+    post '/svie/reject/:id', to: 'svie#reject', as: :svie_reject
   end
 
   get '/seasons', to: 'season_admin#index'
