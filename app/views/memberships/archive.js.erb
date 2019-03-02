@@ -1,1 +1,4 @@
 UIkit.notify({message: "Sikeres archíválás!", timeout: 2000})
+$('#archive-button-<%= params[:membership_id] %>').hide()
+$('#inactive-button-<%= params[:membership_id] %>').hide()
+$('#approve-button-<%= params[:membership_id] %>').hide()

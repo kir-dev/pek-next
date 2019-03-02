@@ -77,6 +77,6 @@ class UserDecorator < Draper::Decorator
 
   def info_box(content, icon)
     icon = icon_tag(icon)
-    content_tag(:h4, "#{icon} #{content}".html_safe, class: 'uk-h4')
+    content_tag(:h4, "#{icon} #{sanitize content.to_s}".html_safe, class: 'uk-h4')
   end
 end
