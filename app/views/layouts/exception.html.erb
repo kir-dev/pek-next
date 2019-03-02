@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>PéK - Profil és Körök</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= render 'favicon' %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+</head>
+
+<body class="uk-height-1-1">
+
+  <%= render 'navbar' %>
+
+  <% if flash.alert %>
+    <script>
+      UIkit.notify("<%= flash.alert %>", {status:'danger'});
+    </script>
+  <% end %>
+
+  <% if flash.notice %>
+    <script>
+      UIkit.notify("<%= flash.notice %>", {status:'success'});
+    </script>
+  <% end %>
+
+  <div class=" uk-padding-remove  page-wrap" id="content-container">
+    <% image = random_cat_image %>
+    <div class="uk-cover-background uk-margin uk-text-contrast uk-text-right uk-flex uk-flex-right uk-flex-bottom" data-uk-parallax="{scale: '2'}"
+    style="height: 450px; background-image: url('<%= image&.links&.download || '/img/cat.jpg' %>'); background-size: 100%; background-position: -80%; background-repeat: no-repeat no-repeat;">
+      <div class="uk-panel uk-panel-box-secondary uk-padding-small uk-text-muted uk-link-muted">
+        <% unless image.nil? %>
+          <%= link_to 'Photo', image.links.html, target: :blank %> by
+          <%= link_to image.user.name, image.user.links.html, target: :blank %> on
+          <%= link_to 'Unsplash', 'https://unsplash.com', target: :blank %>
+        <% end %>
+      </div>
+    </div>
+    <div class="uk-text-center uk-h2">
+      <%= yield %>
+    </div>
+    <div class="uk-text-center uk-h4 uk-margin-top">
+      Amennyiben a hiba hosszabb időn keresztül fenn áll, keress minket
+      <a href="https://support.sch.bme.hu">support.sch</a>-n keresztül,
+      vagy a <a href="mailto:kir-dev@sch.bme.hu">publikus levelezőlistánkon</a>.
+    </div>
+  </div>
+
+  <%= render 'footer' %>
+
+</body>
+
+</html>

@@ -28,4 +28,9 @@ module ApplicationHelper
   def icon_tag(icon, title = '')
     content_tag(:i, '', class: icon, 'data-uk-tooltip': '', title: title)
   end
+
+  def random_cat_image
+    image_params = { query: 'cats', width: 1920, height: 1080, orientation: 'landscape' }
+    Unsplash::Photo.random(image_params) rescue nil
+  end
 end

@@ -25,6 +25,7 @@
 //= require uikit/components/pagination.min
 //= require uikit/components/search.min
 //= require uikit/components/sticky.min
+//= require uikit/components/parallax.min
 
 //= require cropper.min
 //= require arrow-table.min
