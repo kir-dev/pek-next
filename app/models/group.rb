@@ -23,6 +23,7 @@ class Group < ActiveRecord::Base
   has_many :evaluations, foreign_key: :grp_id
   has_many :point_requests, through: :evaluations
   has_many :entry_requests, through: :evaluations
+  has_many :children, class_name: :Group, foreign_key: :grp_parent
   belongs_to :group, foreign_key: :grp_parent
   alias own_post_types post_types
 

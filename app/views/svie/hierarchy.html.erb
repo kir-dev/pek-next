@@ -1,0 +1,10 @@
+<div class="uk-height-viewport uk-responsive-width">
+  <h1 class="uk-h1">Szervezeti felépítés</h1>
+  <div class="uk-container-center uk-panel uk-panel-box">
+    <ul class="uk-list uk-list-space" id="hierarchy-tree">
+      <% @parent_groups.each do |group| %>
+        <%= render 'hierarchy_tree_item', group: group %>
+      <% end %>
+    </ul>
+  </div>
+</div>
