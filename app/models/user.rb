@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   has_one :svie_post_request, foreign_key: :usr_id, primary_key: :id
   has_one :view_setting
 
-  validates :screen_name, uniqueness: true
+  validates :screen_name, uniqueness: {case_sensitive: false}
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
 
