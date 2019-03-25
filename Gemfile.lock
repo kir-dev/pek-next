@@ -122,9 +122,12 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    metaclass (0.0.4)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
+    mocha (1.8.0)
+      metaclass (~> 0.0.1)
     multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -253,6 +256,7 @@ DEPENDENCIES
   jbuilder (~> 2.6.0)
   jquery-rails
   kaminari
+  mocha
   omniauth
   omniauth-oauth2
   pdfkit
