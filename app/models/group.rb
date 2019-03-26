@@ -116,9 +116,9 @@ class Group < ActiveRecord::Base
 
   def active_in_last_two_semesters?
     previous_semester = SystemAttribute.semester.previous
-    return true if Evaluation.where(group_id: id, date: previous_semester.to_s).any?
+    return true if Evaluation.exists?(group_id: id, date: previous_semester.to_s)
 
     pre_previous_semester = previous_semester.previous
-    Evaluation.where(group_id: id, date: pre_previous_semester.to_s).any?
+    Evaluation.exists?(group_id: id, date: pre_previous_semester.to_s)
   end
 end
