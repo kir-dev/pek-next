@@ -33,6 +33,10 @@ class SvieController < ApplicationController
 
   def index; end
 
+  def hierarchy
+    @parent_groups = Group.select { |group| group.parent.nil? }
+  end
+
   def application_pdf
     html = GenerateMembershipPdf.new(current_user).as_html
     kit = PDFKit.new(html, page_size: 'A4')

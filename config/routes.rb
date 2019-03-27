@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post '/svie/inside', to: 'svie#inside'
   resources :svie, only: %i[index new create]
   get '/svie/pdf', to: 'svie#application_pdf'
+  get '/svie/hierarchy', to: 'svie#hierarchy'
 
   get '/judgement', to: 'judgements#index', as: :judgements
   get '/judgement/:evaluation_id', to: 'judgements#show', as: :judgement

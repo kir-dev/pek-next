@@ -1,0 +1,18 @@
+<li>
+  <% if group.children.count.zero? %>
+    <i class="empty-icon"></i>
+  <% else %>
+    <i class="uk-link-muted uk-icon-chevron-down"></i>
+    <i class="uk-link-muted uk-icon-chevron-up uk-hidden"></i>
+  <% end %>
+
+  <%= group.name %>
+  <%= link_to icon_tag('uk-icon-external-link', group.name), group_path(group.id),
+              class: 'uk-link-muted uk-margin-small-left', target: 'blank' %>
+
+  <ul class="uk-list">
+    <% group.children.each do |group| %>
+      <%= render 'hierarchy_tree_item', group: group %>
+    <% end %>
+  </ul>
+</li>
