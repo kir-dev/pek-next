@@ -22,6 +22,7 @@
 
  *= require cropper.min
  *= require search
+ *= require svie_hierarchy
  *= require_self
  */
 

@@ -1,0 +1,15 @@
+#hierarchy-tree {
+  margin: 20px;
+}
+
+.hierarchy-link {
+  cursor: pointer;
+}
+
+.hierarchy-item {
+  cursor: default;
+}
+
+.empty-icon {
+  margin-left: 18px;
+}

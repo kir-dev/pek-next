@@ -29,9 +29,9 @@
 
             <div class="uk-dropdown uk-dropdown-navbar">
               <ul class="uk-nav uk-nav-navbar">
-                <li><%= link_to "SVIE-be jelentkezettek", admin_svie_index_path %></li>
+                <li><%= link_to 'SVIE-be jelentkezettek', svie_index_path %></li>
                 <% if current_user.roles.rvt_leader? %>
-                  <li><%= link_to "Időszakok állítása", seasons_path %></li>
+                  <li><%= link_to 'Időszakok állítása', seasons_path %></li>
                 <% end %>
                 <% unless SystemAttribute.offseason? %>
                   <li><%= link_to 'Értékelések', judgements_path %></li>
@@ -45,8 +45,10 @@
           <%= link_to "Körök", groups_url, class: "nav-button" %>
           <div class="uk-dropdown uk-dropdown-navbar">
             <ul class="uk-nav uk-nav-navbar">
-              <li><%= link_to "Aktív körök", groups_url %></li>
-              <li><%= link_to "Összes kör", all_groups_url %></li>
+              <li><%= link_to 'Aktív körök', groups_url %></li>
+              <li><%= link_to 'Összes kör', all_groups_url %></li>
+              <li class="uk-nav-divider"></li>
+              <li><%= link_to 'Szervezeti felépítés', svie_hierarchy_url %></li>
             </ul>
           </div>
         </li>
@@ -58,16 +60,16 @@
           <% end %>
           <div class="uk-dropdown uk-dropdown-navbar">
             <ul class="uk-nav uk-nav-navbar">
-              <li><%= link_to "Profilom", root_url %></li>
+              <li><%= link_to 'Profilom', root_url %></li>
               <li class="uk-nav-divider"></li>
-              <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
+              <li><%= link_to 'Szerkesztés', edit_profile_path(current_user.screen_name) %></li>
               <% if current_user.svie.can_join? %>
-                <li><%= link_to "SVIE-be jelentkezés", new_svie_path %></li>
+                <li><%= link_to 'SVIE-be jelentkezés', new_svie_path %></li>
               <% else %>
-                <li><%= link_to "SVIE tagság", svie_edit_path %></li>
+                <li><%= link_to 'SVIE tagság', svie_edit_path %></li>
               <% end %>
               <li class="uk-nav-divider"></li>
-              <li><%= link_to "Kijelentkezés", logout_path %></li>
+              <li><%= link_to 'Kijelentkezés', logout_path %></li>
             </ul>
           </div>
         </li>
@@ -92,19 +94,21 @@
       <li class="uk-nav-header">PékNext!</li>
 
       <li class="uk-nav-header">Profil</li>
-      <li><%= link_to "Profilom", root_url %></li>
-      <li><%= link_to "Szerkesztés", edit_profile_path(current_user.screen_name) %></li>
-      <li><%= link_to "SVIE tagság", svie_edit_path %></li>
+      <li><%= link_to 'Profilom', root_url %></li>
+      <li><%= link_to 'Szerkesztés', edit_profile_path(current_user.screen_name) %></li>
+      <li><%= link_to 'SVIE tagság', svie_edit_path %></li>
 
       <li class="uk-nav-header">Közösség</li>
-      <li><%= link_to "Aktív körök", groups_path %></li>
-      <li><%= link_to "Összes kör", all_groups_url %></li>
+      <li><%= link_to 'Aktív körök', groups_path %></li>
+      <li><%= link_to 'Összes kör', all_groups_url %></li>
+      <li class="uk-nav-divider"></li>
+      <li><%= link_to 'Szervezeti felépítés', svie_hierarchy_url %></li>
 
       <% if current_user.roles.rvt_member? %>
       <li class="uk-nav-header">RVT felület</li>
-      <li><%= link_to "SVIE-be jelentkezettek", admin_svie_index_path %></li>
+      <li><%= link_to 'SVIE-be jelentkezettek', svie_index_path %></li>
       <% if current_user.roles.rvt_leader? %>
-        <li><%= link_to "Időszakok állítása", seasons_path %></li>
+        <li><%= link_to 'Időszakok állítása', seasons_path %></li>
       <% end %>
       <% end %>
 
