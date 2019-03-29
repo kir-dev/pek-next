@@ -1,5 +1,35 @@
 # Changelog
 
+## v1.8
+- Fix link duplications on group history
+- Add SVIE hierarchy view
+- Fix indicating new groups as 'probably inactive'
+- Under the hood
+  - Change unique constraint on screen name to case-insensitive
+
+## v1.7
+- Add comments on point table
+- Redesign point table on judgement page
+  - Update style from evaluation table
+  - Add point sums & averages
+  - Add sorting
+- Add support help text, remove popup
+- Update README
+- Fix sanitizing on profile page
+- Change membership handling
+  - Update buttons after successful action
+  - Add confirmation before archiving user
+- Add custom error pages
+- Update SVIE related stuff
+  - Async requests on admin page
+  - Move admin related stuff to module
+- Under the hood
+  - Refactor link decorations
+  - Update robots.txt
+  - Optimize queries on judgement page
+  - Add docker support
+  - Refactor associated models delete policy
+
 ## v1.6.1
 - Update evaluation table sum
 - Fix missing database and model validations
