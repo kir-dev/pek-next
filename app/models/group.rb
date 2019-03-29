@@ -90,11 +90,9 @@ class Group < ActiveRecord::Base
   end
 
   def inactive?
-    previous_semester = SystemAttribute.semester.previous
-    previous_eval = Evaluation.where(group_id: id, date: previous_semester.to_s)
-    pre_previous_semester = previous_semester.previous
-    pre_previous_eval = Evaluation.where(group_id: id, date: pre_previous_semester.to_s)
-    previous_eval.empty? && pre_previous_eval.empty?
+    return false if founded_less_than_a_year_ago?
+
+    !active_in_last_two_semesters?
   end
 
   def point_eligible_memberships
@@ -108,5 +106,19 @@ class Group < ActiveRecord::Base
     evaluations.select(&:accepted)
                .sort_by(&:date)
                .reverse!
+  end
+
+  private
+
+  def founded_less_than_a_year_ago?
+    founded.present? && Time.now.year - 1 <= founded
+  end
+
+  def active_in_last_two_semesters?
+    previous_semester = SystemAttribute.semester.previous
+    return true if Evaluation.exists?(group_id: id, date: previous_semester.to_s)
+
+    pre_previous_semester = previous_semester.previous
+    Evaluation.exists?(group_id: id, date: pre_previous_semester.to_s)
   end
 end
