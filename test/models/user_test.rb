@@ -10,7 +10,8 @@ class UserTest < ActionController::TestCase
   # end
 
   test 'test cellphone format valid' do
-    user = users(:sanyi)
+    user = create(:user)
+
     user.cell_phone = '+36201234567'
 
     assert user.valid?
@@ -18,7 +19,7 @@ class UserTest < ActionController::TestCase
   end
 
   test 'test cellphone can be empty' do
-    user = users(:sanyi)
+    user = create(:user)
     user.cell_phone = ''
 
     assert user.valid?
@@ -30,12 +31,12 @@ class UserTest < ActionController::TestCase
   end
 
   test 'primary membership' do
-    membership = users(:user_with_primary_membership).primary_membership
+    membership = create(:user, :with_primary_membership).primary_membership
     assert_equal grp_membership(:user_with_primary_membership), membership
   end
 
   test 'when primary membership id not definied' do
-    membership = users(:sanyi).primary_membership
+    membership = create(:user).primary_membership
     assert_nil membership
   end
 end
