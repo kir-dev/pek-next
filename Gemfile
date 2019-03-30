@@ -52,6 +52,8 @@ group :development, :test do
   gem 'byebug'
   # Brakeman: security tool
   gem 'brakeman', require: false
+  # Factory Bot for creating factories for tests
+  gem 'factory_bot_rails'
 end
 
 group :test do

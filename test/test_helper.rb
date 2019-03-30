@@ -5,6 +5,8 @@ require 'mocha/minitest'
 
 module ActiveSupport
   class TestCase
+    include FactoryBot::Syntax::Methods
+
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     self.use_transactional_fixtures = true
 
