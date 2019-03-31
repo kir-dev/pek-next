@@ -2,7 +2,9 @@ require 'test_helper'
 
 class MembershipTest < ActionController::TestCase
   test 'delegation became false when archive' do
-    membership = grp_membership(:babhamozo_member_who_delegated)
+    user = create(:user, :who_delegated)
+    membership = user.primary_membership
+
     assert membership.user.delegated
     membership.archive!
 
@@ -10,7 +12,9 @@ class MembershipTest < ActionController::TestCase
   end
 
   test 'delegation became false when inactivate' do
-    membership = grp_membership(:babhamozo_member_who_delegated)
+    user = create(:user, :who_delegated)
+    membership = user.primary_membership
+
     assert membership.user.delegated
     membership.inactivate!
 

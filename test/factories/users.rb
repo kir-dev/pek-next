@@ -7,7 +7,15 @@ FactoryBot.define do
 
     trait :with_primary_membership do
       svie_member_type { 'RENDESTAG' }
-      svie_primary_membership { 4 }
+      after(:build) do |user|
+        user.svie_primary_membership = create(:membership, user: user).id
+      end
+    end
+
+    trait :who_delegated do
+      delegated { true }
+
+      with_primary_membership
     end
   end
 end
