@@ -30,11 +30,6 @@ class UserTest < ActionController::TestCase
     assert true # TODO
   end
 
-  test 'primary membership' do
-    membership = create(:user, :with_primary_membership).primary_membership
-    assert_equal grp_membership(:user_with_primary_membership), membership
-  end
-
   test 'when primary membership id not definied' do
     membership = create(:user).primary_membership
     assert_nil membership
