@@ -3,7 +3,7 @@ require 'test_helper'
 class EvaluationTest < ActiveSupport::TestCase
   test 'creating a new evaluation sets default values' do
     evaluation = Evaluation.new
-    evaluation.group = groups(:group1)
+    evaluation.group = create(:group)
     evaluation.semester = '201720182'
 
     Timecop.freeze do
