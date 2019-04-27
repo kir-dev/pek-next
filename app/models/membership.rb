@@ -26,6 +26,10 @@ class Membership < ActiveRecord::Base
     has_post?(DEFAULT_POST_ID) && end_date.nil? && !archived?
   end
 
+  def new_member?
+    has_post?(NEW_MEMBER_ID) && active?
+  end
+
   def pek_admin?
     has_post?(PEK_ADMIN_ID)
   end
@@ -81,5 +85,6 @@ class Membership < ActiveRecord::Base
   def accept!
     newbie_post = posts.find { |post| post.post_type.id == DEFAULT_POST_ID }
     newbie_post.destroy
+    post_types << PostType.find(NEW_MEMBER_ID)
   end
 end

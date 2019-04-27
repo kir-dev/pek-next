@@ -20,4 +20,17 @@ class MembershipTest < ActionController::TestCase
 
     assert_not membership.reload.user.delegated
   end
+
+  test 'accepting removes newbie post and sets new member post' do
+    membership = grp_membership(:newbie_membership)
+
+    assert membership.newbie?
+    assert_not membership.new_member?
+
+    membership.accept!
+    membership.reload
+
+    assert_not membership.newbie?
+    assert membership.new_member?
+  end
 end

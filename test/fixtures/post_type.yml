@@ -9,3 +9,7 @@ newbie:
 pek_admin:
   pttip_id: 66
   pttip_name: PéK Admin
+
+new_member:
+  pttip_id: 104
+  pttip_name: újonc
