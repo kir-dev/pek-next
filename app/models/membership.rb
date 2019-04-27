@@ -11,6 +11,8 @@
 #
 
 class Membership < ApplicationRecord
+  include Notifications::MembershipNotifier
+
   belongs_to :group
   belongs_to :user
   has_many :posts
