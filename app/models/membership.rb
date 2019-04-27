@@ -16,6 +16,7 @@ class Membership < ActiveRecord::Base
   PAST_LEADER_ID = 4
   DEFAULT_POST_ID = 6
   PEK_ADMIN_ID = 66
+  NEW_MEMBER_ID = 104
 
   def leader?
     has_post?(LEADER_POST_ID)
