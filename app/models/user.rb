@@ -40,6 +40,8 @@
 class User < ApplicationRecord
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
 
+  acts_as_target
+
   has_many :memberships
   has_many :groups, through: :memberships
   has_many :entry_requests

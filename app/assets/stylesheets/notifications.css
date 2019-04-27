@@ -1,0 +1,47 @@
+/* General style */
+.notification-list-item .profile-picture {
+  padding-top: 10px;
+  height: 40px;
+}
+
+.notification-wrapper {
+  border-top: 3px solid #777;
+}
+
+.notification-wrapper.unread {
+  border-top: 3px solid #D8344E;
+}
+
+/* Applied on the notifications page */
+
+.notifications-list .notification-wrapper {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.notifications-list .notification-list-item {
+  margin-top: 4px;
+}
+
+.notification-count>span {
+  margin-top: -3px;
+  padding: 1px 5px;
+}
+
+/* Applied on the notifications dropdown */
+
+.notification-dropdown {
+  width: 400px;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-height: calc(100vh - 50px);
+}
+
+.notificarion-dropdown .notification-list-item {
+  margin-top: 0;
+}
+
+.notification-dropdown .notification-wrapper {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}

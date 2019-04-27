@@ -23,6 +23,7 @@
  *= require cropper.min
  *= require search
  *= require svie_hierarchy
+ *= require notifications
  *= require_self
  */
 

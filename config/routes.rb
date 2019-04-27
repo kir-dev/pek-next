@@ -102,6 +102,8 @@ Rails.application.routes.draw do
   get '/services/entrants/get/:semester/:id', to: 'auth_sch_services#entrants'
   get '/services/entrants/get/:semester/authsch/:id', to: 'auth_sch_services#entrants'
 
+  notify_to :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

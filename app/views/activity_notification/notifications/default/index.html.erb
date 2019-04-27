@@ -1,0 +1,33 @@
+<% stylesheet 'profile' %>
+
+<div class="uk-responsive-width uk-margin-large notification_wrapper">
+  <div class="notification_header uk-clearfix">
+
+    <div class="uk-float-left">
+      <h1>
+        Értesítéseim
+        <%= link_to open_all_notifications_path_for(@target, @index_options.slice(:routing_scope, :devise_default_routes)), method: :post, remote: true do %>
+          <span class="notification-count">
+            <span class="uk-badge uk-text-large <%= 'uk-badge-danger' if @target.has_unopened_notifications?(@index_options) %>">
+              <i class="uk-icon-bell<%= '-o' unless @target.has_unopened_notifications?(@index_options) %>"></i>
+              <%= @target.unopened_notification_count(@index_options) %>
+            </span>
+          </span>
+        <% end %>
+      </h1>
+    </div>
+  </div>
+
+  <div class="uk-container-center uk-panel uk-panel-box">
+    <% if @notifications.any? %>
+      <ul class="uk-list notifications notifications-list">
+        <%= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default) %>
+      </ul>
+    <% else %>
+      <div class="uk-text-center uk-padding">
+        Nincsennek értesítéseid!
+        <i class="uk-icon-bell-o"></i>
+      </div>
+    <% end %>
+  </div>
+</div>
