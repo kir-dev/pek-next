@@ -83,7 +83,7 @@ class Group < ApplicationRecord
   end
 
   def leader
-    memberships.find(&:leader?)
+    memberships.includes(posts: [:post_type]).find(&:leader?)
   end
 
   def post_types
