@@ -17,3 +17,7 @@ evaluation_giver_to_leader1:
 evaluation_giver_to_leader2:
   membership_id: 15
   post_type_id: 3
+
+hambis_leader:
+  membership_id: 16
+  post_type_id: 3

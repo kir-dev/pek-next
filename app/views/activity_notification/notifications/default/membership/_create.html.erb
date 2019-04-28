@@ -1,35 +1,11 @@
-<% content_for :notification_content, flush: true do %>
-  <% notification = NotificationDecorator.new notification %>
-  <div>
-    <div class="uk-grid-collapse uk-grid">
-      <div>
-        <%= notification.sender_profile_picture(class: 'uk-comment-avatar profile-picture') %>
-      </div>
-      <div>
+<% @notification = NotificationDecorator.new notification %>
 
-        <h4 class="uk-comment-title uk-margin-remove">
-          <%= notification.sender %>
-        </h4>
-
-        <div class="uk-comment-meta uk-text-break">
-          <%= notification.created_at.strftime("%b %d %H:%M") %>
-          <%= notification.open_link(class: 'uk-link-muted') %>
-          <%= notification.mark_as_read_link(class: 'uk-link-muted') %>
-        </div>
-      </div>
-    </div>
-    <div class="uk-text-break uk-margin-small-top">
-      <% if notification.notifiable.present? %>
-        Jelentkezett <%= notification.notifiable.group.decorate.link %> körbe!
-      <% else %>
-        Jelentkezett az egyik körödbe, de a jelentkezés törölve lett.
-      <% end %>
-    </div>
-  </div>
+<% content_for :notification_body, flush: true do %>
+  <% if @notification.notifiable.present? %>
+    Jelentkezett a(z) <%= @notification.notifiable.group.decorate.link %> körbe!
+  <% else %>
+    Jelentkezett az egyik körödbe, de a jelentkezés törölve lett.
+  <% end %>
 <% end %>
 
-<li class="notification-list-item <%= "notification-#{notification.id}" %>">
-  <div class="notification-wrapper uk-panel-box <%= 'unread' if notification.unopened? %>">
-    <%= yield :notification_content %>
-  </div>
-</li>
+<%= render 'notification' %>

@@ -77,3 +77,8 @@ evaluation_giver_group2:
   id: 15
   user_id: 8000
   group_id: 301
+
+leader_membership_for_hambis:
+  id: 16
+  group_id: 4
+  user_id: 5001

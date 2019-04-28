@@ -1,0 +1,11 @@
+<% @notification = NotificationDecorator.new notification %>
+
+<%= content_for :notification_body, flush: true do %>
+  <% if @notification.notifiable.present? %>
+    Elfogadta a jelentkezésed a(z) <%= @notification.notifiable.group.decorate.link %> körbe!
+  <% else %>
+    Elfogadta a jelentkezésed az egyik körbe, de a tagság törölve lett.
+  <% end %>
+<% end %>
+
+<%= render 'notification' %>

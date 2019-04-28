@@ -1,0 +1,26 @@
+<li class="notification-list-item <%= "notification-#{@notification.id}" %>">
+  <div class="notification-wrapper uk-panel-box <%= 'unread' if @notification.unopened? %>">
+    <div>
+      <div class="uk-grid-collapse uk-grid">
+        <div>
+          <%= @notification.sender_profile_picture(class: 'uk-comment-avatar profile-picture') %>
+        </div>
+        <div>
+
+          <h4 class="uk-comment-title uk-margin-remove">
+            <%= @notification.sender %>
+          </h4>
+
+          <div class="uk-comment-meta uk-text-break">
+            <%= @notification.created_at.strftime("%b %d %H:%M") %>
+            <%= @notification.open_link(class: 'uk-link-muted') %>
+            <%= @notification.mark_as_read_link(class: 'uk-link-muted') %>
+          </div>
+        </div>
+      </div>
+      <div class="uk-text-break uk-margin-small-top">
+        <%= yield :notification_body %>
+      </div>
+    </div>
+  </div>
+</li>
