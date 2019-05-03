@@ -55,6 +55,9 @@ group :development, :test do
 end
 
 group :test do
+  # Factory Bot for creating factories for tests
+  gem 'factory_bot_rails'
+
   gem 'mocha'
   gem 'timecop'
 end
