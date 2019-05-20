@@ -36,7 +36,7 @@
           <tr data-user="<%= membership.user_id %>">
             <% @evaluation.ordered_principles.each do |principle| %>
               <td class="col-vertical-border">
-                <%= single_detail(@point_details, membership.user, principle) %>
+                <%= single_detail(@point_details, membership.user, principle)&.point %>
               </td>
             <% end %>
             <td class="col-vertical-border uk-text-bold">

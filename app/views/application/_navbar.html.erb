@@ -29,7 +29,7 @@
 
             <div class="uk-dropdown uk-dropdown-navbar">
               <ul class="uk-nav uk-nav-navbar">
-                <li><%= link_to 'SVIE-be jelentkezettek', svie_index_path %></li>
+                <li><%= link_to 'SVIE-be jelentkezettek', admin_svie_index_path %></li>
                 <% if current_user.roles.rvt_leader? %>
                   <li><%= link_to 'Időszakok állítása', seasons_path %></li>
                 <% end %>
@@ -106,7 +106,7 @@
 
       <% if current_user.roles.rvt_member? %>
       <li class="uk-nav-header">RVT felület</li>
-      <li><%= link_to 'SVIE-be jelentkezettek', svie_index_path %></li>
+      <li><%= link_to 'SVIE-be jelentkezettek', admin_svie_index_path %></li>
       <% if current_user.roles.rvt_leader? %>
         <li><%= link_to 'Időszakok állítása', seasons_path %></li>
       <% end %>
