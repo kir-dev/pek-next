@@ -21,7 +21,7 @@ module Notifications
     end)
 
     def targets(key)
-      return [group.leader.user] if LEADER_KEYS.include?(key)
+      return [group.leader.user] if LEADER_KEYS.include?(key) && group.leader.present?
       return [user] if USER_KEYS.include?(key)
 
       []
