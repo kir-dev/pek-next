@@ -10,13 +10,14 @@ module EvaluationsHelper
   end
 
   def sum_responsibility_details(point_details, user)
-    [sum_details(point_details, user, Principle::RESPONSIBILITY), 20].min
+    [sum_details(point_details, user, Principle::RESPONSIBILITY), 50].min
   end
 
   def sum_all_details(point_details, user)
     sum = sum_responsibility_details(point_details, user) + sum_work_details(point_details, user)
-    return 5 if [3, 4].include? sum
-    return 0 if [1, 2].include? sum
+    sum_clipped = [sum, 50].min
+    return 5 if [3, 4].include? sum_clipped
+    return 0 if [1, 2].include? sum_clipped
 
     sum
   end
