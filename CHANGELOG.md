@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.9
+- Unify new member post for groups
+- Fix link for SVIE admin page
+- Fix displaying point details for judgement page
+- Increase max responsibility point to 50
+- Under the hood
+  - Start changing fixtures to FactoryBot
+
 ## v1.8
 - Fix link duplications on group history
 - Add SVIE hierarchy view
