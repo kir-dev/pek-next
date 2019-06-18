@@ -15,11 +15,10 @@ module EvaluationsHelper
 
   def sum_all_details(point_details, user)
     sum = sum_responsibility_details(point_details, user) + sum_work_details(point_details, user)
-    sum_clipped = [sum, 50].min
-    return 5 if [3, 4].include? sum_clipped
-    return 0 if [1, 2].include? sum_clipped
+    return 5 if [3, 4].include? sum
+    return 0 if [1, 2].include? sum
 
-    sum
+    [sum, 50].min
   end
 
   def entry_request(evaluation, user)
