@@ -52,6 +52,8 @@ group :development, :test do
   gem 'byebug'
   # Brakeman: security tool
   gem 'brakeman', require: false
+  # RSpec for more modern testing
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :test do
