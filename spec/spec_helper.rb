@@ -6,9 +6,12 @@ require 'rspec/rails'
 
 abort 'Running in production env' if Rails.env.production?
 
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+  config.include AuthenticationHelper
 
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
