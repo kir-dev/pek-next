@@ -31,6 +31,7 @@ hu:
   successful_impersonation: Successful user impersonation
   virid_not_found: Nem található felhasználó a megadott VIR ID-val
   successful_count: Sikeres számolás
+  does_not_have_evaluation: A körnek nincs még elfogadott értékelése!
   activerecord:
     attributes:
       user:
