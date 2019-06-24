@@ -16,6 +16,7 @@ namespace :data do
 
       PostType.update(Membership::NEW_MEMBER_ID, group_id: nil)
 
+      new_member_post_type_ids = new_member_post_types.map(&:id)
       Post.where(post_type_id: new_member_post_type_ids)
           .update_all(pttip_id: Membership::NEW_MEMBER_ID)
       new_member_post_types.delete_all
