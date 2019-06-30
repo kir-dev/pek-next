@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.9.1
+- Fix error on showing history for groups without any evaluation
+- Under the hood
+  - Upgrade Rails patch version
+  - Fix failing migration task for new member posts
+  - Init RSpec
+
 ## v1.9
 - Unify new member post for groups
 - Fix link for SVIE admin page
