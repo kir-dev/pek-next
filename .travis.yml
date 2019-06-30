@@ -8,3 +8,6 @@ before_script:
   - psql -c 'create user "pek-next" with superuser password '\''pek-next'\'';' -U postgres
   - psql -c 'create database "pek-next";' -U postgres
   - psql -c 'create database "pek-next-test";' -U postgres
+script:
+  - bundle exec rake test
+  - bundle exec rspec --format doc
