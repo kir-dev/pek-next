@@ -66,6 +66,6 @@ group :development do
   # Read more: https://github.com/rails/spring
   gem 'spring'
 
-  gem 'better_errors', '~> 1.1.0'
+  gem 'better_errors'
   gem 'binding_of_caller', '~> 0.7.3.pre1'
 end
