@@ -1,6 +1,6 @@
 # PéK-Next
 
-**The administration system for Schönherz Zoltán Student Hostel and [SVIE](http://svie.hu/)**
+**The administration system for Schönherz Student Hostel and [SVIE](http://svie.hu/)**
 
 [![Build Status](https://travis-ci.org/kir-dev/pek-next.png?branch=master)](https://travis-ci.org/kir-dev/pek-next)
 [![Code Climate](https://codeclimate.com/github/kir-dev/pek-next.png)](https://codeclimate.com/github/kir-dev/pek-next)
