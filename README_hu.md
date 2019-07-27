@@ -120,7 +120,7 @@ Miután létrejöttek, add ki az alábbi parancsokat, miközben futnak a szüks�
 # Ez csak akkor szükséges, ha először telepíted a PéK-et
 docker-compose run web bash -c "bundle exec rake db:setup"
 
-# This is only necessary after pending migrations
+# Csak akkor szükséges ha van olyan migráció, ami még nem futott le
 docker-compose run web bash -c "bundle exec rake db:migrate"
 
 # Ez csak új telepítésnél és asset váltáskor szükséges
