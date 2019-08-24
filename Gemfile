@@ -18,8 +18,6 @@ gem 'sidekiq'
 gem 'sidekiq-cron'
 # Use draper for decorating models
 gem 'draper'
-# Reactive javascript extension
-gem 'rxjs-rails'
 # Use kaminari for pagination
 gem 'kaminari'
 # Use puma for application server

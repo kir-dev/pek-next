@@ -30,8 +30,7 @@
 //= require cropper.min
 //= require arrow-table.min
 //= require jquery.sortElements
-
-//= require rx.all
+//= require rx.all.min
 
 //= require_self
 //= require_tree ./application/
