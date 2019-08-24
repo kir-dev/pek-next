@@ -49,7 +49,7 @@ GEM
     byebug (11.0.1)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
-    connection_pool (2.2.1)
+    connection_pool (2.2.2)
     cookiejar (0.3.3)
     crass (1.0.4)
     debug_inspector (0.0.3)
