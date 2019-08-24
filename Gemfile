@@ -10,8 +10,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '~> 3.2.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.6.0'
 # Use omniauth for oauth implementation
 gem 'omniauth'
 gem 'omniauth-oauth2'
