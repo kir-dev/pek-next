@@ -1,4 +1,4 @@
-class PostType < ActiveRecord::Base
+class PostType < ApplicationRecord
   self.table_name = 'poszttipus'
   self.primary_key = :pttip_id
 

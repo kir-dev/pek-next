@@ -1,4 +1,4 @@
-class PointDetailComment < ActiveRecord::Base
+class PointDetailComment < ApplicationRecord
   belongs_to :user
   belongs_to :point_detail
 

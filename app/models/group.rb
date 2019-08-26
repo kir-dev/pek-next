@@ -1,4 +1,4 @@
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   self.primary_key = :grp_id
   self.inheritance_column = nil
 

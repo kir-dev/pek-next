@@ -1,4 +1,4 @@
-class Privacy < ActiveRecord::Base
+class Privacy < ApplicationRecord
   self.table_name = 'usr_private_attrs'
   self.primary_key = :id
 

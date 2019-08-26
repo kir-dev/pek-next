@@ -1,4 +1,4 @@
-class SviePostRequest < ActiveRecord::Base
+class SviePostRequest < ApplicationRecord
   belongs_to :user, foreign_key: :usr_id
 
   def inside_member?

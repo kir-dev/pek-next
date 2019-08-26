@@ -1,4 +1,4 @@
-class Membership < ActiveRecord::Base
+class Membership < ApplicationRecord
   self.table_name = 'grp_membership'
   self.primary_key = :id
 

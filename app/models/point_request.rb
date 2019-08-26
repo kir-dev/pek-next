@@ -1,4 +1,4 @@
-class PointRequest < ActiveRecord::Base
+class PointRequest < ApplicationRecord
   self.table_name = 'pontigenyles'
   self.primary_key = :id
 

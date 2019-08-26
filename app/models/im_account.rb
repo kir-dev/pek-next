@@ -1,4 +1,4 @@
-class ImAccount < ActiveRecord::Base
+class ImAccount < ApplicationRecord
   self.primary_key = :id
 
   alias_attribute :user_id, :usr_id

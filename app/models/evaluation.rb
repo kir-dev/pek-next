@@ -1,4 +1,4 @@
-class Evaluation < ActiveRecord::Base
+class Evaluation < ApplicationRecord
   self.table_name = 'ertekelesek'
   self.primary_key = :id
 

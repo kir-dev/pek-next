@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   self.primary_key = :usr_id
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
 
