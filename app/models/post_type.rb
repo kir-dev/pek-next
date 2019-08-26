@@ -6,7 +6,7 @@ class PostType < ApplicationRecord
   alias_attribute :name, :pttip_name
   alias_attribute :group_id, :grp_id
 
-  belongs_to :group, foreign_key: :grp_id
+  belongs_to :group, foreign_key: :grp_id, optional: true
 
   validates :name, presence: true, length: { maximum: 30 }
 end
