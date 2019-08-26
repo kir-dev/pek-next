@@ -20,7 +20,7 @@ class SvieController < ApplicationController
 
   def edit
     @svie_memberships = current_user.memberships.select { |m| m.group.issvie }
-    redirect_back alert: t(:svie_group_needed) if @svie_memberships.empty?
+    redirect_back fallback_location: root_url, alert: t(:svie_group_needed) if @svie_memberships.empty?
   end
 
   def update

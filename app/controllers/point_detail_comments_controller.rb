@@ -21,7 +21,7 @@ class PointDetailCommentsController < ApplicationController
   def update
     @point_detail_comment.update update_params
     respond_to do |format|
-      format.html { redirect_back }
+      format.html { redirect_back fallback_location: root_url }
       format.js
     end
   end
