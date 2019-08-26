@@ -10,8 +10,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '~> 3.2.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.6.0'
 # Use omniauth for oauth implementation
 gem 'omniauth'
 gem 'omniauth-oauth2'
@@ -33,7 +31,7 @@ gem 'em-http-request'
 # Use pdfkit for PDF generation
 gem 'pdfkit'
 # Use wkhtmltopdf-binary to easily reach wkhtmltopdf
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', '~> 0.12.3.0'
 # Use render_anywhere for rendering template anywhere
 gem 'render_anywhere'
 # Use dotenv for environment variables
