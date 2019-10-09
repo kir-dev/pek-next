@@ -8,14 +8,8 @@ gem 'pg'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 3.2.0'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.6.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
 # Use omniauth for oauth implementation
 gem 'omniauth'
 gem 'omniauth-oauth2'
@@ -24,8 +18,6 @@ gem 'sidekiq'
 gem 'sidekiq-cron'
 # Use draper for decorating models
 gem 'draper'
-# Reactive javascript extension
-gem 'rxjs-rails'
 # Use kaminari for pagination
 gem 'kaminari'
 # Use puma for application server
@@ -37,7 +29,7 @@ gem 'em-http-request'
 # Use pdfkit for PDF generation
 gem 'pdfkit'
 # Use wkhtmltopdf-binary to easily reach wkhtmltopdf
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', '~> 0.12.3.0'
 # Use render_anywhere for rendering template anywhere
 gem 'render_anywhere'
 # Use dotenv for environment variables
@@ -70,6 +62,6 @@ group :development do
   # Read more: https://github.com/rails/spring
   gem 'spring'
 
-  gem 'better_errors', '~> 1.1.0'
-  gem 'binding_of_caller', '~> 0.7.3.pre1'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
