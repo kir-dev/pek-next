@@ -8,7 +8,7 @@
 
 ## Requirements
 
-- Ruby 2.4.2
+- Ruby 2.5.7
 - Postgresql 9.6
 - Node (asset compiling)
 - Redis (optional)
@@ -28,9 +28,9 @@ or
 sudo apt install postgresql-9.6 libpq-dev nodejs redis-server
 ```
 
-###### Ruby 2.4.2
+###### Ruby 2.5.7
 
-Use [asdf](https://asdf-vm.github.io/asdf/#/core-manage-asdf-vm) with [ruby plugin](https://github.com/asdf-vm/asdf-ruby) or [rbenv](https://github.com/rbenv/rbenv). Install Ruby 2.4.2 and set executable version. You can check current ruby version with `ruby -v`
+Use [asdf](https://asdf-vm.github.io/asdf/#/core-manage-asdf-vm) with [ruby plugin](https://github.com/asdf-vm/asdf-ruby) or [rbenv](https://github.com/rbenv/rbenv). Install Ruby 2.5.7 and set executable version. You can check current ruby version with `ruby -v`
 
 ### MacOS
 
@@ -45,9 +45,9 @@ brew services start postgresql@9.6
 brew services start redis
 ```
 
-###### Ruby 2.4.2 and Node
+###### Ruby 2.5.7 and Node
 
-Add [ruby](https://github.com/asdf-vm/asdf-ruby) and [node](https://github.com/asdf-vm/asdf-nodejs) plugin to asdf. Install Ruby 2.4.2 and set executable version. You can check current ruby version with `ruby -v`. Install node too.
+Add [ruby](https://github.com/asdf-vm/asdf-ruby) and [node](https://github.com/asdf-vm/asdf-nodejs) plugin to asdf. Install Ruby 2.5.7 and set executable version. You can check current ruby version with `ruby -v`. Install node too.
 
 ## Setting up
 
@@ -138,7 +138,7 @@ sudo apt install ruby-dev
 ###### Rbenv install only gives ruby-build usage instructions
 
 ```bash
-rbenv install -v 2.4.2
+rbenv install -v 2.5.7
 ```
 
 ###### Rbenv doesn't modify your ruby version
