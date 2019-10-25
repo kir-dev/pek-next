@@ -1,9 +1,9 @@
 class Group < ActiveRecord::Base
   self.primary_key = :grp_id
+  self.inheritance_column = nil
 
   alias_attribute :id, :grp_id
   alias_attribute :name, :grp_name
-  alias_attribute :type, :grp_type
   alias_attribute :parent_id, :grp_parent
   alias_attribute :state, :grp_state
   alias_attribute :description, :grp_description
@@ -30,6 +30,12 @@ class Group < ActiveRecord::Base
   SVIE_ID = 369
   RVT_ID = 146
   KIRDEV_ID = 106
+
+  enum type: {
+    group: 'group',
+    resort: 'resort',
+    team: 'team'
+  }, _prefix: :type
 
   def self.kirdev
     find KIRDEV_ID

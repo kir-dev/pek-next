@@ -1,7 +1,7 @@
 parent:
   grp_id: 369
   grp_name: SVIE
-  grp_type: csoport
+  grp_type: :team
 
 babhamozo:
   grp_id: 1
@@ -22,39 +22,39 @@ babhamozo:
 group<%= i %>:
   grp_id: <%= "2#{i}" %>
   grp_name: group<% i %>
-  grp_type: kör
+  grp_type: :group
 <% end %>
 
 svie_group:
   grp_id: 3
   grp_name: Pizzás
-  grp_type: szolgáltató
+  grp_type: :group
   grp_issvie: true
 
 svie_group_with_newbies:
   grp_id: 4
   grp_name: Hambis
-  grp_type: szolgáltató
+  grp_type: :group
   grp_issvie: true
 
 rvt:
   grp_id: 146
   grp_name: RVT
-  grp_type: csak_az_elvek
+  grp_type: :team
   grp_issvie: false
 
 kir_dev:
   grp_id: 106
   grp_name: Kir-Dev
-  grp_type: szolgáltató
+  grp_type: :group
   grp_issvie: true
 
 group_with_no_evaluation:
   grp_id: 300
   grp_name: Nincs értékelés
-  grp_type: teszt
+  grp_type: :group
 
 group_with_existing_evaluation:
   grp_id: 301
   grp_name: Értékes kör
-  grp_type: teszt
+  grp_type: :group

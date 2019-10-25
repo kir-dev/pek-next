@@ -166,7 +166,7 @@ CREATE SEQUENCE public.groups_grp_id_seq
 CREATE TABLE public.groups (
     grp_id bigint DEFAULT nextval('public.groups_grp_id_seq'::regclass) NOT NULL,
     grp_name text NOT NULL,
-    grp_type character varying(20) NOT NULL,
+    grp_type character varying(20),
     grp_parent bigint,
     grp_state character varying DEFAULT 'akt'::bpchar,
     grp_description text,
@@ -177,7 +177,8 @@ CREATE TABLE public.groups (
     grp_issvie boolean DEFAULT false NOT NULL,
     grp_svie_delegate_nr integer,
     grp_users_can_apply boolean DEFAULT true NOT NULL,
-    grp_archived_members_visible boolean
+    grp_archived_members_visible boolean,
+    type character varying
 );
 
 
@@ -1316,3 +1317,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181112160701');
 INSERT INTO schema_migrations (version) VALUES ('20181220204207');
 
 INSERT INTO schema_migrations (version) VALUES ('20190106175754');
+
+INSERT INTO schema_migrations (version) VALUES ('20191025190035');
+
