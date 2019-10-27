@@ -37,6 +37,7 @@ services:
       - DATABASE_USER=postgres
       - DATABASE_NAME=pek-next
       - DATABASE_HOST=postgres
+      - USE_WKHTML_BINARY=true
     restart: always
     env_file:
       - .env
