@@ -146,7 +146,7 @@ GEM
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
-    pdfkit (0.8.2)
+    pdfkit (0.8.4.1)
     pg (0.21.0)
     public_suffix (3.0.2)
     puma (3.10.0)
