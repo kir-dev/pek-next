@@ -126,7 +126,7 @@ GEM
     mime-types-data (3.2019.1009)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.11.3)
+    minitest (5.12.2)
     mocha (1.8.0)
       metaclass (~> 0.0.1)
     multi_json (1.12.2)
