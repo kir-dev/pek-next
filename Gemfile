@@ -31,7 +31,7 @@ gem 'em-http-request'
 # Use pdfkit for PDF generation
 gem 'pdfkit'
 # Use wkhtmltopdf-binary to easily reach wkhtmltopdf
-gem 'wkhtmltopdf-binary', '~> 0.12.3.0'
+gem 'wkhtmltopdf-binary-edge'
 # Use render_anywhere for rendering template anywhere
 gem 'render_anywhere'
 # Use dotenv for environment variables
