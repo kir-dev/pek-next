@@ -54,6 +54,7 @@ group :test do
   # Factory Bot for creating factories for tests
   gem 'factory_bot_rails'
 
+  gem 'minitest', '~> 5.10.0'
   gem 'mocha'
   gem 'shoulda-matchers'
   gem 'timecop'
