@@ -235,3 +235,12 @@ module ActiveRecord
       end
   end
 end
+
+module ActionDispatch
+  module Integration
+    class Session
+      def non_kwarg_request_warning
+      end
+    end
+  end
+end
