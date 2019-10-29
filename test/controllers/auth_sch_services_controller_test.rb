@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AuthSchServicesControllerTest < ActionController::TestCase
+class AuthSchServicesControllerTest < ActionDispatch::IntegrationTest
   test 'basic data with invalid id' do
     get :sync, id: 'invalidid'
 

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SearchControllerTest < ActionController::TestCase
+class SearchControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:sanyi)
   end

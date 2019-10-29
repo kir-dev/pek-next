@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProfilesControllerTest < ActionController::TestCase
+class ProfilesControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:sanyi)
   end

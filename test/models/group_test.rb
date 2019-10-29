@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GroupTest < ActionController::TestCase
+class GroupTest < ActionDispatch::IntegrationTest
   test 'group is active when newly founded' do
     group = create(:group, :with_additional_info)
     time = Time.new(group.founded)

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EvaluationsControllerTest < ActionController::TestCase
+class EvaluationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:evaluation_giver)
   end

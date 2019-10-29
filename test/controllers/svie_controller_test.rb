@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SvieControllerTest < ActionController::TestCase
+class SvieControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:user_with_primary_membership)
   end

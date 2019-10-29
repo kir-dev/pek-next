@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SemesterTest < ActionController::TestCase
+class SemesterTest < ActionDispatch::IntegrationTest
   test 'converting from and to string' do
     assert_equal '201620171', Semester.new('201620171').to_s
   end

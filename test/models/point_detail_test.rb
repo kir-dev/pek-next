@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PointDetailTest < ActionController::TestCase
+class PointDetailTest < ActionDispatch::IntegrationTest
   test 'save point less then zero will be zero' do
     point_detail = create(:point_detail)
 

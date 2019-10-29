@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserTest < ActionController::TestCase
+class UserTest < ActionDispatch::IntegrationTest
   # test 'test cellphone format invalid' do
   #   user = users(:sanyi)
   #   user.cell_phone = 'asdf'

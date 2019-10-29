@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RegistrationControllerTest < ActionController::TestCase
+class RegistrationControllerTest < ActionDispatch::IntegrationTest
   setup do
     session[:oauth_data] = {
       'internal_id' => 'abc',

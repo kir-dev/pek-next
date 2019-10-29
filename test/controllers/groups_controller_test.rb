@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GroupsControllerTest < ActionController::TestCase
+class GroupsControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:sanyi)
   end

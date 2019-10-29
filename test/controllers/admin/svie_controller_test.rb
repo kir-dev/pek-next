@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Admin
-  class SvieControllerTest < ActionController::TestCase
+  class SvieControllerTest < ActionDispatch::IntegrationTest
     test 'applications page enabled for rvt members' do
       login_as_user(:rvt_member)
       get :index

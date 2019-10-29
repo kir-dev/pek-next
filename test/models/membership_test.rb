@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MembershipTest < ActionController::TestCase
+class MembershipTest < ActionDispatch::IntegrationTest
   test 'delegation became false when archive' do
     user = create(:user, :who_delegated)
     membership = user.primary_membership

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PostTypesControllerTest < ActionController::TestCase
+class PostTypesControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:babhamozo_leader)
     request.env['HTTP_REFERER'] = 'http://test.host/groups/1'
