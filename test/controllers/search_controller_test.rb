@@ -6,12 +6,12 @@ class SearchControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'empty search page' do
-    get :search
+    get '/search'
     assert_response :success
   end
 
   test 'suggestion page response' do
-    get :suggest
+    get '/search/suggest'
     assert_response :success
   end
 

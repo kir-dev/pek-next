@@ -3,7 +3,7 @@ require 'test_helper'
 class MembershipsControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:babhamozo_leader)
-    request.env['HTTP_REFERER'] = 'http://test.host/groups/1'
+    Rails.application.env_config['HTTP_REFERER'] = 'http://test.host/groups/1'
   end
 
   test 'successful new member in group' do
@@ -13,7 +13,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
     assert_nil(current_user.membership_for(babhamozo_group))
 
-    post :create, group_id: babhamozo_group.id
+    post "/groups/#{babhamozo_group.id}/memberships"
     current_user.memberships.reload
 
     assert_not_nil(current_user.membership_for(babhamozo_group))
@@ -21,12 +21,13 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'forbidden if already member of group' do
-    group_and_user_ids_hash = { group_id: groups(:babhamozo).id,
-                                user_id: users(:babhamozo_member).id }
+    group = groups(:babhamozo)
+    user = users(:babhamozo_member)
 
-    assert_not_nil Membership.find_by(group_and_user_ids_hash)
-    post :create, group_and_user_ids_hash
-    assert_equal Membership.where(group_and_user_ids_hash).count, 1
+    assert_not_nil Membership.find_by(group: group, user: user)
+
+    post "/groups/#{group.id}/memberships"
+    assert_equal Membership.where(group: group, user: user).count, 1
 
     assert_response :forbidden
   end
@@ -34,8 +35,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   test 'archive active_member of group' do
     membership = grp_membership(:newbie_membership)
     Timecop.freeze do
-      xhr :put, :archive, format: :js, group_id: groups(:babhamozo).id,
-                          membership_id: membership.id
+      put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/archive", xhr: true
 
       assert membership.reload.archived.today?
     end
@@ -45,8 +45,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   test 'archive inactive_member of group' do
     membership = grp_membership(:inactive_babhamozo_member)
     Timecop.freeze do
-      xhr :put, :archive, format: :js, group_id: groups(:babhamozo).id,
-                          membership_id: membership.id
+      put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/archive", xhr: true
 
       assert membership.reload.archived.today?
     end
@@ -56,8 +55,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   test 'unarchive active_member of group with group leader' do
     membership = grp_membership(:active_archived_babhamozo_member)
 
-    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id,
-                          membership_id: membership.id
+    put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
     assert_response :forbidden
   end
@@ -65,8 +63,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   test 'unarchive inactive_member of group with group leader' do
     membership = grp_membership(:inactive_archived_babhamozo_member)
 
-    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id,
-                          membership_id: membership.id
+    put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
     assert_response :forbidden
   end
@@ -75,8 +72,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     login_as_user(:pek_admin)
     membership = grp_membership(:active_archived_babhamozo_member)
 
-    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id,
-                          membership_id: membership.id
+    put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
     assert_response :success
   end
@@ -85,17 +81,15 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     login_as_user(:pek_admin)
     membership = grp_membership(:inactive_archived_babhamozo_member)
 
-    xhr :put, :unarchive, format: :js, group_id: groups(:babhamozo).id,
-                          membership_id: membership.id
+    put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
     assert_response :success
   end
 
   test 'forbidden archive of member' do
     login_as_user(:non_babhamozo_member)
-
-    xhr :get, :unarchive, format: :js, group_id: groups(:babhamozo).id,
-                          membership_id: grp_membership(:babhamozo_leader_into_group).id
+    membership = grp_membership(:babhamozo_leader_into_group)
+    put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
     assert_response :forbidden
   end
@@ -103,8 +97,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   test 'inactivation of a group member' do
     membership = grp_membership(:babhamozo_member_into_group)
     Timecop.freeze do
-      xhr :get, :inactivate, format: :js, group_id: groups(:babhamozo).id,
-                             membership_id: membership.id
+      post "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/inactivate", xhr: true
 
       assert membership.reload.membership_end.today?
     end
@@ -113,8 +106,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
   test 'reactivation of an inactive member' do
     membership = grp_membership(:inactive_babhamozo_member)
-    xhr :get, :reactivate, format: :js, group_id: groups(:babhamozo).id,
-                           membership_id: membership.id
+    post "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/reactivate", xhr: true
 
     assert_nil membership.reload.membership_end
     assert_response :success
@@ -127,8 +119,8 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
     assert_equal(membership.user.primary_membership, membership)
 
     Timecop.freeze do
-      xhr :get, :inactivate, format: :js, group_id: groups(:babhamozo).id,
-                             membership_id: membership.id
+      membership.id
+      post "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/inactivate", xhr: true
 
       assert_not membership.reload.user.delegated
     end

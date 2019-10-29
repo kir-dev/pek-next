@@ -6,7 +6,7 @@ class SvieControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'correctly show edit page' do
-    get :edit
+    get '/svie/edit'
 
     assert_response :success
     assert_equal 3, assigns(:svie_memberships).size
@@ -16,7 +16,7 @@ class SvieControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'save change of primary group' do
-    post :update, svie: { primary_membership: grp_membership(:not_primary_membership).id }
+    post '/svie/update', svie: { primary_membership: grp_membership(:not_primary_membership).id }
 
     assert_redirected_to profiles_me_path
     assert_equal grp_membership(:not_primary_membership).id,

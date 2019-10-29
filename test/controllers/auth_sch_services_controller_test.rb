@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AuthSchServicesControllerTest < ActionDispatch::IntegrationTest
   test 'basic data with invalid id' do
-    get :sync, id: 'invalidid'
+    get '/services/sync/invalidid'
 
     assert_response :bad_request
     resp_json = JSON.parse response.body
@@ -11,7 +11,7 @@ class AuthSchServicesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'basic data with non-existing id' do
-    get :sync, id: 'ASDBSD'
+    get '/services/sync/ASDBSD'
 
     assert_response :not_found
     resp_json = JSON.parse response.body
@@ -20,7 +20,7 @@ class AuthSchServicesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'basic data with correct neptun' do
-    get :sync, id: users(:sanyi).neptun
+    get "/services/sync/#{users(:sanyi).neptun}"
 
     assert_response :success
     resp_json = JSON.parse response.body
@@ -39,7 +39,7 @@ class AuthSchServicesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'memberships with correct auth.sch id' do
-    get :memberships, id: users(:babhamozo_member).auth_sch_id
+    get "/services/sync/#{users(:babhamozo_member).auth_sch_id}/memberships"
 
     assert_response :success
     resp_json = JSON.parse response.body
@@ -57,8 +57,9 @@ class AuthSchServicesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'entrants for a single semester and user' do
-    get :entrants, semester: evaluations(:babhamozo_2018).semester,
-                   id: users(:babhamozo_member).auth_sch_id
+    semester = evaluations(:babhamozo_2018).semester
+    id = users(:babhamozo_member).auth_sch_id
+    get "/services/entrants/get/#{semester}/#{id}"
 
     assert_response :success
     resp_json = JSON.parse response.body
