@@ -4,6 +4,9 @@ require 'rails/test_help'
 require 'mocha/minitest'
 require_relative '../spec/support/authentication_helper.rb'
 
+require 'rails-controller-testing'
+Rails::Controller::Testing.install
+
 module ActiveSupport
   class TestCase
     include FactoryBot::Syntax::Methods
