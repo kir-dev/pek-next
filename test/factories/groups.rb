@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :group do
     name { 'Babhámozó' }
-    type { 'szakmai kör' }
+    type { :group }
 
     after(:create) do |group|
       group.memberships << create(:membership, :leader, group: group)
