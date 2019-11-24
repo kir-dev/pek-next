@@ -3,6 +3,7 @@ env:
     - CC_TEST_REPORTER_ID=5e2e5d078dc184e654daef9153efc368de5717b4ca7c0de6498b1835004c1ecf
     - GENERATE_TEST_COVERAGE=true
 language: ruby
+cache: bundler
 rvm:
   - 2.5.7
 before_install: gem install bundler -v 1.10.6
