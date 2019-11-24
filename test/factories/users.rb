@@ -4,6 +4,14 @@ FactoryBot.define do
     lastname  { 'Hentes' }
 
     sequence(:screen_name) { |n| "screen_name_sanyi_#{n}" }
+    sequence(:nickname) { |n| "nickname_sanyi#{n}" }
+    sequence(:email) { |n| "sanyi_#{n}@example.org" }
+    sequence(:cell_phone) { |n| "66677788#{n}" }
+    sequence(:neptun) do |n|
+      random_character = (n + 48).chr
+      "AAAAA#{random_character}"
+    end
+    auth_sch_id { SecureRandom.uuid }
 
     trait :with_primary_membership do
       svie_member_type { 'RENDESTAG' }
