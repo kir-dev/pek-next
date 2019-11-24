@@ -15,5 +15,9 @@ FactoryBot.define do
       creator_user_id { create(:user).id }
       principle { 'Aki dolgozik az kap pontot' }
     end
+
+    trait :accepted do
+      point_request_status { Evaluation::ACCEPTED }
+    end
   end
 end
