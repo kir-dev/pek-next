@@ -1,4 +1,4 @@
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   self.table_name = 'poszt'
   self.primary_key = :id
 

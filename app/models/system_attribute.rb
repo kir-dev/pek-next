@@ -1,4 +1,4 @@
-class SystemAttribute < ActiveRecord::Base
+class SystemAttribute < ApplicationRecord
   self.table_name = 'system_attrs'
   self.primary_key = :attributeid
   alias_attribute :value, :attributevalue

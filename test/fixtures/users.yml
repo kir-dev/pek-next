@@ -55,6 +55,7 @@ babhamozo_leader:
   usr_firstname: Babhámozó
   usr_lastname: Vezető
   usr_screen_name: babham123
+  usr_auth_sch_id: lets-give-this-shit-everywhere-1
 
 babhamozo_member:
   usr_id: 4002
@@ -68,12 +69,14 @@ non_babhamozo_member:
   usr_firstname: Borsó
   usr_lastname: Lajos
   usr_screen_name: bori
+  usr_auth_sch_id: lets-give-this-shit-everywhere-2
 
 past_babhamozo_member:
   usr_id: 4004
   usr_firstname: Öreg
   usr_lastname: Csilis
   usr_screen_name: chili
+  usr_auth_sch_id: lets-give-this-shit-everywhere-3
 
 delegated_babhamozo_member:
   usr_id: 4005
@@ -82,6 +85,7 @@ delegated_babhamozo_member:
   usr_screen_name: kuldott
   usr_delegated: true
   usr_svie_primary_membership: 8
+  usr_auth_sch_id: lets-give-this-shit-everywhere-4
 
 user_with_primary_membership:
   usr_id: 5000
@@ -90,39 +94,46 @@ user_with_primary_membership:
   usr_screen_name: csakasvie
   usr_svie_primary_membership: 4
   usr_svie_member_type: RENDESTAG
+  usr_auth_sch_id: lets-give-this-shit-everywhere-5
 
 archived_active_babhamozo_member:
   usr_id: 5005
   usr_firstname: Archi
   usr_lastname: János
   usr_screen_name: ajani
+  usr_auth_sch_id: lets-give-this-shit-everywhere-6
 
 archived_inactive__babhamozo_member:
   usr_id: 5006
   usr_firstname: Öreg Archi
   usr_lastname: János
   usr_screen_name: oldjani
+  usr_auth_sch_id: lets-give-this-shit-everywhere-7
 
 not_rvt_member:
   usr_id: 6000
   usr_firstname: Melegvíz
   usr_lastname: Fogyasztó
   usr_screen_name: szobanövény
+  usr_auth_sch_id: lets-give-this-shit-everywhere-8
 
 rvt_member:
   usr_id: 6001
   usr_firstname: Rvts
   usr_lastname: Pistike
   usr_screen_name: pityuka
+  usr_auth_sch_id: lets-give-this-shit-everywhere-9
 
 pek_admin:
   usr_id: 7000
   usr_firstname: Kir
   usr_lastname: Bálint
   usr_screen_name: kir
+  usr_auth_sch_id: lets-give-this-shit-everywhere-10
 
 evaluation_giver:
   usr_id: 8000
   usr_firstname: Értékelés
   usr_lastname: Leadó Srác
   usr_screen_name: ertekeles96
+  usr_auth_sch_id: lets-give-this-shit-everywhere-11

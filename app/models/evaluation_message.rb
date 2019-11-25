@@ -1,4 +1,4 @@
-class EvaluationMessage < ActiveRecord::Base
+class EvaluationMessage < ApplicationRecord
   self.table_name = 'ertekeles_uzenet'
   self.primary_key = :id
 

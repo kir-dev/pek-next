@@ -1,17 +1,17 @@
 require 'test_helper'
 
-class SearchControllerTest < ActionController::TestCase
+class SearchControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:sanyi)
   end
 
   test 'empty search page' do
-    get :search
+    get '/search'
     assert_response :success
   end
 
   test 'suggestion page response' do
-    get :suggest
+    get '/search/suggest'
     assert_response :success
   end
 

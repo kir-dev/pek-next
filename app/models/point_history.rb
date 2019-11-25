@@ -1,4 +1,4 @@
-class PointHistory < ActiveRecord::Base
+class PointHistory < ApplicationRecord
   self.table_name = 'point_history'
   self.primary_key = :id
 

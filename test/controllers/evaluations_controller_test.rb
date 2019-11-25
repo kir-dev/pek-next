@@ -1,19 +1,21 @@
 require 'test_helper'
 
-class EvaluationsControllerTest < ActionController::TestCase
+class EvaluationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     login_as_user(:evaluation_giver)
   end
 
   test 'forbidden page for non group leaders' do
     login_as_user(:sanyi)
-    get :current, group_id: groups(:group_with_no_evaluation).id
+    id = groups(:group_with_no_evaluation).id
+    get "/groups/#{id}/evaluations/current"
 
     assert_response :forbidden
   end
 
   test 'create new evaluation if missing' do
-    get :current, group_id: groups(:group_with_no_evaluation).id
+    id = groups(:group_with_no_evaluation).id
+    get "/groups/#{id}/evaluations/current"
 
     new_evaluation = Evaluation.find_by(
       group_id: groups(:group_with_no_evaluation).id, semester: SystemAttribute.semester.to_s

@@ -94,13 +94,4 @@ class ApplicationController < ActionController::Base
   def forbidden_page
     render 'application/403', status: :forbidden
   end
-
-  # TODO: delete when we upgrade to Rails5
-  # Maybe then the default fallback_location will break the app
-  def redirect_back(fallback_location: root_url, **args)
-    return redirect_to :back, args if request.env['HTTP_REFERER'].present? &&
-                                      request.env['HTTP_REFERER'] != request.env['REQUEST_URI']
-
-    redirect_to fallback_location, args
-  end
 end

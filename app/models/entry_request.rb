@@ -1,4 +1,4 @@
-class EntryRequest < ActiveRecord::Base
+class EntryRequest < ApplicationRecord
   self.table_name = 'belepoigenyles'
   self.primary_key = :id
 

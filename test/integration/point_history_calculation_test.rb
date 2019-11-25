@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PointHistoryCalculationTest < ActionController::TestCase
+class PointHistoryCalculationTest < ActionDispatch::IntegrationTest
   test 'calculate point history at changing to offseason' do
     point_history_count = PointHistory.count
 

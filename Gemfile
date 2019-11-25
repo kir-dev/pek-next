@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 5.0.7.2'
 # Use pg as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -54,7 +54,9 @@ group :test do
   # Factory Bot for creating factories for tests
   gem 'factory_bot_rails'
 
+  gem 'minitest', '~> 5.10.0'
   gem 'mocha'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'timecop'
 end

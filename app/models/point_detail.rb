@@ -1,4 +1,4 @@
-class PointDetail < ActiveRecord::Base
+class PointDetail < ApplicationRecord
   self.primary_key = :id
 
   belongs_to :principle
