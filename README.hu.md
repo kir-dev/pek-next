@@ -8,7 +8,7 @@
 
 ## Rendszerkövetelmények
 
-- Ruby 2.4.2
+- Ruby 2.5.7
 - Postgresql 9.6
 - Node (asset fordítás)
 - Redis (választható)
@@ -17,7 +17,7 @@ vagy
 
 - Docker
 
-## Telepítési függőségek
+## Függőségek telepítése
 
 ### Debian alapú rendszerekhez
 
@@ -28,15 +28,15 @@ vagy
 sudo apt install postgresql-9.6 libpq-dev nodejs redis-server
 ```
 
-###### Ruby 2.4.2
+###### Ruby 2.5.7
 
-[Asdf](https://asdf-vm.github.io/asdf/#/core-manage-asdf-vm) használata ajánloatt [ruby pluginnel](https://github.com/asdf-vm/asdf-ruby) vagy [rbenv](https://github.com/rbenv/rbenv) önmagában. Telepítsd a Ruby 2.4.2-t, majd állítsd be a futtatott verziószámot. Az éppen futó verziót a `ruby -v` paranccsal tudod lekérdezni.
+[Asdf](https://asdf-vm.github.io/asdf/#/core-manage-asdf-vm) használata ajánlott [ruby pluginnel](https://github.com/asdf-vm/asdf-ruby) vagy [rbenv](https://github.com/rbenv/rbenv) önmagában. Telepítsd a Ruby 2.5.7-et, majd állítsd be a futtatni kívánt verziót. Az éppen aktív verziót a `ruby -v` paranccsal tudod lekérdezni.
 
 ### MacOS
 
 ###### Brew
 
-A legegszerűbb, ha telepítjük a [brew-t](https://brew.sh), majd ezzel a további függőségeket.
+A legegyszerűbb, ha telepítjük a [brew](https://brew.sh) csomagkezelőt, majd ezzel a további függőségeket.
 
 ```bash
 # A Redis választható
@@ -45,9 +45,9 @@ brew services start postgresql@9.6
 brew services start redis
 ```
 
-###### Ruby 2.4.2 és Node
+###### Ruby 2.5.7 és Node
 
-Add hozzá a [ruby](https://github.com/asdf-vm/asdf-ruby) és [node](https://github.com/asdf-vm/asdf-nodejs) bővítményeket az asdfhez. Telepítsd a Ruby 2.4.2-t, majd állítsd be a futtatott verziószámot. Az éppen futó verziót a `ruby -v` paranccsal tudod lekérdezni.
+Add hozzá a [ruby](https://github.com/asdf-vm/asdf-ruby) és [node](https://github.com/asdf-vm/asdf-nodejs) bővítményeket az asdfhez. Telepítsd a Ruby 2.5.7-et, majd állítsd be a futtatni kívánt verziót. Az éppen aktív verziót a `ruby -v` paranccsal tudod ellenőrizni.
 
 ## Beállítás
 
@@ -60,9 +60,9 @@ gem install bundler
 bundle install
 ```
 
-###### Futtatókörnyezet
+###### Környezeti változók
 
-Az éles értékek behelyettesítésével hozd létre a `.env` fájlt a `.env.example` alapján.
+A használni kívánt értékekkel töltsd fel a `.env` fájlt a `.env.example` alapján.
 
 ###### Adatbázis
 
@@ -71,7 +71,7 @@ sudo su postgres
 psql -c 'create user "pek-next" with superuser password '\''pek-next'\'';'
 ```
 
-###### Adatbázisséma telepítése
+###### Adatbázis inicializálása
 
 _Saját felhasználóként_
 
@@ -87,7 +87,7 @@ rake db:setup
 rails s
 ```
 
-###### Feldolgozó (választható, redis-t követel)
+###### Worker (választható, redis-t követel)
 
 ```bash
 bundle exec sidekiq
@@ -103,7 +103,7 @@ rake test
 
 A legegyszerűbb mód a docker-compose használata.
 
-Az éles értékek behelyettesítésével hozd létre a `.env` fájlt a `.env.example` alapján. Az `APP_ID` és `APP_SECRET` változót az auth.sch-ról kapott token alapján vedd fel; a `SECRET_KEY_BASE`-t a `bundle exec rake secret` parancs kimenetével tudod feltölteni.
+A használni kívánt értékekkel töltsd fel a `.env` fájlt a `.env.example` alapján. Az `APP_ID` és `APP_SECRET` változót az auth.sch-ról kapott értékekkel töltsd ki. A `SECRET_KEY_BASE`-t a `bundle exec rake secret` parancs segítségével tudod legenerálni.
 
 Futtasd a következő prancsokat:
 
@@ -114,7 +114,7 @@ docker volume create pek_database
 docker-compose up --build
 ```
 
-Miután létrejöttek, add ki az alábbi parancsokat, miközben futnak a szükséges háttérszolgáltatások, konténerek:
+Miután létrejöttek és futnak a szükséges háttérszolgáltatások / konténerek, add ki az alábbi parancsokat:
 
 ```bash
 # Ez csak akkor szükséges, ha először telepíted a PéK-et
@@ -135,10 +135,10 @@ docker-compose run web bash -c "bundle exec rake assets:precompile"
 sudo apt install ruby-dev
 ```
 
-###### Rbenv install only gives ruby-build usage instructions
+###### Rbenv telepítés csak `ruby-build` használati utasításokat ad
 
 ```bash
-rbenv install -v 2.4.2
+rbenv install -v 2.5.7
 ```
 
 ###### Az Rbenv nem befolyásolja a Ruby verziót
@@ -153,7 +153,8 @@ source ~/.bashrc
 
 _Indítsd újra a terminálod_
 
-Készítette: [Kir-Dev Team](http://kir-dev.sch.bme.hu/)
+Készítette: [Kir-Dev Team](https://kir-dev.sch.bme.hu/)
 
-### Külön köszönet:
+### Külön köszönet
+
 [![Rollbar](public/img/rollbar.png)](https://rollbar.com/)
