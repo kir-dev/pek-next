@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.0
+- Rails 5.0 🎉
+- Add group types enum (`:group`, `:team`, `:resort`)
+- Add Hungarian README
+- Under the hood
+  - Shrink Docker image
+  - Bump Ruby version to 2.5.7
+  - Add `simplecov`
+
 ## v1.9.1
 - Fix error on showing history for groups without any evaluation
 - Under the hood
