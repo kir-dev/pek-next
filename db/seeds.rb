@@ -18,11 +18,11 @@ PostType.create([
 # These are not necessary to run the application, but required for full operation
 
 Group.create([
-  { id: 369, name: 'SVIE', type: 'bizottság' },
-  { id: 1, name: 'Kollégiumi bizottság', type: 'csoport' },
-  { id: 146, name: 'Reszortvezetők Tanácsa', type: 'csoport', parent_id: 369 },
-  { id: 16, name: 'Simonyi Károly Szakkollégium', type: 'reszort', parent_id: 146 },
-  { id: 106, name: 'KIR fejlesztők és üzemeltetők', type: 'szakmai kör', parent_id: 16,
+  { id: Group::SVIE_ID, name: 'SVIE', type: :team },
+  { id: Group::KB_ID, name: 'Kollégiumi bizottság', type: :group },
+  { id: Group::RVT_ID, name: 'Reszortvezetők Tanácsa', type: :group, parent_id: Group::SVIE_ID },
+  { id: Group::SIMONYI_ID, name: 'Simonyi Károly Szakkollégium', type: :team, parent_id: Group::RVT_ID },
+  { id: Group::KIRDEV_ID, name: 'KIR fejlesztők és üzemeltetők', type: :group, parent_id: Group::SIMONYI_ID,
     description: 'A Villanykari Információs Rendszer fejlesztésével és üzemeltetésével foglalkozó kör.',
     webpage: 'http://kir-dev.sch.bme.hu', maillist: 'kir-dev@sch.bme.hu', founded: 2001, issvie: true,
     delegate_count: 1, users_can_apply: true }
@@ -30,16 +30,32 @@ Group.create([
 
 User.create({ firstname: 'Júzer', lastname: 'Mezei', screen_name: 'mezei123' })
 
-leader_user = User.create({ firstname: 'Bálint Martin', lastname: 'Király', screen_name: 'kiraly96'})
-leader_membership = Membership.create({ group_id: 106, user_id: leader_user.id })
-Post.create({ membership_id: leader_membership.id, post_type_id: Membership::LEADER_POST_ID })
-Post.create({ membership_id: leader_membership.id, post_type_id: Membership::PEK_ADMIN_ID })
 
-rvt_member =  User.create({ firstname: 'Elnök', lastname: 'Simonyi', screen_name: 'elnokiugy' })
-Membership.create({ group_id: 146, user_id: rvt_member.id })
+# Create leaders for the groups
+[
+  { firstname: 'Elnok', lastname: 'Rvt', screen_name: 'rvt_elnok', group_id: Group::RVT_ID },
+  { firstname: 'Elnok', lastname: 'Svie', screen_name: 'svie_elnok', group_id: Group::SVIE_ID },
+  { firstname: 'Körvez', lastname: 'KirDev', screen_name: 'kir_dev_korvez', group_id: Group::KIRDEV_ID },
+  { firstname: 'Elnök', lastname: 'Simonyi', screen_name: 'elnokiugy', group_id: Group::SIMONYI_ID}
+].each do |item|
+  leader_user = User.create(firstname: item[:firstname], lastname: item[:lastname], screen_name: item[:screen_name])
+  leader_membership = Membership.create(group_id: item[:group_id], user_id: leader_user.id)
 
-kb_user = User.create({ firstname: 'Srác', lastname: 'KBs', screen_name: 'kbs123' })
-Membership.create({ group_id: 1, user_id: kb_user.id })
+  Post.create(membership_id: leader_membership.id, post_type_id: Membership::LEADER_POST_ID)
+
+  case item[:group_id]
+  when Group::SVIE_ID
+    kb_membership = Membership.create(group_id: Group::KB_ID, user_id: leader_user.id)
+    Post.create(membership_id: kb_membership.id, post_type_id: Membership::LEADER_POST_ID)
+  when Group::KIRDEV_ID
+    Post.create(membership_id: leader_membership.id, post_type_id: Membership::PEK_ADMIN_ID)
+  when Group::SIMONYI_ID
+    Membership.create(group_id: Group::RVT_ID, user_id: leader_user.id)
+  end
+end
+
+kb_user = User.create(firstname: 'Masik Srác', lastname: 'KBs', screen_name: 'kbs123')
+Membership.create(group_id: Group::KB_ID, user_id: kb_user.id)
 
 # Maybe it is better to use sequence for id
 SystemAttribute.create(id: 1, name: 'szemeszter', value: '201720182')
