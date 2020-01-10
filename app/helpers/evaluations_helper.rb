@@ -10,7 +10,7 @@ module EvaluationsHelper
   end
 
   def sum_responsibility_details(point_details, user)
-    [sum_details(point_details, user, Principle::RESPONSIBILITY), 50].min
+    [sum_details(point_details, user, Principle::RESPONSIBILITY), 20].min
   end
 
   def sum_all_details(point_details, user)
