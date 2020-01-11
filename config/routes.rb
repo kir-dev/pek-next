@@ -45,7 +45,7 @@ Rails.application.routes.draw do
       resources :posts, only: [:index, :create, :destroy]
     end
 
-    resources :post_types, only: [:create]
+    resources :post_types, only: [:index, :create, :destroy]
 
     get '/evaluations/current', to: 'evaluations#current'
     resources :evaluations, only: [:show, :edit, :update] do

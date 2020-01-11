@@ -66,6 +66,12 @@ class MembershipViewModelDecorator < Draper::Decorator
     archived_users_count(membership_view_model.group)
   end
 
+  def edit_group_post_types_button
+    return unless membership_view_model.leader?
+
+    styled_link_to('Posztok szerkesztése', group_post_types_path(membership_view_model.group))
+  end
+
   private
 
   def styled_link_to(name, path)
