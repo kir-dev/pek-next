@@ -39,7 +39,8 @@ class SvieController < ApplicationController
 
   def application_pdf
     file_options = { filename: 'szerzodes.pdf', disposition: 'attachment', type: :pdf }
-    send_file('public/dowloads/contract_empty.pdf', file_options)
+    path = Rails.root.join('public', 'downloads', 'contract_empty.pdf')
+    send_file(path, file_options)
   end
 
   def destroy
