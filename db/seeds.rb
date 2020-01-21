@@ -11,7 +11,8 @@ PostType.create([
   { id: 3, name: 'körvezető' },
   { id: 4, name: 'volt körvezető' },
   { id: 6, name: 'feldolgozás alatt' },
-  { id: 66, name: 'PéK admin' }
+  { id: 66, name: 'PéK admin' },
+  { id: 104, name: 'újonc' }
   ])
 
 # These are not necessary to run the application, but required for full operation
