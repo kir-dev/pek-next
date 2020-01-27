@@ -15,8 +15,8 @@ class Metascorer
   end
 
   def calculate_meta_score(user)
-    last_sem_point = PointHistory.find_by(usr_id: user.id, semester: SystemAttribute.semester.previous.to_s)
-    last_year_point = PointHistory.find_by(usr_id: user.id, semester: SystemAttribute.semester.previous.previous.to_s)
+    last_sem_point = PointHistory.find_by(user_id: user.id, semester: SystemAttribute.semester.previous.to_s)
+    last_year_point = PointHistory.find_by(user_id: user.id, semester: SystemAttribute.semester.previous.previous.to_s)
 
     metascore = 0
 

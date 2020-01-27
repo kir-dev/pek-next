@@ -22,7 +22,7 @@ class CalculatePointHistory
 
   def calculate_points(user)
     user_points = {}
-    user.pointrequests
+    user.point_requests
         .includes([{ evaluation: [:group] }])
         .select { |r| valid_point_request?(r) }
         .each do |point_request|

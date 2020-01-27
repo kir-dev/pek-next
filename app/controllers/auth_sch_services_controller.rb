@@ -12,14 +12,14 @@ class AuthSchServicesController < ApplicationController
   end
 
   def entrants
-    user = get_user(params[:id], [{ entryrequests: [{ evaluation: [:group] }] }])
+    user = get_user(params[:id], [{ entry_requests: [{ evaluation: [:group] }] }])
     render json: entrants_json(user, params[:semester]) if user
   end
 
   private
 
   def entrants_json(user, semester)
-    entrants = user.entryrequests.select do |er|
+    entrants = user.entry_requests.select do |er|
       er.evaluation.accepted && er.evaluation.semester == semester
     end
     entrant_array = []

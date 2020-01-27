@@ -10,7 +10,7 @@ class GroupMember
     return 'archivált' if @membership.end_date && @membership.archived
     return 'tag' if @membership.post_types.empty?
 
-    @membership.post_types.map(&:pttip_name).join(', ')
+    @membership.post_types.map(&:name).join(', ')
   end
 
   def full_name
@@ -31,11 +31,11 @@ class GroupMember
     @membership.user.screen_name
   end
 
-  def membership_start
+  def start_date
     @membership.start_date
   end
 
-  def membership_end
+  def end_date
     @membership.end_date
   end
 

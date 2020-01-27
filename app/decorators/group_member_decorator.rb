@@ -13,9 +13,9 @@ class GroupMemberDecorator < Draper::Decorator
   end
 
   def membership_time
-    return "#{l membership_start} - #{l membership_end}" if membership.inactive?
+    return "#{l start_date} - #{l end_date}" if membership.inactive?
 
-    "#{l membership_start} -"
+    "#{l start_date} -"
   end
 
   def edit_post_button(group)
