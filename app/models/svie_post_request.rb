@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: svie_post_requests
+#
+#  id          :integer          not null, primary key
+#  member_type :string
+#  user_id     :integer
+#
+
 class SviePostRequest < ApplicationRecord
   belongs_to :user
 

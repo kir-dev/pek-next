@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: point_details
+#
+#  id               :integer          not null, primary key
+#  principle_id     :integer
+#  point_request_id :integer
+#  point            :integer
+#
+
 class PointDetail < ApplicationRecord
   belongs_to :principle
   belongs_to :point_request

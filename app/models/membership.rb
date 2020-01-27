@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: memberships
+#
+#  id         :bigint           not null, primary key
+#  group_id   :bigint
+#  user_id    :bigint
+#  start_date :date
+#  end_date   :date
+#  archived   :date
+#
+
 class Membership < ApplicationRecord
   belongs_to :group
   belongs_to :user

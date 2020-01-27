@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                       :bigint           not null, primary key
+#  name                     :text             not null
+#  grp_type                 :string(20)
+#  parent_id                :bigint
+#  state                    :string           default("akt")
+#  description              :text
+#  webpage                  :string(64)
+#  maillist                 :string(64)
+#  head                     :string(48)
+#  founded                  :integer
+#  issvie                   :boolean          default(FALSE), not null
+#  delegate_count           :integer
+#  users_can_apply          :boolean          default(TRUE), not null
+#  archived_members_visible :boolean
+#  type                     :string
+#
+
 class Group < ApplicationRecord
   self.inheritance_column = nil
 

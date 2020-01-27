@@ -1,3 +1,41 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                      :bigint           not null, primary key
+#  email                   :string(64)
+#  neptun                  :string
+#  firstname               :text             not null
+#  lastname                :text             not null
+#  nickname                :text
+#  svie_member_type        :string(255)      default("NEMTAG"), not null
+#  svie_primary_membership :bigint
+#  delegated               :boolean          default(FALSE), not null
+#  show_recommended_photo  :boolean          default(FALSE), not null
+#  screen_name             :string(50)       not null
+#  date_of_birth           :date
+#  gender                  :string(50)       default("NOTSPECIFIED"), not null
+#  student_status          :string(50)       default("UNKNOWN"), not null
+#  mother_name             :string(100)
+#  photo_path              :string(255)
+#  webpage                 :string(255)
+#  cell_phone              :string(50)
+#  home_address            :string(255)
+#  est_grad                :string(10)
+#  dormitory               :string(50)
+#  room                    :string(255)
+#  status                  :string(8)        default("INACTIVE"), not null
+#  password                :string(28)
+#  salt                    :string(12)
+#  last_login              :datetime
+#  auth_sch_id             :string
+#  bme_id                  :string
+#  usr_created_at          :datetime
+#  metascore               :integer
+#  place_of_birth          :string
+#  birth_name              :string
+#
+
 class User < ApplicationRecord
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
 

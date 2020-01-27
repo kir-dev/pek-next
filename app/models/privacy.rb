@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: privacies
+#
+#  id             :bigint           not null, primary key
+#  user_id        :bigint           not null
+#  attribute_name :string(64)       not null
+#  visible        :boolean          default(FALSE), not null
+#
+
 class Privacy < ApplicationRecord
   belongs_to :user
 

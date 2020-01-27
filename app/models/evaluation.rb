@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: evaluations
+#
+#  id                   :bigint           not null, primary key
+#  entry_request_status :string(255)
+#  timestamp            :datetime
+#  point_request_status :string(255)
+#  semester             :string(9)        not null
+#  justification        :text             not null
+#  last_evaulation      :datetime
+#  last_modification    :datetime
+#  reviewer_user_id     :bigint
+#  group_id             :bigint
+#  creator_user_id      :bigint
+#  principle            :text             default(""), not null
+#  next_version         :bigint
+#  explanation          :text
+#  optlock              :integer          default(0), not null
+#  is_considered        :boolean          default(FALSE), not null
+#
+
 class Evaluation < ApplicationRecord
   before_save :set_default_values
 

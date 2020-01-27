@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: system_attributes
+#
+#  id    :bigint           not null, primary key
+#  name  :string(255)      not null
+#  value :string(255)      not null
+#
+
 class SystemAttribute < ApplicationRecord
   def self.semester
     Semester.new(find_by(name: 'szemeszter').value)

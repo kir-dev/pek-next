@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: point_requests
+#
+#  id            :bigint           not null, primary key
+#  point         :integer
+#  evaluation_id :bigint           not null
+#  user_id       :bigint
+#
+
 class PointRequest < ApplicationRecord
   belongs_to :evaluation
   belongs_to :user
