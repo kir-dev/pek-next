@@ -1,14 +1,6 @@
 class EntryRequest < ApplicationRecord
-  self.table_name = 'belepoigenyles'
-  self.primary_key = :id
-
-  alias_attribute :entry_type, :belepo_tipus
-  alias_attribute :justification, :szoveges_ertekeles
-  alias_attribute :evaluation_id, :ertekeles_id
-  alias_attribute :user_id, :usr_id
-
-  belongs_to :evaluation, foreign_key: :ertekeles_id
-  belongs_to :user, foreign_key: :usr_id
+  belongs_to :evaluation
+  belongs_to :user
 
   AB = 'AB'.freeze
   KB = 'KB'.freeze
@@ -20,7 +12,7 @@ class EntryRequest < ApplicationRecord
   end
 
   def self.remove_justifications
-    where(entry_type: KDO).update_all(szoveges_ertekeles: '')
+    where(entry_type: KDO).update_all(justification: '')
   end
 
   def accepted?

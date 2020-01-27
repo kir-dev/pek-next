@@ -1,53 +1,17 @@
 class User < ApplicationRecord
-  self.primary_key = :usr_id
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
 
-  alias_attribute :id, :usr_id
-  alias_attribute :email, :usr_email
-  alias_attribute :neptun, :usr_neptun
-  alias_attribute :firstname, :usr_firstname
-  alias_attribute :lastname, :usr_lastname
-  alias_attribute :nickname, :usr_nickname
-  # TODO: there should be a better way to access all this SVIE stuff
-  alias_attribute :svie_state, :usr_svie_state
-  alias_attribute :svie_member_type, :usr_svie_member_type
-  alias_attribute :svie_primary_membership, :usr_svie_primary_membership
-  alias_attribute :delegated, :usr_delegated
-  alias_attribute :show_recommended_photo, :usr_show_recommended_photo
-  alias_attribute :screen_name, :usr_screen_name
-  alias_attribute :date_of_birth, :usr_date_of_birth
-  alias_attribute :place_of_birth, :usr_place_of_birth
-  alias_attribute :birth_name, :usr_birth_name
-  alias_attribute :gender, :usr_gender
-  alias_attribute :student_status, :usr_student_status
-  alias_attribute :mother_name, :usr_mother_name
-  alias_attribute :photo_path, :usr_photo_path
-  alias_attribute :webpage, :usr_webpage
-  alias_attribute :cell_phone, :usr_cell_phone
-  alias_attribute :home_address, :usr_home_address
-  alias_attribute :est_grad, :usr_est_grad
-  alias_attribute :dormitory, :usr_dormitory
-  alias_attribute :room, :usr_room
-  alias_attribute :confirm, :usr_confirm
-  alias_attribute :status, :usr_status
-  alias_attribute :password, :usr_password
-  alias_attribute :salt, :usr_salt
-  alias_attribute :last_login, :usr_lastlogin
-  alias_attribute :metascore, :usr_metascore
-  alias_attribute :auth_sch_id, :usr_auth_sch_id
-  alias_attribute :bme_id, :usr_bme_id
-
-  has_many :memberships, class_name: :Membership, foreign_key: :usr_id
+  has_many :memberships
   has_many :groups, through: :memberships
-  has_many :entryrequests, class_name: :EntryRequest, foreign_key: :usr_id
-  has_many :pointrequests, class_name: :PointRequest, foreign_key: :usr_id, inverse_of: :user
-  has_many :im_accounts, foreign_key: :usr_id
-  has_many :point_history, foreign_key: :usr_id
-  has_many :privacies, foreign_key: :usr_id
+  has_many :entry_requests
+  has_many :point_requests
+  has_many :im_accounts
+  has_many :point_history
+  has_many :privacies
 
   has_one :primary_membership, class_name: :Membership, foreign_key: :id,
-                               primary_key: :usr_svie_primary_membership
-  has_one :svie_post_request, foreign_key: :usr_id, primary_key: :id
+                               primary_key: :svie_primary_membership
+  has_one :svie_post_request
   has_one :view_setting
 
   validates :screen_name, uniqueness: {case_sensitive: false}

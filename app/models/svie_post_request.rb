@@ -1,5 +1,5 @@
 class SviePostRequest < ApplicationRecord
-  belongs_to :user, foreign_key: :usr_id
+  belongs_to :user
 
   def inside_member?
     member_type == SvieUser::INSIDE_MEMBER

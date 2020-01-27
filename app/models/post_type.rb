@@ -1,12 +1,5 @@
 class PostType < ApplicationRecord
-  self.table_name = 'poszttipus'
-  self.primary_key = :pttip_id
-
-  alias_attribute :id, :pttip_id
-  alias_attribute :name, :pttip_name
-  alias_attribute :group_id, :grp_id
-
-  belongs_to :group, foreign_key: :grp_id, optional: true
+  belongs_to :group, optional: true
 
   validates :name, presence: true, length: { maximum: 30 }
 end

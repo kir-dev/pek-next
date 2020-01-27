@@ -1,30 +1,16 @@
 class Group < ApplicationRecord
-  self.primary_key = :grp_id
   self.inheritance_column = nil
 
-  alias_attribute :id, :grp_id
-  alias_attribute :name, :grp_name
-  alias_attribute :parent_id, :grp_parent
-  alias_attribute :state, :grp_state
-  alias_attribute :description, :grp_description
-  alias_attribute :webpage, :grp_webpage
-  alias_attribute :maillist, :grp_maillist
-  alias_attribute :head, :grp_head
-  alias_attribute :founded, :grp_founded
-  alias_attribute :issvie, :grp_issvie
-  alias_attribute :delegate_count, :grp_svie_delegate_nr
-  alias_attribute :users_can_apply, :grp_users_can_apply
-  alias_attribute :archived_members_visible, :grp_archived_members_visible
   alias_attribute :parent, :group
 
-  has_many :memberships, foreign_key: :grp_id
+  has_many :memberships
   has_many :members, through: :memberships, source: :user
-  has_many :post_types, foreign_key: :grp_id
-  has_many :evaluations, foreign_key: :grp_id
+  has_many :post_types
+  has_many :evaluations
   has_many :point_requests, through: :evaluations
   has_many :entry_requests, through: :evaluations
-  has_many :children, class_name: :Group, foreign_key: :grp_parent
-  belongs_to :group, foreign_key: :grp_parent, optional: true
+  has_many :children, class_name: :Group
+  belongs_to :group, foreign_key: :parent_id, optional: true
   alias own_post_types post_types
 
   SVIE_ID = 369
