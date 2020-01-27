@@ -1,17 +1,17 @@
 babhamozo_leader_point_request_2018_1:
   id: 1
-  usr_id: 4001
-  ertekeles_id: 1
-  pont: 50
+  user_id: 4001
+  evaluation_id: 1
+  point: 50
 
 babhamozo_leader_point_request_2018_2:
   id: 2
-  usr_id: 4001
-  ertekeles_id: 2
-  pont: 50
+  user_id: 4001
+  evaluation_id: 2
+  point: 50
 
 babhamozo_leader_point_request_for_kir_dev_2018_2:
   id: 3
-  usr_id: 4001
-  ertekeles_id: 3
-  pont: 50
+  user_id: 4001
+  evaluation_id: 3
+  point: 50

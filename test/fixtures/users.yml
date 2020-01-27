@@ -1,139 +1,139 @@
 sanyi:
-  usr_id: 10
-  usr_firstname: Sándor
-  usr_lastname: Hentes
-  usr_nickname: Sanyi
-  usr_screen_name: sanyi92
-  usr_cell_phone: +36201234567
-  usr_auth_sch_id: asdf-asdf-1234
-  usr_neptun: ABC123
-  usr_email: sanyi92@sch.bme.hu
-  usr_metascore: 1000
+  id: 10
+  firstname: Sándor
+  lastname: Hentes
+  nickname: Sanyi
+  screen_name: sanyi92
+  cell_phone: +36201234567
+  auth_sch_id: asdf-asdf-1234
+  neptun: ABC123
+  email: sanyi92@sch.bme.hu
+  metascore: 1000
 
 bela:
-  usr_id: 11
-  usr_firstname: Béla
-  usr_lastname: Kovács
-  usr_nickname: Kovibélus
-  usr_screen_name: kovibelus
-  usr_auth_sch_id: qwer-qwer-5678
-  usr_metascore: 5000
+  id: 11
+  firstname: Béla
+  lastname: Kovács
+  nickname: Kovibélus
+  screen_name: kovibelus
+  auth_sch_id: qwer-qwer-5678
+  metascore: 5000
 
 <% 100.times do |n| %>
 user_<%= n %>:
-  usr_id: <%= "2#{n}" %>
-  usr_firstname: Júzer <%= n %>
-  usr_lastname: Pék
-  usr_nickname: pék <%= n %>
-  usr_screen_name: <%= "pekuser#{n}" %>
-  usr_auth_sch_id: xcvb-xcvb-xcvb-<%= n %>
-  usr_metascore: <%= n %>
+  id: <%= "2#{n}" %>
+  firstname: Júzer <%= n %>
+  lastname: Pék
+  nickname: pék <%= n %>
+  screen_name: <%= "pekuser#{n}" %>
+  auth_sch_id: xcvb-xcvb-xcvb-<%= n %>
+  metascore: <%= n %>
 <% end %>
 
 metascore_1:
-  usr_id: 3000
-  usr_firstname: Béla
-  usr_lastname: Metascore
-  usr_screen_name: metatest
-  usr_auth_sch_id: meta-score-test
-  usr_cell_phone: 06305669234
-  usr_metascore: 0
+  id: 3000
+  firstname: Béla
+  lastname: Metascore
+  screen_name: metatest
+  auth_sch_id: meta-score-test
+  cell_phone: 06305669234
+  metascore: 0
 
 metascore_2:
-  usr_id: 3001
-  usr_firstname: András
-  usr_lastname: Metascore
-  usr_screen_name: metatest2
-  usr_auth_sch_id: meta-score-test-2
-  usr_photo_path: myphoto.jpg
-  usr_email: mail@sch.bme.hu
-  usr_dormitory: Schönherz
-  usr_metascore: 0
+  id: 3001
+  firstname: András
+  lastname: Metascore
+  screen_name: metatest2
+  auth_sch_id: meta-score-test-2
+  photo_path: myphoto.jpg
+  email: mail@sch.bme.hu
+  dormitory: Schönherz
+  metascore: 0
 
 babhamozo_leader:
-  usr_id: 4001
-  usr_firstname: Babhámozó
-  usr_lastname: Vezető
-  usr_screen_name: babham123
-  usr_auth_sch_id: lets-give-this-shit-everywhere-1
+  id: 4001
+  firstname: Babhámozó
+  lastname: Vezető
+  screen_name: babham123
+  auth_sch_id: lets-give-this-shit-everywhere-1
 
 babhamozo_member:
-  usr_id: 4002
-  usr_firstname: Babos
-  usr_lastname: Lajos
-  usr_screen_name: lali
-  usr_auth_sch_id: AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE
+  id: 4002
+  firstname: Babos
+  lastname: Lajos
+  screen_name: lali
+  auth_sch_id: AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE
 
 non_babhamozo_member:
-  usr_id: 4003
-  usr_firstname: Borsó
-  usr_lastname: Lajos
-  usr_screen_name: bori
-  usr_auth_sch_id: lets-give-this-shit-everywhere-2
+  id: 4003
+  firstname: Borsó
+  lastname: Lajos
+  screen_name: bori
+  auth_sch_id: lets-give-this-shit-everywhere-2
 
 past_babhamozo_member:
-  usr_id: 4004
-  usr_firstname: Öreg
-  usr_lastname: Csilis
-  usr_screen_name: chili
-  usr_auth_sch_id: lets-give-this-shit-everywhere-3
+  id: 4004
+  firstname: Öreg
+  lastname: Csilis
+  screen_name: chili
+  auth_sch_id: lets-give-this-shit-everywhere-3
 
 delegated_babhamozo_member:
-  usr_id: 4005
-  usr_firstname: Delegált
-  usr_lastname: Csilis
-  usr_screen_name: kuldott
-  usr_delegated: true
-  usr_svie_primary_membership: 8
-  usr_auth_sch_id: lets-give-this-shit-everywhere-4
+  id: 4005
+  firstname: Delegált
+  lastname: Csilis
+  screen_name: kuldott
+  delegated: true
+  svie_primary_membership: 8
+  auth_sch_id: lets-give-this-shit-everywhere-4
 
 user_with_primary_membership:
-  usr_id: 5000
-  usr_firstname: GoFor
-  usr_lastname: SVIE
-  usr_screen_name: csakasvie
-  usr_svie_primary_membership: 4
-  usr_svie_member_type: RENDESTAG
-  usr_auth_sch_id: lets-give-this-shit-everywhere-5
+  id: 5000
+  firstname: GoFor
+  lastname: SVIE
+  screen_name: csakasvie
+  svie_primary_membership: 4
+  svie_member_type: RENDESTAG
+  auth_sch_id: lets-give-this-shit-everywhere-5
 
 archived_active_babhamozo_member:
-  usr_id: 5005
-  usr_firstname: Archi
-  usr_lastname: János
-  usr_screen_name: ajani
-  usr_auth_sch_id: lets-give-this-shit-everywhere-6
+  id: 5005
+  firstname: Archi
+  lastname: János
+  screen_name: ajani
+  auth_sch_id: lets-give-this-shit-everywhere-6
 
 archived_inactive__babhamozo_member:
-  usr_id: 5006
-  usr_firstname: Öreg Archi
-  usr_lastname: János
-  usr_screen_name: oldjani
-  usr_auth_sch_id: lets-give-this-shit-everywhere-7
+  id: 5006
+  firstname: Öreg Archi
+  lastname: János
+  screen_name: oldjani
+  auth_sch_id: lets-give-this-shit-everywhere-7
 
 not_rvt_member:
-  usr_id: 6000
-  usr_firstname: Melegvíz
-  usr_lastname: Fogyasztó
-  usr_screen_name: szobanövény
-  usr_auth_sch_id: lets-give-this-shit-everywhere-8
+  id: 6000
+  firstname: Melegvíz
+  lastname: Fogyasztó
+  screen_name: szobanövény
+  auth_sch_id: lets-give-this-shit-everywhere-8
 
 rvt_member:
-  usr_id: 6001
-  usr_firstname: Rvts
-  usr_lastname: Pistike
-  usr_screen_name: pityuka
-  usr_auth_sch_id: lets-give-this-shit-everywhere-9
+  id: 6001
+  firstname: Rvts
+  lastname: Pistike
+  screen_name: pityuka
+  auth_sch_id: lets-give-this-shit-everywhere-9
 
 pek_admin:
-  usr_id: 7000
-  usr_firstname: Kir
-  usr_lastname: Bálint
-  usr_screen_name: kir
-  usr_auth_sch_id: lets-give-this-shit-everywhere-10
+  id: 7000
+  firstname: Kir
+  lastname: Bálint
+  screen_name: kir
+  auth_sch_id: lets-give-this-shit-everywhere-10
 
 evaluation_giver:
-  usr_id: 8000
-  usr_firstname: Értékelés
-  usr_lastname: Leadó Srác
-  usr_screen_name: ertekeles96
-  usr_auth_sch_id: lets-give-this-shit-everywhere-11
+  id: 8000
+  firstname: Értékelés
+  lastname: Leadó Srác
+  screen_name: ertekeles96
+  auth_sch_id: lets-give-this-shit-everywhere-11

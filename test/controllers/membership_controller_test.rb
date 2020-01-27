@@ -33,7 +33,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'archive active_member of group' do
-    membership = grp_membership(:newbie_membership)
+    membership = membership(:newbie_membership)
     Timecop.freeze do
       put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/archive", xhr: true
 
@@ -43,7 +43,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'archive inactive_member of group' do
-    membership = grp_membership(:inactive_babhamozo_member)
+    membership = membership(:inactive_babhamozo_member)
     Timecop.freeze do
       put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/archive", xhr: true
 
@@ -53,7 +53,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'unarchive active_member of group with group leader' do
-    membership = grp_membership(:active_archived_babhamozo_member)
+    membership = membership(:active_archived_babhamozo_member)
 
     put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
@@ -61,7 +61,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'unarchive inactive_member of group with group leader' do
-    membership = grp_membership(:inactive_archived_babhamozo_member)
+    membership = membership(:inactive_archived_babhamozo_member)
 
     put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
@@ -70,7 +70,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
   test 'unarchive active_member of group' do
     login_as_user(:pek_admin)
-    membership = grp_membership(:active_archived_babhamozo_member)
+    membership = membership(:active_archived_babhamozo_member)
 
     put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
@@ -79,7 +79,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
   test 'unarchive inactive_member of group' do
     login_as_user(:pek_admin)
-    membership = grp_membership(:inactive_archived_babhamozo_member)
+    membership = membership(:inactive_archived_babhamozo_member)
 
     put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
@@ -88,32 +88,32 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
   test 'forbidden archive of member' do
     login_as_user(:non_babhamozo_member)
-    membership = grp_membership(:babhamozo_leader_into_group)
+    membership = membership(:babhamozo_leader_into_group)
     put "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/unarchive", xhr: true
 
     assert_response :forbidden
   end
 
   test 'inactivation of a group member' do
-    membership = grp_membership(:babhamozo_member_into_group)
+    membership = membership(:babhamozo_member_into_group)
     Timecop.freeze do
       post "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/inactivate", xhr: true
 
-      assert membership.reload.membership_end.today?
+      assert membership.reload.end_date.today?
     end
     assert_response :success
   end
 
   test 'reactivation of an inactive member' do
-    membership = grp_membership(:inactive_babhamozo_member)
+    membership = membership(:inactive_babhamozo_member)
     post "/groups/#{groups(:babhamozo).id}/memberships/#{membership.id}/reactivate", xhr: true
 
-    assert_nil membership.reload.membership_end
+    assert_nil membership.reload.end_date
     assert_response :success
   end
 
   test 'delegation became false when inactivate a group member who delegated that group' do
-    membership = grp_membership(:babhamozo_member_who_delegated)
+    membership = membership(:babhamozo_member_who_delegated)
 
     assert membership.user.delegated
     assert_equal(membership.user.primary_membership, membership)

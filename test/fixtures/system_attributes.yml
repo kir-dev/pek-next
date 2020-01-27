@@ -1,11 +1,11 @@
 semester:
-  attributename: szemeszter
-  attributevalue: 200820091
+  name: szemeszter
+  value: 200820091
 
 app_season:
-  attributename: ertekeles_idoszak
-  attributevalue: NINCSERTEKELES
+  name: ertekeles_idoszak
+  value: NINCSERTEKELES
 
 max_point_for_semester:
-  attributename: max_point_for_semester
-  attributevalue: 100
+  name: max_point_for_semester
+  value: 100

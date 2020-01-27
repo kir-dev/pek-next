@@ -1,41 +1,41 @@
 babhamozo_2018:
   id: 1
-  belepoigeny_statusz: ELFOGADVA
-  feladas: 2018-01-02
-  pontigeny_statusz: ELFOGADVA
+  entry_request_status: ELFOGADVA
+  timestamp: 2018-01-02
+  point_request_status: ELFOGADVA
   semester: 201720181
-  szoveges_ertekeles: Lyo lesz
-  utolso_elbiralas: 2018-01-20
-  utolso_modositas: 2018-01-03
-  elbiralo_usr_id: 6001
-  grp_id: 1
-  felado_usr_id: 4001
-  pontozasi_elvek: Aki dolgozik az kap pontot
+  justification: Lyo lesz
+  last_evaulation: 2018-01-20
+  last_modification: 2018-01-03
+  reviewer_user_id: 6001
+  group_id: 1
+  creator_user_id: 4001
+  explanation: Aki dolgozik az kap pontot
 
 babhamozo_2018_2:
   id: 2
-  belepoigeny_statusz: ELFOGADVA
-  feladas: 2018-06-02
-  pontigeny_statusz: ELFOGADVA
+  entry_request_status: ELFOGADVA
+  timestamp: 2018-06-02
+  point_request_status: ELFOGADVA
   semester: 201720182
-  szoveges_ertekeles: Lyo lesz
-  utolso_elbiralas: 2018-06-20
-  utolso_modositas: 2018-07-03
-  elbiralo_usr_id: 6001
-  grp_id: 1
-  felado_usr_id: 4001
-  pontozasi_elvek: Aki dolgozik az kap pontot
+  justification: Lyo lesz
+  last_evaulation: 2018-06-20
+  last_modification: 2018-07-03
+  reviewer_user_id: 6001
+  group_id: 1
+  creator_user_id: 4001
+  explanation: Aki dolgozik az kap pontot
 
 kir_dev_2018_2:
   id: 3
-  belepoigeny_statusz: ELFOGADVA
-  feladas: 2018-06-02
-  pontigeny_statusz: ELFOGADVA
+  entry_request_status: ELFOGADVA
+  timestamp: 2018-06-02
+  point_request_status: ELFOGADVA
   semester: 201720182
-  szoveges_ertekeles: Lyo lesz
-  utolso_elbiralas: 2018-06-20
-  utolso_modositas: 2018-07-03
-  elbiralo_usr_id: 6001
-  grp_id: 106
-  felado_usr_id: 4001
-  pontozasi_elvek: Aki dolgozik az kap pontot
+  justification: Lyo lesz
+  last_evaulation: 2018-06-20
+  last_modification: 2018-07-03
+  reviewer_user_id: 6001
+  group_id: 106
+  creator_user_id: 4001
+  explanation: Aki dolgozik az kap pontot

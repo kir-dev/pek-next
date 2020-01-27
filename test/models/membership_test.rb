@@ -22,7 +22,7 @@ class MembershipTest < ActionDispatch::IntegrationTest
   end
 
   test 'accepting removes newbie post and sets new member post' do
-    membership = grp_membership(:newbie_membership)
+    membership = membership(:newbie_membership)
 
     assert membership.newbie?
     assert_not membership.new_member?
