@@ -7,12 +7,12 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 PostType.create([
-  { id: 1, name: 'gazdaságis' },
-  { id: 3, name: 'körvezető' },
-  { id: 4, name: 'volt körvezető' },
-  { id: 6, name: 'feldolgozás alatt' },
-  { id: 66, name: 'PéK admin' },
-  { id: 104, name: 'újonc' }
+  { id: Membership::FINANCIAL_OFFICER_POST_ID, name: 'gazdaságis' },
+  { id: Membership::LEADER_POST_ID, name: 'körvezető' },
+  { id: Membership::PAST_LEADER_ID, name: 'volt körvezető' },
+  { id: Membership::DEFAULT_POST_ID, name: 'feldolgozás alatt' },
+  { id: Membership::PEK_ADMIN_ID, name: 'PéK admin' },
+  { id: Membership::NEW_MEMBER_ID, name: 'újonc' }
   ])
 
 # These are not necessary to run the application, but required for full operation
