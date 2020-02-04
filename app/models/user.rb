@@ -30,10 +30,11 @@
 #  last_login              :datetime
 #  auth_sch_id             :string
 #  bme_id                  :string
-#  usr_created_at          :datetime
+#  created_at              :datetime
 #  metascore               :integer
 #  place_of_birth          :string
 #  birth_name              :string
+#  updated_at              :datetime
 #
 
 class User < ApplicationRecord

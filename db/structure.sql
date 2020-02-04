@@ -622,10 +622,11 @@ CREATE TABLE public.users (
     last_login timestamp without time zone,
     auth_sch_id character varying,
     bme_id character varying,
-    usr_created_at timestamp without time zone,
+    created_at timestamp without time zone,
     metascore integer,
     place_of_birth character varying,
-    birth_name character varying
+    birth_name character varying,
+    updated_at timestamp without time zone
 );
 
 
@@ -1293,6 +1294,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181220204207'),
 ('20190106175754'),
 ('20191025190035'),
-('20200127202810');
+('20200127202810'),
+('20200204185955');
 
 
