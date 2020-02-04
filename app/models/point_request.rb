@@ -15,6 +15,7 @@ class PointRequest < ApplicationRecord
 
   validates :user, presence: true
   validates :evaluation, presence: true
+  validates :evaluation_id, uniqueness: { scope: :user_id }
   validate :correct_user
 
   def recalculate!
