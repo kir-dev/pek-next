@@ -16,6 +16,7 @@ class Membership < ApplicationRecord
   has_many :posts
   has_many :post_types, through: :posts
 
+  FINANCIAL_OFFICER_POST_ID = 1
   LEADER_POST_ID = 3
   PAST_LEADER_ID = 4
   DEFAULT_POST_ID = 6

@@ -37,6 +37,9 @@ class Group < ApplicationRecord
   SVIE_ID = 369
   RVT_ID = 146
   KIRDEV_ID = 106
+  KB_ID = 1
+  SIMONYI_ID = 16
+
 
   enum type: {
     group: 'group',

@@ -3,7 +3,7 @@ module OmniAuth
     class Oauth < OmniAuth::Strategies::OAuth2
       option :name, "oauth"
       option :client_options, {
-        :site => 'http://auth.sch.bme.hu',
+        :site => 'https://auth.sch.bme.hu',
         :authorize_url => "/site/login", 
         :token_url => "/oauth2/token"
       }
