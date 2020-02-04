@@ -1,6 +1,13 @@
-class PointHistory < ApplicationRecord
-  self.table_name = 'point_history'
-  self.primary_key = :id
+# == Schema Information
+#
+# Table name: point_histories
+#
+#  id       :bigint           not null, primary key
+#  user_id  :bigint           not null
+#  point    :integer          not null
+#  semester :string(9)        not null
+#
 
-  belongs_to :user, foreign_key: :usr_id
+class PointHistory < ApplicationRecord
+  belongs_to :user
 end

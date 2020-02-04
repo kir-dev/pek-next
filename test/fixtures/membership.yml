@@ -1,79 +1,79 @@
 babhamozo_leader_into_group:
   id: 1
-  grp_id: 1
-  usr_id: 4001
+  group_id: 1
+  user_id: 4001
 
 babhamozo_member_into_group:
   id: 2
-  grp_id: 1
-  usr_id: 4002
-  membership_start: 2010-02-02
+  group_id: 1
+  user_id: 4002
+  start_date: 2010-02-02
 
 inactive_babhamozo_member:
   id: 3
-  grp_id: 1
-  usr_id: 4004
-  membership_end: <%= Time.now %>
+  group_id: 1
+  user_id: 4004
+  end_date: <%= Time.now %>
 
 user_with_primary_membership:
   id: 4
-  grp_id: 1
-  usr_id: 5000
+  group_id: 1
+  user_id: 5000
 
 not_primary_membership:
   id: 5
-  grp_id: 3
-  usr_id: 5000
+  group_id: 3
+  user_id: 5000
 
 non_svie_membership:
   id: 6
-  grp_id: 22
-  usr_id: 5000
+  group_id: 22
+  user_id: 5000
 
 newbie_membership:
   id: 7
-  grp_id: 4
-  usr_id: 5000
+  group_id: 4
+  user_id: 5000
 
 babhamozo_member_who_delegated:
   id: 8
-  grp_id: 1
-  usr_id: 4005
+  group_id: 1
+  user_id: 4005
 
 inactive_archived_babhamozo_member:
   id: 10
-  grp_id: 1
-  usr_id: 5005
+  group_id: 1
+  user_id: 5005
   archived: <%= Time.now %>
-  membership_end: <%= Time.now %>
+  end_date: <%= Time.now %>
 
 active_archived_babhamozo_member:
   id: 11
-  grp_id: 1
-  usr_id: 5006
+  group_id: 1
+  user_id: 5006
   archived: <%= Time.now %>
 
 babhamozo_member_who_delegated:
   id: 8
-  grp_id: 1
-  usr_id: 4005
+  group_id: 1
+  user_id: 4005
 
 rvt_membership:
   id: 9
-  grp_id: 146
-  usr_id: 6001
+  group_id: 146
+  user_id: 6001
 
 pek_admin_membership:
   id: 12
-  grp_id: 106
-  usr_id: 7000
+  group_id: 106
+  user_id: 7000
 
 evaluation_giver_group1:
   id: 14
-  usr_id: 8000
-  grp_id: 300
+  user_id: 8000
+  group_id: 300
 
 evaluation_giver_group2:
   id: 15
-  usr_id: 8000
-  grp_id: 301
+  user_id: 8000
+  group_id: 301

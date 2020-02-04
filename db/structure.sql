@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.9
--- Dumped by pg_dump version 9.6.9
+-- Dumped from database version 9.6.16
+-- Dumped by pg_dump version 12.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -12,28 +12,29 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
+SET default_tablespace = '';
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
 
 
 --
--- Name: belepoigenyles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: entry_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.belepoigenyles_id_seq
+CREATE SEQUENCE public.entry_requests_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -41,24 +42,18 @@ CREATE SEQUENCE public.belepoigenyles_id_seq
     CACHE 1;
 
 
-SET default_tablespace = '';
-
-SET default_with_oids = true;
-
 --
--- Name: belepoigenyles; Type: TABLE; Schema: public; Owner: -
+-- Name: entry_requests; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.belepoigenyles (
-    id bigint DEFAULT nextval('public.belepoigenyles_id_seq'::regclass) NOT NULL,
-    belepo_tipus character varying(255),
-    szoveges_ertekeles text,
-    ertekeles_id bigint NOT NULL,
-    usr_id bigint
+CREATE TABLE public.entry_requests (
+    id bigint DEFAULT nextval('public.entry_requests_id_seq'::regclass) NOT NULL,
+    entry_type character varying(255),
+    justification text,
+    evaluation_id bigint NOT NULL,
+    user_id bigint
 );
 
-
-SET default_with_oids = false;
 
 --
 -- Name: eredmeny_tmp; Type: TABLE; Schema: public; Owner: -
@@ -71,10 +66,10 @@ CREATE TABLE public.eredmeny_tmp (
 
 
 --
--- Name: ertekeles_uzenet_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: evaluation_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.ertekeles_uzenet_id_seq
+CREATE SEQUENCE public.evaluation_messages_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -82,17 +77,15 @@ CREATE SEQUENCE public.ertekeles_uzenet_id_seq
     CACHE 1;
 
 
-SET default_with_oids = true;
-
 --
--- Name: ertekeles_uzenet; Type: TABLE; Schema: public; Owner: -
+-- Name: evaluation_messages; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.ertekeles_uzenet (
-    id bigint DEFAULT nextval('public.ertekeles_uzenet_id_seq'::regclass) NOT NULL,
-    feladas_ido timestamp without time zone,
-    uzenet text,
-    felado_usr_id bigint,
+CREATE TABLE public.evaluation_messages (
+    id bigint DEFAULT nextval('public.evaluation_messages_id_seq'::regclass) NOT NULL,
+    sent_at timestamp without time zone,
+    message text,
+    sender_user_id bigint,
     group_id bigint,
     semester character varying(9) NOT NULL,
     from_system boolean DEFAULT false
@@ -100,10 +93,10 @@ CREATE TABLE public.ertekeles_uzenet (
 
 
 --
--- Name: ertekelesek_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: evaluations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.ertekelesek_id_seq
+CREATE SEQUENCE public.evaluations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -112,22 +105,22 @@ CREATE SEQUENCE public.ertekelesek_id_seq
 
 
 --
--- Name: ertekelesek; Type: TABLE; Schema: public; Owner: -
+-- Name: evaluations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.ertekelesek (
-    id bigint DEFAULT nextval('public.ertekelesek_id_seq'::regclass) NOT NULL,
-    belepoigeny_statusz character varying(255),
-    feladas timestamp without time zone,
-    pontigeny_statusz character varying(255),
+CREATE TABLE public.evaluations (
+    id bigint DEFAULT nextval('public.evaluations_id_seq'::regclass) NOT NULL,
+    entry_request_status character varying(255),
+    "timestamp" timestamp without time zone,
+    point_request_status character varying(255),
     semester character varying(9) NOT NULL,
-    szoveges_ertekeles text NOT NULL,
-    utolso_elbiralas timestamp without time zone,
-    utolso_modositas timestamp without time zone,
-    elbiralo_usr_id bigint,
-    grp_id bigint,
-    felado_usr_id bigint,
-    pontozasi_elvek text DEFAULT ''::text NOT NULL,
+    justification text NOT NULL,
+    last_evaulation timestamp without time zone,
+    last_modification timestamp without time zone,
+    reviewer_user_id bigint,
+    group_id bigint,
+    creator_user_id bigint,
+    principle text DEFAULT ''::text NOT NULL,
     next_version bigint,
     explanation text,
     optlock integer DEFAULT 0 NOT NULL,
@@ -164,20 +157,20 @@ CREATE SEQUENCE public.groups_grp_id_seq
 --
 
 CREATE TABLE public.groups (
-    grp_id bigint DEFAULT nextval('public.groups_grp_id_seq'::regclass) NOT NULL,
-    grp_name text NOT NULL,
+    id bigint DEFAULT nextval('public.groups_grp_id_seq'::regclass) NOT NULL,
+    name text NOT NULL,
     grp_type character varying(20),
-    grp_parent bigint,
-    grp_state character varying DEFAULT 'akt'::bpchar,
-    grp_description text,
-    grp_webpage character varying(64),
-    grp_maillist character varying(64),
-    grp_head character varying(48),
-    grp_founded integer,
-    grp_issvie boolean DEFAULT false NOT NULL,
-    grp_svie_delegate_nr integer,
-    grp_users_can_apply boolean DEFAULT true NOT NULL,
-    grp_archived_members_visible boolean,
+    parent_id bigint,
+    state character varying DEFAULT 'akt'::bpchar,
+    description text,
+    webpage character varying(64),
+    maillist character varying(64),
+    head character varying(48),
+    founded integer,
+    issvie boolean DEFAULT false NOT NULL,
+    delegate_count integer,
+    users_can_apply boolean DEFAULT true NOT NULL,
+    archived_members_visible boolean,
     type character varying
 );
 
@@ -192,22 +185,6 @@ CREATE SEQUENCE public.grp_members_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
-SET default_with_oids = false;
-
---
--- Name: grp_membership; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.grp_membership (
-    id bigint DEFAULT nextval('public.grp_members_seq'::regclass) NOT NULL,
-    grp_id bigint,
-    usr_id bigint,
-    membership_start date DEFAULT now(),
-    membership_end date,
-    archived date
-);
 
 
 --
@@ -241,8 +218,8 @@ CREATE SEQUENCE public.im_accounts_seq
 CREATE TABLE public.im_accounts (
     id bigint DEFAULT nextval('public.im_accounts_seq'::regclass) NOT NULL,
     protocol character varying(50) NOT NULL,
-    account_name character varying(255) NOT NULL,
-    usr_id bigint
+    name character varying(255) NOT NULL,
+    user_id bigint
 );
 
 
@@ -279,6 +256,20 @@ CREATE TABLE public.lostpw_tokens (
     created timestamp without time zone,
     token character varying(64),
     usr_id bigint NOT NULL
+);
+
+
+--
+-- Name: memberships; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.memberships (
+    id bigint DEFAULT nextval('public.grp_members_seq'::regclass) NOT NULL,
+    group_id bigint,
+    user_id bigint,
+    start_date date DEFAULT now(),
+    end_date date,
+    archived date
 );
 
 
@@ -359,14 +350,38 @@ CREATE SEQUENCE public.point_history_seq
 
 
 --
--- Name: point_history; Type: TABLE; Schema: public; Owner: -
+-- Name: point_histories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.point_history (
+CREATE TABLE public.point_histories (
     id bigint DEFAULT nextval('public.point_history_seq'::regclass) NOT NULL,
-    usr_id bigint NOT NULL,
+    user_id bigint NOT NULL,
     point integer NOT NULL,
     semester character varying(9) NOT NULL
+);
+
+
+--
+-- Name: point_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.point_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: point_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.point_requests (
+    id bigint DEFAULT nextval('public.point_requests_id_seq'::regclass) NOT NULL,
+    point integer,
+    evaluation_id bigint NOT NULL,
+    user_id bigint
 );
 
 
@@ -385,10 +400,10 @@ CREATE TABLE public.points_2017 (
 
 
 --
--- Name: pontigenyles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: poszttipus_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.pontigenyles_id_seq
+CREATE SEQUENCE public.poszttipus_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -396,17 +411,15 @@ CREATE SEQUENCE public.pontigenyles_id_seq
     CACHE 1;
 
 
-SET default_with_oids = true;
-
 --
--- Name: pontigenyles; Type: TABLE; Schema: public; Owner: -
+-- Name: post_types; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.pontigenyles (
-    id bigint DEFAULT nextval('public.pontigenyles_id_seq'::regclass) NOT NULL,
-    pont integer,
-    ertekeles_id bigint NOT NULL,
-    usr_id bigint
+CREATE TABLE public.post_types (
+    id bigint DEFAULT nextval('public.poszttipus_seq'::regclass) NOT NULL,
+    group_id bigint,
+    name character varying(30) NOT NULL,
+    delegated_post boolean DEFAULT false
 );
 
 
@@ -422,40 +435,14 @@ CREATE SEQUENCE public.poszt_seq
     CACHE 1;
 
 
-SET default_with_oids = false;
-
 --
--- Name: poszt; Type: TABLE; Schema: public; Owner: -
+-- Name: posts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.poszt (
+CREATE TABLE public.posts (
     id bigint DEFAULT nextval('public.poszt_seq'::regclass) NOT NULL,
-    grp_member_id bigint,
-    pttip_id bigint
-);
-
-
---
--- Name: poszttipus_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.poszttipus_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: poszttipus; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.poszttipus (
-    pttip_id bigint DEFAULT nextval('public.poszttipus_seq'::regclass) NOT NULL,
-    grp_id bigint,
-    pttip_name character varying(30) NOT NULL,
-    delegated_post boolean DEFAULT false
+    membership_id bigint,
+    post_type_id bigint
 );
 
 
@@ -493,6 +480,30 @@ ALTER SEQUENCE public.principles_id_seq OWNED BY public.principles.id;
 
 
 --
+-- Name: privacies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.privacies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: privacies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.privacies (
+    id bigint DEFAULT nextval('public.privacies_id_seq'::regclass) NOT NULL,
+    user_id bigint NOT NULL,
+    attribute_name character varying(64) NOT NULL,
+    visible boolean DEFAULT false NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -518,7 +529,7 @@ CREATE TABLE public.spot_images (
 CREATE TABLE public.svie_post_requests (
     id integer NOT NULL,
     member_type character varying,
-    usr_id integer
+    user_id integer
 );
 
 
@@ -541,20 +552,16 @@ CREATE SEQUENCE public.svie_post_requests_id_seq
 ALTER SEQUENCE public.svie_post_requests_id_seq OWNED BY public.svie_post_requests.id;
 
 
-SET default_with_oids = true;
-
 --
--- Name: system_attrs; Type: TABLE; Schema: public; Owner: -
+-- Name: system_attributes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.system_attrs (
-    attributeid bigint NOT NULL,
-    attributename character varying(255) NOT NULL,
-    attributevalue character varying(255) NOT NULL
+CREATE TABLE public.system_attributes (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    value character varying(255) NOT NULL
 );
 
-
-SET default_with_oids = false;
 
 --
 -- Name: temp_belepo; Type: TABLE; Schema: public; Owner: -
@@ -582,71 +589,43 @@ CREATE SEQUENCE public.users_usr_id_seq
     CACHE 1;
 
 
-SET default_with_oids = true;
-
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.users (
-    usr_id bigint DEFAULT nextval('public.users_usr_id_seq'::regclass) NOT NULL,
-    usr_email character varying(64),
-    usr_neptun character varying,
-    usr_firstname text NOT NULL,
-    usr_lastname text NOT NULL,
-    usr_nickname text,
-    usr_svie_member_type character varying(255) DEFAULT 'NEMTAG'::character varying NOT NULL,
-    usr_svie_primary_membership bigint,
-    usr_delegated boolean DEFAULT false NOT NULL,
-    usr_show_recommended_photo boolean DEFAULT false NOT NULL,
-    usr_screen_name character varying(50) NOT NULL,
-    usr_date_of_birth date,
-    usr_gender character varying(50) DEFAULT 'NOTSPECIFIED'::character varying NOT NULL,
-    usr_student_status character varying(50) DEFAULT 'UNKNOWN'::character varying NOT NULL,
-    usr_mother_name character varying(100),
-    usr_photo_path character varying(255),
-    usr_webpage character varying(255),
-    usr_cell_phone character varying(50),
-    usr_home_address character varying(255),
-    usr_est_grad character varying(10),
-    usr_dormitory character varying(50),
-    usr_room character varying(255),
-    usr_status character varying(8) DEFAULT 'INACTIVE'::character varying NOT NULL,
-    usr_password character varying(28),
-    usr_salt character varying(12),
-    usr_lastlogin timestamp without time zone,
-    usr_auth_sch_id character varying,
-    usr_bme_id character varying,
+    id bigint DEFAULT nextval('public.users_usr_id_seq'::regclass) NOT NULL,
+    email character varying(64),
+    neptun character varying,
+    firstname text NOT NULL,
+    lastname text NOT NULL,
+    nickname text,
+    svie_member_type character varying(255) DEFAULT 'NEMTAG'::character varying NOT NULL,
+    svie_primary_membership bigint,
+    delegated boolean DEFAULT false NOT NULL,
+    show_recommended_photo boolean DEFAULT false NOT NULL,
+    screen_name character varying(50) NOT NULL,
+    date_of_birth date,
+    gender character varying(50) DEFAULT 'NOTSPECIFIED'::character varying NOT NULL,
+    student_status character varying(50) DEFAULT 'UNKNOWN'::character varying NOT NULL,
+    mother_name character varying(100),
+    photo_path character varying(255),
+    webpage character varying(255),
+    cell_phone character varying(50),
+    home_address character varying(255),
+    est_grad character varying(10),
+    dormitory character varying(50),
+    room character varying(255),
+    status character varying(8) DEFAULT 'INACTIVE'::character varying NOT NULL,
+    password character varying(28),
+    salt character varying(12),
+    last_login timestamp without time zone,
+    auth_sch_id character varying,
+    bme_id character varying,
     usr_created_at timestamp without time zone,
-    usr_metascore integer,
-    usr_place_of_birth character varying,
-    usr_birth_name character varying
-);
-
-
---
--- Name: usr_private_attrs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.usr_private_attrs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-SET default_with_oids = false;
-
---
--- Name: usr_private_attrs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.usr_private_attrs (
-    id bigint DEFAULT nextval('public.usr_private_attrs_id_seq'::regclass) NOT NULL,
-    usr_id bigint NOT NULL,
-    attr_name character varying(64) NOT NULL,
-    visible boolean DEFAULT false NOT NULL
+    metascore integer,
+    place_of_birth character varying,
+    birth_name character varying
 );
 
 
@@ -718,27 +697,35 @@ ALTER TABLE ONLY public.view_settings ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Name: belepoigenyles belepoigenyles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.belepoigenyles
-    ADD CONSTRAINT belepoigenyles_pkey PRIMARY KEY (id);
-
-
---
--- Name: ertekeles_uzenet ertekeles_uzenet_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ertekeles_uzenet
-    ADD CONSTRAINT ertekeles_uzenet_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
 --
--- Name: ertekelesek ertekelesek_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: entry_requests entry_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.ertekelesek
-    ADD CONSTRAINT ertekelesek_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.entry_requests
+    ADD CONSTRAINT entry_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evaluation_messages evaluation_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evaluation_messages
+    ADD CONSTRAINT evaluation_messages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evaluations evaluations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evaluations
+    ADD CONSTRAINT evaluations_pkey PRIMARY KEY (id);
 
 
 --
@@ -746,14 +733,14 @@ ALTER TABLE ONLY public.ertekelesek
 --
 
 ALTER TABLE ONLY public.groups
-    ADD CONSTRAINT groups_pkey PRIMARY KEY (grp_id);
+    ADD CONSTRAINT groups_pkey PRIMARY KEY (id);
 
 
 --
--- Name: grp_membership grp_membership_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: memberships grp_membership_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.grp_membership
+ALTER TABLE ONLY public.memberships
     ADD CONSTRAINT grp_membership_pkey PRIMARY KEY (id);
 
 
@@ -806,35 +793,35 @@ ALTER TABLE ONLY public.point_details
 
 
 --
--- Name: point_history point_history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: point_histories point_history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.point_history
+ALTER TABLE ONLY public.point_histories
     ADD CONSTRAINT point_history_pkey PRIMARY KEY (id);
 
 
 --
--- Name: pontigenyles pontigenyles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: point_requests point_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.pontigenyles
-    ADD CONSTRAINT pontigenyles_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.point_requests
+    ADD CONSTRAINT point_requests_pkey PRIMARY KEY (id);
 
 
 --
--- Name: poszt poszt_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: posts poszt_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.poszt
+ALTER TABLE ONLY public.posts
     ADD CONSTRAINT poszt_pkey PRIMARY KEY (id);
 
 
 --
--- Name: poszttipus poszttipus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: post_types poszttipus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.poszttipus
-    ADD CONSTRAINT poszttipus_pkey PRIMARY KEY (pttip_id);
+ALTER TABLE ONLY public.post_types
+    ADD CONSTRAINT poszttipus_pkey PRIMARY KEY (id);
 
 
 --
@@ -843,6 +830,14 @@ ALTER TABLE ONLY public.poszttipus
 
 ALTER TABLE ONLY public.principles
     ADD CONSTRAINT principles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: privacies privacies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.privacies
+    ADD CONSTRAINT privacies_pkey PRIMARY KEY (id);
 
 
 --
@@ -862,19 +857,19 @@ ALTER TABLE ONLY public.svie_post_requests
 
 
 --
--- Name: system_attrs system_attrs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: system_attributes system_attrs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.system_attrs
-    ADD CONSTRAINT system_attrs_pkey PRIMARY KEY (attributeid);
+ALTER TABLE ONLY public.system_attributes
+    ADD CONSTRAINT system_attrs_pkey PRIMARY KEY (id);
 
 
 --
--- Name: grp_membership unique_memberships; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: memberships unique_memberships; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.grp_membership
-    ADD CONSTRAINT unique_memberships UNIQUE (grp_id, usr_id);
+ALTER TABLE ONLY public.memberships
+    ADD CONSTRAINT unique_memberships UNIQUE (group_id, user_id);
 
 
 --
@@ -882,7 +877,7 @@ ALTER TABLE ONLY public.grp_membership
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (usr_id);
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
@@ -890,7 +885,7 @@ ALTER TABLE ONLY public.users
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_usr_auth_sch_id_key UNIQUE (usr_auth_sch_id);
+    ADD CONSTRAINT users_usr_auth_sch_id_key UNIQUE (auth_sch_id);
 
 
 --
@@ -898,7 +893,7 @@ ALTER TABLE ONLY public.users
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_usr_bme_id_key UNIQUE (usr_bme_id);
+    ADD CONSTRAINT users_usr_bme_id_key UNIQUE (bme_id);
 
 
 --
@@ -906,7 +901,7 @@ ALTER TABLE ONLY public.users
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_usr_neptun_key UNIQUE (usr_neptun);
+    ADD CONSTRAINT users_usr_neptun_key UNIQUE (neptun);
 
 
 --
@@ -914,15 +909,7 @@ ALTER TABLE ONLY public.users
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_usr_screen_name_key UNIQUE (usr_screen_name);
-
-
---
--- Name: usr_private_attrs usr_private_attrs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.usr_private_attrs
-    ADD CONSTRAINT usr_private_attrs_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT users_usr_screen_name_key UNIQUE (screen_name);
 
 
 --
@@ -937,42 +924,42 @@ ALTER TABLE ONLY public.view_settings
 -- Name: bel_tipus_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX bel_tipus_idx ON public.belepoigenyles USING btree (belepo_tipus);
+CREATE INDEX bel_tipus_idx ON public.entry_requests USING btree (entry_type);
 
 
 --
 -- Name: ert_semester_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX ert_semester_idx ON public.ertekelesek USING btree (semester);
+CREATE INDEX ert_semester_idx ON public.evaluations USING btree (semester);
 
 
 --
 -- Name: fki_felado_usr_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX fki_felado_usr_id ON public.ertekeles_uzenet USING btree (felado_usr_id);
+CREATE INDEX fki_felado_usr_id ON public.evaluation_messages USING btree (sender_user_id);
 
 
 --
 -- Name: fki_group_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX fki_group_id ON public.ertekeles_uzenet USING btree (group_id);
+CREATE INDEX fki_group_id ON public.evaluation_messages USING btree (group_id);
 
 
 --
 -- Name: groups_grp_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX groups_grp_id_idx ON public.groups USING btree (grp_id);
+CREATE UNIQUE INDEX groups_grp_id_idx ON public.groups USING btree (id);
 
 
 --
 -- Name: idx_groups_grp_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX idx_groups_grp_name ON public.groups USING btree (grp_name);
+CREATE INDEX idx_groups_grp_name ON public.groups USING btree (name);
 
 
 --
@@ -1000,28 +987,28 @@ CREATE INDEX index_point_detail_comments_on_user_id ON public.point_detail_comme
 -- Name: membership_usr_fk_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX membership_usr_fk_idx ON public.grp_membership USING btree (usr_id);
+CREATE INDEX membership_usr_fk_idx ON public.memberships USING btree (user_id);
 
 
 --
 -- Name: next_version_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX next_version_idx ON public.ertekelesek USING btree (next_version NULLS FIRST);
+CREATE INDEX next_version_idx ON public.evaluations USING btree (next_version NULLS FIRST);
 
 
 --
 -- Name: poszt_fk_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX poszt_fk_idx ON public.poszt USING btree (grp_member_id);
+CREATE INDEX poszt_fk_idx ON public.posts USING btree (membership_id);
 
 
 --
 -- Name: unique_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_idx ON public.ertekelesek USING btree (grp_id, semester, next_version NULLS FIRST);
+CREATE UNIQUE INDEX unique_idx ON public.evaluations USING btree (group_id, semester, next_version NULLS FIRST);
 
 
 --
@@ -1035,21 +1022,21 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 -- Name: users_usr_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX users_usr_id_idx ON public.users USING btree (usr_id);
+CREATE UNIQUE INDEX users_usr_id_idx ON public.users USING btree (id);
 
 
 --
 -- Name: users_usr_neptun_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX users_usr_neptun_idx ON public.users USING btree (upper((usr_neptun)::text));
+CREATE UNIQUE INDEX users_usr_neptun_idx ON public.users USING btree (upper((neptun)::text));
 
 
 --
 -- Name: users_usr_screen_name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX users_usr_screen_name_idx ON public.users USING btree (upper((usr_screen_name)::text));
+CREATE UNIQUE INDEX users_usr_screen_name_idx ON public.users USING btree (upper((screen_name)::text));
 
 
 --
@@ -1057,7 +1044,7 @@ CREATE UNIQUE INDEX users_usr_screen_name_idx ON public.users USING btree (upper
 --
 
 ALTER TABLE ONLY public.groups
-    ADD CONSTRAINT "$1" FOREIGN KEY (grp_parent) REFERENCES public.groups(grp_id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT "$1" FOREIGN KEY (parent_id) REFERENCES public.groups(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -1065,79 +1052,79 @@ ALTER TABLE ONLY public.groups
 --
 
 ALTER TABLE ONLY public.lostpw_tokens
-    ADD CONSTRAINT fk1e9df02e5854b081 FOREIGN KEY (usr_id) REFERENCES public.users(usr_id);
+    ADD CONSTRAINT fk1e9df02e5854b081 FOREIGN KEY (usr_id) REFERENCES public.users(id);
 
 
 --
--- Name: belepoigenyles fk4e301ac36958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: entry_requests fk4e301ac36958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.belepoigenyles
-    ADD CONSTRAINT fk4e301ac36958e716 FOREIGN KEY (usr_id) REFERENCES public.users(usr_id);
-
-
---
--- Name: ertekelesek fk807db18871c0d156; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ertekelesek
-    ADD CONSTRAINT fk807db18871c0d156 FOREIGN KEY (felado_usr_id) REFERENCES public.users(usr_id);
+ALTER TABLE ONLY public.entry_requests
+    ADD CONSTRAINT fk4e301ac36958e716 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
--- Name: ertekelesek fk807db18879696582; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: evaluations fk807db18871c0d156; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.ertekelesek
-    ADD CONSTRAINT fk807db18879696582 FOREIGN KEY (grp_id) REFERENCES public.groups(grp_id);
-
-
---
--- Name: ertekelesek fk807db188b31cf015; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ertekelesek
-    ADD CONSTRAINT fk807db188b31cf015 FOREIGN KEY (elbiralo_usr_id) REFERENCES public.users(usr_id);
+ALTER TABLE ONLY public.evaluations
+    ADD CONSTRAINT fk807db18871c0d156 FOREIGN KEY (creator_user_id) REFERENCES public.users(id);
 
 
 --
--- Name: belepoigenyles fk_ertekeles_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: evaluations fk807db18879696582; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.belepoigenyles
-    ADD CONSTRAINT fk_ertekeles_id FOREIGN KEY (ertekeles_id) REFERENCES public.ertekelesek(id) ON DELETE CASCADE;
-
-
---
--- Name: pontigenyles fk_ertekeles_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pontigenyles
-    ADD CONSTRAINT fk_ertekeles_id FOREIGN KEY (ertekeles_id) REFERENCES public.ertekelesek(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.evaluations
+    ADD CONSTRAINT fk807db18879696582 FOREIGN KEY (group_id) REFERENCES public.groups(id);
 
 
 --
--- Name: ertekeles_uzenet fk_felado_usr_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: evaluations fk807db188b31cf015; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.ertekeles_uzenet
-    ADD CONSTRAINT fk_felado_usr_id FOREIGN KEY (felado_usr_id) REFERENCES public.users(usr_id) ON DELETE SET NULL;
-
-
---
--- Name: ertekeles_uzenet fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ertekeles_uzenet
-    ADD CONSTRAINT fk_group_id FOREIGN KEY (group_id) REFERENCES public.groups(grp_id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.evaluations
+    ADD CONSTRAINT fk807db188b31cf015 FOREIGN KEY (reviewer_user_id) REFERENCES public.users(id);
 
 
 --
--- Name: ertekelesek fk_next_version; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: entry_requests fk_ertekeles_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.ertekelesek
-    ADD CONSTRAINT fk_next_version FOREIGN KEY (next_version) REFERENCES public.ertekelesek(id) ON DELETE SET NULL;
+ALTER TABLE ONLY public.entry_requests
+    ADD CONSTRAINT fk_ertekeles_id FOREIGN KEY (evaluation_id) REFERENCES public.evaluations(id) ON DELETE CASCADE;
+
+
+--
+-- Name: point_requests fk_ertekeles_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.point_requests
+    ADD CONSTRAINT fk_ertekeles_id FOREIGN KEY (evaluation_id) REFERENCES public.evaluations(id) ON DELETE CASCADE;
+
+
+--
+-- Name: evaluation_messages fk_felado_usr_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evaluation_messages
+    ADD CONSTRAINT fk_felado_usr_id FOREIGN KEY (sender_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: evaluation_messages fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evaluation_messages
+    ADD CONSTRAINT fk_group_id FOREIGN KEY (group_id) REFERENCES public.groups(id) ON DELETE CASCADE;
+
+
+--
+-- Name: evaluations fk_next_version; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evaluations
+    ADD CONSTRAINT fk_next_version FOREIGN KEY (next_version) REFERENCES public.evaluations(id) ON DELETE SET NULL;
 
 
 --
@@ -1153,7 +1140,7 @@ ALTER TABLE ONLY public.point_detail_comments
 --
 
 ALTER TABLE ONLY public.view_settings
-    ADD CONSTRAINT fk_rails_2450b9d422 FOREIGN KEY (user_id) REFERENCES public.users(usr_id);
+    ADD CONSTRAINT fk_rails_2450b9d422 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -1161,7 +1148,7 @@ ALTER TABLE ONLY public.view_settings
 --
 
 ALTER TABLE ONLY public.point_details
-    ADD CONSTRAINT fk_rails_6ef8df1bae FOREIGN KEY (point_request_id) REFERENCES public.pontigenyles(id);
+    ADD CONSTRAINT fk_rails_6ef8df1bae FOREIGN KEY (point_request_id) REFERENCES public.point_requests(id);
 
 
 --
@@ -1169,7 +1156,7 @@ ALTER TABLE ONLY public.point_details
 --
 
 ALTER TABLE ONLY public.principles
-    ADD CONSTRAINT fk_rails_84e8865fd0 FOREIGN KEY (evaluation_id) REFERENCES public.ertekelesek(id);
+    ADD CONSTRAINT fk_rails_84e8865fd0 FOREIGN KEY (evaluation_id) REFERENCES public.evaluations(id);
 
 
 --
@@ -1185,31 +1172,31 @@ ALTER TABLE ONLY public.point_details
 --
 
 ALTER TABLE ONLY public.point_detail_comments
-    ADD CONSTRAINT fk_rails_fd72f0d605 FOREIGN KEY (user_id) REFERENCES public.users(usr_id);
+    ADD CONSTRAINT fk_rails_fd72f0d605 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
--- Name: pontigenyles fkaa1034cd6958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: point_requests fkaa1034cd6958e716; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.pontigenyles
-    ADD CONSTRAINT fkaa1034cd6958e716 FOREIGN KEY (usr_id) REFERENCES public.users(usr_id);
-
-
---
--- Name: grp_membership grp_membership_grp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.grp_membership
-    ADD CONSTRAINT grp_membership_grp_id_fkey FOREIGN KEY (grp_id) REFERENCES public.groups(grp_id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.point_requests
+    ADD CONSTRAINT fkaa1034cd6958e716 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
--- Name: grp_membership grp_membership_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: memberships grp_membership_grp_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.grp_membership
-    ADD CONSTRAINT grp_membership_usr_id_fkey FOREIGN KEY (usr_id) REFERENCES public.users(usr_id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.memberships
+    ADD CONSTRAINT grp_membership_grp_id_fkey FOREIGN KEY (group_id) REFERENCES public.groups(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: memberships grp_membership_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.memberships
+    ADD CONSTRAINT grp_membership_usr_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1217,7 +1204,7 @@ ALTER TABLE ONLY public.grp_membership
 --
 
 ALTER TABLE ONLY public.im_accounts
-    ADD CONSTRAINT im_accounts_usr_id_fkey FOREIGN KEY (usr_id) REFERENCES public.users(usr_id);
+    ADD CONSTRAINT im_accounts_usr_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -1225,7 +1212,7 @@ ALTER TABLE ONLY public.im_accounts
 --
 
 ALTER TABLE ONLY public.log
-    ADD CONSTRAINT log_group FOREIGN KEY (grp_id) REFERENCES public.groups(grp_id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT log_group FOREIGN KEY (grp_id) REFERENCES public.groups(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1233,39 +1220,39 @@ ALTER TABLE ONLY public.log
 --
 
 ALTER TABLE ONLY public.log
-    ADD CONSTRAINT log_user FOREIGN KEY (usr_id) REFERENCES public.users(usr_id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT log_user FOREIGN KEY (usr_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: point_history point_history_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: point_histories point_history_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.point_history
-    ADD CONSTRAINT point_history_usr_id_fkey FOREIGN KEY (usr_id) REFERENCES public.users(usr_id);
-
-
---
--- Name: poszt poszt_grp_member_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.poszt
-    ADD CONSTRAINT poszt_grp_member_fk FOREIGN KEY (grp_member_id) REFERENCES public.grp_membership(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.point_histories
+    ADD CONSTRAINT point_history_usr_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
--- Name: poszt poszt_pttip_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts poszt_grp_member_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.poszt
-    ADD CONSTRAINT poszt_pttip_fk FOREIGN KEY (pttip_id) REFERENCES public.poszttipus(pttip_id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT poszt_grp_member_fk FOREIGN KEY (membership_id) REFERENCES public.memberships(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: poszttipus poszttipus_opc_csoport; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts poszt_pttip_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.poszttipus
-    ADD CONSTRAINT poszttipus_opc_csoport FOREIGN KEY (grp_id) REFERENCES public.groups(grp_id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT poszt_pttip_fk FOREIGN KEY (post_type_id) REFERENCES public.post_types(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: post_types poszttipus_opc_csoport; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.post_types
+    ADD CONSTRAINT poszttipus_opc_csoport FOREIGN KEY (group_id) REFERENCES public.groups(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1273,15 +1260,15 @@ ALTER TABLE ONLY public.poszttipus
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_main_group_fkey FOREIGN KEY (usr_svie_primary_membership) REFERENCES public.grp_membership(id);
+    ADD CONSTRAINT users_main_group_fkey FOREIGN KEY (svie_primary_membership) REFERENCES public.memberships(id);
 
 
 --
--- Name: usr_private_attrs usr_private_attrs_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: privacies usr_private_attrs_usr_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.usr_private_attrs
-    ADD CONSTRAINT usr_private_attrs_usr_id_fkey FOREIGN KEY (usr_id) REFERENCES public.users(usr_id);
+ALTER TABLE ONLY public.privacies
+    ADD CONSTRAINT usr_private_attrs_usr_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -1290,33 +1277,22 @@ ALTER TABLE ONLY public.usr_private_attrs
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20161124163851');
+INSERT INTO "schema_migrations" (version) VALUES
+('20161124163851'),
+('20171130184224'),
+('20180315103617'),
+('20180317194014'),
+('20180317200507'),
+('20180403171730'),
+('20180501175635'),
+('20180505152100'),
+('20180617081041'),
+('20180705121831'),
+('20180730191308'),
+('20181112160701'),
+('20181220204207'),
+('20190106175754'),
+('20191025190035'),
+('20200127202810');
 
-INSERT INTO schema_migrations (version) VALUES ('20171130184224');
-
-INSERT INTO schema_migrations (version) VALUES ('20180315103617');
-
-INSERT INTO schema_migrations (version) VALUES ('20180317194014');
-
-INSERT INTO schema_migrations (version) VALUES ('20180317200507');
-
-INSERT INTO schema_migrations (version) VALUES ('20180403171730');
-
-INSERT INTO schema_migrations (version) VALUES ('20180501175635');
-
-INSERT INTO schema_migrations (version) VALUES ('20180505152100');
-
-INSERT INTO schema_migrations (version) VALUES ('20180617081041');
-
-INSERT INTO schema_migrations (version) VALUES ('20180705121831');
-
-INSERT INTO schema_migrations (version) VALUES ('20180730191308');
-
-INSERT INTO schema_migrations (version) VALUES ('20181112160701');
-
-INSERT INTO schema_migrations (version) VALUES ('20181220204207');
-
-INSERT INTO schema_migrations (version) VALUES ('20190106175754');
-
-INSERT INTO schema_migrations (version) VALUES ('20191025190035');
 

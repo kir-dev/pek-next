@@ -1,24 +1,33 @@
-class Evaluation < ApplicationRecord
-  self.table_name = 'ertekelesek'
-  self.primary_key = :id
+# == Schema Information
+#
+# Table name: evaluations
+#
+#  id                   :bigint           not null, primary key
+#  entry_request_status :string(255)
+#  timestamp            :datetime
+#  point_request_status :string(255)
+#  semester             :string(9)        not null
+#  justification        :text             not null
+#  last_evaulation      :datetime
+#  last_modification    :datetime
+#  reviewer_user_id     :bigint
+#  group_id             :bigint
+#  creator_user_id      :bigint
+#  principle            :text             default(""), not null
+#  next_version         :bigint
+#  explanation          :text
+#  optlock              :integer          default(0), not null
+#  is_considered        :boolean          default(FALSE), not null
+#
 
+class Evaluation < ApplicationRecord
   before_save :set_default_values
 
-  alias_attribute :entry_request_status, :belepoigeny_statusz
-  alias_attribute :timestamp, :feladas
-  alias_attribute :point_request_status, :pontigeny_statusz
-  alias_attribute :date, :semester # This alias is misleading
-  alias_attribute :justification, :szoveges_ertekeles
-  alias_attribute :last_evaulation, :utolso_elbiralas
-  alias_attribute :last_modification, :utolso_modositas
-  alias_attribute :reviewer_user_id, :elbiralo_usr_id
-  alias_attribute :group_id, :grp_id
-  alias_attribute :creator_user_id, :felado_usr_id
-  alias_attribute :principle, :pontozasi_elvek
+  alias_attribute :date, :semester
 
-  belongs_to :group, foreign_key: :grp_id
-  has_many :point_requests, foreign_key: :ertekeles_id, inverse_of: :evaluation
-  has_many :entry_requests, foreign_key: :ertekeles_id
+  belongs_to :group
+  has_many :point_requests
+  has_many :entry_requests
   has_many :principles
   has_many :ordered_principles, -> { order(:id) }, class_name: :Principle
 

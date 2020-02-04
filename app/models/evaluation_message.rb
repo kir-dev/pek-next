@@ -1,11 +1,17 @@
+# == Schema Information
+#
+# Table name: evaluation_messages
+#
+#  id             :bigint           not null, primary key
+#  sent_at        :datetime
+#  message        :text
+#  sender_user_id :bigint
+#  group_id       :bigint
+#  semester       :string(9)        not null
+#  from_system    :boolean          default(FALSE)
+#
+
 class EvaluationMessage < ApplicationRecord
-  self.table_name = 'ertekeles_uzenet'
-  self.primary_key = :id
-
-  alias_attribute :sent_at, :feladas_ido
-  alias_attribute :message, :uzenet
-  alias_attribute :sender_user_id, :felado_usr_id
-
   belongs_to :group
-  belongs_to :sender_user, class_name: 'User', foreign_key: :felado_usr_id
+  belongs_to :sender_user, class_name: 'User', foreign_key: :sender_user_id
 end

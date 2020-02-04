@@ -1,8 +1,13 @@
+# == Schema Information
+#
+# Table name: im_accounts
+#
+#  id       :bigint           not null, primary key
+#  protocol :string(50)       not null
+#  name     :string(255)      not null
+#  user_id  :bigint
+#
+
 class ImAccount < ApplicationRecord
-  self.primary_key = :id
-
-  alias_attribute :user_id, :usr_id
-  alias_attribute :name, :account_name
-
-  belongs_to :user, foreign_key: :usr_id
+  belongs_to :user
 end

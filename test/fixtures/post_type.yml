@@ -1,15 +1,15 @@
 leader:
-  pttip_id: 3
-  pttip_name: körvezető
+  id: 3
+  name: körvezető
 
 newbie:
-  pttip_id: 6
-  pttip_name: feldolgozás alatt
+  id: 6
+  name: feldolgozás alatt
 
 pek_admin:
-  pttip_id: 66
-  pttip_name: PéK Admin
+  id: 66
+  name: PéK Admin
 
 new_member:
-  pttip_id: 104
-  pttip_name: újonc
+  id: 104
+  name: újonc

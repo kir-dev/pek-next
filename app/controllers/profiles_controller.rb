@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   before_action :set_entities_for_edit, only: %i[edit]
 
   def show
-    user = User.includes([{ pointrequests: [{ evaluation: %i[group entry_requests] }] },
+    user = User.includes([{ point_requests: [{ evaluation: %i[group entry_requests] }] },
                           { memberships: %i[group post_types] }]).find_by(screen_name: params[:id])
     return redirect_to profiles_me_path unless user
 

@@ -15,7 +15,6 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     self.use_transactional_fixtures = true
 
-    set_fixture_class grp_membership: Membership
     fixtures :all
 
     # Add more helper methods to be used by all tests here...

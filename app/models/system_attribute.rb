@@ -1,9 +1,13 @@
-class SystemAttribute < ApplicationRecord
-  self.table_name = 'system_attrs'
-  self.primary_key = :attributeid
-  alias_attribute :value, :attributevalue
-  alias_attribute :name, :attributename
+# == Schema Information
+#
+# Table name: system_attributes
+#
+#  id    :bigint           not null, primary key
+#  name  :string(255)      not null
+#  value :string(255)      not null
+#
 
+class SystemAttribute < ApplicationRecord
   def self.semester
     Semester.new(find_by(name: 'szemeszter').value)
   end

@@ -7,7 +7,7 @@ class CountDelegates
   private
 
   def reset_delegate_count
-    Group.update_all grp_svie_delegate_nr: 0
+    Group.update_all delegate_count: 0
   end
 
   def count_delegates
