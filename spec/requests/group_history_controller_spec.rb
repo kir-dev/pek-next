@@ -9,25 +9,23 @@ describe GroupHistoryController do
 
     before { login_as(user) }
 
-    context 'when everything is fine' do
+    context 'when the group has minimum one evaluation' do
       before { group.evaluations << create(:evaluation, point_request_status: Evaluation::ACCEPTED) }
       before { subject }
 
-      it 'works fine' do
+      it 'renders the page' do
         expect(response).to have_http_status(:ok)
+        expect(response).to render_template(:show)
       end
-
-      it { should render_template :show }
     end
 
-    context 'when group does not have any evaluation' do
+    context 'when the group has no evaluation' do
       before { subject }
 
-      it 'shows notice' do
+      it 'redirects with an alert' do
         expect(flash[:alert]).to be_present
+        expect(response).to redirect_to(group_path(group))
       end
-
-      it { should redirect_to(group_path(group)) }
     end
   end
 end
