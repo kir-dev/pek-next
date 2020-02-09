@@ -30,7 +30,7 @@ class Group < ApplicationRecord
   has_many :evaluations
   has_many :point_requests, through: :evaluations
   has_many :entry_requests, through: :evaluations
-  has_many :children, class_name: :Group
+  has_many :children, class_name: 'Group', foreign_key: :parent_id
   belongs_to :group, foreign_key: :parent_id, optional: true
   alias own_post_types post_types
 
@@ -39,7 +39,6 @@ class Group < ApplicationRecord
   KIRDEV_ID = 106
   KB_ID = 1
   SIMONYI_ID = 16
-
 
   enum type: {
     group: 'group',
