@@ -13,6 +13,8 @@ class EntryRequest < ApplicationRecord
   belongs_to :evaluation
   belongs_to :user
 
+  validates :evaluation_id, uniqueness: { scope: :user_id }
+
   AB = 'AB'.freeze
   KB = 'KB'.freeze
   KDO = 'KDO'.freeze

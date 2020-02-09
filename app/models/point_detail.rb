@@ -15,6 +15,7 @@ class PointDetail < ApplicationRecord
 
   validates :principle, presence: true
   validates :point_request, presence: true
+  validates :principle_id, uniqueness: { scope: :point_request_id }
   validate :correct_evaluation
 
   before_save do
