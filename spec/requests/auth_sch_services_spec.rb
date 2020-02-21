@@ -9,10 +9,9 @@ describe AuthSchServicesController do
       let(:id) { 'invalidid' }
 
       it 'returns bad request' do
-        body = JSON.parse(response.body)
         expect(response).to have_http_status :bad_request
-        expect(body['success']).to be false
-        expect(body['message']).to eq I18n.t(:invalid_id)
+        expect(json_body['success']).to be false
+        expect(json_body['message']).to eq I18n.t(:invalid_id)
       end
     end
 
@@ -20,10 +19,9 @@ describe AuthSchServicesController do
       let(:id) { 'ASDBSD' }
 
       it 'returns bad request' do
-        body = JSON.parse(response.body)
         expect(response).to have_http_status :not_found
-        expect(body['success']).to be false
-        expect(body['message']).to eq I18n.t(:non_existent_id, id: id)
+        expect(json_body['success']).to be false
+        expect(json_body['message']).to eq I18n.t(:non_existent_id, id: id)
       end
     end
 
@@ -43,10 +41,9 @@ describe AuthSchServicesController do
           'schacPersonalUniqueId' => user.id
         }
 
-        body = JSON.parse(response.body)
         expect(response).to have_http_status :success
-        expect(body['success']).to be true
-        expect(body['user']).to eq expected_result
+        expect(json_body['success']).to be true
+        expect(json_body['user']).to eq expected_result
       end
     end
   end
@@ -68,10 +65,9 @@ describe AuthSchServicesController do
       ]
       get "/services/sync/#{user.auth_sch_id}/memberships"
 
-      body = JSON.parse(response.body)
       expect(response).to have_http_status :success
-      expect(body['success']).to be true
-      expect(body['memberships']).to eq expected_result
+      expect(json_body['success']).to be true
+      expect(json_body['memberships']).to eq expected_result
     end
   end
 
@@ -93,9 +89,8 @@ describe AuthSchServicesController do
         ]
         get "/services/entrants/get/#{evaluation.semester}/#{user.auth_sch_id}"
 
-        body = JSON.parse(response.body)
         expect(response).to have_http_status :success
-        expect(body).to eq expected_response
+        expect(json_body).to eq expected_response
       end
     end
   end
