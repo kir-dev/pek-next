@@ -45,6 +45,21 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  config.before(:suite) do
+    FactoryBot.create(:post_type_leader)
+    FactoryBot.create(:post_type_newbie)
+    FactoryBot.create(:post_type_pek_admin)
+    FactoryBot.create(:post_type_new_member)
+    FactoryBot.create(:group_svie)
+    FactoryBot.create(:group_rvt)
+    FactoryBot.create(:group_kir_dev)
+  end
+
+  config.after(:suite) do
+    PostType.delete_all
+    Group.delete_all
+  end
+
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
