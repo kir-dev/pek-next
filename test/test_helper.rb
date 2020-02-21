@@ -2,7 +2,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'mocha/minitest'
-require_relative '../spec/support/authentication_helper.rb'
+require_relative '../spec/support/helpers/authentication_helper.rb'
 
 require 'rails-controller-testing'
 Rails::Controller::Testing.install
