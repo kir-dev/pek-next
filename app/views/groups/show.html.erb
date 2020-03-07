@@ -26,20 +26,20 @@
 
       <div class="uk-grid uk-margin-top">
         <div class="uk-width-2-3">
-          <h2 class="uk-h2">Tagságok</h2>
+          <h2 class="uk-h2">Tagságok (<%= @viewmodel.all_members_count%>)</h2>
         </div>
       </div>
 
       <ul class="uk-tab uk-margin" id="membership-tab" data-uk-tab="{connect:'#membership-data'}">
         <li>
-          <a class="uk-button uk-text-muted" href="#active">Aktív tagok</a>
+          <a class="uk-button uk-text-muted" href="#active">Aktív tagok (<%= @viewmodel.active_members_count %>)</a>
         </li>
         <li>
-          <a class="uk-button uk-text-muted" href="#inactive">Öreg tagok</a>
+          <a class="uk-button uk-text-muted" href="#inactive">Öregtagok (<%= @viewmodel.inactive_members_count%>)</a>
         </li>
         <% if @viewmodel.group.archived_members_visible %>
           <li>
-            <a class="uk-button uk-text-muted" href="#archived">Archivált tagok</a>
+            <a class="uk-button uk-text-muted" href="#archived">Archivált tagok (<%= @viewmodel.archived_members_count%>)</a>
           </li>
         <% end %>
       </ul>
