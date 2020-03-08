@@ -17,6 +17,10 @@ module GroupsHelper
     end
   end
 
+  def acive_users_count(group)
+    group.newbie_members.count + group.active_members.count
+  end
+
   def inactive_users(group)
     inactive_memberships = group.inactive_members.sort_by_name
 
@@ -29,6 +33,10 @@ module GroupsHelper
     end
   end
 
+  def inacive_users_count(group)
+    group.inactive_members.count
+  end
+
   def archived_users(group)
     archived_memberships = group.archived_members.sort_by_name
 
@@ -39,5 +47,9 @@ module GroupsHelper
     @archived_users.each do |membership|
       yield GroupMemberDecorator.decorate(GroupMember.new(membership))
     end
+  end
+
+  def archived_users_count(group)
+    group.archived_members.count
   end
 end

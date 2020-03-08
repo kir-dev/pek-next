@@ -50,6 +50,22 @@ class MembershipViewModelDecorator < Draper::Decorator
                    group_evaluations_current_path(membership_view_model.group))
   end
 
+  def all_members_count
+    membership_view_model.group.memberships.count
+  end
+
+  def active_members_count
+    acive_users_count(membership_view_model.group)
+  end
+
+  def inactive_members_count
+    inacive_users_count(membership_view_model.group)
+  end
+
+  def archived_members_count
+    archived_users_count(membership_view_model.group)
+  end
+
   private
 
   def styled_link_to(name, path)
