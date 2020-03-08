@@ -96,6 +96,14 @@ user_with_primary_membership:
   svie_member_type: RENDESTAG
   auth_sch_id: lets-give-this-shit-everywhere-5
 
+hambis_leader:
+  id: 5001
+  firstname: Leader
+  lastname: Hambis
+  screen_name: fuck_fixtures
+  svie_primary_membership: 16
+  svie_member_type: RENDESTAG
+
 archived_active_babhamozo_member:
   id: 5005
   firstname: Archi

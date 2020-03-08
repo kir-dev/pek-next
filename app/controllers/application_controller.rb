@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
     redirect_to login_path
   end
 
+  before_action :set_notifications
+  def set_notifications
+    @notifications = current_user.notifications.unopened_only if session[:user_id]
+  end
+
   def correct_user
     user = User.find_by(screen_name: params[:id])
     redirect_to(root_url) unless user == current_user

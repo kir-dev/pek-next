@@ -1,0 +1,11 @@
+<% @notification = NotificationDecorator.new notification %>
+
+<%= content_for :notification_body, flush: true do %>
+  <% if @notification.notifiable.present? %>
+    Archiválta a tagságodat a(z) <%= @notification.notifiable.group.decorate.link %> körben!
+  <% else %>
+    Archiválta a tagságodat az egyik körödben, de a tagság törölve lett.
+  <% end %>
+<% end %>
+
+<%= render 'notification' %>

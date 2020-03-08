@@ -1,0 +1,11 @@
+<% @notification = NotificationDecorator.new notification %>
+
+<%= content_for :notification_body, flush: true do %>
+  <% if @notification.notifiable.present? %>
+    Öreggé avatott a(z) <%= @notification.notifiable.group.decorate.link %> körben!
+  <% else %>
+    Öreggé avatott az egyik körödben, de a tagság törölve lett.
+  <% end %>
+<% end %>
+
+<%= render 'notification' %>

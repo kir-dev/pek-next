@@ -274,6 +274,48 @@ CREATE TABLE public.memberships (
 
 
 --
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.notifications (
+    id integer NOT NULL,
+    target_type character varying NOT NULL,
+    target_id integer NOT NULL,
+    notifiable_type character varying NOT NULL,
+    notifiable_id integer NOT NULL,
+    key character varying NOT NULL,
+    group_type character varying,
+    group_id integer,
+    group_owner_id integer,
+    notifier_type character varying,
+    notifier_id integer,
+    parameters text,
+    opened_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.notifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
+
+
+--
 -- Name: point_detail_comments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -523,6 +565,46 @@ CREATE TABLE public.spot_images (
 
 
 --
+-- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.subscriptions (
+    id integer NOT NULL,
+    target_type character varying NOT NULL,
+    target_id integer NOT NULL,
+    key character varying NOT NULL,
+    subscribing boolean DEFAULT true NOT NULL,
+    subscribing_to_email boolean DEFAULT true NOT NULL,
+    subscribed_at timestamp without time zone,
+    unsubscribed_at timestamp without time zone,
+    subscribed_to_email_at timestamp without time zone,
+    unsubscribed_to_email_at timestamp without time zone,
+    optional_targets text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
+
+
+--
 -- Name: svie_post_requests; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -663,6 +745,13 @@ ALTER SEQUENCE public.view_settings_id_seq OWNED BY public.view_settings.id;
 
 
 --
+-- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public.notifications_id_seq'::regclass);
+
+
+--
 -- Name: point_detail_comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -681,6 +770,13 @@ ALTER TABLE ONLY public.point_details ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.principles ALTER COLUMN id SET DEFAULT nextval('public.principles_id_seq'::regclass);
+
+
+--
+-- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
 
 
 --
@@ -778,6 +874,14 @@ ALTER TABLE ONLY public.lostpw_tokens
 
 
 --
+-- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications
+    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: point_detail_comments point_detail_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -847,6 +951,14 @@ ALTER TABLE ONLY public.privacies
 
 ALTER TABLE ONLY public.spot_images
     ADD CONSTRAINT spot_images_usr_neptun_key UNIQUE (usr_neptun);
+
+
+--
+-- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subscriptions
+    ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -971,6 +1083,41 @@ CREATE INDEX idx_groups_grp_type ON public.groups USING btree (grp_type);
 
 
 --
+-- Name: index_notifications_on_group_owner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_group_owner_id ON public.notifications USING btree (group_owner_id);
+
+
+--
+-- Name: index_notifications_on_group_type_and_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_group_type_and_group_id ON public.notifications USING btree (group_type, group_id);
+
+
+--
+-- Name: index_notifications_on_notifiable_type_and_notifiable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_notifiable_type_and_notifiable_id ON public.notifications USING btree (notifiable_type, notifiable_id);
+
+
+--
+-- Name: index_notifications_on_notifier_type_and_notifier_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_notifier_type_and_notifier_id ON public.notifications USING btree (notifier_type, notifier_id);
+
+
+--
+-- Name: index_notifications_on_target_type_and_target_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_target_type_and_target_id ON public.notifications USING btree (target_type, target_id);
+
+
+--
 -- Name: index_point_detail_comments_on_point_detail_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -982,6 +1129,27 @@ CREATE INDEX index_point_detail_comments_on_point_detail_id ON public.point_deta
 --
 
 CREATE INDEX index_point_detail_comments_on_user_id ON public.point_detail_comments USING btree (user_id);
+
+
+--
+-- Name: index_subscriptions_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscriptions_on_key ON public.subscriptions USING btree (key);
+
+
+--
+-- Name: index_subscriptions_on_target_type_and_target_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscriptions_on_target_type_and_target_id ON public.subscriptions USING btree (target_type, target_id);
+
+
+--
+-- Name: index_subscriptions_on_target_type_and_target_id_and_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_subscriptions_on_target_type_and_target_id_and_key ON public.subscriptions USING btree (target_type, target_id, key);
 
 
 --
@@ -1293,6 +1461,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181112160701'),
 ('20181220204207'),
 ('20190106175754'),
+('20190427151354'),
 ('20191025190035'),
 ('20200127202810'),
 ('20200204185955');

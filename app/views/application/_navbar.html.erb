@@ -1,5 +1,5 @@
 <nav class="uk-navbar uk-hidden-small" data-uk-sticky>
-  <div class="uk-container uk-container-center">
+  <div class="uk-container uk-container-center uk-padding-remove">
 
     <%= link_to image_tag('/img/pek_logo.png', class:'uk-navbar-brand', id: 'pek-logo'), root_url %>
 
@@ -74,8 +74,22 @@
           </div>
         </li>
 
+        <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="{pos:'bottom-right'}">
+          <a href="<%= user_notifications_path(current_user.id) %>"
+             class="nav-button <%= 'uk-button-danger' if current_user.has_unopened_notifications? %>">
+            <i class="uk-icon-bell"></i>
+          </a>
+
+          <% if @notifications.any? %>
+            <div class="uk-dropdown uk-dropdown-navbar uk-overflow-container notification-dropdown">
+              <ul class="uk-list uk-nav uk-nav-navbar">
+                <%= render_notifications(@notifications) %>
+              </ul>
+            </div>
+          <% end %>
+        </li>
       </ul>
-  </div>
+    </div>
   </div>
 </nav>
 
@@ -97,26 +111,32 @@
       <li><%= link_to 'Profilom', root_url %></li>
       <li><%= link_to 'Szerkesztés', edit_profile_path(current_user.screen_name) %></li>
       <li><%= link_to 'SVIE tagság', svie_edit_path %></li>
+      <li>
+        <a href="<%= user_notifications_path(current_user.id) %>"
+           class="nav-button <%= 'uk-button-danger' if current_user.has_unopened_notifications? %>">
+          Értesítéseim
+        </a>
+      </li>
+
 
       <li class="uk-nav-header">Közösség</li>
       <li><%= link_to 'Aktív körök', groups_path %></li>
       <li><%= link_to 'Összes kör', all_groups_url %></li>
-      <li class="uk-nav-divider"></li>
       <li><%= link_to 'Szervezeti felépítés', svie_hierarchy_url %></li>
 
       <% if current_user.roles.rvt_member? %>
-      <li class="uk-nav-header">RVT felület</li>
-      <li><%= link_to 'SVIE-be jelentkezettek', admin_svie_index_path %></li>
-      <% if current_user.roles.rvt_leader? %>
-        <li><%= link_to 'Időszakok állítása', seasons_path %></li>
-      <% end %>
+        <li class="uk-nav-header">RVT felület</li>
+        <li><%= link_to 'SVIE-be jelentkezettek', admin_svie_index_path %></li>
+        <% if current_user.roles.rvt_leader? %>
+          <li><%= link_to 'Időszakok állítása', seasons_path %></li>
+        <% end %>
       <% end %>
 
       <% if current_user.roles.svie_admin? %>
-      <li class="uk-nav-header">SVIE admin</li>
-      <li><%= link_to 'Küldöttek számolása', admin_delegates_count_path %></li>
-      <li><%= link_to 'Küldöttek szerkesztése', admin_delegates_path %></li>
-      <li><%= link_to 'Küldöttek export', admin_delegates_export_path %></li>
+        <li class="uk-nav-header">SVIE admin</li>
+        <li><%= link_to 'Küldöttek számolása', admin_delegates_count_path %></li>
+        <li><%= link_to 'Küldöttek szerkesztése', admin_delegates_path %></li>
+        <li><%= link_to 'Küldöttek export', admin_delegates_export_path %></li>
       <% end %>
 
       <li class="uk-nav-divider"></li>

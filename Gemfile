@@ -40,6 +40,8 @@ gem 'dotenv-rails'
 gem 'exception_handler', '~> 0.8.0.0'
 # Use unsplash for nice pictures
 gem 'unsplash'
+# use activity_notification as notification system
+gem 'activity_notification', '~> 1.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

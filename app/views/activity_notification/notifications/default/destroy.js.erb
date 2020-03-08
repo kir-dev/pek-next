@@ -1,0 +1,2 @@
+$(".notification-count").html("<span class=\"uk-badge uk-text-large <%= 'uk-badge-danger' if @target.has_unopened_notifications?(@index_options) %>\"><i class=\"uk-icon-bell<%= '-o' if @target.has_unopened_notifications?(@index_options) %>\"></i><%= @target.unopened_notification_count(@index_options) %></span>");
+$('<%= ".notification-#{@notification.id}" %>').remove();
