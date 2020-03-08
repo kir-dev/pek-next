@@ -23,7 +23,8 @@ class GroupTest < ActionDispatch::IntegrationTest
     evaluation = create(:evaluation)
     group = evaluation.group
 
-    SystemAttribute.stubs(:semester).returns(Semester.new(evaluation.semester).next!)
+    next_semester = Semester.new(evaluation.semester).next!
+    allow(SystemAttribute).to receive(:semester).and_return(next_semester)
 
     assert_not group.inactive?
   end
