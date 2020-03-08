@@ -56,7 +56,6 @@ group :test do
   gem 'factory_bot_rails'
 
   gem 'minitest', '~> 5.10.0'
-  gem 'mocha'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
