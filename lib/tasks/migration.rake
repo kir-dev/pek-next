@@ -4,7 +4,7 @@ namespace :data do
     task new_member_posts: :environment do
       new_member_post_type_names = %w[újonc ujonc Újonc]
       new_member_post_types = PostType.where(name: new_member_post_type_names)
-                                      .where.not(id: Membership::NEW_MEMBER_ID)
+                                      .where.not(id: PostType::NEW_MEMBER_ID)
                                       .includes(:group)
 
       puts "\nThe following post types will be deleted:"
@@ -14,11 +14,11 @@ namespace :data do
       input = STDIN.gets.chomp
       raise 'Aborted!' unless %w[y yes].include? input.downcase
 
-      PostType.update(Membership::NEW_MEMBER_ID, group_id: nil)
+      PostType.update(PostType::NEW_MEMBER_ID, group_id: nil)
 
       new_member_post_type_ids = new_member_post_types.map(&:id)
       Post.where(post_type_id: new_member_post_type_ids)
-          .update_all(pttip_id: Membership::NEW_MEMBER_ID)
+          .update_all(pttip_id: PostType::NEW_MEMBER_ID)
       new_member_post_types.delete_all
     end
   end

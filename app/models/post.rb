@@ -14,6 +14,6 @@ class Post < ApplicationRecord
   validates :membership_id, uniqueness: { scope: :post_type_id }
 
   def leader?
-    post_type_id == Membership::LEADER_POST_ID
+    post_type_id == PostType::LEADER_POST_ID
   end
 end
