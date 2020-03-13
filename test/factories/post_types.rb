@@ -8,22 +8,22 @@ FactoryBot.define do
   end
 
   factory :post_type_leader, parent: :post_type do
-    id { Membership::LEADER_POST_ID }
+    id { PostType::LEADER_POST_ID }
     name { 'Korvezeto' }
   end
 
   factory :post_type_newbie, parent: :post_type do
-    id { Membership::DEFAULT_POST_ID }
+    id { PostType::DEFAULT_POST_ID }
     name { 'Feldolgozas alatt' }
   end
 
   factory :post_type_pek_admin, parent: :post_type do
-    id { Membership::PEK_ADMIN_ID }
+    id { PostType::PEK_ADMIN_ID }
     name { 'PeK admin' }
   end
 
   factory :post_type_new_member, parent: :post_type do
-    id { Membership::NEW_MEMBER_ID }
+    id { PostType::NEW_MEMBER_ID }
     name { 'Ujonc' }
   end
 end

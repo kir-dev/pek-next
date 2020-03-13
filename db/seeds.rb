@@ -7,12 +7,12 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 PostType.create([
-  { id: Membership::FINANCIAL_OFFICER_POST_ID, name: 'gazdaságis' },
-  { id: Membership::LEADER_POST_ID, name: 'körvezető' },
-  { id: Membership::PAST_LEADER_ID, name: 'volt körvezető' },
-  { id: Membership::DEFAULT_POST_ID, name: 'feldolgozás alatt' },
-  { id: Membership::PEK_ADMIN_ID, name: 'PéK admin' },
-  { id: Membership::NEW_MEMBER_ID, name: 'újonc' }
+  { id: PostType::FINANCIAL_OFFICER_POST_ID, name: 'gazdaságis' },
+  { id: PostType::LEADER_POST_ID, name: 'körvezető' },
+  { id: PostType::PAST_LEADER_ID, name: 'volt körvezető' },
+  { id: PostType::DEFAULT_POST_ID, name: 'feldolgozás alatt' },
+  { id: PostType::PEK_ADMIN_ID, name: 'PéK admin' },
+  { id: PostType::NEW_MEMBER_ID, name: 'újonc' }
   ])
 
 # These are not necessary to run the application, but required for full operation
@@ -41,14 +41,14 @@ User.create({ firstname: 'Júzer', lastname: 'Mezei', screen_name: 'mezei123' })
   leader_user = User.create(firstname: item[:firstname], lastname: item[:lastname], screen_name: item[:screen_name])
   leader_membership = Membership.create(group_id: item[:group_id], user_id: leader_user.id)
 
-  Post.create(membership_id: leader_membership.id, post_type_id: Membership::LEADER_POST_ID)
+  Post.create(membership_id: leader_membership.id, post_type_id: PostType::LEADER_POST_ID)
 
   case item[:group_id]
   when Group::SVIE_ID
     kb_membership = Membership.create(group_id: Group::KB_ID, user_id: leader_user.id)
-    Post.create(membership_id: kb_membership.id, post_type_id: Membership::LEADER_POST_ID)
+    Post.create(membership_id: kb_membership.id, post_type_id: PostType::LEADER_POST_ID)
   when Group::KIRDEV_ID
-    Post.create(membership_id: leader_membership.id, post_type_id: Membership::PEK_ADMIN_ID)
+    Post.create(membership_id: leader_membership.id, post_type_id: PostType::PEK_ADMIN_ID)
   when Group::SIMONYI_ID
     Membership.create(group_id: Group::RVT_ID, user_id: leader_user.id)
   end

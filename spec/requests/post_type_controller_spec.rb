@@ -118,7 +118,7 @@ describe PostTypesController do
 
       context 'when the post type is in common types' do
         it 'does not delete the post type' do
-          leader_post_id = Membership::LEADER_POST_ID
+          leader_post_id = PostType::LEADER_POST_ID
 
           delete "/groups/#{group.id}/post_types/#{leader_post_id}"
 
