@@ -8,7 +8,7 @@ FactoryBot.define do
     sequence(:email) { |n| "sanyi_#{n}@example.org" }
     sequence(:cell_phone) { |n| "66677788#{n}" }
     sequence(:neptun) do |n|
-      random_character = (n + 48).chr
+      random_character = (n + 48).chr(Encoding::UTF_8)
       "AAAAA#{random_character}"
     end
     auth_sch_id { SecureRandom.uuid }
@@ -16,7 +16,7 @@ FactoryBot.define do
     trait :with_primary_membership do
       svie_member_type { 'RENDESTAG' }
       after(:build) do |user|
-        user.svie_primary_membership = create(:membership, user: user).id
+        user.svie_primary_membership = create(:membership, :for_svie_group, user: user).id
       end
     end
 
