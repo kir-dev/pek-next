@@ -54,6 +54,7 @@ RSpec.configure do |config|
     FactoryBot.create(:group_svie)
     FactoryBot.create(:group_rvt)
     FactoryBot.create(:group_kir_dev)
+    FactoryBot.create(:system_attribute_semester)
   end
 
   config.after(:suite) do
