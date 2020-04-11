@@ -9,19 +9,15 @@
           <h2 class="uk-h2">Kör adatai</h2>
           <%= render 'group_info'%>
         </div>
-        <div class="uk-width-medium-1-4">
-          <ul class="uk-list uk-list-space">
-            <li>
-              <%= link_to 'Közösségi történet', group_history_path(@viewmodel.group), class: 'uk-button uk-button-primary uk-width-1-1'%>
-            </li>
-            <li><%= @viewmodel.edit_group_button %></li>
-            <li><%= @viewmodel.edit_group_delegates_button %></li>
-            <li><%= @viewmodel.edit_group_post_types_button %></li>
-            <li><%= @viewmodel.leader_info_button %></li>
-            <li><%= @viewmodel.join_group_button %></li>
-            <li><%= @viewmodel.new_evaluation_button %></li>
-            <li><%= @viewmodel.resort_leader_evaluation_button %></li>
-          </ul>
+        <div class="uk-width-medium-1-4 uk-flex uk-flex-column">
+          <%= link_to 'Közösségi történet', group_history_path(@viewmodel.group), class: 'uk-button uk-button-primary uk-width-1-1'%>
+          <%= @viewmodel.edit_group_button %>
+          <%= @viewmodel.edit_group_delegates_button %>
+          <%= @viewmodel.edit_group_post_types_button %>
+          <%= @viewmodel.leader_info_button %>
+          <%= @viewmodel.join_group_button %>
+          <%= @viewmodel.new_evaluation_button %>
+          <%= @viewmodel.resort_leader_evaluation_button %>
         </div>
       </div>
 
