@@ -33,7 +33,7 @@ class MembershipViewModelDecorator < Draper::Decorator
   def leader_info_button
     return unless membership_view_model.leader?
 
-    button_tag('Help me!', class: 'uk-button uk-button-primary uk-width-1-1',
+    button_tag('Help me!', class: 'uk-button uk-button-primary uk-width-1-1 uk-margin-top',
                            'data-uk-modal': '{target:\'#info\'}')
   end
 
@@ -75,6 +75,6 @@ class MembershipViewModelDecorator < Draper::Decorator
   private
 
   def styled_link_to(name, path)
-    link_to(name, path, class: 'uk-button uk-button-primary uk-width-1-1')
+    link_to(name, path, class: 'uk-button uk-button-primary uk-width-1-1 uk-margin-top')
   end
 end
