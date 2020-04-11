@@ -71,20 +71,31 @@ class Membership < ApplicationRecord
   end
 
   def archive!
-    self.archived = Time.now
+    self.archived = inactive? ? end_date : Time.now
 
     user.update(delegated: false) if user.delegated && user.primary_membership == self
     save
   end
 
   def unarchive!
+    destroy_default_post
     self.archived = nil
     save
   end
 
   def accept!
-    newbie_post = posts.find { |post| post.post_type.id == PostType::DEFAULT_POST_ID }
-    newbie_post.destroy
+    destroy_default_post
     post_types << PostType.find(PostType::NEW_MEMBER_ID)
+  end
+
+  def can_request_unarchivation?
+    archived? && !has_post?(PostType::DEFAULT_POST_ID)
+  end
+
+  private
+
+  def destroy_default_post
+    newbie_post = posts.find { |post| post.post_type.id == PostType::DEFAULT_POST_ID }
+    newbie_post&.destroy
   end
 end
