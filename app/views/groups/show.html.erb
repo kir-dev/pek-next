@@ -34,7 +34,7 @@
         <li>
           <a class="uk-button uk-text-muted" href="#inactive">Öregtagok (<%= @viewmodel.inactive_members_count%>)</a>
         </li>
-        <% if @viewmodel.group.archived_members_visible %>
+        <% if @viewmodel.group.archived_members_visible ||  @viewmodel.leader?  %>
           <li>
             <a class="uk-button uk-text-muted" href="#archived">Archivált tagok (<%= @viewmodel.archived_members_count%>)</a>
           </li>
@@ -48,7 +48,7 @@
         <li id="inactive_users">
           <%= render 'inactive_users' %>
         </li>
-        <% if @viewmodel.group.archived_members_visible %>
+        <% if @viewmodel.group.archived_members_visible || @viewmodel.leader?%>
           <li id="archived_users">
             <%= render 'archived_users' %>
           </li>

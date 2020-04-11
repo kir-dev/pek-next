@@ -20,3 +20,8 @@
 *.DS_Store
 .byebug_history
 public/uploads
+
+.idea/*
+coverage/*
+.rakeTasks
+.generators

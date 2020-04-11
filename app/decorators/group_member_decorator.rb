@@ -70,7 +70,7 @@ class GroupMemberDecorator < Draper::Decorator
   end
 
   def unarchive_user_button(group)
-    return unless membership.archived? && current_user.roles.pek_admin?
+    return unless membership.archived? && current_user.leader_of?(current_group)
 
     button_to 'Archiválás visszavonása',
               group_membership_unarchive_path(group.id, membership_id),
