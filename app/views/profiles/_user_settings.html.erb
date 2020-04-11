@@ -1,100 +1,119 @@
 <h2>Adatok</h2>
 
-<%= form_for @user, as: :profile, url: profile_path(@user.screen_name), html: {class: 'uk-form'} do |f| %>
-    <%= render 'form_errors', errors: f.object.errors %>
-
-    <table class="uk-table">
-      <tr>
-        <th></th>
-        <th></th>
-        <th class="uk-text-center">Láthatóság</th>
-      </tr>
-      <tr>
-        <td><%= f.label :lastname, class: "form-label-required" %></td>
-        <td><%= f.text_field :lastname, class: 'uk-input uk-width-1-1', required: true %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :firstname, class: "form-label-required" %></td>
-        <td><%= f.text_field :firstname, class: 'uk-input uk-width-1-1', required: true %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :nickname %></td>
-        <td><%= f.text_field :nickname, class: 'uk-input uk-width-1-1' %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :gender %></td>
-        <td><%= f.select :gender,
-                  options_for_select(Rails.configuration.x.genders.invert, f.object.gender),
-                  {}, class: 'uk-select uk-width-1-1' %>
-        </td>
-        <td class="uk-text-center">
-          <%= check_box_tag 'private', 'GENDER', Privacy.for(@user, 'GENDER').visible,
-                class: 'privacy-setting', user: @user.id %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :date_of_birth %></td>
-        <td><%= f.text_field :date_of_birth, class: 'uk-input uk-width-1-1', :data => { 'uk-datepicker' => "{format:'YYYY-MM-DD'}" } %></td>
-        <td class="uk-text-center">
-          <%= check_box_tag 'private', 'DATE_OF_BIRTH', Privacy.for(@user, 'DATE_OF_BIRTH').visible,
-                class: 'privacy-setting', user: @user.id %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :home_address %></td>
-        <td><%= f.text_field :home_address, class: 'uk-input uk-width-1-1' %></td>
-        <td class="uk-text-center">
-          <%= check_box_tag 'private', 'HOME_ADDRESS', Privacy.for(@user, 'HOME_ADDRESS').visible,
-        class: 'privacy-setting', user: @user.id %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :email %></td>
-        <td><%= f.text_field :email, class: 'uk-input uk-width-1-1' %></td>
-        <td class="uk-text-center">
-          <%= check_box_tag 'private', 'EMAIL', Privacy.for(@user, 'EMAIL').visible,
-                class: 'privacy-setting', user: @user.id %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :cell_phone %></td>
-        <td><%= f.text_field :cell_phone, class: 'uk-input uk-width-1-1' %></td>
-        <td class="uk-text-center">
-          <%= check_box_tag 'private', 'CELL_PHONE', Privacy.for(@user, 'CELL_PHONE').visible,
-                class: 'privacy-setting', user: @user.id %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :webpage %></td>
-        <td><%= f.text_field :webpage, class: 'uk-input uk-width-1-1' %></td>
-        <td class="uk-text-center">
-          <%= check_box_tag 'private', 'WEBPAGE', Privacy.for(@user, 'WEBPAGE').visible,
-                class: 'privacy-setting', user: @user.id %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :dormitory %></td>
-        <td><%= f.select :dormitory,
-                  options_for_select(Rails.configuration.x.dorms.invert, f.object.dormitory),
-                  {}, class: 'uk-select uk-width-1-1' %>
-        </td>
-        <td class="uk-text-center">
-          <%= check_box_tag 'private', 'ROOM_NUMBER', Privacy.for(@user, 'ROOM_NUMBER').visible,
-                class: 'privacy-setting', user: @user.id %></td>
-      </tr>
-
-      <tr>
-        <td><%= f.label :room %></td>
-        <td><%= f.text_field :room, class: 'uk-input uk-width-1-1' %></td>
-      </tr>
-    </table>
-
-    <div class="uk-text-center">
-        <div class="inline-block">
-            <input class="uk-button" type="submit" value="Módosítás" name="submitButton"/>
-        </div>
+<%= form_for @user, as: :profile, url: profile_path(@user.screen_name), html: {class: 'uk-form uk-form-horizontal'} do |f| %>
+  <%= render 'form_errors', errors: f.object.errors %>
+  <div class="uk-form-row">
+    <%= f.label :lastname, class: "uk-form-label form-label-required" %>
+    <div class="uk-form-controls profile-control-public">
+      <%= f.text_field :lastname, class: 'uk-input uk-width-1-1', required: true %>
     </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :firstname, class: "uk-form-label form-label-required" %>
+    <div class="uk-form-controls profile-control-public">
+      <%= f.text_field :firstname, class: 'uk-input uk-width-1-1', required: true %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :nickname, class: "uk-form-label" %>
+    <div class="uk-form-controls profile-control-public">
+      <%= f.text_field :nickname, class: 'uk-input uk-width-1-1' %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :gender, class: "uk-form-label" %>
+    <div class="uk-form-controls uk-form-controls-text">
+      <%= f.select :gender,
+                    options_for_select(Rails.configuration.x.genders.invert, f.object.gender),
+                    {}, class: 'uk-select uk-width-8-10' %>
+
+      <%= f.label :private, 'Látszik' %>
+      <%= check_box_tag 'private', 'GENDER', Privacy.for(@user, 'GENDER').visible,
+              class: 'privacy-setting', user: @user.id %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :date_of_birth, class: "uk-form-label" %>
+    <div class="uk-form-controls uk-form-controls-text">
+      <%= f.text_field :date_of_birth, class: 'uk-input uk-width-8-10', :data => { 'uk-datepicker' => "{format:'YYYY-MM-DD'}" } %>
+
+      <%= f.label :private, 'Látszik' %>
+      <%= check_box_tag 'private', 'DATE_OF_BIRTH', Privacy.for(@user, 'DATE_OF_BIRTH').visible,
+                class: 'privacy-setting', user: @user.id %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :home_address, class: "uk-form-label" %>
+    <div class="uk-form-controls uk-form-controls-text">
+      <%= f.text_field :home_address, class: 'uk-input uk-width-8-10' %>
+
+      <%= f.label :private, 'Látszik' %>
+      <%= check_box_tag 'private', 'HOME_ADDRESS', Privacy.for(@user, 'HOME_ADDRESS').visible,
+                class: 'privacy-setting', user: @user.id %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :email, class: "uk-form-label" %>
+    <div class="uk-form-controls uk-form-controls-text">
+      <%= f.text_field :email, class: 'uk-input uk-width-8-10' %>
+
+      <%= f.label :private, 'Látszik' %>
+      <%= check_box_tag 'private', 'EMAIL', Privacy.for(@user, 'EMAIL').visible,
+                class: 'privacy-setting', user: @user.id %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :cell_phone, class: "uk-form-label" %>
+    <div class="uk-form-controls uk-form-controls-text">
+      <%= f.text_field :cell_phone, class: 'uk-input uk-width-8-10' %>
+
+      <%= f.label :private, 'Látszik' %>
+      <%= check_box_tag 'private', 'CELL_PHONE', Privacy.for(@user, 'CELL_PHONE').visible,
+                class: 'privacy-setting', user: @user.id %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :webpage, class: "uk-form-label" %>
+    <div class="uk-form-controls uk-form-controls-text">
+      <%= f.text_field :webpage, class: 'uk-input uk-width-8-10' %>
+
+      <%= f.label :private, 'Látszik' %>
+      <%= check_box_tag 'private', 'WEBPAGE', Privacy.for(@user, 'WEBPAGE').visible,
+                class: 'privacy-setting', user: @user.id %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :dormitory, class: "uk-form-label" %>
+    <div class="uk-form-controls uk-form-controls-text">
+      <%= f.select :dormitory,
+                    options_for_select(Rails.configuration.x.dorms.invert, f.object.dormitory),
+                    {}, class: 'uk-select uk-width-8-10' %>
+
+      <%= f.label :private, 'Látszik' %>
+      <%= check_box_tag 'private', 'ROOM_NUMBER', Privacy.for(@user, 'ROOM_NUMBER').visible,
+                class: 'privacy-setting', user: @user.id %>
+    </div>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :room, class: "uk-form-label" %>
+    <div class="uk-form-controls profile-control-public">
+      <%= f.text_field :room, class: 'uk-input uk-width-1-1' %>
+    </div>
+  </div>
+
+  <div class="uk-text-center uk-margin-top">
+    <div class="inline-block">
+      <input class="uk-button" type="submit" value="Módosítás" name="submitButton" />
+    </div>
+  </div>
 <% end %>

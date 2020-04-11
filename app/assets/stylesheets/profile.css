@@ -1,3 +1,9 @@
 .uk-navbar {
 	background-color: rgb(70,201,202);
 }
+
+@media screen and (min-width: 600px) {
+	.profile-control-public {
+		margin-right: 50px;
+	}
+}
