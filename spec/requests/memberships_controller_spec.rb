@@ -1,6 +1,36 @@
 # frozen_string_literal: true
 
 describe MembershipsController do
+  describe '#create' do
+    context 'when it is not permitted' do
+      it 'returns forbidden' do
+        membership = create(:membership)
+        login_as(membership.user)
+
+        expect do
+          post "/groups/#{membership.group.id}/memberships"
+        end.not_to change { Membership.count }
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    it 'creates the membership for the user' do
+      group = create(:group)
+      user  = create(:user)
+      login_as(user)
+
+      expect do
+        post "/groups/#{group.id}/memberships"
+      end.to change { group.leader.user.notifications.count }.by 1
+
+      membership = Membership.last
+      expect(membership.group).to eq group
+      expect(membership.user).to eq user
+      expect(response).to redirect_to group_path(group)
+    end
+  end
+
   shared_context 'current_user is the group leader' do
     let(:group)   { membership.group }
     before(:each) { login_as(group.leader.user) }
@@ -19,49 +49,11 @@ describe MembershipsController do
   end
 
   describe '#create' do
-    context 'when membership is not created and current_user is not a member' do
-      include_context 'current_user is not a member'
-
-      it 'creates membership' do
-        post "/groups/#{group.id}/memberships"
-        user.memberships.reload
-
-        expect(group.leader.user.notifications.count).to be 1
-        expect(user.membership_for(group)).not_to be_nil
-        expect(response).to redirect_to group_path(group)
-      end
-    end
-
-    context 'when membership already created and current_user is member' do
-      include_context 'current_user is a member'
-      let(:membership) { create(:membership) }
-
-      it 'it returns forbidden' do
-        post "/groups/#{group.id}/memberships"
-
-        expect(Membership.where(group: group, user: user).count).to eq(1)
-        expect(response).to have_http_status(:forbidden)
-      end
-    end
-
-    context 'when membership is archived and current_user is member' do
-      include_context 'current_user is a member'
-      let(:membership) { create(:membership, :archived) }
-
-      it 'notifies the group leader' do
-        expect_any_instance_of(Membership).to receive(:notify).and_call_original
-
-        expect {
-          post "/groups/#{membership.group.id}/memberships", xhr: true
-        }.to change { group.leader.user.notifications.count }.by(1)
-      end
-    end
-
     context 'when membership is archived, newbie and current_user is member' do
       include_context 'current_user is a member'
       let(:membership) { create(:membership, :archived, :newbie) }
 
-      it 'it returns forbidden' do
+      xit 'it returns forbidden' do
         expect_any_instance_of(Membership).not_to receive(:notify).and_call_original
 
         expect {
