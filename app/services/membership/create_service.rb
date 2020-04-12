@@ -21,10 +21,10 @@ class Membership::CreateService
 
     if membership.present?
       unarchive_membership
-      membership.notify(:users, key: 'membership.create', notifier: user)
     else
       create_membership
     end
+    membership.notify(:users, key: 'membership.create', notifier: user)
   end
 
   private

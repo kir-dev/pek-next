@@ -7,7 +7,6 @@ module Notifications
 
     included do
       acts_as_notifiable :users, targets: :targets
-      after_create :notify_from_create
 
       after_update :notify_from_inactivate, if: :end_date_changed?
       after_update :notify_from_archive, if: :archived_changed?
@@ -32,10 +31,6 @@ module Notifications
     end
 
     private
-
-    def notify_from_create
-      notify :users, key: 'membership.create', notifier: user
-    end
 
     def notify_from_inactivate
       return if end_date.nil?

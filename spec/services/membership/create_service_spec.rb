@@ -58,5 +58,6 @@ describe Membership::CreateService do
     expect(membership).to be_newbie
     expect(membership.group).to eq(group)
     expect(membership.user).to eq(user)
+    expect(group.leader.user.notifications.count).to eq(1)
   end
 end
