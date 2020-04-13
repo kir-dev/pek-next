@@ -1,5 +1,5 @@
 class EntryRequestsController < ApplicationController
-  before_action :require_leader
+  before_action :require_resort_or_group_leader
 
   def update
     user = User.find params[:user_id]
