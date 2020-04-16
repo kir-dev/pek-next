@@ -1,14 +1,12 @@
 class MembershipsController < ApplicationController
-  before_action :require_leader, only: %i[inactivate destroy reactivate archive accept unarchive]
+  before_action :require_leader, except: :create
 
   def create
-    @group = Group.find(params[:group_id])
-    if @group.user_can_join?(current_user)
-      CreateMembership.call(@group, current_user)
-      redirect_back(fallback_location: group_path(@group))
-    else
-      handle_unarchivation_request
-    end
+    Membership::CreateService.call(group, current_user)
+
+    redirect_back(fallback_location: group_path(group))
+  rescue Membership::CreateService::AlreadyMember, Membership::CreateService::GroupNotReceivingNewMembers
+    forbidden_page
   end
 
   def archive
@@ -42,18 +40,7 @@ class MembershipsController < ApplicationController
 
   private
 
-  def handle_unarchivation_request
-    membership = @group.member?(current_user)
-    if membership && membership.can_request_unarchivation?
-      request_unarchivation(membership)
-      redirect_back(fallback_location: group_path(@group))
-    else
-      forbidden_page
-    end
-  end
-
-  def request_unarchivation(membership)
-    CreatePost.call(membership.group, membership, PostType::DEFAULT_POST_ID)
-    membership.notify(:users, key: 'membership.create', notifier: current_user)
+  def group
+    @group ||= Group.find(params[:group_id])
   end
 end
