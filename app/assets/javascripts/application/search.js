@@ -23,6 +23,8 @@ var search = (function(Helpers, Rx, $) {
     }
 
     $("#show-more").click(showMore);
+
+    document.addEventListener('keyup', focusSearchField);
   }
 
   function updateSuggestions(query) {
@@ -50,6 +52,13 @@ var search = (function(Helpers, Rx, $) {
         updateSuggestions(query);
         $("#show-more").click(showMore);
       });
+    }
+  }
+
+  function focusSearchField(event) {
+    if (event.key == '/') {
+      const element = document.getElementById('search-field');
+      element.focus();
     }
   }
 
