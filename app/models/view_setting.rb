@@ -3,10 +3,14 @@
 # Table name: view_settings
 #
 #  id             :integer          not null, primary key
-#  user_id        :integer
 #  items_per_page :integer
-#  show_pictures  :boolean          default(TRUE)
 #  listing        :integer          default("list")
+#  show_pictures  :boolean          default(TRUE)
+#  user_id        :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 
 class ViewSetting < ApplicationRecord

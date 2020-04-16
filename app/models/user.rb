@@ -3,38 +3,52 @@
 # Table name: users
 #
 #  id                      :bigint           not null, primary key
+#  birth_name              :string
+#  cell_phone              :string(50)
+#  date_of_birth           :date
+#  delegated               :boolean          default(FALSE), not null
+#  dormitory               :string(50)
 #  email                   :string(64)
-#  neptun                  :string
+#  est_grad                :string(10)
 #  firstname               :text             not null
+#  gender                  :string(50)       default("NOTSPECIFIED"), not null
+#  home_address            :string(255)
+#  last_login              :datetime
 #  lastname                :text             not null
+#  metascore               :integer
+#  mother_name             :string(100)
+#  neptun                  :string
 #  nickname                :text
+#  password                :string(28)
+#  photo_path              :string(255)
+#  place_of_birth          :string
+#  room                    :string(255)
+#  salt                    :string(12)
+#  screen_name             :string(50)       not null
+#  show_recommended_photo  :boolean          default(FALSE), not null
+#  status                  :string(8)        default("INACTIVE"), not null
+#  student_status          :string(50)       default("UNKNOWN"), not null
 #  svie_member_type        :string(255)      default("NEMTAG"), not null
 #  svie_primary_membership :bigint
-#  delegated               :boolean          default(FALSE), not null
-#  show_recommended_photo  :boolean          default(FALSE), not null
-#  screen_name             :string(50)       not null
-#  date_of_birth           :date
-#  gender                  :string(50)       default("NOTSPECIFIED"), not null
-#  student_status          :string(50)       default("UNKNOWN"), not null
-#  mother_name             :string(100)
-#  photo_path              :string(255)
 #  webpage                 :string(255)
-#  cell_phone              :string(50)
-#  home_address            :string(255)
-#  est_grad                :string(10)
-#  dormitory               :string(50)
-#  room                    :string(255)
-#  status                  :string(8)        default("INACTIVE"), not null
-#  password                :string(28)
-#  salt                    :string(12)
-#  last_login              :datetime
+#  created_at              :datetime
+#  updated_at              :datetime
 #  auth_sch_id             :string
 #  bme_id                  :string
-#  created_at              :datetime
-#  metascore               :integer
-#  place_of_birth          :string
-#  birth_name              :string
-#  updated_at              :datetime
+#
+# Indexes
+#
+#  users_usr_auth_sch_id_key  (auth_sch_id) UNIQUE
+#  users_usr_bme_id_key       (bme_id) UNIQUE
+#  users_usr_id_idx           (id) UNIQUE
+#  users_usr_neptun_idx       (upper((neptun)::text)) UNIQUE
+#  users_usr_neptun_key       (neptun) UNIQUE
+#  users_usr_screen_name_idx  (upper((screen_name)::text)) UNIQUE
+#  users_usr_screen_name_key  (screen_name) UNIQUE
+#
+# Foreign Keys
+#
+#  users_main_group_fkey  (svie_primary_membership => memberships.id)
 #
 
 class User < ApplicationRecord

@@ -3,9 +3,13 @@
 # Table name: post_types
 #
 #  id             :bigint           not null, primary key
-#  group_id       :bigint
-#  name           :string(30)       not null
 #  delegated_post :boolean          default(FALSE)
+#  name           :string(30)       not null
+#  group_id       :bigint
+#
+# Foreign Keys
+#
+#  poszttipus_opc_csoport  (group_id => groups.id) ON DELETE => cascade ON UPDATE => cascade
 #
 
 class PostType < ApplicationRecord

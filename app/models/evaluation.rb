@@ -4,20 +4,33 @@
 #
 #  id                   :bigint           not null, primary key
 #  entry_request_status :string(255)
-#  timestamp            :datetime
-#  point_request_status :string(255)
-#  semester             :string(9)        not null
+#  explanation          :text
+#  is_considered        :boolean          default(FALSE), not null
 #  justification        :text             not null
 #  last_evaulation      :datetime
 #  last_modification    :datetime
-#  reviewer_user_id     :bigint
-#  group_id             :bigint
-#  creator_user_id      :bigint
-#  principle            :text             default(""), not null
 #  next_version         :bigint
-#  explanation          :text
 #  optlock              :integer          default(0), not null
-#  is_considered        :boolean          default(FALSE), not null
+#  point_request_status :string(255)
+#  principle            :text             default(""), not null
+#  semester             :string(9)        not null
+#  timestamp            :datetime
+#  creator_user_id      :bigint
+#  group_id             :bigint
+#  reviewer_user_id     :bigint
+#
+# Indexes
+#
+#  ert_semester_idx  (semester)
+#  next_version_idx  (next_version)
+#  unique_idx        (group_id,semester,next_version) UNIQUE
+#
+# Foreign Keys
+#
+#  fk807db18871c0d156  (creator_user_id => users.id)
+#  fk807db18879696582  (group_id => groups.id)
+#  fk807db188b31cf015  (reviewer_user_id => users.id)
+#  fk_next_version     (next_version => evaluations.id) ON DELETE => nullify
 #
 
 class Evaluation < ApplicationRecord

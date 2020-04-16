@@ -7,6 +7,11 @@
 #  evaluation_id :bigint           not null
 #  user_id       :bigint
 #
+# Foreign Keys
+#
+#  fk_ertekeles_id     (evaluation_id => evaluations.id) ON DELETE => cascade
+#  fkaa1034cd6958e716  (user_id => users.id)
+#
 
 class PointRequest < ApplicationRecord
   belongs_to :evaluation

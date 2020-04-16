@@ -3,11 +3,15 @@
 # Table name: principles
 #
 #  id             :integer          not null, primary key
-#  evaluation_id  :integer
-#  name           :string
 #  description    :string
-#  type           :string
 #  max_per_member :integer
+#  name           :string
+#  type           :string
+#  evaluation_id  :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (evaluation_id => evaluations.id)
 #
 
 class Principle < ApplicationRecord

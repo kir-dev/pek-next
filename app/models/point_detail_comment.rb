@@ -4,10 +4,20 @@
 #
 #  id              :integer          not null, primary key
 #  comment         :text
-#  user_id         :integer
-#  point_detail_id :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  point_detail_id :integer
+#  user_id         :integer
+#
+# Indexes
+#
+#  index_point_detail_comments_on_point_detail_id  (point_detail_id)
+#  index_point_detail_comments_on_user_id          (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (point_detail_id => point_details.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 class PointDetailComment < ApplicationRecord

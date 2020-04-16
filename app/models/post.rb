@@ -6,6 +6,15 @@
 #  membership_id :bigint
 #  post_type_id  :bigint
 #
+# Indexes
+#
+#  poszt_fk_idx  (membership_id)
+#
+# Foreign Keys
+#
+#  poszt_grp_member_fk  (membership_id => memberships.id) ON DELETE => cascade ON UPDATE => cascade
+#  poszt_pttip_fk       (post_type_id => post_types.id) ON DELETE => cascade ON UPDATE => cascade
+#
 
 class Post < ApplicationRecord
   belongs_to :post_type

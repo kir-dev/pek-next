@@ -3,9 +3,13 @@
 # Table name: privacies
 #
 #  id             :bigint           not null, primary key
-#  user_id        :bigint           not null
 #  attribute_name :string(64)       not null
 #  visible        :boolean          default(FALSE), not null
+#  user_id        :bigint           not null
+#
+# Foreign Keys
+#
+#  usr_private_attrs_usr_id_fkey  (user_id => users.id)
 #
 
 class Privacy < ApplicationRecord
