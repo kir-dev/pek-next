@@ -20,4 +20,4 @@ RUN bundle install --deployment --without test development --retry 3
 COPY . .
 
 # Build assets
-RUN bundle exec rake assets:precompile
+RUN RAILS_ENV=production bundle exec rake assets:precompile
