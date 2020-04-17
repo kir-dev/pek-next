@@ -3,20 +3,30 @@
 # Table name: groups
 #
 #  id                       :bigint           not null, primary key
-#  name                     :text             not null
-#  grp_type                 :string(20)
-#  parent_id                :bigint
-#  state                    :string           default("akt")
-#  description              :text
-#  webpage                  :string(64)
-#  maillist                 :string(64)
-#  head                     :string(48)
-#  founded                  :integer
-#  issvie                   :boolean          default(FALSE), not null
-#  delegate_count           :integer
-#  users_can_apply          :boolean          default(TRUE), not null
 #  archived_members_visible :boolean
+#  delegate_count           :integer
+#  description              :text
+#  founded                  :integer
+#  grp_type                 :string(20)
+#  head                     :string(48)
+#  issvie                   :boolean          default(FALSE), not null
+#  maillist                 :string(64)
+#  name                     :text             not null
+#  state                    :string           default("akt")
 #  type                     :string
+#  users_can_apply          :boolean          default(TRUE), not null
+#  webpage                  :string(64)
+#  parent_id                :bigint
+#
+# Indexes
+#
+#  groups_grp_id_idx    (id) UNIQUE
+#  idx_groups_grp_name  (name)
+#  idx_groups_grp_type  (grp_type)
+#
+# Foreign Keys
+#
+#  $1  (parent_id => groups.id) ON DELETE => nullify ON UPDATE => cascade
 #
 
 class Group < ApplicationRecord

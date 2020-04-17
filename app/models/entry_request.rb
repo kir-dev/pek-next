@@ -8,6 +8,15 @@
 #  evaluation_id :bigint           not null
 #  user_id       :bigint
 #
+# Indexes
+#
+#  bel_tipus_idx  (entry_type)
+#
+# Foreign Keys
+#
+#  fk4e301ac36958e716  (user_id => users.id)
+#  fk_ertekeles_id     (evaluation_id => evaluations.id) ON DELETE => cascade
+#
 
 class EntryRequest < ApplicationRecord
   belongs_to :evaluation

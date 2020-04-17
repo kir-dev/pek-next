@@ -3,11 +3,21 @@
 # Table name: memberships
 #
 #  id         :bigint           not null, primary key
+#  archived   :date
+#  end_date   :date
+#  start_date :date
 #  group_id   :bigint
 #  user_id    :bigint
-#  start_date :date
-#  end_date   :date
-#  archived   :date
+#
+# Indexes
+#
+#  membership_usr_fk_idx  (user_id)
+#  unique_memberships     (group_id,user_id) UNIQUE
+#
+# Foreign Keys
+#
+#  grp_membership_grp_id_fkey  (group_id => groups.id) ON DELETE => cascade ON UPDATE => cascade
+#  grp_membership_usr_id_fkey  (user_id => users.id) ON DELETE => cascade ON UPDATE => cascade
 #
 
 class Membership < ApplicationRecord

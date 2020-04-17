@@ -3,9 +3,14 @@
 # Table name: point_details
 #
 #  id               :integer          not null, primary key
-#  principle_id     :integer
-#  point_request_id :integer
 #  point            :integer
+#  point_request_id :integer
+#  principle_id     :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (point_request_id => point_requests.id)
+#  fk_rails_...  (principle_id => principles.id)
 #
 
 class PointDetail < ApplicationRecord
