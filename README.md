@@ -1,6 +1,6 @@
 # PéK-Next
 
-**The administration system for Schönherz Student Hostel and [SVIE](http://svie.hu/)**
+**The administration system for Schönherz Student Hostel and [SVIE](https://svie.hu/)**
 
 [![Build Status](https://travis-ci.org/kir-dev/pek-next.png?branch=master)](https://travis-ci.org/kir-dev/pek-next)
 [![Code Climate](https://codeclimate.com/github/kir-dev/pek-next.png)](https://codeclimate.com/github/kir-dev/pek-next)
@@ -153,7 +153,7 @@ source ~/.bashrc
 
 _Restart your terminal_
 
-by [Kir-Dev Team](http://kir-dev.sch.bme.hu/)
+by [Kir-Dev Team](https://kir-dev.sch.bme.hu/)
 
 ### Special thanks for
 

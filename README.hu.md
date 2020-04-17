@@ -1,6 +1,6 @@
 # PéK-Next
 
-**A Schönherz Kollégium és a [SVIE](http://svie.hu/) nyilvántartó rendszere**
+**A Schönherz Kollégium és a [SVIE](https://svie.hu/) nyilvántartó rendszere**
 
 [![Build Status](https://travis-ci.org/kir-dev/pek-next.png?branch=master)](https://travis-ci.org/kir-dev/pek-next)
 [![Code Climate](https://codeclimate.com/github/kir-dev/pek-next.png)](https://codeclimate.com/github/kir-dev/pek-next)
