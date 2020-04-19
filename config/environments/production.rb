@@ -84,7 +84,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  routes.default_url_options.[:host] = 'pek.sch.bme.hu'
+  routes.default_url_options[:host] = 'pek.sch.bme.hu'
 
   config.ssl_options = { redirect: { host: 'pek.sch.bme.hu' } }
 end
