@@ -39,13 +39,17 @@ describe ProfilesController do
 
   describe '#update' do
     it 'updates the user' do
-      patch "/profiles/#{user.screen_name}", profile: { firstname: 'Happy' }
+      patch "/profiles/#{user.screen_name}", params: {
+        profile: { firstname: 'Happy' }
+      }
 
       expect(user.reload.firstname).to eq 'Happy'
     end
 
     it 'redirects to profile path' do
-      patch "/profiles/#{user.screen_name}", profile: { firstname: 'Happy' }
+      patch "/profiles/#{user.screen_name}", params: {
+        profile: { firstname: 'Happy' }
+      }
 
       expect(response).to redirect_to(profiles_me_path)
     end

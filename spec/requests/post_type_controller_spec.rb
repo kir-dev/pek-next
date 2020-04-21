@@ -43,7 +43,9 @@ describe PostTypesController do
         group = create(:group)
         login_as(user)
 
-        post "/groups/#{group.id}/post_types", post_type: { name: 'fontos' }
+        post "/groups/#{group.id}/post_types", params: {
+          post_type: { name: 'fontos' }
+        }
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -55,21 +57,27 @@ describe PostTypesController do
       before(:each) { login_as(user) }
 
       it 'redirects back' do
-        post "/groups/#{group.id}/post_types", post_type: { name: 'fontos' }
+        post "/groups/#{group.id}/post_types", params: {
+          post_type: { name: 'fontos' }
+        }
 
         expect(response).to redirect_to(group_path(group))
       end
 
       it 'creates a new post type' do
         post_type_count = PostType.count
-        post "/groups/#{group.id}/post_types", post_type: { name: 'nagyon fontos' }
+        post "/groups/#{group.id}/post_types", params: {
+          post_type: { name: 'nagyon fontos' }
+        }
 
         expect(PostType.count).to equal(post_type_count + 1)
       end
 
       context 'and empty name is provided' do
         it 'redirects back with error message' do
-          post "/groups/#{group.id}/post_types", post_type: { name: '' }
+          post "/groups/#{group.id}/post_types", params: {
+            post_type: { name: '' }
+          }
 
           expect(response).to redirect_to(group_path(group))
           expect(flash[:alert]).to be_present
@@ -80,7 +88,9 @@ describe PostTypesController do
         it 'returns forbidden' do
           other_group = create(:group)
 
-          post "/groups/#{other_group.id}/post_types", post_type: { name: 'fontos' }
+          post "/groups/#{other_group.id}/post_types", params: {
+            post_type: { name: 'fontos' }
+          }
 
           expect(response).to have_http_status(:forbidden)
         end
