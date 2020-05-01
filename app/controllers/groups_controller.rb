@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :require_leader, only: %i[edit update]
+  before_action :require_pek_admin, only: %i[new create]
 
   def index
     active_groups = Group.order(:name).reject(&:inactive?)
@@ -29,11 +30,26 @@ class GroupsController < ApplicationController
     end
   end
 
+  def new
+    @parent_groups = Group.type_resort
+  end
+
+  def create
+    leader = User.find(params[:selected_user_id])
+    group  = CreateGroup.call(create_params, leader, current_user)
+
+    redirect_to group_path(group)
+  end
+
   private
 
   def update_params
     params.require(:group)
           .permit(:name, :description, :webpage, :founded, :maillist,
                   :users_can_apply, :archived_members_visible)
+  end
+
+  def create_params
+    params.require(:group).permit(%i[name parent_id issvie type])
   end
 end

@@ -1,0 +1,55 @@
+<%= form_for Group.new, url: groups_path,
+             html:           { class: 'uk-form uk-form-horizontal uk-margin-top' } do |f| %>
+  <%= render 'form_errors', errors: f.object.errors %>
+
+  <div class="uk-form-row">
+    <%= f.label :name, 'Kör neve', class: 'uk-width-1-1 uk-form-label form-label-required' %>
+    <%= f.text_field :name, required: true, autofocus: true, class: 'uk-width-1-1 uk-form-large', placeholder: 'Kör neve', autocomplete: "off" %>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :parent_id, class: 'uk-form-label form-label-required' %>
+    <%= f.select :parent_id, @parent_groups.map { |group| [group.name, group.id] },
+                 {}, { class: 'uk-width-1-1 uk-select' } %>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :type, class: 'uk-form-label form-label-required' %>
+    <%= f.select :type, Group.types.values,
+                 {}, { class: 'uk-width-1-1 uk-select' } %>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :group_leader, 'Körvez neve', class: 'uk-width-1-1 uk-form-label form-label-required' %>
+    <%= text_field_tag :group_leader_name, nil, required: true, autofocus: true, class: 'uk-width-1-1 uk-form-large', placeholder: 'Körvez neve', autocomplete: "off" %>
+  </div>
+
+  <div class="uk-form-row">
+    <%= f.label :issvie, 'SVIE?', class: 'uk-width-1-1 uk-form-label form-label-required' do %>
+      SVIE?
+      <%= f.check_box :issvie %>
+    <% end %>
+  </div>
+  <%= hidden_field_tag :selected_user_id, "nil" %>
+
+  <div id="content-main">
+    <div class="uk-responsive-width">
+      <div class="uk-container-center uk-panel uk-panel-box">
+        <div class="uk-grid uk-flex-middle uk-width-1-1 uk-padding-remove uk-margin-remove">
+          <li id="user_suggestions" class="uk-width-1-1 uk-padding-remove uk-list-divider">
+            Kezdj el gépelni!
+          </li>
+        </div>
+        <a id="show-more-user" , onclick="showMoreUser()" class="uk-button uk-margin-top uk-align-center">Többi
+          megjelenítése</a>
+        <p id="no-more" class="uk-hidden uk-margin-top uk-align-center">Nincs több találat</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="uk-text-center">
+    <div class="inline-block">
+      <%= f.submit 'Mehet!', class: 'uk-button uk-button-primary uk-width-1-1 uk-width-medium-1-2 uk-margin-top' %>
+    </div>
+  </div>
+<% end %>

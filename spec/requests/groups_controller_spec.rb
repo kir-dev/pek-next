@@ -90,4 +90,52 @@ describe GroupsController do
       end
     end
   end
+
+  describe '#new' do
+    context 'when the user is not pek_admin' do
+      it 'returns forbidden' do
+        get '/groups/new'
+
+        expect(response).to have_http_status :forbidden
+      end
+    end
+
+    context 'when the user is pek_admin' do
+      let(:pek_admin) { create(:user, :pek_admin) }
+      before          { login_as(pek_admin) }
+      it 'renders the page' do
+        get '/groups/new'
+
+        expect(response).to have_http_status :ok
+        expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe '#create' do
+    context 'when the user is not pek_admin' do
+      it 'returns forbidden' do
+        post '/groups'
+
+        expect(response).to have_http_status :forbidden
+      end
+    end
+
+    context 'when the user is pek_admin' do
+      let(:pek_admin) { create(:user, :pek_admin) }
+      let(:leader)    { create(:user) }
+      before          { login_as(pek_admin) }
+      it 'creates the group and notifies the leader' do
+        expect_any_instance_of(Membership).to receive(:notify).and_call_original
+
+        expect {
+          post '/groups', params: {
+              group:            attributes_for(:group),
+              selected_user_id: leader.id
+          }
+        }.to change(Group, :count).by(1)
+         .and change { leader.notifications.count }.by(1)
+      end
+    end
+  end
 end

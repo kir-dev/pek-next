@@ -1,4 +1,6 @@
 class SearchController < ApplicationController
+  before_action :require_pek_admin, only: :suggest_leader
+
   def search; end
 
   def suggest
@@ -13,5 +15,15 @@ class SearchController < ApplicationController
     end
 
     render partial: 'suggest', locals: { users: user_results || [], groups: group_results || [] }
+  end
+
+  def suggest_leader
+    return unless params.key?(:query)
+
+    result_per_page = Rails.configuration.x.results_per_page
+    offset = result_per_page * params[:page].to_i
+    user_results = SearchQuery.new.user_search(params[:query], offset, result_per_page).decorate
+
+    render partial: 'suggest_leader', locals: { users: user_results || [] }
   end
 end

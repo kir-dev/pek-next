@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get '/search', to: 'search#search'
   get '/search/suggest', to: 'search#suggest'
+  get '/search/suggest_leader', to: 'search#suggest_leader'
 
   get '/svie/edit', to: 'svie#edit'
   post '/svie/update', to: 'svie#update'
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
 
   root to: redirect('/profiles/me')
   get 'groups/all', to: 'groups#all', as: :all_groups
-  resources :groups, only: [:show, :index, :edit, :update] do
+  resources :groups, only: [:show, :index, :edit, :update, :create, :new] do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'

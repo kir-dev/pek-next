@@ -1,0 +1,16 @@
+<% users.each do |user| %>
+  <li class="uk-panel-box uk-grid uk-grid-collapse dark user-search user-result hover uk-padding-remove">
+    <div class="thumbnail">
+      <%= image_tag photo_path(user.screen_name), class: 'uk-thumbnail' %>
+    </div>
+    <div class="uk-padding-small next-to-thumbnail">
+      <div>
+        <%= user.link_with_compact_name class: 'uk-text-large' %>
+      </div>
+      <div class="uk-text-break">
+        <%= user.room %>
+      <div>
+    </div>
+    <%= content_tag(:a, 'Kiválaszt', type: :button, class: 'uk-button uk-button-primary', onClick: "selectUser(#{user.id},'#{user.compact_name}')") %>
+  </li>
+<% end %>
