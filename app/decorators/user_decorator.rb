@@ -37,7 +37,7 @@ class UserDecorator < Draper::Decorator
     return if user.date_of_birth.blank?
     return unless Privacy.for(user, 'DATE_OF_BIRTH').visible
 
-    info_box(user.date_of_birth, 'uk-icon-cake')
+    info_box(user.date_of_birth, 'uk-icon-calendar')
   end
 
   def nickname
