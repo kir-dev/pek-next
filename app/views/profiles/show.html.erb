@@ -23,8 +23,10 @@
           <%= @user_presenter.room %>
           <%= @user_presenter.cell_phone %>
           <%= @user_presenter.email %>
+          <%= @user_presenter.webpage %>
           <%= @user_presenter.home_address %>
           <%= @user_presenter.date_of_birth %>
+          <%= @user_presenter.gender %>
           <% @user_presenter.im_accounts.each do |im_account| %>
             <%= im_account.account %>
           <% end %>

@@ -73,6 +73,25 @@ class UserDecorator < Draper::Decorator
     link_to compact_name, profile_path(user.screen_name), options
   end
 
+  def gender
+    return if user.gender.blank?
+    return unless Privacy.for(user, 'GENDER').visible
+    return if user.gender == "NOTSPECIFIED"
+    genders = {
+      "MALE"  => "Férfi",
+      "FEMALE" => "Nő",
+      "UNKNOWN" => "Egyéb"
+    }
+    info_box(genders[user.gender], 'uk-icon-info')
+  end
+
+  def webpage
+    return if user.webpage.blank?
+    return unless Privacy.for(user, 'WEBPAGE').visible
+
+    info_box(user.webpage, 'uk-icon-link')
+  end
+
   private
 
   def info_box(content, icon)
