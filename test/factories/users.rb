@@ -8,7 +8,7 @@ FactoryBot.define do
     sequence(:email) { |n| "sanyi_#{n}@example.org" }
     sequence(:cell_phone) { |n| "66677788#{n}" }
     sequence(:neptun) do |n|
-      random_character = (n + 48).chr(Encoding::UTF_8)
+      random_character = (n % 26 + 65).chr(Encoding::UTF_8)
       "AAAAA#{random_character}"
     end
     auth_sch_id { SecureRandom.uuid }
