@@ -74,15 +74,10 @@ class UserDecorator < Draper::Decorator
   end
 
   def gender
-    return if user.gender.blank?
-    return unless Privacy.for(user, 'GENDER').visible
-    return if user.gender == "NOTSPECIFIED"
-    genders = {
-      "MALE"  => "Férfi",
-      "FEMALE" => "Nő",
-      "UNKNOWN" => "Egyéb"
-    }
-    info_box(genders[user.gender], 'uk-icon-info')
+    return if user.gender.blank? || user.gender == 'NOTSPECIFIED' || !Privacy.for(user, 'GENDER').visible
+    
+    decorated_gender = Rails.configuration.x.genders[user.gender]
+    info_box(decorated_gender, 'uk-icon-info')
   end
 
   def webpage
