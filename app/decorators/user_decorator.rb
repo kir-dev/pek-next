@@ -37,7 +37,7 @@ class UserDecorator < Draper::Decorator
     return if user.date_of_birth.blank?
     return unless Privacy.for(user, 'DATE_OF_BIRTH').visible
 
-    info_box(user.date_of_birth, 'uk-icon-cake')
+    info_box(user.date_of_birth, 'uk-icon-calendar')
   end
 
   def nickname
@@ -71,6 +71,20 @@ class UserDecorator < Draper::Decorator
 
   def link_with_compact_name(options = {})
     link_to compact_name, profile_path(user.screen_name), options
+  end
+
+  def gender
+    return if user.gender.blank? || user.gender == 'NOTSPECIFIED' || !Privacy.for(user, 'GENDER').visible
+    
+    decorated_gender = Rails.configuration.x.genders[user.gender]
+    info_box(decorated_gender, 'uk-icon-info')
+  end
+
+  def webpage
+    return if user.webpage.blank?
+    return unless Privacy.for(user, 'WEBPAGE').visible
+
+    info_box(user.webpage, 'uk-icon-link')
   end
 
   private
