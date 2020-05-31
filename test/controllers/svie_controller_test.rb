@@ -16,7 +16,8 @@ class SvieControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'save change of primary group' do
-    post '/svie/update', svie: { primary_membership: membership(:not_primary_membership).id }
+    params = { svie: { primary_membership: membership(:not_primary_membership).id } }
+    post '/svie/update', params: params
 
     assert_redirected_to profiles_me_path
     assert_equal membership(:not_primary_membership).id,
