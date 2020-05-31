@@ -13,6 +13,6 @@ class CreatePost
   end
 
   def self.remove_past_leader_post(membership)
-    Post.destroy_all(membership_id: membership.id, post_type_id: PostType::PAST_LEADER_ID)
+    Post.where(membership_id: membership.id, post_type_id: PostType::PAST_LEADER_ID).destroy_all
   end
 end

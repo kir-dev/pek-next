@@ -7,7 +7,7 @@ class CalculatePointHistory
   end
 
   def call
-    PointHistory.destroy_all(semester: current_semester.to_s)
+    PointHistory.where(semester: current_semester.to_s).destroy_all
     PointRequest.includes([{ evaluation: [:group] }, :user])
                 .select { |pr| last_two_semester?(pr.evaluation.semester) }
                 .map(&:user)
