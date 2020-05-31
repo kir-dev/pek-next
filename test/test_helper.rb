@@ -13,7 +13,7 @@ module ActiveSupport
     include AuthenticationHelper
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    self.use_transactional_fixtures = true
+    self.use_transactional_tests = true
 
     fixtures :all
 
