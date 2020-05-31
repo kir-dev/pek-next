@@ -18,6 +18,9 @@
                 <li><%= link_to 'Küldöttek számolása', admin_delegates_count_path %></li>
                 <li><%= link_to 'Küldöttek szerkesztése', admin_delegates_path %></li>
                 <li><%= link_to 'Küldöttek export', admin_delegates_export_path %></li>
+                <% if current_user.roles.pek_admin? %>
+                  <li><%= link_to 'Kör létrehozása', new_group_path %></li>
+                <% end %>
               </ul>
             </div>
           </li>
