@@ -1,34 +1,34 @@
 module JudgementsHelper
-  def work_points_sum(point_details, memberships)
-    points(point_details, memberships, method(:sum_work_details)).sum
+  def work_points_sum(point_details, users)
+    points(point_details, users, method(:sum_work_details)).sum
   end
 
-  def responsibility_points_sum(point_details, memberships)
-    points(point_details, memberships, method(:sum_responsibility_details)).sum
+  def responsibility_points_sum(point_details, users)
+    points(point_details, users, method(:sum_responsibility_details)).sum
   end
 
-  def all_points_sum(point_details, memberships)
-    points(point_details, memberships, method(:sum_all_details)).sum
+  def all_points_sum(point_details, users)
+    points(point_details, users, method(:sum_all_details)).sum
   end
 
-  def work_points_average(point_details, memberships)
-    average(points(point_details, memberships, method(:sum_work_details)))
+  def work_points_average(point_details, users)
+    average(points(point_details, users, method(:sum_work_details)))
   end
 
-  def responsibility_points_average(point_details, memberships)
-    average(points(point_details, memberships, method(:sum_responsibility_details)))
+  def responsibility_points_average(point_details, users)
+    average(points(point_details, users, method(:sum_responsibility_details)))
   end
 
-  def all_points_average(point_details, memberships)
-    average(points(point_details, memberships, method(:sum_all_details)))
+  def all_points_average(point_details, users)
+    average(points(point_details, users, method(:sum_all_details)))
   end
 
   private
 
-  def points(point_details, memberships, method)
+  def points(point_details, users, method)
     points = []
-    memberships.each do |membership|
-      sum = method.call(point_details, membership.user)
+    users.each do |user|
+      sum = method.call(point_details, user)
       points.push sum if sum.positive?
     end
     points

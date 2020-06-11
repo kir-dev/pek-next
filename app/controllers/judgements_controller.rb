@@ -14,6 +14,11 @@ class JudgementsController < ApplicationController
                        .order(sent_at: :desc).page(params[:page]).decorate
     @entry_requests = @evaluation.entry_requests.reject { |er| er.entry_type == EntryRequest::KDO }
     @entry_requests = EntryRequestDecorator.decorate_collection @entry_requests
+    @users = @evaluation.point_requests
+                        .includes(:user)
+                        .map(&:user)
+                        .sort_by(&:full_name)
+    @users = UserDecorator.decorate_collection @users
   end
 
   def update
