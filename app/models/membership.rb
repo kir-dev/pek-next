@@ -6,6 +6,7 @@
 #  archived   :date
 #  end_date   :date
 #  start_date :date
+#  status     :string
 #  group_id   :bigint
 #  user_id    :bigint
 #

@@ -269,7 +269,8 @@ CREATE TABLE public.memberships (
     user_id bigint,
     start_date date DEFAULT now(),
     end_date date,
-    archived date
+    archived date,
+    status character varying
 );
 
 
@@ -1464,6 +1465,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190427151354'),
 ('20191025190035'),
 ('20200127202810'),
-('20200204185955');
+('20200204185955'),
+('20200611204210');
 
 
