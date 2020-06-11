@@ -3,9 +3,9 @@
 <div class="uk-grid uk-grid-collapse uk-padding-remove uk-margin-remove">
   <div id="name-list-container">
     <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
-      <% @evaluation.group.point_eligible_memberships.each do |membership| %>
-        <li class="uk-text-truncate name-list-item" data-user="<%= membership.user_id %>">
-          <%= membership.user.decorate.link target: :_blank, class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
+      <% @users.each do |user| %>
+        <li class="uk-text-truncate name-list-item" data-user="<%= user.id %>">
+          <%= user.link target: :_blank, class: 'uk-link-muted', 'uk-tooltip': '', title: user.nickname %>
         </li>
       <% end %>
       <li>Összegzések:</li>
@@ -31,25 +31,24 @@
         </tr>
       </thead>
       <tbody>
-        <% point_eligible_memberships = @evaluation.group.point_eligible_memberships %>
-        <% point_eligible_memberships.each do |membership| %>
-          <tr data-user="<%= membership.user_id %>">
+        <% @users.each do |user| %>
+          <tr data-user="<%= user.id %>">
             <% @evaluation.ordered_principles.each do |principle| %>
               <td class="col-vertical-border">
-                <%= single_detail(@point_details, membership.user, principle)&.point %>
+                <%= single_detail(@point_details, user, principle)&.point %>
               </td>
             <% end %>
             <td class="col-vertical-border uk-text-bold">
-              <%= sum_responsibility_details(@point_details, membership.user) %>
+              <%= sum_responsibility_details(@point_details, user) %>
             </td>
             <td class="col-vertical-border uk-text-bold">
-              <%= sum_work_details(@point_details, membership.user) %>
+              <%= sum_work_details(@point_details, user) %>
             </td>
             <td class="col-vertical-border uk-text-bold">
-              <%= sum_all_details(@point_details, membership.user) %>
+              <%= sum_all_details(@point_details, user) %>
             </td>
             <td class="col-vertical-border uk-text-bold">
-              <%= Rails.configuration.x.entry_types[entry_request(@evaluation, membership.user)] %>
+              <%= Rails.configuration.x.entry_types[entry_request(@evaluation, user)] %>
             </td>
           </tr>
         <% end %>
@@ -62,13 +61,13 @@
             </td>
           <% end %>
           <td>
-            <%= responsibility_points_sum(@point_details, point_eligible_memberships) %>
+            <%= responsibility_points_sum(@point_details, @users) %>
           </td>
           <td>
-            <%= work_points_sum(@point_details, point_eligible_memberships) %>
+            <%= work_points_sum(@point_details, @users) %>
           </td>
           <td>
-            <%= all_points_sum(@point_details, point_eligible_memberships) %>
+            <%= all_points_sum(@point_details, @users) %>
           </td>
         </tr>
       </tfoot>
@@ -79,19 +78,19 @@
       <div class="uk-clearfix">
         Átlag felelősség:
         <div class="uk-float-right uk-margin-left">
-          <%= responsibility_points_average(@point_details, point_eligible_memberships) %>
+          <%= responsibility_points_average(@point_details, @users) %>
         </div>
       </div>
       <div class="uk-clearfix">
         Átlag munka:
         <div class="uk-float-right uk-margin-left">
-          <%= work_points_average(@point_details, point_eligible_memberships) %>
+          <%= work_points_average(@point_details, @users) %>
         </div>
       </div>
       <div class="uk-clearfix">
         Átlag:
         <div class="uk-float-right uk-margin-left">
-          <%= all_points_average(@point_details, point_eligible_memberships) %>
+          <%= all_points_average(@point_details, @users) %>
         </div>
       </div>
     </div>
