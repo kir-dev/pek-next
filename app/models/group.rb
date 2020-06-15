@@ -68,16 +68,20 @@ class Group < ApplicationRecord
     find RVT_ID
   end
 
+  has_many :active_memberships,   -> { status_active   }, class_name: 'Membership'
+  has_many :inactive_memberships, -> { status_inactive }, class_name: 'Membership'
+  has_many :archived_memberships, -> { status_archived }, class_name: 'Membership'
+
   def inactive_members
-    memberships.select(&:inactive?)
+    inactive_memberships.to_a
   end
 
   def active_members
-    memberships.select(&:active?)
+    active_memberships.to_a
   end
 
   def archived_members
-    memberships.select(&:archived?)
+    archived_memberships.to_a
   end
 
   def newbie_members
