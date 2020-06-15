@@ -51,4 +51,35 @@ describe Membership do
       expect(membership.user.notifications.count).to eq(1)
     end
   end
+
+  context 'migration to status field' do
+    describe 'create' do
+      it 'sets status to active' do
+        user  = create(:user)
+        group = create(:group)
+
+        membership = Membership.create(user: user, group: group)
+
+        expect(membership).to be_status_active
+      end
+    end
+
+    describe '#inactivate!' do
+      it 'sets status to inactive' do
+        membership = create(:membership)
+
+        membership.inactivate!
+        expect(membership).to be_status_inactive
+      end
+    end
+
+    describe '#archive!' do
+      it 'sets status toarchived' do
+        membership = create(:membership)
+
+        membership.archive!
+        expect(membership).to be_status_archived
+      end
+    end
+  end
 end

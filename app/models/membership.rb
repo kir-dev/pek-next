@@ -6,6 +6,7 @@
 #  archived   :date
 #  end_date   :date
 #  start_date :date
+#  status     :string
 #  group_id   :bigint
 #  user_id    :bigint
 #
@@ -28,6 +29,8 @@ class Membership < ApplicationRecord
   has_many :posts
   has_many :post_types, through: :posts
 
+  before_create :set_defaults
+
   def leader?
     has_post?(PostType::LEADER_POST_ID)
   end
@@ -47,6 +50,12 @@ class Membership < ApplicationRecord
   def has_post?(post_id)
     posts.any? { |post| post.post_type.id == post_id }
   end
+
+  enum status: {
+    active:   'ACTIVE',
+    archived: 'ARCHIVED',
+    inactive: 'INACTIVE'
+  }, _prefix: :status
 
   def archived?
     !archived.nil?
@@ -70,6 +79,7 @@ class Membership < ApplicationRecord
 
   def inactivate!
     self.end_date = Time.now
+    self.status   = :inactive
 
     user.update(delegated: false) if user.delegated && user.primary_membership == self
     save
@@ -77,11 +87,13 @@ class Membership < ApplicationRecord
 
   def reactivate!
     self.end_date = nil
+    self.status   = :active
     save
   end
 
   def archive!
     self.archived = inactive? ? end_date : Time.now
+    self.status   = :archived
 
     user.update(delegated: false) if user.delegated && user.primary_membership == self
     save
@@ -90,6 +102,7 @@ class Membership < ApplicationRecord
   def unarchive!
     destroy_default_post
     self.archived = nil
+    self.status   = :active
     save
   end
 
@@ -107,5 +120,9 @@ class Membership < ApplicationRecord
   def destroy_default_post
     newbie_post = posts.find { |post| post.post_type.id == PostType::DEFAULT_POST_ID }
     newbie_post&.destroy
+  end
+
+  def set_defaults
+    self.status ||= :active
   end
 end
