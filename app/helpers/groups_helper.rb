@@ -18,11 +18,11 @@ module GroupsHelper
   end
 
   def acive_users_count(group)
-    group.newbie_members.count + group.active_members.count
+    group.newbie_members.count + group.active_memberships.count
   end
 
   def inactive_users(group)
-    inactive_memberships = group.inactive_members.sort_by_name
+    inactive_memberships = group.inactive_memberships.ordered_by_user_name
 
     @inactive_users = Kaminari.paginate_array(inactive_memberships)
                               .page(params[:inactive_users_page])
@@ -34,11 +34,11 @@ module GroupsHelper
   end
 
   def inacive_users_count(group)
-    group.inactive_members.count
+    group.inactive_memberships.count
   end
 
   def archived_users(group)
-    archived_memberships = group.archived_members.sort_by_name
+    archived_memberships = group.archived_memberships.sort_by_name
 
     @archived_users = Kaminari.paginate_array(archived_memberships)
                               .page(params[:archived_users_page])
@@ -50,6 +50,6 @@ module GroupsHelper
   end
 
   def archived_users_count(group)
-    group.archived_members.count
+    group.archived_memberships.count
   end
 end

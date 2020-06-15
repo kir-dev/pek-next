@@ -31,6 +31,8 @@ class Membership < ApplicationRecord
 
   before_create :set_defaults
 
+  scope :ordered_by_user_name, -> { joins(:user).order('users.lastname ASC, users.firstname ASC') }
+
   def leader?
     has_post?(PostType::LEADER_POST_ID)
   end

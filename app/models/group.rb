@@ -72,6 +72,13 @@ class Group < ApplicationRecord
   has_many :inactive_memberships, -> { status_inactive }, class_name: 'Membership'
   has_many :archived_memberships, -> { status_archived }, class_name: 'Membership'
 
+  # In proper terminology the member should refer to the user and membership to the relation
+  # between a user and a group. At the moment it's used differently so I add a prefix for
+  # sleek migration.
+  has_many :the_active_members,   through: :active_memberships,   source: :user
+  has_many :the_inactive_members, through: :inactive_memberships, source: :user
+  has_many :the_archived_members, through: :archived_memberships, source: :user
+
   def inactive_members
     inactive_memberships.to_a
   end
