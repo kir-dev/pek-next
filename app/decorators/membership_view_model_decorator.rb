@@ -25,6 +25,17 @@ class MembershipViewModelDecorator < Draper::Decorator
     end
   end
 
+  def withdraw_membership_button
+    group = membership_view_model.group
+    membership = current_user.membership_for(group)
+
+    return unless current_user.membership_for(group)&.has_post?(PostType::DEFAULT_POST_ID)
+
+    form_tag withdraw_group_membership_path(group.id, membership), method: :post do
+      button_tag('Jelentkezés visszavonása', class: 'uk-button uk-button-primary uk-width-1-1 uk-margin-top')
+    end
+end
+
   def new_evaluation_button
     return unless membership_view_model.leader? && SystemAttribute.application_season?
 
