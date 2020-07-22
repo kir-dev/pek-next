@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.16
--- Dumped by pg_dump version 12.1
+-- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -16,7 +16,23 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET default_tablespace = '';
+
+SET default_with_oids = false;
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -1133,6 +1149,13 @@ CREATE INDEX index_point_detail_comments_on_user_id ON public.point_detail_comme
 
 
 --
+-- Name: index_point_requests_on_evaluation_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_point_requests_on_evaluation_id_and_user_id ON public.point_requests USING btree (evaluation_id, user_id);
+
+
+--
 -- Name: index_subscriptions_on_key; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1466,6 +1489,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191025190035'),
 ('20200127202810'),
 ('20200204185955'),
-('20200611204210');
+('20200611204210'),
+('20200722112521');
 
 

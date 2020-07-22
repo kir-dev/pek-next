@@ -7,6 +7,10 @@
 #  evaluation_id :bigint           not null
 #  user_id       :bigint
 #
+# Indexes
+#
+#  index_point_requests_on_evaluation_id_and_user_id  (evaluation_id,user_id) UNIQUE
+#
 # Foreign Keys
 #
 #  fk_ertekeles_id     (evaluation_id => evaluations.id) ON DELETE => cascade
