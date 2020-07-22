@@ -8,7 +8,8 @@
 #
 # Indexes
 #
-#  poszt_fk_idx  (membership_id)
+#  index_posts_on_membership_id_and_post_type_id  (membership_id,post_type_id) UNIQUE
+#  poszt_fk_idx                                   (membership_id)
 #
 # Foreign Keys
 #

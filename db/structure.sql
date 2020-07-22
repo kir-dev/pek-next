@@ -1100,6 +1100,13 @@ CREATE INDEX idx_groups_grp_type ON public.groups USING btree (grp_type);
 
 
 --
+-- Name: index_entry_requests_on_evaluation_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_entry_requests_on_evaluation_id_and_user_id ON public.entry_requests USING btree (evaluation_id, user_id);
+
+
+--
 -- Name: index_notifications_on_group_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1149,10 +1156,31 @@ CREATE INDEX index_point_detail_comments_on_user_id ON public.point_detail_comme
 
 
 --
+-- Name: index_point_details_on_principle_id_and_point_request_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_point_details_on_principle_id_and_point_request_id ON public.point_details USING btree (principle_id, point_request_id);
+
+
+--
+-- Name: index_point_histories_on_user_id_and_semester; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_point_histories_on_user_id_and_semester ON public.point_histories USING btree (user_id, semester);
+
+
+--
 -- Name: index_point_requests_on_evaluation_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_point_requests_on_evaluation_id_and_user_id ON public.point_requests USING btree (evaluation_id, user_id);
+
+
+--
+-- Name: index_posts_on_membership_id_and_post_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_posts_on_membership_id_and_post_type_id ON public.posts USING btree (membership_id, post_type_id);
 
 
 --
@@ -1490,6 +1518,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200127202810'),
 ('20200204185955'),
 ('20200611204210'),
-('20200722112521');
+('20200722112521'),
+('20200722171738'),
+('20200722171937'),
+('20200722172424'),
+('20200722173131');
 
 
