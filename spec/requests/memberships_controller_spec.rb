@@ -285,4 +285,38 @@ describe MembershipsController do
       end
     end
   end
+
+  describe '#withdraw' do
+    include_context 'current_user is a member'
+    context 'when membership has DEFAULT post' do
+      let(:membership) { create(:membership, :newbie) }
+      it 'withdraws the membership' do
+        post "/groups/#{membership.group.id}/memberships/#{membership.id}/withdraw", xhr: true
+
+        expect(response).to redirect_to group_path(group)
+        expect(Membership.exists?(id: membership.id)).to be false
+      end
+    end
+
+    context 'when membership has no DEFAULT post' do
+      let(:membership) { create(:membership) }
+      it 'returns forbidden' do
+        post "/groups/#{membership.group.id}/memberships/#{membership.id}/withdraw", xhr: true
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context 'when membership does not belong to current_user' do
+      let(:membership)   { create(:membership, :newbie) }
+      let(:another_user) { create(:user) }
+      it 'returns forbidden' do
+        login_as(another_user)
+
+        post "/groups/#{membership.group.id}/memberships/#{membership.id}/withdraw", xhr: true
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
 end
