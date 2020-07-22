@@ -7,6 +7,10 @@
 #  point_request_id :integer
 #  principle_id     :integer
 #
+# Indexes
+#
+#  index_point_details_on_principle_id_and_point_request_id  (principle_id,point_request_id) UNIQUE
+#
 # Foreign Keys
 #
 #  fk_rails_...  (point_request_id => point_requests.id)
