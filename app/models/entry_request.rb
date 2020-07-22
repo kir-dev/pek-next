@@ -10,7 +10,8 @@
 #
 # Indexes
 #
-#  bel_tipus_idx  (entry_type)
+#  bel_tipus_idx                                      (entry_type)
+#  index_entry_requests_on_evaluation_id_and_user_id  (evaluation_id,user_id) UNIQUE
 #
 # Foreign Keys
 #
