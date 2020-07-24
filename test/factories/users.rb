@@ -28,7 +28,7 @@ FactoryBot.define do
 
     trait :pek_admin do
       after(:build) do |user|
-        membership = create(:membership, :for_svie_group, user: user)
+        membership = create(:membership, :for_kir_dev_group, user: user)
         CreatePost.call(membership.group, membership, PostType::PEK_ADMIN_ID)
       end
     end
