@@ -23,5 +23,9 @@ FactoryBot.define do
     trait :for_svie_group do
       association :group, issvie: true
     end
+
+    trait :for_kir_dev_group do
+      group { Group.find_by(name: 'Kir-Dev') }
+    end
   end
 end

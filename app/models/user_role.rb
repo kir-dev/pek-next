@@ -4,7 +4,7 @@ class UserRole
   end
 
   def pek_admin?
-    @user.memberships.any?(&:pek_admin?)
+    @user.membership_for(Group.kirdev)&.has_post?(PostType::PEK_ADMIN_ID)
   end
 
   def svie_admin?
