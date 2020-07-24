@@ -133,6 +133,10 @@ class Group < ApplicationRecord
                .reverse!
   end
 
+  def has_post_type?(post_type_id)
+    post_types.pluck(:id).include?(post_type_id)
+  end
+
   private
 
   def founded_less_than_a_year_ago?
