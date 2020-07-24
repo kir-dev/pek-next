@@ -1,10 +1,16 @@
 class CreatePost
+  class InvalidPostType < StandardError; end
+
   def self.call(group, membership, post_type_id)
-    if post_type_id == PostType::LEADER_POST_ID
-      remove_leader(group)
-      remove_past_leader_post(membership)
+    raise InvalidPostType unless group.has_post_type?(post_type_id)
+
+    ActiveRecord::Base.transaction do
+      if post_type_id == PostType::LEADER_POST_ID
+        remove_leader(group)
+        remove_past_leader_post(membership)
+      end
+      Post.create(membership_id: membership.id, post_type_id: post_type_id)
     end
-    Post.create(membership_id: membership.id, post_type_id: post_type_id)
   end
 
   def self.remove_leader(group)
