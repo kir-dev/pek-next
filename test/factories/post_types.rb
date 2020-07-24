@@ -18,6 +18,7 @@ FactoryBot.define do
   end
 
   factory :post_type_pek_admin, parent: :post_type do
+    group { Group.kirdev }
     id { PostType::PEK_ADMIN_ID }
     name { 'PeK admin' }
   end
