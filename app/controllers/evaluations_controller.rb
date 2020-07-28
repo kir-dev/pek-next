@@ -1,5 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :require_resort_or_group_leader
+  before_action :require_application_or_evaluation_season
+  before_action :require_application_season_for_group_leader
   before_action :validate_correct_group, except: :current
   before_action :changeable_points, only: %i[edit update table submit_point_request]
   before_action :changeable_entries, only: %i[submit_entry_request]
