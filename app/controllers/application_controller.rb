@@ -51,6 +51,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url if SystemAttribute.offseason?
   end
 
+  def require_application_season_for_group_leader
+    forbidden_page if current_user.leader_of?(current_group) && !SystemAttribute.application_season?
+  end
+
   def require_leader_or_rvt_member
     membership = current_user.membership_for(current_group)
     forbidden_page unless membership&.leader? || current_user.roles.rvt_member?
