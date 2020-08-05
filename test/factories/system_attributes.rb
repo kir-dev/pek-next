@@ -12,7 +12,7 @@ FactoryBot.define do
 
   factory :system_attribute_app_season, parent: :system_attribute do
     name  { 'ertekeles_idoszak' }
-    value { 'NINCSERTEKELES' }
+    value { SystemAttribute::APPLICATION_SEASON }
   end
 
   factory :system_attribute_max_point_for_semester, parent: :system_attribute do
