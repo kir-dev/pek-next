@@ -43,6 +43,12 @@ class ApplicationController < ActionController::Base
                              current_user.roles.resort_leader?(current_group)
   end
 
+  def require_resort_or_group_leader_or_rvt_member
+    forbidden_page unless current_user.leader_of?(current_group) ||
+							 current_user.roles.resort_leader?(current_group) ||
+							 current_user.roles.rvt_member?
+  end
+
   def require_pek_admin
     forbidden_page unless current_user.roles.pek_admin?
   end
