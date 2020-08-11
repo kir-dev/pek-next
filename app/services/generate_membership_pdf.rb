@@ -1,19 +1,29 @@
-require 'render_anywhere'
-
 class GenerateMembershipPdf
-  include RenderAnywhere
+  TITLES = {
+      inside_member:   'Tagfelvételi kérelem <br> rendes tagsághoz',
+      outside_member:  'Tagfelvételi kérelem <br> külső tagsághoz',
+      not_member:      'Kilépési nyilatkozat',
+      inactive_member: 'Tagfelvételi kérelem <br> öreg tagsághoz'
+  }.freeze
 
   def initialize(user)
     @user = user
   end
 
-  def as_html
-    user_member_type = @user.svie_post_request.member_type
-    member_type = 'inside_member' if user_member_type == SvieUser::INSIDE_MEMBER
-    member_type = 'outside_member' if user_member_type == SvieUser::OUTSIDE_MEMBER
-    member_type = 'not_member' if user_member_type == SvieUser::NOT_MEMBER
-    member_type = 'inactive_member' if user_member_type == SvieUser::INACTIVE_MEMBER
+  def title
+    TITLES[type].html_safe
+  end
 
-    render template: "svie/pdf/#{member_type}", layout: 'membership_pdf', locals: { user: @user }
+  def type
+    case @user.svie_post_request.member_type
+    when SvieUser::INSIDE_MEMBER
+      :inside_member
+    when SvieUser::OUTSIDE_MEMBER
+      :outside_member
+    when SvieUser::NOT_MEMBER
+      :not_member
+    when SvieUser::INACTIVE_MEMBER
+      :inactive_member
+    end
   end
 end
