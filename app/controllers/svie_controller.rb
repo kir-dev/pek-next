@@ -38,9 +38,12 @@ class SvieController < ApplicationController
   end
 
   def application_pdf
-    file_options = { filename: 'szerzodes.pdf', disposition: 'attachment', type: :pdf }
-    path = Rails.root.join('public', 'downloads', 'contract_empty.pdf')
-    send_file(path, file_options)
+    pdf    = GenerateMembershipPdf.new(current_user)
+    @user  = current_user
+    @title = pdf.title
+    @type  = pdf.type
+
+    render layout: false
   end
 
   def destroy
