@@ -39,5 +39,30 @@ describe EvaluationsController do
         expect(response).to redirect_to group_evaluation_path(group, new_evaluation)
       end
     end
+
+    context 'when the user is the resort leader' do
+      let(:user) { group.parent.leader.user }
+      before(:each) { login_as(user) }
+
+      it 'creates new evaluation' do
+        get "/groups/#{group.id}/evaluations/current"
+
+        new_evaluation = Evaluation.find_by(
+            group: group, semester: SystemAttribute.semester.to_s
+        )
+
+        expect(new_evaluation).not_to be nil
+      end
+
+      it 'redirects to the evaluation page' do
+        get "/groups/#{group.id}/evaluations/current"
+
+        new_evaluation = Evaluation.find_by(
+            group: group, semester: SystemAttribute.semester.to_s
+        )
+
+        expect(response).to redirect_to group_evaluation_path(group, new_evaluation)
+      end
+    end
   end
 end

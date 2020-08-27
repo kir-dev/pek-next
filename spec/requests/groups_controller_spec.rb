@@ -127,10 +127,11 @@ describe GroupsController do
       before          { login_as(pek_admin) }
       it 'creates the group and notifies the leader' do
         expect_any_instance_of(Membership).to receive(:notify).and_call_original
+        group_attributes = attributes_for(:group)
 
         expect {
           post '/groups', params: {
-              group:            attributes_for(:group),
+              group:            group_attributes,
               selected_user_id: leader.id
           }
         }.to change(Group, :count).by(1)

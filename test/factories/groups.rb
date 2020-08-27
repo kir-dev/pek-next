@@ -4,19 +4,24 @@ FactoryBot.define do
     type { :group }
     sequence(:id, 400)
 
+    after(:create) do |group|
+      group.memberships << create(:membership, :leader, group: group)
+    end
+
     trait :with_additional_info do
       description { 'vietnámiak' }
       webpage { 'http://babhamozo.sch.bme.hu' }
       maillist { 'babhamozo@sch.bme.hu' }
       founded { 1998 }
     end
-  end
 
-  factory :group, parent: :basic_group do
-    after(:create) do |group|
-      group.memberships << create(:membership, :leader, group: group)
+
+    factory :group_with_parent, parent: :basic_group do
+      parent { create(:basic_group) }
     end
   end
+
+  factory :group, parent: :group_with_parent
 
   factory :group_svie, parent: :basic_group do
     id { Group::SVIE_ID }

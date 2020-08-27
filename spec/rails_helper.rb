@@ -47,20 +47,22 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.before(:suite) do
+    FactoryBot.create(:post_type_leader)
+    FactoryBot.create(:post_type_newbie)
     FactoryBot.create(:group_svie)
     FactoryBot.create(:group_rvt)
     FactoryBot.create(:group_kir_dev)
-    FactoryBot.create(:post_type_leader)
-    FactoryBot.create(:post_type_newbie)
     FactoryBot.create(:post_type_pek_admin)
     FactoryBot.create(:post_type_new_member)
     FactoryBot.create(:system_attribute_semester)
     FactoryBot.create(:system_attribute_app_season)
+    SystemAttribute.update_season(SystemAttribute::OFFSEASON)
   end
 
   config.after(:suite) do
     PostType.delete_all
     Group.delete_all
+    User.delete_all
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
