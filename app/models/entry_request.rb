@@ -24,6 +24,7 @@ class EntryRequest < ApplicationRecord
   belongs_to :user
 
   validates :evaluation_id, uniqueness: { scope: :user_id }
+  validate :correct_user
 
   AB = 'AB'.freeze
   KB = 'KB'.freeze
@@ -41,4 +42,13 @@ class EntryRequest < ApplicationRecord
   def accepted?
     evaluation.entry_request_accepted?
   end
+
+  private
+
+  def correct_user
+    return if user.member_of?(evaluation.group)
+
+    errors.add(:user, "user is not a member of the current group")
+  end
+
 end
