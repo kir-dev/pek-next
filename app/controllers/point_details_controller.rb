@@ -6,6 +6,8 @@ class PointDetailsController < ApplicationController
   def update
     point_detail_service = CreateOrUpdatePointDetail.new(@user, @principle, @evaluation)
     @point_detail, @point_details = point_detail_service.call(params[:point])
+  rescue ActiveRecord::RecordInvalid
+    head(:unprocessable_entity)
   end
 
   private
