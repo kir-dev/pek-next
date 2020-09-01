@@ -16,6 +16,7 @@ describe EvaluationsController do
     end
 
     context 'when the user is the group leader' do
+      include_context "application season"
       let(:user)    { group.leader.user }
       before(:each) { login_as(user) }
 
@@ -41,6 +42,7 @@ describe EvaluationsController do
     end
 
     context 'when the user is the resort leader' do
+      include_context "application season"
       let(:user) { group.parent.leader.user }
       before(:each) { login_as(user) }
 
