@@ -53,6 +53,7 @@ RSpec.configure do |config|
     FactoryBot.create(:group_svie)
     FactoryBot.create(:group_rvt)
     FactoryBot.create(:group_kir_dev)
+
     FactoryBot.create(:post_type_pek_admin)
     FactoryBot.create(:post_type_new_member)
     FactoryBot.create(:system_attribute_semester)

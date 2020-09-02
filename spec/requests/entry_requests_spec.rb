@@ -26,7 +26,6 @@ RSpec.describe "EntryRequests", type: :request do
   describe "#update" do
     include_context "application season"
 
-
     context "when the user is not authorized" do
       let(:current_user) { create(:user) }
 

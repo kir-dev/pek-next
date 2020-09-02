@@ -50,5 +50,4 @@ class EntryRequest < ApplicationRecord
 
     errors.add(:user, "user is not a member of the current group")
   end
-
 end
