@@ -171,6 +171,8 @@ GEM
     public_suffix (3.0.2)
     puma (4.3.5)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.2.3)
     rack-protection (2.0.0)
       rack
@@ -312,6 +314,7 @@ DEPENDENCIES
   pdfkit
   pg
   puma
+  pundit (~> 2.1)
   rails (~> 5.0.7.2)
   rails-controller-testing
   render_anywhere

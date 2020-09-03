@@ -42,6 +42,8 @@ gem 'exception_handler', '~> 0.8.0.0'
 gem 'unsplash'
 # use activity_notification as notification system
 gem 'activity_notification', '~> 1.7'
+# use pundit for authorization
+gem 'pundit', '~> 2.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
