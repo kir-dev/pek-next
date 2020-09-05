@@ -6,7 +6,7 @@ RSpec.describe "EntryRequests", type: :request do
   let(:group) { evaluation.group }
   let(:selected_user) { entry_request.user }
   let(:arguments) do
-    ["/groups/#{group.id}/evaluations/#{evaluation.id}/entryrequests/update",
+    ["/evaluations/#{evaluation.id}/entryrequests/update",
      params: {
          user_id:    selected_user.id,
          entry_type: EntryRequest::AB

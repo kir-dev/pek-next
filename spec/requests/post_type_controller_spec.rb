@@ -106,7 +106,7 @@ describe PostTypesController do
         other_user = create(:user)
         login_as(other_user)
 
-        delete "/groups/#{group.id}/post_types/#{post_type.id}"
+        delete "/post_types/#{post_type.id}"
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -120,7 +120,7 @@ describe PostTypesController do
 
       context 'when the post type is not in common types' do
         it 'actually deletes the post type' do
-          delete "/groups/#{group.id}/post_types/#{post_type.id}"
+          delete "/post_types/#{post_type.id}"
 
           expect(PostType.where(id: post_type.id)).not_to exist
         end
@@ -130,7 +130,7 @@ describe PostTypesController do
         it 'does not delete the post type' do
           leader_post_id = PostType::LEADER_POST_ID
 
-          delete "/groups/#{group.id}/post_types/#{leader_post_id}"
+          delete "/post_types/#{leader_post_id}"
 
           expect(PostType.where(id: leader_post_id)).to exist
         end
@@ -140,7 +140,7 @@ describe PostTypesController do
         it 'does not delete the post type' do
           other_post_type = create(:post_type)
 
-          delete "/groups/#{group.id}/post_types/#{other_post_type.id}"
+          delete "/post_types/#{other_post_type.id}"
 
           expect(PostType.where(id: post_type.id)).to exist
         end
@@ -151,7 +151,7 @@ describe PostTypesController do
           post = create(:post, post_type_id: post_type.id)
           post_type.posts << post
 
-          delete "/groups/#{group.id}/post_types/#{post_type.id}"
+          delete "/post_types/#{post_type.id}"
 
           expect(PostType.where(id: post_type.id)).to exist
           expect(flash[:alert]).to be_present

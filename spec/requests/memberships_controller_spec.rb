@@ -70,7 +70,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :newbie) }
 
       it 'accepts the membership' do
-        post "/groups/#{group.id}/memberships/#{membership.id}/accept", xhr: true
+        post "/memberships/#{membership.id}/accept", xhr: true
         expect(response).to have_http_status(:ok)
       end
     end
@@ -80,7 +80,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :newbie) }
 
       it 'it returns forbidden' do
-        post "/groups/#{group.id}/memberships/#{membership.id}/accept", xhr: true
+        post "/memberships/#{membership.id}/accept", xhr: true
         expect(response).to have_http_status(:forbidden)
       end
     end
@@ -93,7 +93,7 @@ describe MembershipsController do
 
       it 'archives the membership' do
         Timecop.freeze do
-          put "/groups/#{group.id}/memberships/#{membership.id}/archive", xhr: true
+          put "/memberships/#{membership.id}/archive", xhr: true
 
           expect(membership.reload.archived.today?).to be true
         end
@@ -106,7 +106,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :newbie) }
 
       it 'it returns forbidden' do
-        put "/groups/#{group.id}/memberships/#{membership.id}/archive", xhr: true
+        put "/memberships/#{membership.id}/archive", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -118,7 +118,7 @@ describe MembershipsController do
 
       it 'archives the membership' do
         Timecop.freeze do
-          put "/groups/#{membership.group.id}/memberships/#{membership.id}/archive", xhr: true
+          put "/memberships/#{membership.id}/archive", xhr: true
 
           expect(membership.reload.archived.today?).to be true
         end
@@ -131,7 +131,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :inactive) }
 
       it 'it returns forbidden' do
-        put "/groups/#{membership.group.id}/memberships/#{membership.id}/archive", xhr: true
+        put "/memberships/#{membership.id}/archive", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -144,7 +144,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :archived) }
 
       it 'unarchives the membership' do
-        put "/groups/#{membership.group.id}/memberships/#{membership.id}/unarchive", xhr: true
+        put "/memberships/#{membership.id}/unarchive", xhr: true
 
         expect(membership.reload.archived).to be_nil
         expect(response).to have_http_status(:success)
@@ -156,7 +156,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :archived) }
 
       it 'returns forbidden' do
-        put "/groups/#{membership.group.id}/memberships/#{membership.id}/unarchive", xhr: true
+        put "/memberships/#{membership.id}/unarchive", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -167,7 +167,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :inactive, :archived) }
 
       it 'unarchives the membership' do
-        put "/groups/#{membership.group.id}/memberships/#{membership.id}/unarchive", xhr: true
+        put "/memberships/#{membership.id}/unarchive", xhr: true
 
         expect(response).to have_http_status(:success)
       end
@@ -178,7 +178,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :inactive, :archived) }
 
       it 'returns forbidden' do
-        put "/groups/#{membership.group.id}/memberships/#{membership.id}/unarchive", xhr: true
+        put "/memberships/#{membership.id}/unarchive", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -189,7 +189,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :leader) }
 
       it 'returns forbidden' do
-        put "/groups/#{membership.group.id}/memberships/#{membership.id}/unarchive", xhr: true
+        put "/memberships/#{membership.id}/unarchive", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -200,7 +200,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :leader) }
 
       it 'returns forbidden' do
-        put "/groups/#{membership.group.id}/memberships/#{membership.id}/unarchive", xhr: true
+        put "/memberships/#{membership.id}/unarchive", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -214,7 +214,7 @@ describe MembershipsController do
 
       it 'inactivates the membership' do
         Timecop.freeze do
-          post "/groups/#{membership.group.id}/memberships/#{membership.id}/inactivate", xhr: true
+          post "/memberships/#{membership.id}/inactivate", xhr: true
 
           expect(membership.reload.end_date.today?).to be true
         end
@@ -227,7 +227,7 @@ describe MembershipsController do
       let(:membership) { create(:membership) }
 
       it 'it returns forbidden' do
-        post "/groups/#{membership.group.id}/memberships/#{membership.id}/inactivate", xhr: true
+        post "/memberships/#{membership.id}/inactivate", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -240,7 +240,7 @@ describe MembershipsController do
 
       it 'delegation became false' do
         Timecop.freeze do
-          post "/groups/#{membership.group.id}/memberships/#{membership.id}/inactivate", xhr: true
+          post "/memberships/#{membership.id}/inactivate", xhr: true
 
           expect(membership.reload.user.delegated).to be false
         end
@@ -254,7 +254,7 @@ describe MembershipsController do
       let(:membership) { user.primary_membership }
 
       it 'it returns forbidden' do
-        post "/groups/#{membership.group.id}/memberships/#{membership.id}/inactivate", xhr: true
+        post "/memberships/#{membership.id}/inactivate", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -267,7 +267,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :inactive) }
 
       it 'reactivates the membership' do
-        post "/groups/#{membership.group.id}/memberships/#{membership.id}/reactivate", xhr: true
+        post "/memberships/#{membership.id}/reactivate", xhr: true
 
         expect(membership.reload.end_date).to be_nil
         expect(response).to have_http_status(:success)
@@ -279,7 +279,7 @@ describe MembershipsController do
       let(:membership) { create(:membership, :inactive) }
 
       it 'it returns forbidden' do
-        post "/groups/#{membership.group.id}/memberships/#{membership.id}/reactivate", xhr: true
+        post "/memberships/#{membership.id}/reactivate", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -291,7 +291,7 @@ describe MembershipsController do
     context 'when membership has DEFAULT post' do
       let(:membership) { create(:membership, :newbie) }
       it 'withdraws the membership' do
-        post "/groups/#{membership.group.id}/memberships/#{membership.id}/withdraw", xhr: true
+        post "/memberships/#{membership.id}/withdraw", xhr: true
 
         expect(response).to redirect_to group_path(group)
         expect(Membership.exists?(id: membership.id)).to be false
@@ -301,7 +301,7 @@ describe MembershipsController do
     context 'when membership has no DEFAULT post' do
       let(:membership) { create(:membership) }
       it 'returns forbidden' do
-        post "/groups/#{membership.group.id}/memberships/#{membership.id}/withdraw", xhr: true
+        post "/memberships/#{membership.id}/withdraw", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end
@@ -313,7 +313,7 @@ describe MembershipsController do
       it 'returns forbidden' do
         login_as(another_user)
 
-        post "/groups/#{membership.group.id}/memberships/#{membership.id}/withdraw", xhr: true
+        post "/memberships/#{membership.id}/withdraw", xhr: true
 
         expect(response).to have_http_status(:forbidden)
       end

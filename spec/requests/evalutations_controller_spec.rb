@@ -37,7 +37,7 @@ describe EvaluationsController do
           group: group, semester: SystemAttribute.semester.to_s
         )
 
-        expect(response).to redirect_to group_evaluation_path(group, new_evaluation)
+        expect(response).to redirect_to evaluation_path(new_evaluation)
       end
     end
 
@@ -63,7 +63,7 @@ describe EvaluationsController do
             group: group, semester: SystemAttribute.semester.to_s
         )
 
-        expect(response).to redirect_to group_evaluation_path(group, new_evaluation)
+        expect(response).to redirect_to evaluation_path(new_evaluation)
       end
     end
   end

@@ -10,7 +10,7 @@ RSpec.describe "PointDetails", type: :request do
     let(:point) { principle.max_per_member }
     let(:point_detail_user) { point_request.user }
     let(:arguments) do
-      ["/groups/#{group.id}/evaluations/#{evaluation.id}/pointdetails/update",
+      ["/evaluations/#{evaluation.id}/pointdetails/update",
        params: {
            user_id:       point_detail_user.id,
            principle_id:  principle.id,
