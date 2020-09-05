@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
-  before_action :require_leader, except: %i[create withdraw]
-  before_action :forbidden_page, unless: :membership_belongs_to_user?, only: %i[withdraw]
+  # before_action :require_leader, except: %i[create withdraw]
+  # before_action :forbidden_page, unless: :membership_belongs_to_user?, only: %i[withdraw]
 
   def create
     Membership::CreateService.call(group, current_user)
@@ -42,7 +42,7 @@ class MembershipsController < ApplicationController
   def withdraw
     Membership::WithdrawService.call(membership)
 
-    redirect_back(fallback_location: group_path(group))
+    redirect_back(fallback_location: group_path(membership.group))
   rescue Membership::WithdrawService::MembershipMustHaveDefaultPost
     forbidden_page
   end
@@ -50,7 +50,7 @@ class MembershipsController < ApplicationController
   private
 
   def group
-    @group ||= Group.find(params[:group_id])
+    @group ||= Group.find(params[:group_id]) || Group.find(params[:id])
   end
 
   def membership

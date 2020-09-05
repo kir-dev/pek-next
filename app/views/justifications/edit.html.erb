@@ -4,7 +4,7 @@
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-width-large-2-3 uk-container-center uk-width-1-1">
 
-    <%= form_tag group_evaluation_justifications_update_path, class: 'uk-form uk-form-horizontal' do %>
+    <%= form_tag evaluation_justifications_update_path(current_evaluation), class: 'uk-form uk-form-horizontal' do %>
       <% @entry_requests.each do |entry_request| %>
 
         <div class="uk-form-row">

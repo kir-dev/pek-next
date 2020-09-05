@@ -3,7 +3,7 @@
 <h1>Körös beszámoló szerkesztése</h1>
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-container-center uk-overflow-container">
-    <%= form_for @evaluation, url: group_evaluation_path(@evaluation.group, @evaluation),
+    <%= form_for @evaluation, url: evaluation_path(@evaluation),
       html: { class: 'uk-form' } do |f| %>
 
       <%= f.text_area :justification, rows: 20, placeholder: 'Beszámoló', class: 'uk-textarea uk-width-1-1' %>

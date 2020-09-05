@@ -21,7 +21,7 @@ class GroupMemberDecorator < Draper::Decorator
   def edit_post_button(group)
     return if membership.inactive?
 
-    form_tag(group_membership_posts_path(group.id, membership_id),
+    form_tag(membership_posts_path(membership_id),
              method: :get, class: 'uk-form') do
       button_tag '', name: nil, class: 'uk-icon-edit uk-button uk-button-small',
                      'data-uk-tooltip': '', title: 'Posztok szerkesztése'
@@ -32,7 +32,7 @@ class GroupMemberDecorator < Draper::Decorator
     return unless membership.newbie?
 
     button_to 'Elfogadás',
-              group_membership_accept_path(group.id, membership_id),
+              membership_accept_path(membership_id),
               method: :post, remote: true,
               class: 'uk-button uk-button-success uk-button-small uk-width-auto',
               id: "approve-button-#{membership_id}"
@@ -42,7 +42,7 @@ class GroupMemberDecorator < Draper::Decorator
     return unless membership.active?
 
     button_to 'Öreggé avatás',
-              group_membership_inactivate_path(group.id, membership_id),
+              membership_inactivate_path(membership_id),
               method: :post, remote: true,
               class: 'uk-button uk-button-primary uk-button-small uk-width-auto',
               id: "inactive-button-#{membership_id}"
@@ -52,7 +52,7 @@ class GroupMemberDecorator < Draper::Decorator
     return if membership.archived?
 
     button_to 'Archiválás',
-              group_membership_archive_path(group.id, membership_id),
+              membership_archive_path(membership_id),
               method: :put, remote: true,
               class: 'uk-button uk-button-danger uk-button-small uk-width-auto',
               id: "archive-button-#{membership_id}",
@@ -63,7 +63,7 @@ class GroupMemberDecorator < Draper::Decorator
     return unless membership.inactive?
 
     button_to 'Újraaktiválás',
-              group_membership_reactivate_path(group.id, membership_id),
+              membership_reactivate_path(membership_id),
               method: :post, remote: true,
               class: 'uk-button uk-button-primary uk-button-small uk-width-auto',
               id: "reactivate-button-#{membership_id}"
@@ -73,7 +73,7 @@ class GroupMemberDecorator < Draper::Decorator
     return unless membership.archived? && current_user.leader_of?(current_group)
 
     button_to 'Archiválás visszavonása',
-              group_membership_unarchive_path(group.id, membership_id),
+              membership_unarchive_path(membership_id),
               method: :put, remote: true,
               class: 'uk-button uk-button-danger uk-button-small uk-width-auto',
               id: "unarchive-button-#{membership_id}"

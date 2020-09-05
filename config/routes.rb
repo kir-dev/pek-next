@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   root to: redirect('/profiles/me')
   get 'groups/all', to: 'groups#all', as: :all_groups
-  resources :groups, only: [:show, :index, :edit, :update, :create, :new] do
+  resources :groups, only: [:show, :index, :edit, :update, :create, :new], shallow: true do
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
@@ -50,9 +50,9 @@ Rails.application.routes.draw do
     resources :post_types, only: [:index, :create, :destroy]
 
     get '/evaluations/current', to: 'evaluations#current'
-    resources :evaluations, only: [:show, :edit, :update] do
-      resources :principles, only: [:index, :update, :create, :destroy]
+    resources :evaluations, only: [:show, :edit, :update], shallow: true do
       post '/pointdetails/update', to: 'point_details#update'
+      resources :principles, only: [:index, :update, :create, :destroy]
       resources :point_detail_comments, shallow: true, only: %i[index create update edit]
       post '/entryrequests', to: 'evaluations#submit_entry_request'
       delete '/entryrequests', to: 'evaluations#cancel_entry_request', as: :cancel_entry_request

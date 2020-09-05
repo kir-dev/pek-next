@@ -26,7 +26,7 @@
 
     <hr/>
 
-    <%= form_for [ @evaluation.group, @evaluation, Principle.new ], remote: true,
+    <%= form_for [ @evaluation, Principle.new ], remote: true,
       authenticity_token: true, html: { class: 'uk-form' } do |f| %>
       <div class="uk-grid uk-grid-small">
 
@@ -56,7 +56,7 @@
       </div>
     <% end %>
 
-    <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get,
+    <%= button_to "Vissza", evaluation_path(@evaluation), method: :get,
       class: "uk-button uk-align-center uk-margin-top" %>
 
   </div>

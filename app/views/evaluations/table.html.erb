@@ -21,7 +21,7 @@
       <%= render 'table_info' %>
     </div>
     <div class="uk-float-right uk-margin-right">
-      <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: 'uk-button uk-button-small' %>
+      <%= link_to 'Vissza', evaluation_path(@evaluation), class: 'uk-button uk-button-small' %>
     </div>
   </div>
 
@@ -90,7 +90,7 @@
                   value="<%= sum_all_details(@point_details, membership.user) %>">
               </td>
               <td>
-                <%= form_tag(group_evaluation_entryrequests_update_path(@group, @evaluation),
+                <%= form_tag(evaluation_entryrequests_update_path(@evaluation),
                   mehtod: :post, remote: true, html: { class: 'uk-form' }) do %>
                   <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
                     entry_request(@evaluation, membership.user)),
@@ -140,6 +140,6 @@
 </div>
 
 <script type="text/javascript">
-  const updateURL = "<%= group_evaluation_pointdetails_update_path(@group, @evaluation) %>";
+  const updateURL = "<%= evaluation_pointdetails_update_path(@evaluation) %>";
   const initEvaluationTable = true;
 </script>

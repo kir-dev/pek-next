@@ -1,8 +1,8 @@
 class PrinciplesController < EvaluationsController
-  before_action :require_resort_or_group_leader
-  before_action :require_application_or_evaluation_season
-  before_action :require_application_season_for_group_leader
-  before_action :validate_correct_group
+  # before_action :require_resort_or_group_leader
+  # before_action :require_application_or_evaluation_season
+  # before_action :require_application_season_for_group_leader
+  # before_action :validate_correct_group
 
   def index
     @evaluation = Evaluation.find(params[:evaluation_id])
