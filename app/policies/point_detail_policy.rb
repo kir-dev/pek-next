@@ -5,6 +5,12 @@ class PointDetailPolicy < EvaluationPolicy
     end
   end
 
+  def update?
+    return false unless evaluation.changeable_point_request_status?
+
+    super
+  end
+
   private
 
   def evaluation

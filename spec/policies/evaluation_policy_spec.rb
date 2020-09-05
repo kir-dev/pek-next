@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe EvaluationPolicy, type: :policy do
-  let(:point_detail) { create(:point_detail) }
-  let(:user) { point_detail.point_request.evaluation.group.leader.user }
-
   subject { described_class }
 
   permissions ".scope" do
@@ -19,10 +16,7 @@ RSpec.describe EvaluationPolicy, type: :policy do
   end
 
   permissions :update? do
-
-    it "requires group leader" do
-      expect(subject).to permit(user, point_detail.destroy!)
-    end
+    pending "add some examples to (or delete) #{__FILE__}"
   end
 
   permissions :destroy? do

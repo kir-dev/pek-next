@@ -6,7 +6,8 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def update?
-    user.leader_of?(evaluation.group) && SystemAttribute.application_season?
+    user.leader_of?(evaluation.group) ||
+        (user.leader_of?(evaluation.group.parent) && !SystemAttribute.offseason?)
   end
 
   private
