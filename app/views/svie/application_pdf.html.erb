@@ -10,10 +10,20 @@
 </head>
 
 <body>
-<%= image_tag 'schlogo.png', class: 'uk-float-left' %>
+<table class="uk-table">
+  <tr>
+    <th class="uk-width-1-3">
+      <%= image_tag 'schlogo.png', style: "height:100px" %>
+    </th>
+    <th class="uk-width-1-3">
+      <h2 style="text-align: center;"><%= @title %></h2>
+    </th>
+    <th class="uk-width-1-3"></th>
+  </tr>
+</table>
+
 <div>
-  <h1 class="text-center"><%= @title %></h1>
-  <%= yield %>
+  <%= render "svie/pdf/#{@type}" %>
 </div>
 <table class="uk-table">
   <tr class="row">

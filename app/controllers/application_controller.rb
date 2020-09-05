@@ -4,13 +4,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # better_errors has a bug with puma 3.x that makes it relly slow to load
-  # https://github.com/charliesome/better_errors/issues/341
-  before_action :better_errors_hack, if: -> { Rails.env.development? }
-  def better_errors_hack
-    request.env['puma.config'].options.user_options.delete :app
-  end
-
   before_action :require_login
   def require_login
     return if session[:user_id] || ENV['NONAUTH']
