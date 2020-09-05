@@ -1,6 +1,5 @@
 class PostTypesController < ApplicationController
-  before_action :require_leader
-  before_action :set_group, only: %i[index destroy]
+  # before_action :require_leader
 
   def create
     post_type_params = params.require(:post_type).permit(:name, :group_id)
@@ -13,6 +12,7 @@ class PostTypesController < ApplicationController
   end
 
   def index
+    @group = Group.find(params[:group_id]||params[:id])
     @post_types = PostType.where(group_id: @group.id).without_common
   end
 
@@ -21,16 +21,10 @@ class PostTypesController < ApplicationController
     can_be_deleted =
       post_type.posts.empty? &&
       !PostType::COMMON_TYPES.include?(post_type.id) &&
-      post_type.group.id == @group.id
+          current_user.leader_of?(post_type.group)
 
     return redirect_back fallback_location: group_url, alert: 'A poszt nem törölhető, mert használatban van!' unless can_be_deleted
     post_type.destroy
     redirect_back fallback_location: group_url
-  end
-
-  private
-
-  def set_group
-    @group = Group.find(params[:group_id])
   end
 end
