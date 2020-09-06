@@ -1,4 +1,4 @@
-class PointDetailPolicy < EvaluationPolicy
+class PointDetailPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
@@ -6,9 +6,8 @@ class PointDetailPolicy < EvaluationPolicy
   end
 
   def update?
-    return false unless evaluation.changeable_point_request_status?
-
-    super
+    user.leader_of?(evaluation.group) &&
+        evaluation.changeable_point_request_status?
   end
 
   private
