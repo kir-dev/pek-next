@@ -38,10 +38,10 @@ RSpec.describe "PointDetails", type: :request do
       context "when off season" do
         include_context "off season"
 
-        it "it redirects to root" do
+        it "it forbidden" do
           post *arguments
 
-          expect(response).to redirect_to(root_url)
+          expect(response).to have_http_status(:forbidden)
         end
       end
 
@@ -137,10 +137,10 @@ RSpec.describe "PointDetails", type: :request do
       context "when evaluation season" do
         include_context "evaluation season"
 
-        it "it redirects" do
+        it "its forbidden" do
           post *arguments
 
-          expect(response).to redirect_to(root_url)
+          expect(response).to have_http_status(:forbidden)
         end
 
         context "when point request rejected" do
@@ -164,11 +164,11 @@ RSpec.describe "PointDetails", type: :request do
       context "when off season" do
         include_context "off season"
 
-        it "it redirects to root" do
+        it "it's frobidden" do
 
           post *arguments
 
-          expect(response).to redirect_to(root_url)
+          expect(response).to have_http_status(:forbidden)
         end
       end
 
@@ -185,10 +185,10 @@ RSpec.describe "PointDetails", type: :request do
       context "when evaluation season" do
         include_context "evaluation season"
 
-        it "it redirects" do
+        it "it's frobidden" do
           post *arguments
 
-          expect(response).to redirect_to(root_url)
+          expect(response).to have_http_status(:forbidden)
         end
 
         context "when point request rejected" do
@@ -211,10 +211,10 @@ RSpec.describe "PointDetails", type: :request do
       context "when off season" do
         include_context "off season"
 
-        it "it redirects to root" do
+        it "it's frobidden" do
           post *arguments
 
-          expect(response).to redirect_to(root_url)
+          expect(response).to have_http_status(:forbidden)
         end
       end
 
@@ -231,10 +231,10 @@ RSpec.describe "PointDetails", type: :request do
       context "when evaluation season" do
         include_context "evaluation season"
 
-        it "it redirects" do
+        it "it's frobidden" do
           post *arguments
 
-          expect(response).to redirect_to(root_url)
+          expect(response).to have_http_status(:forbidden)
         end
 
         context "when point request rejected" do
@@ -258,10 +258,10 @@ RSpec.describe "PointDetails", type: :request do
       context "when off season" do
         include_context "off season"
 
-        it "it redirects to root" do
+        it "it's frobidden" do
           post *arguments
 
-          expect(response).to redirect_to(root_url)
+          expect(response).to have_http_status(:forbidden)
         end
       end
 
@@ -278,10 +278,10 @@ RSpec.describe "PointDetails", type: :request do
       context "when evaluation season" do
         include_context "evaluation season"
 
-        it "it redirects" do
+        it "it's frobidden" do
           post *arguments
 
-          expect(response).to redirect_to(root_url)
+          expect(response).to have_http_status(:forbidden)
         end
 
         context "when point request rejected" do

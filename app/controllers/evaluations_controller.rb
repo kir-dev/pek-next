@@ -5,6 +5,8 @@ class EvaluationsController < ApplicationController
   # before_action :validate_correct_group, except: :current
   # before_action :changeable_points, only: %i[edit update table submit_point_request]
   # before_action :changeable_entries, only: %i[submit_entry_request]
+  before_action :authorize_evaluation
+  after_action :verify_authorized
 
   def current
     evaluation = Evaluation.find_by(group_id: current_group.id, semester: current_semester)
@@ -79,5 +81,9 @@ class EvaluationsController < ApplicationController
 
   def changeable_points
     redirect_to root_url unless current_evaluation.changeable_point_request_status?
+  end
+
+  def authorize_evaluation
+    authorize Evaluation.find_or_initialize_by(group: Group.find(params[:group_id]))
   end
 end

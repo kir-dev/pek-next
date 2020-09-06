@@ -1,6 +1,7 @@
 class MembershipsController < ApplicationController
   # before_action :require_leader, except: %i[create withdraw]
-  # before_action :forbidden_page, unless: :membership_belongs_to_user?, only: %i[withdraw]
+  before_action :authorize_membership, except: %i[create withdraw]
+  before_action :forbidden_page, unless: :membership_belongs_to_user?, only: %i[withdraw]
 
   def create
     Membership::CreateService.call(group, current_user)
@@ -49,12 +50,16 @@ class MembershipsController < ApplicationController
 
   private
 
+  def authorize_membership
+    authorize membership, :change_status?
+  end
+
   def group
     @group ||= Group.find(params[:group_id]) || Group.find(params[:id])
   end
 
   def membership
-    @membership ||= Membership.find(params[:id])
+    @membership ||= Membership.find(params[:membership_id])
   end
 
   def membership_belongs_to_user?

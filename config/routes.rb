@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
       post '/accept', to: 'memberships#accept'
-      post :withdraw, on: :member
+      post 'withdraw', to: 'memberships#withdraw'
       put '/archive', to: 'memberships#archive'
       put '/unarchive', to: 'memberships#unarchive'
       resources :posts, only: [:index, :create, :destroy]

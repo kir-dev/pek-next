@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  rescue_from NotAuthorizedError, with: :forbidden_page
+  rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_page
 
   before_action :require_login
   def require_login
@@ -102,5 +104,9 @@ class ApplicationController < ActionController::Base
 
   def forbidden_page
     render 'application/403', status: :forbidden
+  end
+
+  def unprocessable_page
+    render 'application/403', status: :unprocessable_entity
   end
 end
