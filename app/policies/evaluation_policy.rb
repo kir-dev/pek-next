@@ -5,19 +5,40 @@ class EvaluationPolicy < ApplicationPolicy
     end
   end
 
-  EDIT = %i[edit update
-            submit_entry_request cancel_entry_request
-            submit_point_request cancel_point_request].freeze
-  READ = %i[current show table].freeze
-
-  EDIT.each do |m|
-    m = m.to_s.concat('?').to_sym
-    define_method(m) { group_leader }
+  def current?
+    (group_leader || resort_laeder) && !SystemAttribute.offseason?
   end
 
-  READ.each do |m|
-    m = m.to_s.concat('?').to_sym
-    define_method(m) { group_leader || resort_laeder }
+  def show?
+    (group_leader || resort_laeder) && !SystemAttribute.offseason?
+  end
+
+  def table?
+    (group_leader || resort_laeder) && !SystemAttribute.offseason?
+  end
+
+  def edit?
+    group_leader || SystemAttribute.application_season?
+  end
+
+  def update?
+    edit?
+  end
+
+  def submit_entry_request
+    group_leader && evaluation
+  end
+
+  def cancel_entry_request
+    group_leader
+  end
+
+  def submit_point_request
+    group_leader
+  end
+
+  def cancel_poin_request
+    group_leader
   end
 
   private

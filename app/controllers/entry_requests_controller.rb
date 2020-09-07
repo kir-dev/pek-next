@@ -4,6 +4,8 @@ class EntryRequestsController < ApplicationController
   # before_action :require_application_season_for_group_leader
 
   def update
+    authorize EntryRequest.find_or_initialize_by(evaluation: current_evaluation)
+
     begin
       create_or_update_point_request
     rescue ActiveRecord::RecordInvalid, RecordNotFound

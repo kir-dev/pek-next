@@ -224,7 +224,7 @@ RSpec.describe "PointDetails", type: :request do
         it "it updates" do
           post *arguments
 
-          expect(response).to have_http_status(:ok)
+          expect(response).to have_http_status(:forbidden)
         end
       end
 
@@ -245,7 +245,7 @@ RSpec.describe "PointDetails", type: :request do
           it "it updates" do
             post *arguments
 
-            expect(response).to have_http_status(:ok)
+            expect(response).to have_http_status(:forbidden)
           end
         end
       end
