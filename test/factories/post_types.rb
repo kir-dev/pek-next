@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :post_type do
-    group { build(:group) }
+    group { build(:basic_group) }
     sequence(:name) { |n| "Post type #{n}" }
     sequence(:id, 150)
   end

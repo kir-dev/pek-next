@@ -18,6 +18,10 @@ FactoryBot.define do
     end
   end
 
+  factory :group_with_parent, parent: :group do
+    parent { create(:group) }
+  end
+
   factory :group_svie, parent: :basic_group do
     id { Group::SVIE_ID }
     name { 'SVIE' }

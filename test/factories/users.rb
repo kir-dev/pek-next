@@ -7,10 +7,7 @@ FactoryBot.define do
     sequence(:nickname) { |n| "nickname_sanyi#{n}" }
     sequence(:email) { |n| "sanyi_#{n}@example.org" }
     sequence(:cell_phone) { |n| "66677788#{n}" }
-    sequence(:neptun) do |n|
-      random_character = (n % 26 + 65).chr(Encoding::UTF_8)
-      "AAAAA#{random_character}"
-    end
+    sequence(:neptun) { |n| (36 ** 6 - 1 - n).to_s(36).upcase }
     auth_sch_id { SecureRandom.uuid }
 
     trait :with_primary_membership do

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :evaluation do
-    association :group
+    association(:group, factory: :group_with_parent)
 
     date { '201720181' }
     justification { 'Lyo lesz' }
