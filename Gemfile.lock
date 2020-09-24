@@ -122,7 +122,7 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    json (2.3.1)
+    json (2.2.0)
     jwt (2.2.1)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -171,6 +171,10 @@ GEM
     public_suffix (3.0.2)
     puma (4.3.5)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
+    pundit-matchers (1.6.0)
+      rspec-rails (>= 3.0.0)
     rack (2.2.3)
     rack-protection (2.0.0)
       rack
@@ -312,6 +316,8 @@ DEPENDENCIES
   pdfkit
   pg
   puma
+  pundit (~> 2.1)
+  pundit-matchers (~> 1.6)
   rails (~> 5.0.7.2)
   rails-controller-testing
   render_anywhere
