@@ -1,6 +1,5 @@
 class PointDetailsController < ApplicationController
   before_action :require_resort_or_group_leader
-  before_action :require_application_season_for_group_leader
   before_action :set_entities
   before_action :changeable_evaluation
   before_action :validate_correct_group
