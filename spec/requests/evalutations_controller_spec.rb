@@ -79,7 +79,7 @@ describe EvaluationsController do
       it "shows the evaluation" do
         get "/groups/#{group.id}/evaluations/#{evaluation.id}"
 
-        expect(response).to redirect_to(root_url)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
@@ -101,7 +101,7 @@ describe EvaluationsController do
       it "shows the evaluation" do
         get "/groups/#{group.id}/evaluations/#{evaluation.id}"
 
-        expect(response).to redirect_to(root_url)
+        expect(response).to have_http_status(:ok)
       end
     end
   end
@@ -115,7 +115,7 @@ describe EvaluationsController do
       it "redirects" do
         post "/groups/#{group.id}/evaluations/#{evaluation.id}/pointrequest"
 
-        expect(response).to redirect_to(root_url)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
