@@ -31,7 +31,7 @@ class PointDetail < ApplicationRecord
     self.point = valid_point
   end
 
-  after_save do
+  after_commit do
     point_request.recalculate!
   end
 
