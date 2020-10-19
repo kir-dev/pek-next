@@ -1,9 +1,5 @@
 class JustificationsController < EvaluationsController
-  before_action :require_resort_or_group_leader
-  before_action :require_application_or_evaluation_season
-  before_action :require_application_season_for_group_leader
   before_action :validate_correct_group
-  skip_before_action :changeable_points
 
   def edit
     @entry_requests = Evaluation.find(params[:evaluation_id]).entry_requests

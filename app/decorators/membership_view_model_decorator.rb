@@ -36,12 +36,6 @@ class MembershipViewModelDecorator < Draper::Decorator
     end
 end
 
-  def new_evaluation_button
-    return unless membership_view_model.leader? && SystemAttribute.application_season?
-
-    styled_link_to('Értékelés leadás', group_evaluations_current_path(membership_view_model.group))
-  end
-
   def leader_info_button
     return unless membership_view_model.leader?
 
@@ -55,8 +49,8 @@ end
     render 'leader_info'
   end
 
-  def resort_leader_evaluation_button
-    return unless membership_view_model.resort_leader?
+  def evaluation_button
+    return unless EvaluationPolicy.new(current_user, current_evaluation).current?
 
     styled_link_to('Értékelés megtekintése',
                    group_evaluations_current_path(membership_view_model.group))

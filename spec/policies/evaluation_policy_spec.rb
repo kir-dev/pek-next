@@ -6,6 +6,7 @@ RSpec.describe EvaluationPolicy, type: :policy do
   let(:evaluation_view_actions) { evaluation_actions - %i[edit update] }
   let(:point_request_actions)   { %i[submit_point_request cancel_point_request] }
   let(:entry_request_actions)   { %i[submit_entry_request cancel_entry_request] }
+  let(:cancel_actions)          { %i[cancel_point_request cancel_entry_request] }
   let(:all_action)              { entry_request_actions + point_request_actions + entry_request_actions }
 
   context 'when application season' do
@@ -14,7 +15,7 @@ RSpec.describe EvaluationPolicy, type: :policy do
     context 'leader of the group' do
       let(:user) { evaluation.group.leader.user }
 
-      it { is_expected.to permit_actions(all_action) }
+      it { is_expected.to permit_actions(all_action - cancel_actions) }
     end
 
     context 'leader of another the group' do
@@ -41,13 +42,13 @@ RSpec.describe EvaluationPolicy, type: :policy do
     context "when the point request is rejected" do
       before { evaluation.point_request_status = Evaluation::REJECTED }
 
-      it { is_expected.to permit_actions(point_request_actions) }
+      it { is_expected.to permit_actions(point_request_actions - cancel_actions ) }
     end
 
     context "whetn the entry_request is rejected" do
       before { evaluation.entry_request_status = Evaluation::REJECTED }
 
-      it { is_expected.to permit_actions(entry_request_actions) }
+      it { is_expected.to permit_actions(entry_request_actions - cancel_actions) }
     end
   end
 

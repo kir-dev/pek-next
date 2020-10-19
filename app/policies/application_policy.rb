@@ -34,6 +34,20 @@ class ApplicationPolicy
     false
   end
 
+  private
+
+  def pek_admin?
+    user.roles.pek_admin?
+  end
+
+  def off_season?
+    SystemAttribute.offseason?
+  end
+
+  def application_season?
+    SystemAttribute.application_season?
+  end
+
   class Scope
     attr_reader :user, :scope
 

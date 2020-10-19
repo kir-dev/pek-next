@@ -27,18 +27,20 @@
 
   <hr>
 
-  <% if @evaluation.changeable_point_request_status? %>
+  <% if  EvaluationPolicy.new(current_user, @evaluation).submit_point_request? %>
     <%= link_to 'Pontozás véglegesítése', group_evaluation_pointrequest_path(current_group, @evaluation), method: :post,
       class: 'uk-button uk-button-success uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
-  <% else %>
+  <% end %>
+  <% if EvaluationPolicy.new(current_user, @evaluation).cancel_point_request? %>
     <%= link_to 'Pointigény véglegesítés visszavonása', group_evaluation_cancel_point_request_path(current_group, @evaluation), method: :delete,
       class: 'uk-button uk-button-danger uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
   <% end %>
 
-  <% if @evaluation.changeable_entry_request_status? %>
+  <% if  EvaluationPolicy.new(current_user, @evaluation).submit_entry_request? %>
     <%= link_to 'Belépőigény véglegesítése', group_evaluation_entryrequests_path(current_group, @evaluation), method: :post,
       class: 'uk-button uk-button-success uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
-  <% else %>
+  <% end %>
+  <%if  EvaluationPolicy.new(current_user, @evaluation).cancel_entry_request? %>
     <%= link_to 'Belépőigény véglegesítés visszavonása', group_evaluation_cancel_entry_request_path(current_group, @evaluation), method: :delete,
       class: 'uk-button uk-button-danger uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
   <% end %>
