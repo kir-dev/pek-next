@@ -94,10 +94,7 @@ class Evaluation < ApplicationRecord
   private
 
   def can_change_request_status_of?(request_status)
-    return true if SystemAttribute.evaluation_season? && request_status == REJECTED
-    return true if SystemAttribute.application_season? &&
-                   ([NON_EXISTENT, REJECTED].include? request_status)
-
-    false
+    SystemAttribute.evaluation_season? && request_status == REJECTED ||
+      SystemAttribute.application_season? && request_status != ACCEPTED
   end
 end
