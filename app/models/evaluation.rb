@@ -49,6 +49,12 @@ class Evaluation < ApplicationRecord
   REJECTED = 'ELUTASITVA'.freeze
   NOT_YET_ASSESSED = 'ELBIRALATLAN'.freeze
 
+  enum point_request_status: {
+      NON_EXISTENT:     NON_EXISTENT,
+      ACCEPTED:         ACCEPTED,
+      REJECTED:         REJECTED,
+      NOT_YET_ASSESSED: NOT_YET_ASSESSED }
+
   def point_request_accepted?
     point_request_status == ACCEPTED
   end
@@ -89,6 +95,10 @@ class Evaluation < ApplicationRecord
 
   def changeable_point_request_status?
     can_change_request_status_of? point_request_status
+  end
+
+  def point_request_state
+    @point_request_state ||= EvaluationStateService.new(self)
   end
 
   private

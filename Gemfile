@@ -44,6 +44,8 @@ gem 'unsplash'
 gem 'activity_notification', '~> 1.7'
 # use Pundit for authorization
 gem 'pundit', '~> 2.1'
+# use aasm for state management
+gem 'aasm', '~> 5.1', '>= 5.1.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
