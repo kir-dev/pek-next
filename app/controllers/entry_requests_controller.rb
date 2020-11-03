@@ -2,7 +2,7 @@ class EntryRequestsController < ApplicationController
   before_action :set_evaluation
 
   def update
-    unless EvaluationPolicy.new(current_user, @evaluation).submit_point_request?
+    unless EvaluationPolicy.new(current_user, @evaluation).submit_entry_request?
       raise Pundit::NotAuthorizedError, "not allowed to update? this #{@evaluation.inspect}"
     end
 

@@ -7,7 +7,9 @@ class EvaluationPolicy < ApplicationPolicy
   alias table? show?
 
   def edit?
-    leader_of_the_group? && evaluation.changeable_point_request_status?
+    leader_of_the_group? &&
+        evaluation.changeable_point_request_status? &&
+        evaluation.point_request_status != Evaluation::NOT_YET_ASSESSED
   end
 
   alias index? edit?

@@ -31,6 +31,8 @@ class EvaluationsController < ApplicationController
         pd.point_request.evaluation == current_evaluation
       end
     @evaluation = current_evaluation
+    @can_submit_point_requests = EvaluationPolicy.new(current_user, @evaluation).submit_point_request?
+    @can_submit_entry_requests = EvaluationPolicy.new(current_user, @evaluation).submit_entry_request?
   end
 
   def submit_entry_request
