@@ -1,3 +1,5 @@
+# This controller's actions are authenticated by the parent's policy. (EvaluationPolicy)
+# WARNING: Renaming actions or implementing additional authentication could result unexpected behaviour!
 class PrinciplesController < EvaluationsController
   before_action :set_principle, only: %i[update destroy]
   before_action :validate_correct_evaluation, only: %i[update destroy]
