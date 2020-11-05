@@ -1,13 +1,14 @@
 RSpec.describe EvaluationPolicy, type: :policy do
   subject { described_class.new(user, evaluation) }
 
-  let(:evaluation) { create(:evaluation) }
-  let(:evaluation_actions) { %i[show current table edit update] }
+  let(:evaluation)              { create(:evaluation) }
+  let(:evaluation_actions)      { %i[show current table edit update] }
   let(:evaluation_view_actions) { evaluation_actions - %i[edit update] }
-  let(:point_request_actions) { %i[submit_point_request cancel_point_request] }
-  let(:entry_request_actions) { %i[submit_entry_request cancel_entry_request] }
-  let(:cancel_actions) { %i[cancel_point_request cancel_entry_request] }
-  let(:all_action) { entry_request_actions + point_request_actions + entry_request_actions }
+  let(:point_request_actions)   { %i[submit_point_request cancel_point_request] }
+  let(:entry_request_actions)   { %i[submit_entry_request cancel_entry_request] }
+  let(:submit_actions)          { %i[submit_point_request submit_entry_request] }
+  let(:cancel_actions)          { %i[cancel_point_request cancel_entry_request] }
+  let(:all_action)              { entry_request_actions + point_request_actions + entry_request_actions }
 
   context 'when application season' do
     include_context 'application season'
@@ -16,6 +17,17 @@ RSpec.describe EvaluationPolicy, type: :policy do
       let(:user) { evaluation.group.leader.user }
 
       it { is_expected.to permit_actions(all_action - cancel_actions) }
+      it { is_expected.to forbid_actions(cancel_actions) }
+
+      context "when the request is submitted" do
+        before(:each) do
+          evaluation.point_request_status = Evaluation::NOT_YET_ASSESSED
+          evaluation.entry_request_status = Evaluation::NOT_YET_ASSESSED
+        end
+
+        it { is_expected.to permit_actions(cancel_actions) }
+        it { is_expected.to forbid_actions(submit_actions) }
+      end
     end
 
     context 'leader of another the group' do
