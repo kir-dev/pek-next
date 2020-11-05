@@ -2,6 +2,8 @@ class JustificationsController < EvaluationsController
   before_action :validate_correct_group
 
   def edit
+    authorize_evaluation
+
     @entry_requests = Evaluation.find(params[:evaluation_id]).entry_requests
                                 .reject { |er| er.entry_type == EntryRequest::KDO }
                                 .sort_by { |a| a.user.full_name }
@@ -9,6 +11,8 @@ class JustificationsController < EvaluationsController
   end
 
   def update
+    authorize_evaluation
+
     entry_requests = EntryRequest.find(params[:entry_requests].keys)
     entry_requests.each do |entry_request|
       entry_request.update(params[:entry_requests][entry_request.id.to_s].permit(:justification))
