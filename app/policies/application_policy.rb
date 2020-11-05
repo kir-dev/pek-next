@@ -48,6 +48,10 @@ class ApplicationPolicy
     SystemAttribute.application_season?
   end
 
+  def evaluation_season?
+    SystemAttribute.evaluation_season?
+  end
+
   class Scope
     attr_reader :user, :scope
 

@@ -16,9 +16,12 @@
       class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
     <%= link_to 'Pontozási elvek', group_evaluation_principles_path(current_group, @evaluation),
       class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
-    <%= link_to 'Pontozás', group_evaluation_table_path(current_group, @evaluation),
-      class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
   <% end %>
+
+  <% if EvaluationPolicy.new(current_user, @evaluation).table? %>
+    <%= link_to 'Pontozás', group_evaluation_table_path(current_group, @evaluation),
+        class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
+  <%end%>
 
   <% if @evaluation.changeable_entry_request_status? %>
     <%= link_to 'Belépőigény indoklások', group_evaluation_justifications_edit_path(current_group, @evaluation),
