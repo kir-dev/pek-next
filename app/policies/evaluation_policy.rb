@@ -7,7 +7,7 @@ class EvaluationPolicy < ApplicationPolicy
   alias table? show?
 
   def edit?
-    (leader_of_the_group? &&
+    ((leader_of_the_group? || pek_admin?) &&
         evaluation.changeable_point_request_status? &&
         evaluation.point_request_status != Evaluation::NOT_YET_ASSESSED)
   end
@@ -18,27 +18,27 @@ class EvaluationPolicy < ApplicationPolicy
   alias destroy? edit?
 
   def submit_point_request?
-    (leader_of_the_group? &&
+    ((leader_of_the_group? || pek_admin? ) &&
         evaluation.changeable_point_request_status? &&
         evaluation.point_request_status != Evaluation::NOT_YET_ASSESSED) ||
     (leader_of_the_resort? && evaluation_season?)
   end
 
   def cancel_point_request?
-    leader_of_the_group? &&
+    (leader_of_the_group? || pek_admin?) &&
         evaluation.changeable_point_request_status? &&
         evaluation.point_request_status == Evaluation::NOT_YET_ASSESSED
   end
 
   def submit_entry_request?
-    (leader_of_the_group? &&
+    ((leader_of_the_group? || pek_admin?) &&
         evaluation.changeable_entry_request_status? &&
         evaluation.entry_request_status != Evaluation::NOT_YET_ASSESSED) ||
     (leader_of_the_resort? && evaluation_season?)
   end
 
   def cancel_entry_request?
-    leader_of_the_group? &&
+    (leader_of_the_group? || pek_admin?) &&
         evaluation.changeable_entry_request_status? &&
         evaluation.entry_request_status == Evaluation::NOT_YET_ASSESSED
   end

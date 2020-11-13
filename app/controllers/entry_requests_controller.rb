@@ -6,10 +6,13 @@ class EntryRequestsController < ApplicationController
       raise Pundit::NotAuthorizedError, "not allowed to update? this #{@evaluation.inspect}"
     end
 
-  create_or_update_entry_request
-    head :ok
-  rescue ActiveRecord::RecordInvalid, RecordNotFound
-    head :unprocessable_entity
+    begin
+      create_or_update_entry_request
+    rescue ActiveRecord::RecordInvalid, RecordNotFound
+      head :unprocessable_entity
+    else
+      head :ok
+    end
   end
 
   private

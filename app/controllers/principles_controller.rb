@@ -15,7 +15,7 @@ class PrinciplesController < EvaluationsController
   def create
     @principle = Principle.new(principle_params)
     @evaluation = current_evaluation
-    @principle.evaluation = current_evaluation
+    @principle.evaluation = @evaluation
     @principle.save
   end
 
