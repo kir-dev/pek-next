@@ -5,7 +5,7 @@ RSpec.describe PrinciplesController do
   let(:principle) { create(:principle) }
 
   describe 'index' do
-    context 'off season' do
+    context 'when off season' do
       include_context 'off season'
       let(:user) { create(:user) }
 
@@ -16,7 +16,7 @@ RSpec.describe PrinciplesController do
       end
     end
 
-    context 'application season' do
+    context 'when application season' do
       include_context 'application season'
       let(:user) { principle.evaluation.group.leader.user }
 
@@ -32,19 +32,20 @@ RSpec.describe PrinciplesController do
     context 'when application season' do
       include_context 'application season'
 
-      context "when the user is the group leader" do
+      context "and the user is the group leader" do
         let(:user) { principle.evaluation.group.leader.user }
 
         it 'creates the principle' do
-          post "/groups/#{principle.group.id}/evaluations/#{principle.evaluation.id}/principles",
-               params: { principle: principle.attributes, format: "javascript" }
+          expect do
+            post "/groups/#{principle.group.id}/evaluations/#{principle.evaluation.id}/principles",
+                 params: { principle: principle.attributes, format: "javascript" }
+          end.to change(Principle, :count).by(1)
 
           expect(response).to have_http_status(:ok)
         end
       end
 
-
-      context 'when evaluation is not correct' do
+      context 'and evaluation is not correct' do
         let(:user)       { principle.evaluation.group.leader.user }
         let(:evaluation) { create(:evaluation) }
 
@@ -55,7 +56,7 @@ RSpec.describe PrinciplesController do
         end
       end
 
-      context 'the user is the leader of another group' do
+      context 'and the user is the leader of another group' do
         let(:user) { create(:group).leader.user }
 
         it 'returns forbidden' do

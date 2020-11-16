@@ -3,9 +3,7 @@ class PointDetailsController < ApplicationController
   before_action :validate_correct_group
 
   def update
-    unless EvaluationPolicy.new(current_user, @evaluation).submit_point_request?
-      raise Pundit::NotAuthorizedError, "not allowed to update? this #{@evaluation.inspect}"
-    end
+    authorize @evaluation, :submit_point_request?
 
     point_detail_service          = CreateOrUpdatePointDetail.new(@user, @principle, @evaluation)
     @point_detail, @point_details = point_detail_service.call(params[:point])

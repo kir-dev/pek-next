@@ -2,23 +2,18 @@ class EntryRequestsController < ApplicationController
   before_action :set_evaluation
 
   def update
-    unless EvaluationPolicy.new(current_user, @evaluation).submit_entry_request?
-      raise Pundit::NotAuthorizedError, "not allowed to update? this #{@evaluation.inspect}"
-    end
+    authorize @evaluation, :submit_entry_request?
+    create_or_update_entry_request
 
-    begin
-      create_or_update_entry_request
-    rescue ActiveRecord::RecordInvalid, RecordNotFound
-      head :unprocessable_entity
-    else
-      head :ok
-    end
+    head :ok
+  rescue ActiveRecord::RecordInvalid, RecordNotFound
+    head :unprocessable_entity
   end
 
   private
 
   def create_or_update_entry_request
-    user       = User.find params[:user_id]
+    user       = User.find(params[:user_id])
     entry_type = params[:entry_type]
 
     entry_request = EntryRequest.find_or_create_by!(evaluation: @evaluation, user: user)
@@ -26,6 +21,6 @@ class EntryRequestsController < ApplicationController
   end
 
   def set_evaluation
-    @evaluation = Evaluation.find params[:evaluation_id]
+    @evaluation = Evaluation.find(params[:evaluation_id])
   end
 end

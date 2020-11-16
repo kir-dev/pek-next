@@ -50,7 +50,7 @@ end
   end
 
   def evaluation_button
-    return unless EvaluationPolicy.new(current_user, current_evaluation).current?
+    return unless policy(current_evaluation).current?
 
     styled_link_to('Értékelés megtekintése',
                    group_evaluations_current_path(membership_view_model.group))
