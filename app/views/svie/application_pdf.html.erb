@@ -6,8 +6,10 @@
   <title>PekNext</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= stylesheet_link_tag    'svie_member_request_pdf.css' %>
+  <%= stylesheet_link_tag    'svie_member_request_pdf.css', media: 'all' %>
 </head>
+
+<%= button_to 'Nyomtatás', 'javascript:window.print()', class: 'uk-button uk-button-large uk-button-success uk-align-center no-print' %>
 
 <body>
 <table class="uk-table">
