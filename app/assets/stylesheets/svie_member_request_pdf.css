@@ -31,3 +31,9 @@ p {
 .row::after {
     clear: both;
 }
+
+@media print {
+  .no-print, .no-print * {
+        display: none !important;
+    }
+}
