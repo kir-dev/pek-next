@@ -13,13 +13,13 @@ RSpec.describe EvaluationPolicy, type: :policy do
   context 'when application season' do
     include_context 'application season'
 
-    context 'leader of the group' do
+    context 'and the user is the group leader' do
       let(:user) { evaluation.group.leader.user }
 
       it { is_expected.to permit_actions(all_action - cancel_actions) }
       it { is_expected.to forbid_actions(cancel_actions) }
 
-      context "when the request is submitted" do
+      context "and the request is submitted" do
         before(:each) do
           evaluation.point_request_status = Evaluation::NOT_YET_ASSESSED
           evaluation.entry_request_status = Evaluation::NOT_YET_ASSESSED
@@ -30,13 +30,13 @@ RSpec.describe EvaluationPolicy, type: :policy do
       end
     end
 
-    context 'leader of another the group' do
+    context 'and the user is a leader of another the group' do
       let(:user) { create(:group).leader.user }
 
       it { is_expected.to forbid_actions(all_action) }
     end
 
-    context 'leader of the group resort' do
+    context 'and the user is the leader of the group resort' do
       let(:user) { evaluation.group.parent.leader.user }
 
       it { is_expected.to permit_actions(evaluation_view_actions) }
@@ -44,16 +44,16 @@ RSpec.describe EvaluationPolicy, type: :policy do
     end
   end
 
-  context 'evaluation season' do
+  context 'when evaluation season' do
     include_context 'evaluation season'
 
-    context "when the user is the group leader" do
+    context "and the user is the group leader" do
       let(:user) { evaluation.group.leader.user }
 
       it { is_expected.to permit_actions(evaluation_view_actions) }
       it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
 
-      context "when the point request is rejected" do
+      context "and the point request is rejected" do
         before { evaluation.point_request_status = Evaluation::REJECTED }
 
         it { is_expected.to permit_actions(point_request_actions - cancel_actions) }
@@ -70,6 +70,15 @@ RSpec.describe EvaluationPolicy, type: :policy do
       let(:user) { evaluation.group.parent.leader.user }
 
       it { is_expected.to permit_actions(all_action - cancel_actions) }
+
+      context "and the point and entry request is accepted" do
+        before do
+          evaluation.point_request_status = Evaluation::ACCEPTED
+          evaluation.entry_request_status = Evaluation::ACCEPTED
+        end
+
+        it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
+      end
     end
   end
 

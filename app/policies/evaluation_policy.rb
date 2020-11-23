@@ -21,7 +21,8 @@ class EvaluationPolicy < ApplicationPolicy
     ((leader_of_the_group? || pek_admin? ) &&
         evaluation.changeable_point_request_status? &&
         evaluation.point_request_status != Evaluation::NOT_YET_ASSESSED) ||
-    (leader_of_the_resort? && evaluation_season?)
+    (leader_of_the_resort? && evaluation_season? &&
+        evaluation.point_request_status != Evaluation::ACCEPTED)
   end
 
   def cancel_point_request?
@@ -34,7 +35,8 @@ class EvaluationPolicy < ApplicationPolicy
     ((leader_of_the_group? || pek_admin?) &&
         evaluation.changeable_entry_request_status? &&
         evaluation.entry_request_status != Evaluation::NOT_YET_ASSESSED) ||
-    (leader_of_the_resort? && evaluation_season?)
+    (leader_of_the_resort? && evaluation_season? &&
+        evaluation.entry_request_status != Evaluation::ACCEPTED)
   end
 
   def cancel_entry_request?
