@@ -49,6 +49,8 @@ class Evaluation < ApplicationRecord
   REJECTED = 'ELUTASITVA'.freeze
   NOT_YET_ASSESSED = 'ELBIRALATLAN'.freeze
 
+  include Notifications::EvaluationNotifier
+
   def point_request_accepted?
     point_request_status == ACCEPTED
   end

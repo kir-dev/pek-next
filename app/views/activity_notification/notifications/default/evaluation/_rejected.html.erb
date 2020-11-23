@@ -1,0 +1,7 @@
+<% @notification = NotificationDecorator.new notification %>
+
+<%= content_for :notification_body, flush: true do %>
+  "Rejected"
+<% end %>
+
+<%= render 'notification' %>
