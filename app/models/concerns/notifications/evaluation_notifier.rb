@@ -2,11 +2,29 @@ module Notifications
   module EvaluationNotifier
     extend ActiveSupport::Concern
 
-    RESORT_LEADER_KEYS = ['evaluation.not_yet_assessed'].freeze
-    GROUP_LEADER_KEYS  = ['evaluation.rejected', 'evaluation.accepted'].freeze
-    ALL_KEYS           = { Evaluation::NOT_YET_ASSESSED => 'evaluation.not_yet_assessed',
-                           Evaluation::REJECTED         => 'evaluation.rejected',
-                           Evaluation::ACCEPTED         => 'evaluation.accepted' }.freeze
+    class EvaluationNotificationKey
+      PREFIX       = "evaluation"
+      VALUE_STRINGS = { Evaluation::NOT_YET_ASSESSED => 'not_yet_assessed',
+                       Evaluation::REJECTED         => 'rejected',
+                       Evaluation::ACCEPTED         => 'accepted' }.freeze
+
+      def initialize(type, value)
+        @type  = type
+        @value = value
+      end
+
+      def group_leader_key?
+        [Evaluation::ACCEPTED, Evaluation::REJECTED].include?(@value)
+      end
+
+      def resort_leader_key?
+        [Evaluation::NOT_YET_ASSESSED].include?(@value)
+      end
+
+      def to_s
+        [PREFIX, @type, VALUE_STRINGS[@value]].join('.')
+      end
+    end
 
     included do
       acts_as_notifiable :users, targets: :targets
@@ -14,16 +32,10 @@ module Notifications
       after_update :notify_from_status_change, if: :status_changed?
     end
 
-    # Membership.prepend(Module.new do
-    #   def accept!(*args)
-    #     super(*args)
-    #     notify_from_accept
-    #   end
-    # end)
-
     def targets(key)
-      return [group.parent.leader.user] if resort_leader_key?(key)
-      return [group.leader.user] if group_leader_key?(key)
+      request_status = key.split('.')[-1]
+      return [group.parent.leader.user] if ['not_yet_assessed'].include?(request_status)
+      return [group.leader.user] if ['accepted','rejected'].include?(request_status)
 
       []
     end
@@ -34,29 +46,23 @@ module Notifications
 
     private
 
-    def group_leader_key?(key)
-      GROUP_LEADER_KEYS.include?(key)
-    end
-
-    def resort_leader_key?(key)
-      RESORT_LEADER_KEYS.include?(key)
-    end
-
     def status_changed?
       point_request_status_changed? || entry_request_status_changed?
     end
 
     def sender(key)
-      return group.parent.leader.user if group_leader_key?(key)
-      return group.leader.user if resort_leader_key?(key)
+      return group.parent.leader.user if key.group_leader_key?
+      return group.leader.user if key.resort_leader_key?
     end
 
     def notify_from_status_change
-      key = ALL_KEYS[point_request_status]
-      notify(:users, key: key, notifier: sender(key)) if point_request_status_changed?
+      return unless SystemAttribute.evaluation_season?
 
-      key = ALL_KEYS[entry_request_status]
-      notify(:users, key: key, notifier: sender(key)) if entry_request_status_changed?
+      key = EvaluationNotificationKey.new("point_request", point_request_status)
+      notify(:users, key: key.to_s , notifier: sender(key)) if point_request_status_changed?
+
+      key = EvaluationNotificationKey.new("entry_request", entry_request_status)
+      notify(:users, key: key.to_s, notifier: sender(key)) if entry_request_status_changed?
     end
   end
 end

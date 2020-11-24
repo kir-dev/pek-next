@@ -1,7 +1,8 @@
 <% @notification = NotificationDecorator.new notification %>
 
 <%= content_for :notification_body, flush: true do %>
-  "Accepted"
+  <% if @notification.notifiable.present? %>
+    Leadta a pont igényét a(z) <%= @notification.notifiable.group.decorate.link %> körnek!
+  <% end %>
 <% end %>
-
 <%= render 'notification' %>
