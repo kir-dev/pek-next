@@ -1,6 +1,6 @@
 class PointDetailCommentsController < ApplicationController
   before_action :set_point_detail_comment, only: %i[edit update]
-  before_action :authorize
+  before_action :authorize_comment
 
   def index
     comments = comments_by_principle_user_id(params[:principle_id].to_i, params[:user_id].to_i)
@@ -47,9 +47,11 @@ class PointDetailCommentsController < ApplicationController
     end
   end
 
-  def authorize
+  def authorize_comment
     principle = @point_detail_comment&.principle
     principle ||= Principle.find params[:principle_id]
-    head :forbidden unless current_user.leader_of?(principle.group)
+
+    @evaluation = principle.evaluation
+    authorize @evaluation, :submit_point_request?
   end
 end
