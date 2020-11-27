@@ -30,6 +30,15 @@ RSpec.describe EvaluationPolicy, type: :policy do
       end
     end
 
+    context "and the user is the evaluation helper of the group" do
+      let(:user) do
+        evaluation.group.memberships.select(&:evaluation_helper?).first.user
+      end
+
+      it { is_expected.to permit_actions(all_action - cancel_actions) }
+      it { is_expected.to forbid_actions(cancel_actions) }
+    end
+
     context 'and the user is a leader of another the group' do
       let(:user) { create(:group).leader.user }
 

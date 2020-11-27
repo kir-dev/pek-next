@@ -102,6 +102,11 @@ class User < ApplicationRecord
     membership&.active?
   end
 
+  def evaluation_helper_of?(group)
+    membership = membership_for(group)
+    membership&.evaluation_helper?
+  end
+
   def roles
     @roles ||= UserRole.new(self)
   end

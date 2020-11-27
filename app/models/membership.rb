@@ -47,6 +47,10 @@ class Membership < ApplicationRecord
     has_post?(PostType::PEK_ADMIN_ID)
   end
 
+  def evaluation_helper?
+    has_post?(PostType::EVALUATION_HELPER_ID)
+  end
+
   def has_post?(post_id)
     posts.any? { |post| post.post_type.id == post_id }
   end

@@ -25,6 +25,14 @@ FactoryBot.define do
       sibling_group = create(:group)
       sibling_group.update(parent: group.parent)
     end
+
+    after(:create) do |group|
+      user = create(:user)
+      Membership::CreateService.call(group, user)
+      membership = user.membership_for(group)
+      CreatePost.call(group, membership, PostType::EVALUATION_HELPER_ID)
+      ActivityNotification::Notification.last.delete
+    end
   end
 
   factory :group_svie, parent: :basic_group do

@@ -13,3 +13,8 @@ pek_admin:
 new_member:
   id: 104
   name: újonc
+
+evaluation_helper:
+  id: 1188
+  name: pontozó
+

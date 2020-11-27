@@ -50,6 +50,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     FactoryBot.create(:post_type_leader)
     FactoryBot.create(:post_type_newbie)
+    FactoryBot.create(:post_type_evaluation_helper)
     FactoryBot.create(:group_svie)
     FactoryBot.create(:group_rvt)
     FactoryBot.create(:group_kir_dev)
@@ -64,6 +65,7 @@ RSpec.configure do |config|
     PostType.delete_all
     Group.delete_all
     User.delete_all
+    ActivityNotification::Notification.delete_all
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
