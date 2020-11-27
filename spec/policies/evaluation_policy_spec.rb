@@ -36,6 +36,23 @@ RSpec.describe EvaluationPolicy, type: :policy do
       it { is_expected.to forbid_actions(all_action) }
     end
 
+    context 'and the user is a leader of another group in the resort' do
+      let(:user) { evaluation.group.parent.children.select{ |g| g != evaluation.group }.first.leader.user }
+
+      it { is_expected.to  permit_actions(evaluation_view_actions) }
+      it { is_expected.to  forbid_actions(all_action - evaluation_view_actions) }
+    end
+
+    context 'and the group has no parents' do
+      let(:user) { create(:user) }
+
+      before(:each) do
+        evaluation.group.update(parent: nil)
+      end
+
+      it { is_expected.to forbid_actions(all_action) }
+    end
+
     context 'and the user is the leader of the group resort' do
       let(:user) { evaluation.group.parent.leader.user }
 

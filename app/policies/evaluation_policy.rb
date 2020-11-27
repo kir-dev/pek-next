@@ -1,6 +1,7 @@
 class EvaluationPolicy < ApplicationPolicy
   def show?
-    (leader_of_the_group? || leader_of_the_resort? || pek_admin?) && !off_season?
+    (leader_of_the_group? || leader_of_the_resort? ||
+        pek_admin? || leader_in_the_resort?) && !off_season?
   end
 
   alias current? show?
@@ -53,6 +54,10 @@ class EvaluationPolicy < ApplicationPolicy
 
   def leader_of_the_resort?
     user.leader_of?(evaluation.group.parent)
+  end
+
+  def leader_in_the_resort?
+    evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) }
   end
 
   def evaluation

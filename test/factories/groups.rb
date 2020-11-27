@@ -20,6 +20,11 @@ FactoryBot.define do
 
   factory :group_with_parent, parent: :group do
     parent { create(:group) }
+
+    after(:create) do |group|
+      sibling_group = create(:group)
+      sibling_group.update(parent: group.parent)
+    end
   end
 
   factory :group_svie, parent: :basic_group do
