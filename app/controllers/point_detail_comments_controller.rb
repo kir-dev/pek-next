@@ -52,6 +52,6 @@ class PointDetailCommentsController < ApplicationController
     principle ||= Principle.find params[:principle_id]
 
     @evaluation = principle.evaluation
-    authorize @evaluation, :submit_point_request?
+    authorize @evaluation, :update_point_request?
   end
 end

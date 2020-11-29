@@ -2,7 +2,7 @@ class EntryRequestsController < ApplicationController
   before_action :set_evaluation
 
   def update
-    authorize @evaluation, :submit_entry_request?
+    authorize @evaluation, :update_entry_request?
     create_or_update_entry_request
 
     head :ok

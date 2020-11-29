@@ -4,11 +4,12 @@ RSpec.describe EvaluationPolicy, type: :policy do
   let(:evaluation)              { create(:evaluation) }
   let(:evaluation_actions)      { %i[show current table edit update] }
   let(:evaluation_view_actions) { evaluation_actions - %i[edit update] }
-  let(:point_request_actions)   { %i[submit_point_request cancel_point_request] }
-  let(:entry_request_actions)   { %i[submit_entry_request cancel_entry_request] }
+  let(:point_request_actions)   { %i[submit_point_request cancel_point_request update_point_request] }
+  let(:entry_request_actions)   { %i[submit_entry_request cancel_entry_request update_entry_request] }
   let(:submit_actions)          { %i[submit_point_request submit_entry_request] }
   let(:cancel_actions)          { %i[cancel_point_request cancel_entry_request] }
-  let(:all_action)              { entry_request_actions + point_request_actions + entry_request_actions }
+  let(:update_request_actions)  { %i[update_point_request update_entry_request] }
+  let(:all_action)              { entry_request_actions + point_request_actions }
 
   context 'when application season' do
     include_context 'application season'
@@ -35,8 +36,8 @@ RSpec.describe EvaluationPolicy, type: :policy do
         evaluation.group.memberships.select(&:evaluation_helper?).first.user
       end
 
-      it { is_expected.to permit_actions(all_action - cancel_actions) }
-      it { is_expected.to forbid_actions(cancel_actions) }
+      it { is_expected.to permit_actions(evaluation_view_actions + update_request_actions) }
+      it { is_expected.to forbid_actions(all_action - evaluation_view_actions - update_request_actions) }
     end
 
     context 'and the user is a leader of another the group' do
@@ -95,7 +96,7 @@ RSpec.describe EvaluationPolicy, type: :policy do
     context "when the user is the resort leader" do
       let(:user) { evaluation.group.parent.leader.user }
 
-      it { is_expected.to permit_actions(all_action - cancel_actions) }
+      it { is_expected.to permit_actions(update_request_actions) }
 
       context "and the point and entry request is accepted" do
         before do

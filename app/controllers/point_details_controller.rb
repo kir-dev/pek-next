@@ -3,7 +3,7 @@ class PointDetailsController < ApplicationController
   before_action :validate_correct_group
 
   def update
-    authorize @evaluation, :submit_point_request?
+    authorize @evaluation, :update_point_request?
 
     point_detail_service          = CreateOrUpdatePointDetail.new(@user, @principle, @evaluation)
     @point_detail, @point_details = point_detail_service.call(params[:point])

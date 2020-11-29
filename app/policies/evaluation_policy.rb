@@ -18,12 +18,17 @@ class EvaluationPolicy < ApplicationPolicy
   alias create? edit?
   alias destroy? edit?
 
-  def submit_point_request?
+  def update_point_request?
     ((leader_of_the_group? || evaluation_helper_of_the_group? || pek_admin?) &&
+        evaluation.changeable_point_request_status?) ||
+        (leader_of_the_resort? && evaluation_season? &&
+            evaluation.point_request_status != Evaluation::ACCEPTED)
+  end
+
+  def submit_point_request?
+    ((leader_of_the_group? || pek_admin?) &&
         evaluation.changeable_point_request_status? &&
-        evaluation.point_request_status != Evaluation::NOT_YET_ASSESSED) ||
-    (leader_of_the_resort? && evaluation_season? &&
-        evaluation.point_request_status != Evaluation::ACCEPTED)
+        evaluation.point_request_status != Evaluation::NOT_YET_ASSESSED)
   end
 
   def cancel_point_request?
@@ -32,12 +37,17 @@ class EvaluationPolicy < ApplicationPolicy
         evaluation.point_request_status == Evaluation::NOT_YET_ASSESSED
   end
 
-  def submit_entry_request?
+  def update_entry_request?
     ((leader_of_the_group? || evaluation_helper_of_the_group? || pek_admin?) &&
+        evaluation.changeable_entry_request_status?) ||
+        (leader_of_the_resort? && evaluation_season? &&
+            evaluation.entry_request_status != Evaluation::ACCEPTED)
+  end
+
+  def submit_entry_request?
+    ((leader_of_the_group? || pek_admin?) &&
         evaluation.changeable_entry_request_status? &&
-        evaluation.entry_request_status != Evaluation::NOT_YET_ASSESSED) ||
-    (leader_of_the_resort? && evaluation_season? &&
-        evaluation.entry_request_status != Evaluation::ACCEPTED)
+        evaluation.entry_request_status != Evaluation::NOT_YET_ASSESSED)
   end
 
   def cancel_entry_request?
