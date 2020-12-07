@@ -84,19 +84,4 @@ class Evaluation < ApplicationRecord
     self.last_modification = Time.now
     save!
   end
-
-  def changeable_entry_request_status?
-    can_change_request_status_of? entry_request_status
-  end
-
-  def changeable_point_request_status?
-    can_change_request_status_of? point_request_status
-  end
-
-  private
-
-  def can_change_request_status_of?(request_status)
-    SystemAttribute.evaluation_season? && request_status == REJECTED ||
-      SystemAttribute.application_season? && request_status != ACCEPTED
-  end
 end

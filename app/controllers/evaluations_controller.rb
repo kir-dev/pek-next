@@ -70,12 +70,4 @@ class EvaluationsController < ApplicationController
   def validate_correct_group
     forbidden_page unless current_evaluation.group == current_group
   end
-
-  def changeable_entries
-    redirect_to root_url unless current_evaluation.changeable_entry_request_status?
-  end
-
-  def changeable_points
-    redirect_to root_url unless current_evaluation.changeable_point_request_status?
-  end
 end

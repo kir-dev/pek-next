@@ -9,7 +9,7 @@ RSpec.describe EvaluationPolicy, type: :policy do
   let(:submit_actions)          { %i[submit_point_request submit_entry_request] }
   let(:cancel_actions)          { %i[cancel_point_request cancel_entry_request] }
   let(:update_request_actions)  { %i[update_point_request update_entry_request] }
-  let(:all_action)              { entry_request_actions + point_request_actions }
+  let(:all_action)              { entry_request_actions + point_request_actions + evaluation_actions }
 
   context 'when application season' do
     include_context 'application season'
@@ -28,6 +28,9 @@ RSpec.describe EvaluationPolicy, type: :policy do
 
         it { is_expected.to permit_actions(cancel_actions) }
         it { is_expected.to forbid_actions(submit_actions) }
+
+        it { is_expected.to permit_actions(evaluation_view_actions) }
+        it { is_expected.to forbid_actions(update_request_actions) }
       end
     end
 
@@ -77,8 +80,15 @@ RSpec.describe EvaluationPolicy, type: :policy do
     context "and the user is the group leader" do
       let(:user) { evaluation.group.leader.user }
 
-      it { is_expected.to permit_actions(evaluation_view_actions) }
-      it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
+      context "and the evaluation is not yet assessed" do
+        before(:each) do
+          evaluation.point_request_status = Evaluation::NOT_YET_ASSESSED
+          evaluation.entry_request_status = Evaluation::NOT_YET_ASSESSED
+        end
+
+        it { is_expected.to permit_actions(evaluation_view_actions) }
+        it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
+      end
 
       context "and the point request is rejected" do
         before { evaluation.point_request_status = Evaluation::REJECTED }
