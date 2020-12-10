@@ -40,7 +40,7 @@ FactoryBot.define do
     name { 'SVIE' }
   end
 
-  factory :group_rvt, parent: :basic_group do
+  factory :group_rvt, parent: :group do
     id { Group::RVT_ID }
     name { 'RVT' }
   end
