@@ -1,7 +1,12 @@
 class EvaluationPolicy < ApplicationPolicy
   def show?
-    (leader_of_the_group? || evaluation_helper_of_the_group? || leader_of_the_resort? ||
-      pek_admin? || leader_in_the_resort?) && !off_season?
+    return false if off_season?
+
+    return true if leader_of_the_group? || evaluation_helper_of_the_group?
+    return true if leader_of_the_resort? || leader_in_the_resort?
+    return true if pek_admin?
+
+    false
   end
 
   alias current? show?
@@ -17,45 +22,65 @@ class EvaluationPolicy < ApplicationPolicy
   alias destroy? edit?
 
   def update_point_request?
-    !off_season? &&
-      point_request_status != Evaluation::ACCEPTED && (
-      ((leader_of_the_group? || evaluation_helper_of_the_group? || pek_admin?) &&
-        point_request_status != Evaluation::NOT_YET_ASSESSED) ||
-        (leader_of_the_resort? && evaluation_season?)
-    )
+    update_request?(point_request_status)
   end
 
   def submit_point_request?
-    !off_season? &&
-      ![Evaluation::NOT_YET_ASSESSED, Evaluation::ACCEPTED].include?(point_request_status) &&
-      (leader_of_the_group? || pek_admin?)
+    submit_request?(point_request_status)
   end
 
   def cancel_point_request?
-    application_season? &&
-      point_request_status == Evaluation::NOT_YET_ASSESSED &&
-      (leader_of_the_group? || pek_admin?)
+    cancel_request?(point_request_status)
   end
 
   def update_entry_request?
-    !off_season? &&
-      entry_request_status != Evaluation::ACCEPTED && (
-      ((leader_of_the_group? || evaluation_helper_of_the_group? || pek_admin?) &&
-        entry_request_status != Evaluation::NOT_YET_ASSESSED) ||
-        (leader_of_the_resort? && evaluation_season?)
-    )
+    update_request?(entry_request_status)
   end
 
   def submit_entry_request?
-    !off_season? &&
-      ![Evaluation::NOT_YET_ASSESSED, Evaluation::ACCEPTED].include?(entry_request_status) &&
-      (leader_of_the_group? || pek_admin?)
+    submit_request?(entry_request_status)
   end
 
   def cancel_entry_request?
-    application_season? &&
-      entry_request_status == Evaluation::NOT_YET_ASSESSED &&
-      (leader_of_the_group? || pek_admin?)
+    cancel_request?(entry_request_status)
+  end
+
+  def update_request?(request_status)
+    return false if off_season?
+    return false if request_status == Evaluation::ACCEPTED
+
+    unless request_status == Evaluation::NOT_YET_ASSESSED
+      return true if leader_of_the_group? || evaluation_helper_of_the_group? || pek_admin?
+    end
+
+    if evaluation_season?
+      return true if leader_of_the_resort?
+    end
+
+    false
+  end
+
+  def submit_request?(request_status)
+    return false if off_season?
+    return false if request_status == Evaluation::ACCEPTED
+
+    unless request_status == Evaluation::NOT_YET_ASSESSED
+      return true if leader_of_the_group? || pek_admin?
+    end
+
+    false
+  end
+
+  def cancel_request?(request_status)
+    return false if off_season?
+    return false if request_status == Evaluation::ACCEPTED
+    return false unless application_season?
+
+    if request_status == Evaluation::NOT_YET_ASSESSED
+      return true if leader_of_the_group? || pek_admin?
+    end
+
+    false
   end
 
   private
