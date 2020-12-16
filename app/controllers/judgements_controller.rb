@@ -27,23 +27,19 @@ class JudgementsController < ApplicationController
     evaluation = Evaluation.find(params[:evaluation_id])
     authorize evaluation, policy_class: JudgementPolicy
 
-    authorize evaluation, :accept?, policy_class: JudgementPolicy if statuses.include?(Evaluation::ACCEPTED)
-    authorize evaluation, :reject?, policy_class: JudgementPolicy if statuses.include?(Evaluation::REJECTED)
-
-    create_judgement_service = CreateJudgement.new(judgement_params, evaluation)
-
-    if create_judgement_service.call
-      redirect_back fallback_location: judgements_path, notice: t(:edit_successful)
-    else
+    create_judgement_service = CreateJudgement.new(judgement_params, evaluation, current_user)
+    begin
+      create_judgement_service.call
+    rescue CreateJudgement::NoChangeHaveBeenMade
       redirect_back fallback_location: judgements_path, alert: t(:no_changes)
+    rescue CreateJudgement::UserCantMakeTheRequestedUpdates
+      raise Pundit::NotAuthorizedError
     end
+
+    redirect_back fallback_location: judgements_path, notice: t(:edit_successful)
   end
 
   private
-
-  def statuses
-    [judgement_params[:point_request_status],judgement_params[:entry_request_status]]
-  end
 
   def judgement_params
     params.permit(:entry_request_status, :point_request_status, :explanation)

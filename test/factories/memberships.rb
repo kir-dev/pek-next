@@ -27,5 +27,9 @@ FactoryBot.define do
     trait :for_kir_dev_group do
       group { Group.find_by(name: 'Kir-Dev') }
     end
+
+    trait :for_rvt_group do
+      group { Group.find(Group::RVT_ID) }
+    end
   end
 end
