@@ -71,7 +71,7 @@
                     data-user-name="<%= membership.user.full_name %>"
                     data-principle-type="<%= principle.type %>"
                     class="uk-input uk-width-auto point-input" type="number"
-                    value="<%= point_detail&.point %>" <%= "disabled" unless policy(@evaluation).update_point_request? %>>
+                    value="<%= point_detail&.point %>" <%= "readonly" unless policy(@evaluation).update_point_request? %>>
                   </div>
                 </td>
               <% end %>
