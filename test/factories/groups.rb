@@ -22,6 +22,10 @@ FactoryBot.define do
     parent { create(:group) }
 
     after(:create) do |group|
+      group.parent.update(parent_id: Group::RVT_ID)
+    end
+
+    after(:create) do |group|
       sibling_group = create(:group)
       sibling_group.update(parent: group.parent)
     end
