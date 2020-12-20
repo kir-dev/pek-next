@@ -21,6 +21,11 @@ class EvaluationPolicy < ApplicationPolicy
   alias create? edit?
   alias destroy? edit?
 
+  def edit_justification?
+    return false unless submittable_request?(point_request_status)
+    leader_of_the_group? || evaluation_helper_of_the_group?
+  end
+
   def update_point_request?
     update_request?(point_request_status)
   end
@@ -61,14 +66,16 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def submit_request?(request_status)
+    return false unless submittable_request?(request_status)
+    leader_of_the_group? || pek_admin?
+  end
+
+ def submittable_request?(request_status)
     return false if off_season?
     return false if request_status == Evaluation::ACCEPTED
+    return false if request_status == Evaluation::NOT_YET_ASSESSED
 
-    unless request_status == Evaluation::NOT_YET_ASSESSED
-      return true if leader_of_the_group? || pek_admin?
-    end
-
-    false
+    true
   end
 
   def cancel_request?(request_status)
