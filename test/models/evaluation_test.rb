@@ -5,6 +5,7 @@ class EvaluationTest < ActiveSupport::TestCase
     evaluation = Evaluation.new
     evaluation.group = create(:group)
     evaluation.semester = '201720182'
+    evaluation.set_default_values
 
     Timecop.freeze do
       assert evaluation.save

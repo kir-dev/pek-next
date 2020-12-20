@@ -4,6 +4,8 @@ FactoryBot.define do
 
     date { '201720181' }
     justification { 'Lyo lesz' }
+    entry_request_status { Evaluation::NON_EXISTENT }
+    point_request_status { Evaluation::NON_EXISTENT }
 
     factory :babhamozo_2018_evaluation do
       entry_request_status { Evaluation::ACCEPTED }

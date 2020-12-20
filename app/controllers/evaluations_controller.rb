@@ -4,9 +4,7 @@ class EvaluationsController < ApplicationController
 
   def current
     evaluation = Evaluation.find_by(group_id: current_group.id, semester: current_semester)
-    evaluation ||= Evaluation.create(group_id: current_group.id,
-                                     creator_user_id: current_user.id,
-                                     semester: current_semester)
+    evaluation ||= new_evaluation
 
     redirect_to group_evaluation_path(evaluation.group, evaluation)
   end
@@ -69,5 +67,15 @@ class EvaluationsController < ApplicationController
 
   def validate_correct_group
     forbidden_page unless current_evaluation.group == current_group
+  end
+
+  def new_evaluation
+    evaluation = Evaluation.new(group_id:        current_group.id,
+                                creator_user_id: current_user.id,
+                                semester:        current_semester)
+    evaluation.set_default_values
+    evaluation.save!
+
+    evaluation
   end
 end
