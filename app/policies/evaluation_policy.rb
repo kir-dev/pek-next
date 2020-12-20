@@ -4,7 +4,7 @@ class EvaluationPolicy < ApplicationPolicy
 
     return true if leader_of_the_group? || evaluation_helper_of_the_group?
     return true if leader_of_the_resort? || leader_in_the_resort?
-    return true if pek_admin?
+    return true if pek_admin? || rvt_member?
 
     false
   end
@@ -20,6 +20,19 @@ class EvaluationPolicy < ApplicationPolicy
   alias update? edit?
   alias create? edit?
   alias destroy? edit?
+
+  def update_comments?
+    return true if leader_of_the_group? || evaluation_helper_of_the_group?
+    return true if rvt_member?
+
+    false
+  end
+
+  def edit_justification?
+    return false unless submittable_request?(entry_request_status)
+
+    leader_of_the_group? || evaluation_helper_of_the_group?
+  end
 
   def update_point_request?
     update_request?(point_request_status)
@@ -45,6 +58,8 @@ class EvaluationPolicy < ApplicationPolicy
     cancel_request?(entry_request_status)
   end
 
+  private
+
   def update_request?(request_status)
     return false if off_season?
     return false if request_status == Evaluation::ACCEPTED
@@ -54,36 +69,32 @@ class EvaluationPolicy < ApplicationPolicy
     end
 
     if evaluation_season?
-      return true if leader_of_the_resort?
+      return true if leader_of_the_resort? || rvt_leader?
     end
 
     false
   end
 
   def submit_request?(request_status)
+    return false unless submittable_request?(request_status)
+
+    leader_of_the_group? || pek_admin?
+  end
+
+  def submittable_request?(request_status)
     return false if off_season?
     return false if request_status == Evaluation::ACCEPTED
+    return false if request_status == Evaluation::NOT_YET_ASSESSED
 
-    unless request_status == Evaluation::NOT_YET_ASSESSED
-      return true if leader_of_the_group? || pek_admin?
-    end
-
-    false
+    true
   end
 
   def cancel_request?(request_status)
-    return false if off_season?
-    return false if request_status == Evaluation::ACCEPTED
     return false unless application_season?
+    return false unless request_status == Evaluation::NOT_YET_ASSESSED
 
-    if request_status == Evaluation::NOT_YET_ASSESSED
-      return true if leader_of_the_group? || pek_admin?
-    end
-
-    false
+    leader_of_the_group? || pek_admin?
   end
-
-  private
 
   def leader_of_the_group?
     user.leader_of?(evaluation.group)
@@ -99,6 +110,14 @@ class EvaluationPolicy < ApplicationPolicy
 
   def leader_in_the_resort?
     evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) }
+  end
+
+  def rvt_member?
+    user.roles.rvt_member?
+  end
+
+  def rvt_leader?
+    user.roles.rvt_leader?
   end
 
   def point_request_status
