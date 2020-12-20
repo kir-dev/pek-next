@@ -30,6 +30,17 @@ module EvaluationsHelper
     point_details.select { |pd| pd.principle_id == principle.id }.sum(&:point)
   end
 
+  def count_principle_details(point_details, principle)
+    point_details.select { |pd| pd.principle_id == principle.id }.count
+  end
+
+  def average_principle_details(point_details, principle)
+    sum = sum_principle_details(point_details, principle)
+    count = count_principle_details(point_details, principle)
+    result = (sum.to_f / count.to_f).round(2)
+    result.finite? ? result : 0
+  end
+
   private
 
   def sum_details(point_details, user, principle_type)
