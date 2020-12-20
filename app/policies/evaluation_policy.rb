@@ -23,6 +23,7 @@ class EvaluationPolicy < ApplicationPolicy
 
   def edit_justification?
     return false unless submittable_request?(point_request_status)
+
     leader_of_the_group? || evaluation_helper_of_the_group?
   end
 
@@ -70,7 +71,7 @@ class EvaluationPolicy < ApplicationPolicy
     leader_of_the_group? || pek_admin?
   end
 
- def submittable_request?(request_status)
+  def submittable_request?(request_status)
     return false if off_season?
     return false if request_status == Evaluation::ACCEPTED
     return false if request_status == Evaluation::NOT_YET_ASSESSED
