@@ -34,8 +34,6 @@
 #
 
 class Evaluation < ApplicationRecord
-  before_save :set_default_values
-
   alias_attribute :date, :semester
 
   belongs_to :group
@@ -48,6 +46,12 @@ class Evaluation < ApplicationRecord
   ACCEPTED = 'ELFOGADVA'.freeze
   REJECTED = 'ELUTASITVA'.freeze
   NOT_YET_ASSESSED = 'ELBIRALATLAN'.freeze
+  EVALUATION_STATUSES = [NON_EXISTENT, ACCEPTED, REJECTED, NOT_YET_ASSESSED].freeze
+
+  validates :point_request_status, inclusion: { in:      EVALUATION_STATUSES,
+                                                message: "%{value} is not a valid EVALUATION_STATUS" }
+  validates :entry_request_status, inclusion: { in:      EVALUATION_STATUSES,
+                                                message: "%{value} is not a valid EVALUATION_STATUS" }
 
   include Notifications::EvaluationNotifier
 
