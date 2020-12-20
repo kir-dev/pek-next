@@ -4,7 +4,7 @@ class EvaluationPolicy < ApplicationPolicy
 
     return true if leader_of_the_group? || evaluation_helper_of_the_group?
     return true if leader_of_the_resort? || leader_in_the_resort?
-    return true if pek_admin?
+    return true if pek_admin? || rvt_member?
 
     false
   end
@@ -14,6 +14,13 @@ class EvaluationPolicy < ApplicationPolicy
 
   def edit?
     submit_point_request?
+  end
+
+  def update_comments?
+    return true if leader_of_the_group? || evaluation_helper_of_the_group?
+    return true if rvt_member?
+
+    false
   end
 
   alias index? edit?
@@ -107,6 +114,10 @@ class EvaluationPolicy < ApplicationPolicy
 
   def leader_in_the_resort?
     evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) }
+  end
+
+  def rvt_member?
+    user.roles.rvt_member?
   end
 
   def point_request_status
