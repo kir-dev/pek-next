@@ -35,6 +35,7 @@
           </li>
         <% end %>
         <li>Összegzések:</li>
+        <li>Átlagok:</li>
       </ul>
     </div>
     <div class="uk-overflow-container" id="points-table-container">
@@ -112,9 +113,18 @@
               </td>
             <% end %>
           </tr>
+          <tr>
+            <% @evaluation.ordered_principles.each do |principle| %>
+              <td data-avg-principle="<%= principle.id %>">
+                <b id="avg-of-principle-<%= principle.id %>">
+                  <%= average_principle_details(@point_details, principle) %>
+                </b>
+              </td>
+            <% end %>
+          </tr>
         </tfoot>
       </table>
-    </div>
+    </div>`
   </div>
   <div id="save-icon"></div>
 </div>
