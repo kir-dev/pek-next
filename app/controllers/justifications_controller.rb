@@ -1,10 +1,14 @@
 # This controller's actions are authenticated by the parent's policy. (EvaluationPolicy)
 # WARNING: Renaming actions or implementing additional authentication could result unexpected behaviour!
 class JustificationsController < EvaluationsController
+  class EntryRequestsArentForTheSameGroup < StandardError; end
   before_action :validate_correct_group
 
   def edit
-    @entry_requests = Evaluation.find(params[:evaluation_id]).entry_requests
+    evaluation = Evaluation.find(params[:evaluation_id])
+    authorize evaluation, :edit_justification?
+
+    @entry_requests = evaluation.entry_requests
                                 .reject { |er| er.entry_type == EntryRequest::KDO }
                                 .sort_by { |a| a.user.full_name }
     redirect_back fallback_location: root_url, alert: t(:no_entry_request) if @entry_requests.empty?
@@ -12,6 +16,10 @@ class JustificationsController < EvaluationsController
 
   def update
     entry_requests = EntryRequest.find(params[:entry_requests].keys)
+    evaluation = entry_requests.map(&:evaluation).uniq
+    raise EntryRequestsArentForTheSameGroup unless evaluation.count == 1
+    evaluation = evaluation.first
+    authorize evaluation, :edit_justification?
 
     entry_requests.each do |entry_request|
       entry_request.update(params[:entry_requests][entry_request.id.to_s].permit(:justification))
