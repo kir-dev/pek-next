@@ -33,6 +33,20 @@ describe Evaluation do
         User.includes(:notifications).all.map(&:notifications).flatten.count
       }.by(1)
     end
+
+    context 'the group parent does not have a leader' do
+      before(:each) do
+        evaluation.group.parent.leader.delete
+      end
+
+      it 'submitting a point request does not notify the resort leader' do
+        expect {
+          evaluation.update(point_request_status: Evaluation::NOT_YET_ASSESSED)
+        }.to change {
+          User.includes(:notifications).all.map(&:notifications).flatten.count
+        }.by(0)
+      end
+    end
   end
 
   context "when application season" do
