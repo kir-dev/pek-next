@@ -44,6 +44,8 @@ class Group < ApplicationRecord
   belongs_to :group, foreign_key: :parent_id, optional: true
   alias own_post_types post_types
 
+  scope :resorts, -> { where(parent_id: Group::RVT_ID) }
+
   SVIE_ID = 369
   RVT_ID = 146
   KIRDEV_ID = 106
