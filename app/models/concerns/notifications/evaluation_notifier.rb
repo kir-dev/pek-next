@@ -57,6 +57,7 @@ module Notifications
 
     def notify_from_status_change
       return unless SystemAttribute.evaluation_season?
+      return unless group&.parent&.leader&.user.present?
 
       key = EvaluationNotificationKey.new("point_request", point_request_status)
       notify(:users, key: key.to_s , notifier: sender(key)) if point_request_status_changed?
