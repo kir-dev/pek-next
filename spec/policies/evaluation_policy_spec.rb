@@ -72,6 +72,22 @@ RSpec.describe EvaluationPolicy, type: :policy do
       it { is_expected.to permit_actions(evaluation_view_actions) }
       it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
     end
+
+    context 'and the user is the leader of the parent group, but the group is not a resort' do
+      let(:user) { evaluation.group.parent.leader.user }
+      before(:each) do
+        evaluation.group.parent.update(parent_id: create(:group).id)
+      end
+
+      it { is_expected.to forbid_actions(all_action) }
+    end
+
+    context 'and the user is the leader of the RVT' do
+      let(:user) { Group.rvt.leader.user }
+
+      it { is_expected.to permit_actions(evaluation_view_actions) }
+      it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
+    end
   end
 
   context 'when evaluation season' do
