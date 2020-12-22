@@ -7,7 +7,11 @@
 <div id="content-main" class="uk-panel uk-panel-box">
 
   <div class="uk-width-large-1-2 uk-width-1-1 uk-align-center">
-
+    <%= form_tag(judgements_path, method: :get) do |form| %>
+      <%= label_tag(:resort, "Reszort:") %>
+      <%= select_tag :resort_id, options_for_select(@resorts.map{|resort| [resort.name, resort.id]}), include_blank: "Összes"  %>
+      <%= submit_tag "Szűrés" %>
+    <% end %>
     <ul class="uk-list uk-list-line">
       <li class="uk-clearfix uk-text-bold uk-margin-bottom">
         <div class="uk-float-left">

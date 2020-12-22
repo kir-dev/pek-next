@@ -2,7 +2,14 @@ class JudgementsController < ApplicationController
 
   def index
     authorize Evaluation.new, policy_class: JudgementPolicy
-    @evaluations = Evaluation.where(date: current_semester).page(params[:page]).decorate
+
+    @evaluations = Evaluation.where(date: current_semester)
+    if integer?(params[:resort_id])
+      @evaluations = @evaluations.where(group_id: groups_in_resort(params[:resort_id]).ids)
+    end
+    @evaluations = @evaluations.page(params[:page]).decorate
+
+    @resorts = Group.resorts.order(:name)
   end
 
   def show
@@ -40,6 +47,18 @@ class JudgementsController < ApplicationController
   end
 
   private
+
+  def groups_in_resort(resort_id)
+    Group.where(parent_id: resort_id).or(Group.where(id: resort_id))
+  end
+
+  def integer?(input)
+    Integer(input || '')
+    true
+
+  rescue ArgumentError
+    false
+  end
 
   def judgement_params
     params.permit(:entry_request_status, :point_request_status, :explanation)
