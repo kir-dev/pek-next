@@ -34,8 +34,12 @@
   border-style: solid;
   border-radius: 0.2em;
   border-width: 0.4em;
-  border-right-color: #9ccdc8;
-  border-top-color: #9ccdc8;
+  border-right-color: #659f13;
+  border-top-color: #659f13;
+}
+.has-comment-closing::after{
+  border-right-color: #607d8b;
+  border-top-color: #607d8b;
 }
 
 .name-column {

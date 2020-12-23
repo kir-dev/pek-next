@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped from database version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -58,6 +58,8 @@ CREATE SEQUENCE public.entry_requests_id_seq
     CACHE 1;
 
 
+SET default_with_oids = true;
+
 --
 -- Name: entry_requests; Type: TABLE; Schema: public; Owner: -
 --
@@ -68,16 +70,6 @@ CREATE TABLE public.entry_requests (
     justification text,
     evaluation_id bigint NOT NULL,
     user_id bigint
-);
-
-
---
--- Name: eredmeny_tmp; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.eredmeny_tmp (
-    uid bigint,
-    pont integer
 );
 
 
@@ -227,6 +219,8 @@ CREATE SEQUENCE public.im_accounts_seq
     CACHE 1;
 
 
+SET default_with_oids = false;
+
 --
 -- Name: im_accounts; Type: TABLE; Schema: public; Owner: -
 --
@@ -261,17 +255,6 @@ CREATE TABLE public.log (
     usr_id bigint NOT NULL,
     evt_date date DEFAULT now(),
     event character varying(30) NOT NULL
-);
-
-
---
--- Name: lostpw_tokens; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.lostpw_tokens (
-    created timestamp without time zone,
-    token character varying(64),
-    usr_id bigint NOT NULL
 );
 
 
@@ -342,7 +325,8 @@ CREATE TABLE public.point_detail_comments (
     user_id integer,
     point_detail_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    closing boolean
 );
 
 
@@ -432,6 +416,8 @@ CREATE SEQUENCE public.point_requests_id_seq
     CACHE 1;
 
 
+SET default_with_oids = true;
+
 --
 -- Name: point_requests; Type: TABLE; Schema: public; Owner: -
 --
@@ -441,20 +427,6 @@ CREATE TABLE public.point_requests (
     point integer,
     evaluation_id bigint NOT NULL,
     user_id bigint
-);
-
-
---
--- Name: points_2017; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.points_2017 (
-    usr_firstname text,
-    usr_lastname text,
-    usr_nickname text,
-    usr_neptun character varying,
-    usr_bme_id character varying,
-    point integer
 );
 
 
@@ -469,6 +441,8 @@ CREATE SEQUENCE public.poszttipus_seq
     NO MAXVALUE
     CACHE 1;
 
+
+SET default_with_oids = false;
 
 --
 -- Name: post_types; Type: TABLE; Schema: public; Owner: -
@@ -572,56 +546,6 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: spot_images; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.spot_images (
-    usr_neptun character varying NOT NULL,
-    image_path character varying(255) NOT NULL
-);
-
-
---
--- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.subscriptions (
-    id integer NOT NULL,
-    target_type character varying NOT NULL,
-    target_id integer NOT NULL,
-    key character varying NOT NULL,
-    subscribing boolean DEFAULT true NOT NULL,
-    subscribing_to_email boolean DEFAULT true NOT NULL,
-    subscribed_at timestamp without time zone,
-    unsubscribed_at timestamp without time zone,
-    subscribed_to_email_at timestamp without time zone,
-    unsubscribed_to_email_at timestamp without time zone,
-    optional_targets text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.subscriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
-
-
---
 -- Name: svie_post_requests; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -651,6 +575,8 @@ CREATE SEQUENCE public.svie_post_requests_id_seq
 ALTER SEQUENCE public.svie_post_requests_id_seq OWNED BY public.svie_post_requests.id;
 
 
+SET default_with_oids = true;
+
 --
 -- Name: system_attributes; Type: TABLE; Schema: public; Owner: -
 --
@@ -659,20 +585,6 @@ CREATE TABLE public.system_attributes (
     id bigint NOT NULL,
     name character varying(255) NOT NULL,
     value character varying(255) NOT NULL
-);
-
-
---
--- Name: temp_belepo; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.temp_belepo (
-    usr_lastname text,
-    usr_firstname text,
-    usr_nickname text,
-    grp_name text,
-    belepo_tipus character varying(255),
-    szoveges_ertekeles text
 );
 
 
@@ -728,6 +640,8 @@ CREATE TABLE public.users (
     updated_at timestamp without time zone
 );
 
+
+SET default_with_oids = false;
 
 --
 -- Name: view_settings; Type: TABLE; Schema: public; Owner: -
@@ -787,13 +701,6 @@ ALTER TABLE ONLY public.point_details ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.principles ALTER COLUMN id SET DEFAULT nextval('public.principles_id_seq'::regclass);
-
-
---
--- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
 
 
 --
@@ -875,22 +782,6 @@ ALTER TABLE ONLY public.log
 
 
 --
--- Name: lostpw_tokens lostpw_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lostpw_tokens
-    ADD CONSTRAINT lostpw_tokens_pkey PRIMARY KEY (usr_id);
-
-
---
--- Name: lostpw_tokens lostpw_tokens_token_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lostpw_tokens
-    ADD CONSTRAINT lostpw_tokens_token_key UNIQUE (token);
-
-
---
 -- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -963,19 +854,11 @@ ALTER TABLE ONLY public.privacies
 
 
 --
--- Name: spot_images spot_images_usr_neptun_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.spot_images
-    ADD CONSTRAINT spot_images_usr_neptun_key UNIQUE (usr_neptun);
-
-
---
--- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.subscriptions
-    ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -1184,27 +1067,6 @@ CREATE UNIQUE INDEX index_posts_on_membership_id_and_post_type_id ON public.post
 
 
 --
--- Name: index_subscriptions_on_key; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_subscriptions_on_key ON public.subscriptions USING btree (key);
-
-
---
--- Name: index_subscriptions_on_target_type_and_target_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_subscriptions_on_target_type_and_target_id ON public.subscriptions USING btree (target_type, target_id);
-
-
---
--- Name: index_subscriptions_on_target_type_and_target_id_and_key; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_subscriptions_on_target_type_and_target_id_and_key ON public.subscriptions USING btree (target_type, target_id, key);
-
-
---
 -- Name: membership_usr_fk_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1266,14 +1128,6 @@ CREATE UNIQUE INDEX users_usr_screen_name_idx ON public.users USING btree (upper
 
 ALTER TABLE ONLY public.groups
     ADD CONSTRAINT "$1" FOREIGN KEY (parent_id) REFERENCES public.groups(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: lostpw_tokens fk1e9df02e5854b081; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lostpw_tokens
-    ADD CONSTRAINT fk1e9df02e5854b081 FOREIGN KEY (usr_id) REFERENCES public.users(id);
 
 
 --
@@ -1378,6 +1232,14 @@ ALTER TABLE ONLY public.point_details
 
 ALTER TABLE ONLY public.principles
     ADD CONSTRAINT fk_rails_84e8865fd0 FOREIGN KEY (evaluation_id) REFERENCES public.evaluations(id);
+
+
+--
+-- Name: svie_post_requests fk_rails_a0009aa5e4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.svie_post_requests
+    ADD CONSTRAINT fk_rails_a0009aa5e4 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -1522,6 +1384,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200722171738'),
 ('20200722171937'),
 ('20200722172424'),
-('20200722173131');
+('20200722173131'),
+('20201223070757');
 
 
