@@ -69,7 +69,7 @@ class EvaluationPolicy < ApplicationPolicy
     end
 
     if evaluation_season?
-      return true if leader_of_the_resort?
+      return true if leader_of_the_resort? || rvt_leader?
     end
 
     false
@@ -114,6 +114,10 @@ class EvaluationPolicy < ApplicationPolicy
 
   def rvt_member?
     user.roles.rvt_member?
+  end
+
+  def rvt_leader?
+    user.roles.rvt_leader?
   end
 
   def point_request_status
