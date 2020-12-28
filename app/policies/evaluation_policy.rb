@@ -105,11 +105,19 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def leader_of_the_resort?
+    return false unless group_is_a_resort_member?
+
     user.leader_of?(evaluation.group.parent)
   end
 
   def leader_in_the_resort?
+    return false unless group_is_a_resort_member?
+
     evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) }
+  end
+
+  def group_is_a_resort_member?
+    Group.resorts.include?(evaluation.group.parent)
   end
 
   def rvt_member?
