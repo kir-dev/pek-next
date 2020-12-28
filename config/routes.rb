@@ -92,7 +92,7 @@ Rails.application.routes.draw do
   get '/seasons', to: 'season_admin#index'
   post '/seasons', to: 'season_admin#update'
 
-  if Rails.env.development?
+  if Rails.env.development? || Rails.env.staging?
     get '/development', to: 'development#index'
     post '/development/impersonate/random', to: 'development#impersonate_someone', as: :impersonate_someone
     post '/development/impersonate/user', to: 'development#impersonate_user', as: :impersonate_user
