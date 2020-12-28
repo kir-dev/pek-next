@@ -70,7 +70,7 @@
                     data-user-name="<%= membership.user.full_name %>"
                     data-principle-type="<%= principle.type %>"
                     class="uk-input uk-width-auto point-input" type="number"
-                    value="<%= point_detail&.point %>">
+                    value="<%= point_detail&.point %>" <%= "disabled" unless policy(@evaluation).update_point_request? %>>
                   </div>
                 </td>
               <% end %>
@@ -95,7 +95,7 @@
                   <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
                     entry_request(@evaluation, membership.user)),
                     onchange: 'javascript: $( this ).trigger("submit.rails")',
-                    class: 'uk-select uk-width-auto' %>
+                    class: 'uk-select uk-width-auto',disabled: !policy(@evaluation).update_entry_request?%>
                   <%= hidden_field_tag :user_id, membership.user_id %>
                 <% end %>
               </td>

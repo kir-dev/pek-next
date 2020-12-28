@@ -20,6 +20,19 @@ FactoryBot.define do
 
   factory :group_with_parent, parent: :group do
     parent { create(:group) }
+
+    after(:create) do |group|
+      sibling_group = create(:group)
+      sibling_group.update(parent: group.parent)
+    end
+
+    after(:create) do |group|
+      user = create(:user)
+      Membership::CreateService.call(group, user)
+      membership = user.membership_for(group)
+      CreatePost.call(group, membership, PostType::EVALUATION_HELPER_ID)
+      ActivityNotification::Notification.last.delete
+    end
   end
 
   factory :group_svie, parent: :basic_group do
@@ -27,7 +40,7 @@ FactoryBot.define do
     name { 'SVIE' }
   end
 
-  factory :group_rvt, parent: :basic_group do
+  factory :group_rvt, parent: :group do
     id { Group::RVT_ID }
     name { 'RVT' }
   end

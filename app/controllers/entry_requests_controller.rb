@@ -1,10 +1,10 @@
 class EntryRequestsController < ApplicationController
-  before_action :require_resort_or_group_leader
-  before_action :require_application_or_evaluation_season
-  before_action :require_application_season_for_group_leader
+  before_action :set_evaluation
 
   def update
-    create_or_update_point_request
+    authorize @evaluation, :update_entry_request?
+    create_or_update_entry_request
+
     head :ok
   rescue ActiveRecord::RecordInvalid, RecordNotFound
     head :unprocessable_entity
@@ -12,12 +12,15 @@ class EntryRequestsController < ApplicationController
 
   private
 
-  def create_or_update_point_request
-    user       = User.find params[:user_id]
-    evaluation = Evaluation.find params[:evaluation_id]
+  def create_or_update_entry_request
+    user       = User.find(params[:user_id])
     entry_type = params[:entry_type]
 
-    entry_request = EntryRequest.find_or_create_by!(evaluation: evaluation, user: user)
+    entry_request = EntryRequest.find_or_create_by!(evaluation: @evaluation, user: user)
     entry_request.update!(entry_type: entry_type)
+  end
+
+  def set_evaluation
+    @evaluation = Evaluation.find(params[:evaluation_id])
   end
 end

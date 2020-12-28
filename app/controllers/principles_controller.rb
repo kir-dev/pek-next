@@ -1,31 +1,37 @@
+# This controller's actions are authenticated by the parent's policy. (EvaluationPolicy)
+# WARNING: Renaming actions or implementing additional authentication could result unexpected behaviour!
 class PrinciplesController < EvaluationsController
-  before_action :require_resort_or_group_leader
-  before_action :require_application_or_evaluation_season
-  before_action :require_application_season_for_group_leader
-  before_action :validate_correct_group
+  before_action :set_principle, only: %i[update destroy]
+  before_action :validate_correct_evaluation, only: %i[update destroy]
 
   def index
-    @evaluation = Evaluation.find(params[:evaluation_id])
+    @evaluation = current_evaluation
   end
 
   def update
-    @principle = Principle.find(params[:id])
     @principle.update(principle_params)
   end
 
   def create
     @principle = Principle.new(principle_params)
-    @evaluation = Evaluation.find(params[:evaluation_id])
+    @evaluation = current_evaluation
     @principle.evaluation = @evaluation
     @principle.save
   end
 
   def destroy
-    @principle = Principle.find(params[:id])
     @principle.destroy
   end
 
   private
+
+  def set_principle
+    @principle = Principle.find(params[:id])
+  end
+
+  def validate_correct_evaluation
+    render forbidden_page unless current_evaluation == @principle.evaluation
+  end
 
   def principle_params
     params.require(:principle).permit(:type, :name, :max_per_member, :description)

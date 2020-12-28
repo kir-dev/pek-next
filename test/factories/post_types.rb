@@ -27,4 +27,10 @@ FactoryBot.define do
     id { PostType::NEW_MEMBER_ID }
     name { 'Ujonc' }
   end
+
+  factory :post_type_evaluation_helper, parent: :post_type do
+    id { PostType::EVALUATION_HELPER_ID }
+    group { nil }
+    name { 'Pontozó' }
+  end
 end

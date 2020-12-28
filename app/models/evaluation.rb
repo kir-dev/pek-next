@@ -49,6 +49,8 @@ class Evaluation < ApplicationRecord
   REJECTED = 'ELUTASITVA'.freeze
   NOT_YET_ASSESSED = 'ELBIRALATLAN'.freeze
 
+  include Notifications::EvaluationNotifier
+
   def point_request_accepted?
     point_request_status == ACCEPTED
   end
@@ -81,23 +83,5 @@ class Evaluation < ApplicationRecord
   def update_last_change!
     self.last_modification = Time.now
     save!
-  end
-
-  def changeable_entry_request_status?
-    can_change_request_status_of? entry_request_status
-  end
-
-  def changeable_point_request_status?
-    can_change_request_status_of? point_request_status
-  end
-
-  private
-
-  def can_change_request_status_of?(request_status)
-    return true if SystemAttribute.evaluation_season? && request_status == REJECTED
-    return true if SystemAttribute.application_season? &&
-                   ([NON_EXISTENT, REJECTED].include? request_status)
-
-    false
   end
 end

@@ -1,12 +1,14 @@
 class JudgementsController < ApplicationController
-  before_action :require_privileges_of_rvt
 
   def index
+    authorize Evaluation.new, policy_class: JudgementPolicy
     @evaluations = Evaluation.where(date: current_semester).page(params[:page]).decorate
   end
 
   def show
     @evaluation = Evaluation.find(params[:evaluation_id])
+    authorize @evaluation, policy_class: JudgementPolicy
+
     @point_details = PointDetail.includes(%i[point_request principle])
                                 .select { |pd| pd.point_request.evaluation_id == @evaluation.id }
     @evaluation_messages =
@@ -22,17 +24,19 @@ class JudgementsController < ApplicationController
   end
 
   def update
-    unless SystemAttribute.evaluation_season?
-      return redirect_back fallback_location: judgements_path, alert: t(:not_evaluation_season)
+    evaluation = Evaluation.find(params[:evaluation_id])
+    authorize evaluation, policy_class: JudgementPolicy
+
+    create_judgement_service = CreateJudgement.new(judgement_params, evaluation, current_user)
+    begin
+      create_judgement_service.call
+    rescue CreateJudgement::NoChangeHaveBeenMade
+      redirect_back fallback_location: judgements_path, alert: t(:no_changes)
+    rescue CreateJudgement::UserCantMakeTheRequestedUpdates
+      raise Pundit::NotAuthorizedError
     end
 
-    evaluation = Evaluation.find(params[:evaluation_id])
-    create_judgement_service = CreateJudgement.new(judgement_params, evaluation)
-    if create_judgement_service.call
-      redirect_back fallback_location: judgements_path, notice: t(:edit_successful)
-    else
-      redirect_back fallback_location: judgements_path, alert: t(:no_changes)
-    end
+    redirect_back fallback_location: judgements_path, notice: t(:edit_successful)
   end
 
   private

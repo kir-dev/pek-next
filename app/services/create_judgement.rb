@@ -1,27 +1,34 @@
 class CreateJudgement
-  attr_reader :params, :evaluation
+  class UserCantMakeTheRequestedUpdates < StandardError; end
+  class NoChangeHaveBeenMade < StandardError; end
 
-  def initialize(params, evaluation)
-    @params = params
-    @evaluation = evaluation
+  attr_reader :params, :evaluation, :judgement_policy
+
+  def initialize(params, evaluation, user)
+    @params            = params
+    @evaluation        = evaluation
+    @judgement_policy = JudgementPolicy.new(user, evaluation)
   end
 
   def call
-    return false unless changed?
+    raise NoChangeHaveBeenMade unless changed?
+    raise UserCantMakeTheRequestedUpdates unless can_be_updated_by_user?
 
     message = create_message
-    EvaluationMessage.create(sent_at: Time.now, message: message, from_system: true,
+    EvaluationMessage.create(sent_at:  Time.now, message: message, from_system: true,
                              semester: evaluation.semester, sender_user: nil,
-                             group: evaluation.group)
+                             group:    evaluation.group)
     evaluation.update(params)
   end
+
+  private
 
   def create_message
     point_request_change =
       request_change_message(evaluation.point_request_status, params[:point_request_status])
     entry_request_change =
       request_change_message(evaluation.entry_request_status, params[:entry_request_status])
-    explanation = params[:explanation] || 'nincs megadva'
+    explanation          = params[:explanation] || 'nincs megadva'
 
     "Pontkérelem státusza: #{point_request_change}, belépőkérelem státusza: \
     #{entry_request_change}, indoklás: #{explanation}"
@@ -34,7 +41,33 @@ class CreateJudgement
   end
 
   def changed?
-    evaluation.point_request_status != params[:point_request_status] ||
-      evaluation.entry_request_status != params[:entry_request_status]
+    point_request_status_changed? || entry_request_status_changed?
+  end
+
+  def can_be_updated_by_user?
+    return false unless check_access_to(:point_request)
+    return false unless check_access_to(:entry_request)
+
+    true
+  end
+
+  def check_access_to(request_type)
+    request_type = request_type.to_s
+
+    return true unless send(request_type + '_status_changed?')
+    if params[(request_type + '_status').to_sym] == Evaluation::ACCEPTED
+      return judgement_policy.accept?
+    end
+    return true if judgement_policy.send('update_' + request_type + '_status?')
+
+    false
+  end
+
+  def point_request_status_changed?
+    evaluation.point_request_status != params[:point_request_status]
+  end
+
+  def entry_request_status_changed?
+    evaluation.point_request_status != params[:point_request_status]
   end
 end

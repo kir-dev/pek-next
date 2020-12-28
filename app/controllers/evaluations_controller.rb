@@ -1,10 +1,8 @@
 class EvaluationsController < ApplicationController
-  before_action :validate_correct_group, except: :current
-  before_action :authorize_evaluation, except: :current
+  before_action :validate_correct_group
+  before_action :authorize_evaluation
 
   def current
-    authorize Evaluation.find_or_initialize_by(group_id: current_group.id, semester: current_semester)
-
     evaluation = Evaluation.find_by(group_id: current_group.id, semester: current_semester)
     evaluation ||= Evaluation.create(group_id: current_group.id,
                                      creator_user_id: current_user.id,
@@ -71,13 +69,5 @@ class EvaluationsController < ApplicationController
 
   def validate_correct_group
     forbidden_page unless current_evaluation.group == current_group
-  end
-
-  def changeable_entries
-    redirect_to root_url unless current_evaluation.changeable_entry_request_status?
-  end
-
-  def changeable_points
-    redirect_to root_url unless current_evaluation.changeable_point_request_status?
   end
 end

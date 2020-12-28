@@ -89,6 +89,8 @@ class ApplicationController < ActionController::Base
   def current_evaluation
     @current_evaluation ||= Evaluation.includes(:principles)
                                       .find(params[:evaluation_id] || params[:id])
+  rescue ActiveRecord::RecordNotFound
+    Evaluation.find_or_initialize_by(group: current_group, semester: current_semester)
   end
   helper_method :current_evaluation
 
