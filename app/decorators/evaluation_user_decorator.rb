@@ -21,7 +21,7 @@ class EvaluationUserDecorator < UserDecorator
     @sum_responsibility_point ||= [sum_details(point_details, Principle::RESPONSIBILITY), 20].min
   end
 
-  def sum_point
+  def sum_all_point
     @sum_point ||= sum_all_details
   end
 
