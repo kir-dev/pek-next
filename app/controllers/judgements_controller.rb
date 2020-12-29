@@ -6,7 +6,7 @@ class JudgementsController < ApplicationController
   end
 
   def show
-    @evaluation = Evaluation.find(params[:evaluation_id])
+    @evaluation = Evaluation.includes(:principles).find(params[:evaluation_id])
     authorize @evaluation, policy_class: JudgementPolicy
 
     @point_details = PointDetail.includes(%i[point_request principle])
@@ -16,11 +16,13 @@ class JudgementsController < ApplicationController
                        .order(sent_at: :desc).page(params[:page]).decorate
     @entry_requests = @evaluation.entry_requests.reject { |er| er.entry_type == EntryRequest::KDO }
     @entry_requests = EntryRequestDecorator.decorate_collection @entry_requests
-    @users = @evaluation.point_requests
-                        .includes(:user)
-                        .map(&:user)
-                        .sort_by(&:full_name)
-    @users = UserDecorator.decorate_collection @users
+    @users = User.joins(point_requests: :evaluation)
+                 .where(evaluations: { id: params[:evaluation_id] })
+                 .where.not(point_requests: { point: 0 })
+                 .includes(:entry_requests, point_requests: [point_details: :principle])
+                 .sort_by(&:full_name)
+    @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
+    @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
   end
 
   def update
