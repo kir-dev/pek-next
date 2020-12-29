@@ -1,8 +1,9 @@
 class EvaluationPointCalculator
-  attr_reader :users
+  attr_reader :users, :user_count
 
   def initialize(users)
-    @users = users
+    @users      = users
+    @user_count = users.length.to_f
   end
 
   def work_point_sum
@@ -18,20 +19,20 @@ class EvaluationPointCalculator
   end
 
   def work_point_average
-    @work_point_average ||= average(work_point_sum, eligible_user_count(:work))
+    @work_point_average ||= average(work_point_sum, user_eligible_count(:work))
   end
 
   def responsibility_point_average
-    @responsibility_point_average ||= average(responsibility_point_sum, eligible_user_count(:responsibility))
+    @responsibility_point_average ||= average(responsibility_point_sum, user_eligible_count(:responsibility))
   end
 
   def all_point_average
-    @all_point_average ||= average(all_point_sum, eligible_user_count(:all))
+    @all_point_average ||= average(all_point_sum, user_eligible_count(:all))
   end
 
   private
 
-  def eligible_user_count(category)
+  def user_eligible_count(category)
     users.count { |user| user.send("sum_#{category}_point").positive? }
   end
 
