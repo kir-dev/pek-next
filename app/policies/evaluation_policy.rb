@@ -35,7 +35,11 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def update_point_request?
-    update_request?(point_request_status)
+    unless defined?(@update_point_request)
+      @update_point_request = update_request?(point_request_status)
+    end
+
+    @update_point_request
   end
 
   def submit_point_request?
@@ -47,7 +51,11 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def update_entry_request?
-    update_request?(entry_request_status)
+    unless defined?(@update_entry_request)
+      @update_entry_request = update_request?(entry_request_status)
+    end
+
+    @update_entry_request
   end
 
   def submit_entry_request?
