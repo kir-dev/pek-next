@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped from database version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -342,7 +342,8 @@ CREATE TABLE public.point_detail_comments (
     user_id integer,
     point_detail_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    closing boolean
 );
 
 
@@ -1522,6 +1523,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200722171738'),
 ('20200722171937'),
 ('20200722172424'),
-('20200722173131');
+('20200722173131'),
+('20201223070757');
 
 

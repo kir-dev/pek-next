@@ -24,4 +24,12 @@ class PointDetailCommentDecorator < Draper::Decorator
       h.tag(:i, class: 'uk-icon-edit')
     end
   end
+
+  def closing_status
+    return unless closing
+
+    h.content_tag(:div, class: 'uk-clearfix') do
+      h.content_tag(:span, "záró komment", class: 'uk-align-right')
+    end
+  end
 end

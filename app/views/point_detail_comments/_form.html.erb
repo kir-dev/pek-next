@@ -19,6 +19,15 @@
       <%= hidden_field_tag :principle_id, params[:principle_id], id: 'comment-principle' %>
       <%= hidden_field_tag :user_id, params[:user_id], id: 'comment-user' %>
 
+      <% if current_user.roles.rvt_member? %>
+        <div class="uk-clearfix">
+          <span class="uk-align-right">
+            <span>záró komment</span>
+            <%= f.check_box :closing %>
+          </span>
+        </div>
+      <% end %>
+
       <div class="uk-clearfix">
         <div class="uk-text-small uk-text-muted uk-float-left">
           Küldés Ctrl+Enter
