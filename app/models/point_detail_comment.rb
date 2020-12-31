@@ -3,6 +3,7 @@
 # Table name: point_detail_comments
 #
 #  id              :integer          not null, primary key
+#  closing         :boolean
 #  comment         :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
