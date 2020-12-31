@@ -65,7 +65,7 @@
               <% @evaluation.ordered_principles.each do |principle| %>
                 <% point_detail = single_detail(@point_details, membership.user, principle) %>
                 <td>
-                  <div class="uk-form-icon<%= ' has-comment' if point_detail&.point_detail_comments&.present? %>">
+                  <div class="uk-form-icon <%= comments_status(point_detail)%>">
                     <i class="uk-icon-comment uk-hidden"></i>
                     <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
                     data-user-name="<%= membership.user.full_name %>"
