@@ -8,8 +8,8 @@ class CreatePointDetailComment
     @sender = sender
   end
 
-  def call(comment)
-    PointDetailComment.create(point_detail: point_detail, user: sender, comment: comment)
+  def call(comment, closing = nil)
+    PointDetailComment.create(point_detail: point_detail, user: sender, comment: comment, closing: closing)
   end
 
   private
