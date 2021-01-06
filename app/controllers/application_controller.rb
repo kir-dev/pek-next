@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   rescue_from Pundit::NotAuthorizedError, with: :forbidden_page
 
+  before_action :set_paper_trail_whodunnit
   before_action :require_login
   def require_login
     return if session[:user_id] || ENV['NONAUTH']

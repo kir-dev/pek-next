@@ -44,6 +44,8 @@ gem 'unsplash'
 gem 'activity_notification', '~> 1.7'
 # use Pundit for authorization
 gem 'pundit', '~> 2.1'
+# use paper_trail for versioning records
+gem 'paper_trail'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -58,6 +58,8 @@ CREATE SEQUENCE public.entry_requests_id_seq
     CACHE 1;
 
 
+SET default_with_oids = true;
+
 --
 -- Name: entry_requests; Type: TABLE; Schema: public; Owner: -
 --
@@ -70,6 +72,8 @@ CREATE TABLE public.entry_requests (
     user_id bigint
 );
 
+
+SET default_with_oids = false;
 
 --
 -- Name: eredmeny_tmp; Type: TABLE; Schema: public; Owner: -
@@ -92,6 +96,8 @@ CREATE SEQUENCE public.evaluation_messages_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
+SET default_with_oids = true;
 
 --
 -- Name: evaluation_messages; Type: TABLE; Schema: public; Owner: -
@@ -226,6 +232,8 @@ CREATE SEQUENCE public.im_accounts_seq
     NO MAXVALUE
     CACHE 1;
 
+
+SET default_with_oids = false;
 
 --
 -- Name: im_accounts; Type: TABLE; Schema: public; Owner: -
@@ -433,6 +441,8 @@ CREATE SEQUENCE public.point_requests_id_seq
     CACHE 1;
 
 
+SET default_with_oids = true;
+
 --
 -- Name: point_requests; Type: TABLE; Schema: public; Owner: -
 --
@@ -444,6 +454,8 @@ CREATE TABLE public.point_requests (
     user_id bigint
 );
 
+
+SET default_with_oids = false;
 
 --
 -- Name: points_2017; Type: TABLE; Schema: public; Owner: -
@@ -652,6 +664,8 @@ CREATE SEQUENCE public.svie_post_requests_id_seq
 ALTER SEQUENCE public.svie_post_requests_id_seq OWNED BY public.svie_post_requests.id;
 
 
+SET default_with_oids = true;
+
 --
 -- Name: system_attributes; Type: TABLE; Schema: public; Owner: -
 --
@@ -662,6 +676,8 @@ CREATE TABLE public.system_attributes (
     value character varying(255) NOT NULL
 );
 
+
+SET default_with_oids = false;
 
 --
 -- Name: temp_belepo; Type: TABLE; Schema: public; Owner: -
@@ -688,6 +704,8 @@ CREATE SEQUENCE public.users_usr_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
+SET default_with_oids = true;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: -
@@ -728,6 +746,44 @@ CREATE TABLE public.users (
     birth_name character varying,
     updated_at timestamp without time zone
 );
+
+
+SET default_with_oids = false;
+
+--
+-- Name: versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id bigint NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object text,
+    created_at timestamp without time zone,
+    object_changes text
+);
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.versions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
 
 
 --
@@ -802,6 +858,13 @@ ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.svie_post_requests ALTER COLUMN id SET DEFAULT nextval('public.svie_post_requests_id_seq'::regclass);
+
+
+--
+-- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
 
 
 --
@@ -1044,6 +1107,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions
+    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: view_settings view_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1203,6 +1274,13 @@ CREATE INDEX index_subscriptions_on_target_type_and_target_id ON public.subscrip
 --
 
 CREATE UNIQUE INDEX index_subscriptions_on_target_type_and_target_id_and_key ON public.subscriptions USING btree (target_type, target_id, key);
+
+
+--
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING btree (item_type, item_id);
 
 
 --
@@ -1382,6 +1460,14 @@ ALTER TABLE ONLY public.principles
 
 
 --
+-- Name: svie_post_requests fk_rails_a0009aa5e4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.svie_post_requests
+    ADD CONSTRAINT fk_rails_a0009aa5e4 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: point_details fk_rails_dcebb805db; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1524,6 +1610,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200722171937'),
 ('20200722172424'),
 ('20200722173131'),
-('20201223070757');
+('20201223070757'),
+('20210106085211'),
+('20210106085212');
 
 
