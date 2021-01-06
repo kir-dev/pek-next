@@ -41,6 +41,7 @@ class Evaluation < ApplicationRecord
   has_many :entry_requests
   has_many :principles
   has_many :ordered_principles, -> { order(:id) }, class_name: :Principle
+  has_paper_trail
 
   NON_EXISTENT = 'NINCS'.freeze
   ACCEPTED = 'ELFOGADVA'.freeze

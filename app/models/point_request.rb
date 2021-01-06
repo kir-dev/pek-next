@@ -21,6 +21,7 @@ class PointRequest < ApplicationRecord
   belongs_to :evaluation
   belongs_to :user
   has_many :point_details
+  has_paper_trail
 
   validates :user, presence: true
   validates :evaluation, presence: true

@@ -21,6 +21,7 @@ class PointDetail < ApplicationRecord
   belongs_to :principle
   belongs_to :point_request
   has_many :point_detail_comments, dependent: :destroy
+  has_paper_trail
 
   validates :principle, presence: true
   validates :point_request, presence: true
