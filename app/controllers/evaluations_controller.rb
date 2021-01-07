@@ -65,6 +65,10 @@ class EvaluationsController < ApplicationController
                 notice: t(:cancelled_entry_request)
   end
 
+  def history
+    @versions = Version::Request::Wrapper.new(current_evaluation.point_requests)
+  end
+
   def cancel_point_request
     authorize_evaluation
 

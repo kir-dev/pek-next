@@ -1,0 +1,3 @@
+<%@versions.versions.each do |version| %>
+  <%= content_tag :div, "#{version.changeset} #{version.whodunnit.full_name} + #{version.request_user.full_name}" %>
+<% end %>
