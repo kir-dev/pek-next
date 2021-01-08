@@ -2,11 +2,22 @@ class JudgementsController < ApplicationController
 
   def index
     authorize Evaluation.new, policy_class: JudgementPolicy
-    @evaluations = Evaluation.where(date: current_semester).page(params[:page]).decorate
+
+    @evaluations = Evaluation.where(date: current_semester).includes(:group)
+    if params[:resort_id].to_i == -1
+      resortless_evaluation_ids = @evaluations.reject { |e| e.group.parent&.resort? || e.group.resort? }
+                                              .map(&:id)
+      @evaluations = @evaluations.where(id: resortless_evaluation_ids)
+    elsif Group.exists?(params[:resort_id])
+      @evaluations = @evaluations.where(group_id: groups_in_resort(params[:resort_id]).ids)
+    end
+    @evaluations = @evaluations.page(params[:page]).decorate
+
+    @resorts = Group.resorts.order(:name)
   end
 
   def show
-    @evaluation = Evaluation.find(params[:evaluation_id])
+    @evaluation = Evaluation.includes(:principles).find(params[:evaluation_id])
     authorize @evaluation, policy_class: JudgementPolicy
 
     @point_details = PointDetail.includes(%i[point_request principle])
@@ -16,11 +27,15 @@ class JudgementsController < ApplicationController
                        .order(sent_at: :desc).page(params[:page]).decorate
     @entry_requests = @evaluation.entry_requests.reject { |er| er.entry_type == EntryRequest::KDO }
     @entry_requests = EntryRequestDecorator.decorate_collection @entry_requests
-    @users = @evaluation.point_requests
-                        .includes(:user)
-                        .map(&:user)
-                        .sort_by(&:full_name)
-    @users = UserDecorator.decorate_collection @users
+    @users = User.joins(point_requests: :evaluation)
+                 .where('evaluations.id': params[:evaluation_id])
+                 .where.not('point_requests.point': 0)
+                 .includes(:entry_requests, point_requests: [point_details: :principle])
+                 .sort_by(&:full_name)
+    @users = EvaluationUserDecorator.decorate_collection @users
+    @users.each { |user| user.set_evaluation(@evaluation) }
+    @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
+    @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
   end
 
   def update
@@ -40,6 +55,14 @@ class JudgementsController < ApplicationController
   end
 
   private
+
+  def groups_in_resort(resort_id)
+    Group.where(parent_id: resort_id).or(Group.where(id: resort_id))
+  end
+
+  def groups_outside_resorts
+    Group.where(parent_id: resort_id).or(Group.where(id: resort_id))
+  end
 
   def judgement_params
     params.permit(:entry_request_status, :point_request_status, :explanation)

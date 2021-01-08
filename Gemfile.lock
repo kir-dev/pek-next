@@ -61,6 +61,8 @@ GEM
     brakeman (4.7.0)
     builder (3.2.4)
     byebug (11.0.1)
+    camertron-eprun (1.1.1)
+    cldr-plurals-runtime-rb (1.1.0)
     coderay (1.1.2)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
@@ -280,6 +282,10 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
+    twitter_cldr (6.4.0)
+      camertron-eprun
+      cldr-plurals-runtime-rb (~> 1.1)
+      tzinfo
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
@@ -331,6 +337,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   timecop
+  twitter_cldr (~> 6.4)
   uglifier (~> 3.2.0)
   unsplash
   wkhtmltopdf-binary (~> 0.12.3.0)
