@@ -3,7 +3,13 @@ class EntryRequestsController < ApplicationController
 
   def update
     authorize @evaluation, :update_entry_request?
-    create_or_update_entry_request
+    begin
+      ActiveRecord::Base.transaction do
+        create_or_update_entry_request
+      end
+    rescue ActiveRecord::RecordNotUnique, ActiveRecord::StatementInvalid
+      retry
+    end
 
     head :ok
   rescue ActiveRecord::RecordInvalid, RecordNotFound
