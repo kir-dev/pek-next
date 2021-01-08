@@ -13,6 +13,10 @@ class PointDetailsController < ApplicationController
     rescue ActiveRecord::RecordNotUnique, ActiveRecord::StatementInvalid
       retry
     end
+
+    head :ok
+  rescue ActiveRecord::RecordInvalid, RecordNotFound
+    head :unprocessable_entity
   end
 
   private
