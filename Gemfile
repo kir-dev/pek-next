@@ -44,6 +44,8 @@ gem 'unsplash'
 gem 'activity_notification', '~> 1.7'
 # use Pundit for authorization
 gem 'pundit', '~> 2.1'
+# use twitter_cldr for localization improvements (sorting strings according to hungarian)
+gem 'twitter_cldr', '~> 6.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

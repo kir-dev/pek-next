@@ -34,6 +34,7 @@ class JudgementsController < ApplicationController
                  .sort_by(&:full_name)
     @users = EvaluationUserDecorator.decorate_collection @users
     @users.each { |user| user.set_evaluation(@evaluation) }
+    @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
     @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
   end
 
