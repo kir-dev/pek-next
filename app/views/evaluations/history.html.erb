@@ -1,3 +1,20 @@
-<%@versions.versions.each do |version| %>
-  <%= content_tag :div, "#{version.changeset} #{version.whodunnit.full_name} + #{version.request_user.full_name}" %>
-<% end %>
+<table>
+  <thead>
+  <tr>
+    <th>Módosító</th>
+    <th>Módosíŧás</th>
+    <th>Igény tulajdonosa</th>
+    <th>Dátum</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @point_request_versions.versions.each do |version| %>
+    <tr>
+      <td><%= version.whodunnit.decorate.link %></td>
+      <td><%= version.changeset %></td>
+      <td><%= version.request_user.decorate.link %></td>
+      <td><%= version.created_at %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
