@@ -14,7 +14,6 @@ class PointDetailsController < ApplicationController
       retry
     end
 
-    head :ok
   rescue ActiveRecord::RecordInvalid, RecordNotFound
     head :unprocessable_entity
   end

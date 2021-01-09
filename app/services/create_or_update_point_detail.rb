@@ -15,9 +15,9 @@ class CreateOrUpdatePointDetail
                                                     principle_id: principle.id)
       point_detail.update!(point: point)
 
-      point_details = PointDetail.includes(%i[point_request principle]).select do |pd|
-        pd.point_request.evaluation_id == evaluation.id && pd.point_request.user_id == user.id
-      end
+      point_details = PointDetail.joins(:point_request).includes(:principle)
+                                 .where(point_requests: { evaluation_id: evaluation.id,
+                                                          user_id: user.id })
 
       [point_detail, point_details]
     end
