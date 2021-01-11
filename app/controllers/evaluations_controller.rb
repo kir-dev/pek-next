@@ -38,7 +38,7 @@ class EvaluationsController < ApplicationController
         pd.point_request.evaluation == current_evaluation
       end
     @evaluation    = current_evaluation
-    @point_eligible_memberships = @evaluation.group.point_eligible_memberships.sort{|a, b| hu_compare(a.user.full_name, b.user.full_name)}
+    @point_eligible_memberships = @evaluation.group.point_eligible_memberships
     @evaluation_policy = policy(@evaluation)
     @ordered_principles = @evaluation.ordered_principles
   end

@@ -121,10 +121,10 @@ class Group < ApplicationRecord
 
     !active_in_last_two_semesters?
   end
-
+  include ApplicationHelper
   def point_eligible_memberships
-    memberships.includes(:user, :posts, :post_types).select(&:active?)
-               .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
+    memberships.active.includes(:user)
+               .sort { |m1, m2| hu_compare(m1.user.full_name, m2.user.full_name) }
   end
 
   def accepted_evaluations_by_date
