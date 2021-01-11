@@ -28,7 +28,7 @@
   <div class="uk-grid uk-grid-collapse uk-padding-remove uk-margin-remove">
     <div id="name-list-container">
       <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
-        <% @evaluation.group.point_eligible_memberships.sort{|a, b| hu_compare(a.user.full_name, b.user.full_name)}.each do |membership| %>
+        <% @point_eligible_memberships.each do |membership| %>
           <li class="uk-text-truncate name-list-item" data-id="<%= membership.user_id %>">
             <i class="uk-icon-eye-slash hide-button uk-link uk-link-muted" data-id="<%= membership.user_id %>" title="elrejtés" uk-tooltip></i>
             <%= membership.user.decorate.link class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
@@ -60,9 +60,9 @@
           </tr>
         </thead>
         <tbody>
-          <% @evaluation.group.point_eligible_memberships.sort{|a, b| hu_compare(a.user.full_name, b.user.full_name)}.each do |membership| %>
+          <%@point_eligible_memberships.each do |membership| %>
             <tr data-id="<%= membership.user_id %>">
-              <% @evaluation.ordered_principles.each do |principle| %>
+              <% @ordered_principles.each do |principle| %>
                 <% point_detail = single_detail(@point_details, membership.user, principle) %>
                 <td>
                   <div class="uk-form-icon <%= comments_status(point_detail)%>">
@@ -71,7 +71,7 @@
                     data-user-name="<%= membership.user.full_name %>"
                     data-principle-type="<%= principle.type %>"
                     class="uk-input uk-width-auto point-input" type="number"
-                    value="<%= point_detail&.point %>" <%= "readonly" unless policy(@evaluation).update_point_request? %>>
+                    value="<%= point_detail&.point %>" <%= "readonly" unless @evaluation_policy.update_point_request? %>>
                   </div>
                 </td>
               <% end %>
@@ -96,7 +96,7 @@
                   <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
                     entry_request(@evaluation, membership.user)),
                     onchange: 'javascript: $( this ).trigger("submit.rails")',
-                    class: 'uk-select uk-width-auto',disabled: !policy(@evaluation).update_entry_request?%>
+                    class: 'uk-select uk-width-auto',disabled: !@evaluation_policy.update_entry_request?%>
                   <%= hidden_field_tag :user_id, membership.user_id %>
                 <% end %>
               </td>
@@ -105,7 +105,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <% @evaluation.ordered_principles.each do |principle| %>
+            <% @ordered_principles.each do |principle| %>
               <td data-sum-principle="<%= principle.id %>">
                 <b id="sum-of-principle-<%= principle.id %>">
                   <%= sum_principle_details(@point_details, principle) %>
@@ -114,7 +114,7 @@
             <% end %>
           </tr>
           <tr>
-            <% @evaluation.ordered_principles.each do |principle| %>
+            <% @ordered_principles.each do |principle| %>
               <td data-avg-principle="<%= principle.id %>">
                 <b id="avg-of-principle-<%= principle.id %>">
                   <%= average_principle_details(@point_details, principle) %>
