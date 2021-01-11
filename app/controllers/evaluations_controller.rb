@@ -33,11 +33,24 @@ class EvaluationsController < ApplicationController
   def table
     authorize_evaluation
 
-    @point_details =
-      PointDetail.includes([{ point_request: [:evaluation] }, :principle, :point_detail_comments]).select do |pd|
-        pd.point_request.evaluation == current_evaluation
-      end
+    @point_details = PointDetail.joins(point_request: :evaluation)
+                                .where(evaluations: { id: current_evaluation.id} )
+                                .includes(:principle)
     @evaluation    = current_evaluation
+    @ordered_principles = @evaluation.ordered_principles
+
+    point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
+    @users                  = User.where(id: point_eligible_user_ids)
+                                  .includes(:entry_requests,
+                                            point_requests: [point_details: [:point_detail_comments, :principle]])
+    @users = EvaluationUserDecorator.decorate_collection @users
+    @users.each { |user| user.set_evaluation(@evaluation) }
+    @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
+
+    @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
+    evaluation_policy = policy(@evaluation)
+    @update_point_request = evaluation_policy.update_point_request?
+    @update_entry_request = evaluation_policy.update_entry_request?
   end
 
   def submit_entry_request

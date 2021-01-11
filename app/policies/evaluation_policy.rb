@@ -97,43 +97,43 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def leader_of_the_group?
-    user.leader_of?(evaluation.group)
+    cache { user.leader_of?(evaluation.group) }
   end
 
   def evaluation_helper_of_the_group?
-    user.evaluation_helper_of?(evaluation.group)
+    cache { user.evaluation_helper_of?(evaluation.group) }
   end
 
   def leader_of_the_resort?
     return false unless group_is_a_resort_member?
 
-    user.leader_of?(evaluation.group.parent)
+    cache { user.leader_of?(evaluation.group.parent) }
   end
 
   def leader_in_the_resort?
     return false unless group_is_a_resort_member?
 
-    evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) }
+    cache { evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) } }
   end
 
   def group_is_a_resort_member?
-    Group.resorts.include?(evaluation.group.parent)
+    cache { Group.resorts.include?(evaluation.group.parent)}
   end
 
   def rvt_member?
-    user.roles.rvt_member?
+    cache { user.roles.rvt_member? }
   end
 
   def rvt_leader?
-    user.roles.rvt_leader?
+    cache { user.roles.rvt_leader? }
   end
 
   def point_request_status
-    evaluation.point_request_status
+    cache { evaluation.point_request_status }
   end
 
   def entry_request_status
-    evaluation.entry_request_status
+    cache { evaluation.entry_request_status }
   end
 
   def evaluation

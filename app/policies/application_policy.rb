@@ -37,19 +37,27 @@ class ApplicationPolicy
   private
 
   def pek_admin?
-    user.roles.pek_admin?
+    cache { user.roles.pek_admin? }
   end
 
   def off_season?
-    SystemAttribute.offseason?
+    cache { SystemAttribute.offseason? }
   end
 
   def application_season?
-    SystemAttribute.application_season?
+    cache { SystemAttribute.application_season? }
   end
 
   def evaluation_season?
-    SystemAttribute.evaluation_season?
+    cache { SystemAttribute.evaluation_season? }
+  end
+
+  def cache
+    variable_name = "@" + caller_locations(1, 1)[0].label.parameterize
+    variable = instance_variable_get(variable_name)
+    return variable unless variable.nil?
+
+    instance_variable_set(variable_name, yield)
   end
 
   class Scope
