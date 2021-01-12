@@ -45,6 +45,7 @@ class JudgementsController < ApplicationController
       create_judgement_service.call
     rescue CreateJudgement::NoChangeHaveBeenMade
       redirect_back fallback_location: judgements_path, alert: t(:no_changes)
+      return
     rescue CreateJudgement::UserCantMakeTheRequestedUpdates
       raise Pundit::NotAuthorizedError
     end
