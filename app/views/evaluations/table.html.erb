@@ -12,6 +12,8 @@
         <div class="uk-modal-dialog">
           <a class="uk-modal-close uk-close"></a>
           <h3>Elrejtett tagok</h3>
+          <button id="showAllUsersButton" class="uk-button uk-button-success">Minden tag megjelenítése</button>
+          <button id="hideUsersWithZeroPointButton" class="uk-button uk-button-primary">Ponttal nem rendelkező tagok elrejtése</button>
           <ul class="uk-list uk-list-striped" id="hidden-users-list"></ul>
         </div>
       </div>
@@ -152,4 +154,5 @@
 <script type="text/javascript">
   const updateURL = "<%= group_evaluation_pointdetails_update_path(@group, @evaluation) %>";
   const initEvaluationTable = true;
+  const evaluationId = <%= @evaluation.id %>
 </script>
