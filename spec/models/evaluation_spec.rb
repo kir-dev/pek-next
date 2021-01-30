@@ -36,7 +36,7 @@ describe Evaluation do
 
     context 'the group parent does not have a leader' do
       before(:each) do
-        evaluation.group.parent.leader.delete
+        evaluation.group.parent.leader.destroy
       end
 
       it 'submitting a point request does not notify the resort leader' do
