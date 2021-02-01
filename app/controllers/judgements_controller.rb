@@ -8,7 +8,7 @@ class JudgementsController < ApplicationController
       resortless_evaluation_ids = @evaluations.reject { |e| e.group.parent&.resort? || e.group.resort? }
                                               .map(&:id)
       @evaluations = @evaluations.where(id: resortless_evaluation_ids)
-    elsif Group.exists?(params[:resort_id])
+    elsif Group.exists?(params[:resort_id].to_i)
       @evaluations = @evaluations.where(group_id: groups_in_resort(params[:resort_id]).ids)
     end
     @evaluations = @evaluations.page(params[:page]).decorate
@@ -28,14 +28,13 @@ class JudgementsController < ApplicationController
     @entry_requests = @evaluation.entry_requests.reject { |er| er.entry_type == EntryRequest::KDO }
     @entry_requests = EntryRequestDecorator.decorate_collection @entry_requests
     @users = User.joins(point_requests: :evaluation)
-                 .where('evaluations.id': params[:evaluation_id])
-                 .where.not('point_requests.point': 0)
+                 .where(evaluations: { id: params[:evaluation_id] })
+                 .where.not(point_requests: { point: 0 })
                  .includes(:entry_requests, point_requests: [point_details: :principle])
                  .sort_by(&:full_name)
-    @users = EvaluationUserDecorator.decorate_collection @users
-    @users.each { |user| user.set_evaluation(@evaluation) }
-    @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
+    @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
     @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
+    @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
   end
 
   def update

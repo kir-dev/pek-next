@@ -43,8 +43,7 @@ class EvaluationsController < ApplicationController
     @users                  = User.where(id: point_eligible_user_ids)
                                   .includes(:entry_requests,
                                             point_requests: [point_details: [:point_detail_comments, :principle]])
-    @users = EvaluationUserDecorator.decorate_collection @users
-    @users.each { |user| user.set_evaluation(@evaluation) }
+    @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
     @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
 
     @evaluation_point_calculator = EvaluationPointCalculator.new(@users)

@@ -1,10 +1,16 @@
 class EvaluationUserDecorator < UserDecorator
   attr_accessor :point_request, :point_details, :entry_request
 
-  def set_evaluation(evaluation)
-    @point_request = user.point_requests.find { |pr| pr.evaluation_id == evaluation.id }
-    @point_details = @point_request&.point_details
-    @entry_request = user.entry_requests.find { |er| er.evaluation_id == evaluation.id }
+  def point_request
+    @point_request ||= user.point_requests.find { |pr| pr.evaluation_id == evaluation.id }
+  end
+
+  def point_details
+    @point_details ||= point_request.point_details
+  end
+
+  def entry_request
+    @entry_request ||= user.entry_requests.find { |er| er.evaluation_id == evaluation.id }
   end
 
   def single_detail(principle)
@@ -24,7 +30,7 @@ class EvaluationUserDecorator < UserDecorator
   end
 
   def sum_all_point
-    @sum_point ||= sum_all_details
+    @sum_all_point ||= sum_all_details
   end
 
   def sum_all_details
@@ -49,5 +55,9 @@ class EvaluationUserDecorator < UserDecorator
     point_details.select do |pd|
       pd.principle.type == principle_type
     end.sum(&:point)
+  end
+
+  def evaluation
+    context[:evaluation]
   end
 end

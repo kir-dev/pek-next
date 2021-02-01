@@ -31,7 +31,7 @@ module EvaluationsHelper
   end
 
   def count_principle_details(point_details, principle)
-     point_details.select { |pd| pd.principle_id == principle.id }.count
+    point_details.select { |pd| pd.principle_id == principle.id }.count
   end
 
   def average_principle_details(point_details, principle)
