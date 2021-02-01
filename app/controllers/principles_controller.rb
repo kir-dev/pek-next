@@ -3,6 +3,7 @@
 class PrinciplesController < EvaluationsController
   before_action :set_principle, only: %i[update destroy]
   before_action :validate_correct_evaluation, only: %i[update destroy]
+  before_action :authorize_evaluation
 
   def index
     @evaluation = current_evaluation

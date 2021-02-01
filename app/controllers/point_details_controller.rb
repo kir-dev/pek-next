@@ -5,10 +5,17 @@ class PointDetailsController < ApplicationController
   def update
     authorize @evaluation, :update_point_request?
 
-    point_detail_service          = CreateOrUpdatePointDetail.new(@user, @principle, @evaluation)
-    @point_detail, @point_details = point_detail_service.call(params[:point])
-  rescue ActiveRecord::RecordInvalid
-    head(:unprocessable_entity)
+    begin
+      ActiveRecord::Base.transaction do
+        point_detail_service          = CreateOrUpdatePointDetail.new(@user, @principle, @evaluation)
+        @point_detail, @point_details = point_detail_service.call(params[:point])
+      end
+    rescue ActiveRecord::RecordNotUnique, ActiveRecord::StatementInvalid
+      retry
+    end
+
+  rescue ActiveRecord::RecordInvalid, RecordNotFound
+    head :unprocessable_entity
   end
 
   private

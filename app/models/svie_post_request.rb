@@ -6,6 +6,10 @@
 #  member_type :string
 #  user_id     :integer
 #
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 
 class SviePostRequest < ApplicationRecord
   belongs_to :user

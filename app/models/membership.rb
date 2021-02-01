@@ -31,6 +31,13 @@ class Membership < ApplicationRecord
 
   before_create :set_defaults
 
+  scope :archived, -> { where.not(archived: nil) }
+  scope :not_archived, -> { where(archived: nil) }
+  scope :newbie, -> { not_archived.joins(:posts).where(end_date: nil, posts: {post_type: PostType::DEFAULT_POST_ID})}
+  scope :not_newbie, -> { where.not(id: newbie.select(:id)) }
+  scope :active, -> { not_newbie.not_archived.where(end_date: nil) }
+  scope :not_active, -> { where.not(id: active.select(:id)) }
+
   def leader?
     has_post?(PostType::LEADER_POST_ID)
   end

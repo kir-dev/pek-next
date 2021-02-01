@@ -12,6 +12,8 @@
         <div class="uk-modal-dialog">
           <a class="uk-modal-close uk-close"></a>
           <h3>Elrejtett tagok</h3>
+          <button id="showAllUsersButton" class="uk-button uk-button-success">Minden tag megjelenítése</button>
+          <button id="hideUsersWithZeroPointButton" class="uk-button uk-button-primary">Ponttal nem rendelkező tagok elrejtése</button>
           <ul class="uk-list uk-list-striped" id="hidden-users-list"></ul>
         </div>
       </div>
@@ -28,10 +30,10 @@
   <div class="uk-grid uk-grid-collapse uk-padding-remove uk-margin-remove">
     <div id="name-list-container">
       <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
-        <% @evaluation.group.point_eligible_memberships.each do |membership| %>
-          <li class="uk-text-truncate name-list-item" data-id="<%= membership.user_id %>">
-            <i class="uk-icon-eye-slash hide-button uk-link uk-link-muted" data-id="<%= membership.user_id %>" title="elrejtés" uk-tooltip></i>
-            <%= membership.user.decorate.link class: 'uk-link-muted', 'uk-tooltip': '', title: membership.user.nickname %>
+        <% @users.each do |user| %>
+          <li class="uk-text-truncate name-list-item" data-id="<%= user.id %>">
+            <i class="uk-icon-eye-slash hide-button uk-link uk-link-muted" data-id="<%= user.id %>" title="elrejtés" uk-tooltip></i>
+            <%= user.decorate.link class: 'uk-link-muted', 'uk-tooltip': '', title: user.nickname %>
           </li>
         <% end %>
         <li>Összegzések:</li>
@@ -60,44 +62,44 @@
           </tr>
         </thead>
         <tbody>
-          <% @evaluation.group.point_eligible_memberships.each do |membership| %>
-            <tr data-id="<%= membership.user_id %>">
-              <% @evaluation.ordered_principles.each do |principle| %>
-                <% point_detail = single_detail(@point_details, membership.user, principle) %>
+          <%@users.each do |user| %>
+            <tr data-id="<%= user.id %>">
+              <% @ordered_principles.each do |principle| %>
+                <%point_detail = user.single_detail(principle) %>
                 <td>
-                  <div class="uk-form-icon<%= ' has-comment' if point_detail&.point_detail_comments&.present? %>">
+                  <div class="uk-form-icon <%= comments_status(point_detail)%>">
                     <i class="uk-icon-comment uk-hidden"></i>
-                    <input data-user="<%= membership.user_id %>" data-principle="<%= principle.id %>"
-                    data-user-name="<%= membership.user.full_name %>"
+                    <input data-user="<%= user.id %>" data-principle="<%= principle.id %>"
+                    data-user-name="<%= user.full_name %>"
                     data-principle-type="<%= principle.type %>"
                     class="uk-input uk-width-auto point-input" type="number"
-                    value="<%= point_detail&.point %>" <%= "disabled" unless policy(@evaluation).update_point_request? %>>
+                    value="<%= point_detail&.point %>" <%= "readonly" unless @update_point_request %>>
                   </div>
                 </td>
               <% end %>
               <td>
-                <input disabled data-user="<%= membership.user_id %>"
+                <input disabled data-user="<%= user.id %>"
                   class="uk-input uk-width-auto uk-text-center sum-resp" type="number"
-                  value="<%= sum_responsibility_details(@point_details, membership.user) %>">
+                  value="<%= user.sum_responsibility_point %>">
               </td>
               <td>
-                <input disabled data-user="<%= membership.user_id %>"
+                <input disabled data-user="<%= user.id %>"
                   class="uk-input uk-width-auto uk-text-center sum-work" type="number"
-                  value="<%= sum_work_details(@point_details, membership.user) %>">
+                  value="<%= user.sum_work_point %>">
               </td>
               <td>
-                <input disabled data-user="<%= membership.user_id %>"
+                <input disabled data-user="<%= user.id %>"
                   class="uk-input uk-width-auto uk-text-center sum-all" type="number"
-                  value="<%= sum_all_details(@point_details, membership.user) %>">
+                  value="<%= user.sum_all_point %>">
               </td>
               <td>
                 <%= form_tag(group_evaluation_entryrequests_update_path(@group, @evaluation),
                   mehtod: :post, remote: true, html: { class: 'uk-form' }) do %>
                   <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
-                    entry_request(@evaluation, membership.user)),
+                    user.entry_request),
                     onchange: 'javascript: $( this ).trigger("submit.rails")',
-                    class: 'uk-select uk-width-auto',disabled: !policy(@evaluation).update_entry_request?%>
-                  <%= hidden_field_tag :user_id, membership.user_id %>
+                    class: 'uk-select uk-width-auto',disabled: !@update_entry_request%>
+                  <%= hidden_field_tag :user_id, user.id %>
                 <% end %>
               </td>
             </tr>
@@ -105,7 +107,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <% @evaluation.ordered_principles.each do |principle| %>
+            <% @ordered_principles.each do |principle| %>
               <td data-sum-principle="<%= principle.id %>">
                 <b id="sum-of-principle-<%= principle.id %>">
                   <%= sum_principle_details(@point_details, principle) %>
@@ -114,7 +116,7 @@
             <% end %>
           </tr>
           <tr>
-            <% @evaluation.ordered_principles.each do |principle| %>
+            <% @ordered_principles.each do |principle| %>
               <td data-avg-principle="<%= principle.id %>">
                 <b id="avg-of-principle-<%= principle.id %>">
                   <%= average_principle_details(@point_details, principle) %>
@@ -124,7 +126,7 @@
           </tr>
         </tfoot>
       </table>
-    </div>
+    </div>`
   </div>
   <div id="save-icon"></div>
 </div>
@@ -152,4 +154,5 @@
 <script type="text/javascript">
   const updateURL = "<%= group_evaluation_pointdetails_update_path(@group, @evaluation) %>";
   const initEvaluationTable = true;
+  const evaluationId = <%= @evaluation.id %>
 </script>

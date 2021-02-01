@@ -27,7 +27,7 @@
           <a href="#messages">Üzenetek</a>
         </li>
       </ul>
-      <% if current_user.roles.resort_leader?(@evaluation.group) && SystemAttribute.evaluation_season? %>
+      <% if policy(@evaluation).show? %>
         <%= link_to 'Értékelés szerkesztése', group_evaluation_path(@evaluation.group, @evaluation), class: 'uk-button uk-button-primary'%>
       <% end %>
       <ul id="evaluation-switcher" class="uk-switcher uk-margin-top">

@@ -44,6 +44,8 @@ class Group < ApplicationRecord
   belongs_to :group, foreign_key: :parent_id, optional: true
   alias own_post_types post_types
 
+  scope :resorts, -> { where(parent_id: Group::RVT_ID) }
+
   SVIE_ID = 369
   RVT_ID = 146
   KIRDEV_ID = 106
@@ -119,10 +121,10 @@ class Group < ApplicationRecord
 
     !active_in_last_two_semesters?
   end
-
+  include ApplicationHelper
   def point_eligible_memberships
-    memberships.includes(:user, :posts, :post_types).select(&:active?)
-               .sort { |m1, m2| m1.user.full_name <=> m2.user.full_name }
+    memberships.active.includes(:user)
+               .sort { |m1, m2| hu_compare(m1.user.full_name, m2.user.full_name) }
   end
 
   def accepted_evaluations_by_date
@@ -135,6 +137,10 @@ class Group < ApplicationRecord
 
   def has_post_type?(post_type_id)
     post_types.pluck(:id).include?(post_type_id)
+  end
+
+  def resort?
+    Group.resorts.include?(self)
   end
 
   private

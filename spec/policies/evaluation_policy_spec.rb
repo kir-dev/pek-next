@@ -2,8 +2,8 @@ RSpec.describe EvaluationPolicy, type: :policy do
   subject { described_class.new(user, evaluation) }
 
   let(:evaluation)              { create(:evaluation) }
-  let(:evaluation_actions)      { %i[show current table edit update] }
-  let(:evaluation_view_actions) { evaluation_actions - %i[edit update] }
+  let(:evaluation_actions)      { %i[show current table edit update edit_justification] }
+  let(:evaluation_view_actions) { evaluation_actions - %i[edit update edit_justification] }
   let(:point_request_actions)   { %i[submit_point_request cancel_point_request update_point_request] }
   let(:entry_request_actions)   { %i[submit_entry_request cancel_entry_request update_entry_request] }
   let(:submit_actions)          { %i[submit_point_request submit_entry_request] }
@@ -39,8 +39,8 @@ RSpec.describe EvaluationPolicy, type: :policy do
         evaluation.group.memberships.select(&:evaluation_helper?).first.user
       end
 
-      it { is_expected.to permit_actions(evaluation_view_actions + update_request_actions) }
-      it { is_expected.to forbid_actions(all_action - evaluation_view_actions - update_request_actions) }
+      it { is_expected.to permit_actions(evaluation_view_actions + update_request_actions + [:edit_justification] ) }
+      it { is_expected.to forbid_actions(all_action - evaluation_view_actions - update_request_actions - [:edit_justification])  }
     end
 
     context 'and the user is a leader of another the group' do
@@ -68,6 +68,22 @@ RSpec.describe EvaluationPolicy, type: :policy do
 
     context 'and the user is the leader of the group resort' do
       let(:user) { evaluation.group.parent.leader.user }
+
+      it { is_expected.to permit_actions(evaluation_view_actions) }
+      it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
+    end
+
+    context 'and the user is the leader of the parent group, but the group is not a resort' do
+      let(:user) { evaluation.group.parent.leader.user }
+      before(:each) do
+        evaluation.group.parent.update(parent_id: create(:group).id)
+      end
+
+      it { is_expected.to forbid_actions(all_action) }
+    end
+
+    context 'and the user is the leader of the RVT' do
+      let(:user) { Group.rvt.leader.user }
 
       it { is_expected.to permit_actions(evaluation_view_actions) }
       it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
@@ -106,7 +122,24 @@ RSpec.describe EvaluationPolicy, type: :policy do
     context "when the user is the resort leader" do
       let(:user) { evaluation.group.parent.leader.user }
 
-      it { is_expected.to permit_actions(update_request_actions) }
+      it { is_expected.to permit_actions(update_request_actions + evaluation_view_actions) }
+      it { is_expected.to forbid_actions(all_action - (update_request_actions + evaluation_view_actions)) }
+
+      context "and the point and entry request is accepted" do
+        before do
+          evaluation.point_request_status = Evaluation::ACCEPTED
+          evaluation.entry_request_status = Evaluation::ACCEPTED
+        end
+
+        it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
+      end
+    end
+
+    context "when the user is the leader of RVT" do
+      let(:user) { Group.rvt.leader.user }
+
+      it { is_expected.to permit_actions(update_request_actions + evaluation_view_actions) }
+      it { is_expected.to forbid_actions(all_action - (update_request_actions + evaluation_view_actions)) }
 
       context "and the point and entry request is accepted" do
         before do

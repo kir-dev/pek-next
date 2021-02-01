@@ -2,7 +2,18 @@ class JudgementsController < ApplicationController
 
   def index
     authorize Evaluation.new, policy_class: JudgementPolicy
-    @evaluations = Evaluation.where(date: current_semester).page(params[:page]).decorate
+
+    @evaluations = Evaluation.where(date: current_semester).includes(:group)
+    if params[:resort_id].to_i == -1
+      resortless_evaluation_ids = @evaluations.reject { |e| e.group.parent&.resort? || e.group.resort? }
+                                              .map(&:id)
+      @evaluations = @evaluations.where(id: resortless_evaluation_ids)
+    elsif Group.exists?(params[:resort_id].to_i)
+      @evaluations = @evaluations.where(group_id: groups_in_resort(params[:resort_id]).ids)
+    end
+    @evaluations = @evaluations.page(params[:page]).decorate
+
+    @resorts = Group.resorts.order(:name)
   end
 
   def show
@@ -23,6 +34,7 @@ class JudgementsController < ApplicationController
                  .sort_by(&:full_name)
     @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
     @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
+    @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
   end
 
   def update
@@ -34,6 +46,7 @@ class JudgementsController < ApplicationController
       create_judgement_service.call
     rescue CreateJudgement::NoChangeHaveBeenMade
       redirect_back fallback_location: judgements_path, alert: t(:no_changes)
+      return
     rescue CreateJudgement::UserCantMakeTheRequestedUpdates
       raise Pundit::NotAuthorizedError
     end
@@ -42,6 +55,14 @@ class JudgementsController < ApplicationController
   end
 
   private
+
+  def groups_in_resort(resort_id)
+    Group.where(parent_id: resort_id).or(Group.where(id: resort_id))
+  end
+
+  def groups_outside_resorts
+    Group.where(parent_id: resort_id).or(Group.where(id: resort_id))
+  end
 
   def judgement_params
     params.permit(:entry_request_status, :point_request_status, :explanation)

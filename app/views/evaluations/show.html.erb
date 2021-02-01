@@ -23,7 +23,7 @@
         class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
   <%end%>
 
-  <% if policy(@evaluation).edit? %>
+  <% if policy(@evaluation).edit_justification? %>
     <%= link_to 'Belépőigény indoklások', group_evaluation_justifications_edit_path(current_group, @evaluation),
       class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
   <% end %>
@@ -48,7 +48,7 @@
       class: 'uk-button uk-button-danger uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
   <% end %>
 
-  <% if current_user.roles.resort_leader?(@evaluation.group) && !SystemAttribute.offseason? %>
+  <% if current_user.roles.rvt_member? && !SystemAttribute.offseason? %>
     <%= link_to 'Bírálat megtekinése', judgement_path(@evaluation), class: 'uk-button uk-width-medium-1-3 uk-margin uk-display-block uk-align-center'%>
   <% end %>
 

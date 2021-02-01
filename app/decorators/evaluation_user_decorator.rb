@@ -1,4 +1,6 @@
 class EvaluationUserDecorator < UserDecorator
+  attr_accessor :point_request, :point_details, :entry_request
+
   def point_request
     @point_request ||= user.point_requests.find { |pr| pr.evaluation_id == evaluation.id }
   end
@@ -12,6 +14,8 @@ class EvaluationUserDecorator < UserDecorator
   end
 
   def single_detail(principle)
+    return nil if point_details.nil?
+
     point_details.find do |pd|
       pd.principle_id == principle.id
     end
@@ -38,12 +42,16 @@ class EvaluationUserDecorator < UserDecorator
   end
 
   def sum_principle_details(principle)
+    return 0 if point_details.nil?
+
     point_details.select { |pd| pd.principle_id == principle.id }.sum(&:point)
   end
 
   private
 
   def sum_details(point_details, principle_type)
+    return 0 if point_details.nil?
+
     point_details.select do |pd|
       pd.principle.type == principle_type
     end.sum(&:point)

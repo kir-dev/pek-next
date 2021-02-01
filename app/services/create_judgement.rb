@@ -68,6 +68,6 @@ class CreateJudgement
   end
 
   def entry_request_status_changed?
-    evaluation.point_request_status != params[:point_request_status]
+    evaluation.entry_request_status != params[:entry_request_status]
   end
 end

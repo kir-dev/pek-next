@@ -33,4 +33,8 @@ module ApplicationHelper
     image_params = { query: 'cats', width: 1920, height: 1080, orientation: 'landscape' }
     Unsplash::Photo.random(image_params) rescue nil
   end
+
+  def hu_compare(a, b)
+    TwitterCldr::Collation::Collator.new(:hu).compare(a, b)
+  end
 end
