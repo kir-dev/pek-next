@@ -6,7 +6,7 @@ class EvaluationUserDecorator < UserDecorator
   end
 
   def point_details
-    @point_details ||= point_request.point_details
+    @point_details ||= point_request&.point_details
   end
 
   def entry_request
