@@ -130,4 +130,15 @@ describe EvaluationsController do
       end
     end
   end
+
+  describe "#table" do
+    include_context "evaluation season"
+    include_context "current user is the group leader"
+
+    it "renders the table" do
+      get "/groups/#{group.id}/evaluations/#{evaluation.id}/table"
+
+      expect(response).to have_http_status :ok
+    end
+  end
 end
