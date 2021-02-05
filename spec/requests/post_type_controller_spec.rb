@@ -148,7 +148,7 @@ describe PostTypesController do
 
       context 'when the post type is in use' do
         it 'does not delete the post type' do
-          post = create(:post, post_type_id: post_type.id)
+          post = build(:post, post_type_id: post_type.id)
           post_type.posts << post
 
           delete "/groups/#{group.id}/post_types/#{post_type.id}"
