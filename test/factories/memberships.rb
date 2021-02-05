@@ -5,11 +5,15 @@ FactoryBot.define do
     start_date { '2010-02-02' }
 
     trait :leader do
-      posts { create_list(:post, 1, :leader) }
+      after(:create) do |membership|
+        membership.posts << build(:post, :leader)
+      end
     end
 
     trait :newbie do
-      posts { create_list(:post, 1, :newbie) }
+      after(:create) do |membership|
+        membership.posts << build(:post, :newbie)
+      end
     end
 
     trait :inactive do
