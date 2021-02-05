@@ -2,9 +2,10 @@ class CreateJudgement
   class UserCantMakeTheRequestedUpdates < StandardError; end
   class NoChangeHaveBeenMade < StandardError; end
 
-  attr_reader :params, :evaluation, :judgement_policy
+  attr_reader :params, :evaluation, :judgement_policy, :user
 
   def initialize(params, evaluation, user)
+    @user              = user
     @params            = params
     @evaluation        = evaluation
     @judgement_policy = JudgementPolicy.new(user, evaluation)
@@ -16,7 +17,7 @@ class CreateJudgement
 
     message = create_message
     EvaluationMessage.create(sent_at:  Time.now, message: message, from_system: true,
-                             semester: evaluation.semester, sender_user: nil,
+                             semester: evaluation.semester, sender_user: user,
                              group:    evaluation.group)
     evaluation.update(params)
   end
