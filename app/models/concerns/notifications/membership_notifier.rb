@@ -8,8 +8,8 @@ module Notifications
     included do
       acts_as_notifiable :users, targets: :targets
 
-      after_update :notify_from_inactivate, if: :end_date_changed?
-      after_update :notify_from_archive, if: :archived_changed?
+      after_update :notify_from_inactivate, if: Proc.new { |m| m.saved_change_to_attribute?(:end_date) }
+      after_update :notify_from_archive, if: Proc.new { |m| m.saved_change_to_attribute?(:archived) }
     end
 
     Membership.prepend(Module.new do
