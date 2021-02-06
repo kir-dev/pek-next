@@ -47,7 +47,7 @@ module Notifications
     private
 
     def status_changed?
-      point_request_status_changed? || entry_request_status_changed?
+      saved_change_to_attribute?(:point_request_status) || saved_change_to_attribute?(:entry_request_status)
     end
 
     def sender(key)
@@ -60,10 +60,10 @@ module Notifications
       return unless group&.parent&.leader&.user.present?
 
       key = EvaluationNotificationKey.new("point_request", point_request_status)
-      notify(:users, key: key.to_s , notifier: sender(key)) if point_request_status_changed?
+      notify(:users, key: key.to_s , notifier: sender(key)) if saved_change_to_attribute?(:point_request_status)
 
       key = EvaluationNotificationKey.new("entry_request", entry_request_status)
-      notify(:users, key: key.to_s, notifier: sender(key)) if entry_request_status_changed?
+      notify(:users, key: key.to_s, notifier: sender(key)) if saved_change_to_attribute?(:entry_request_status)
     end
   end
 end
