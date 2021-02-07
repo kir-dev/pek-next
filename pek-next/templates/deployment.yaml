@@ -29,16 +29,12 @@ spec:
         - name: "DATABASE_NAME"
           value: {{ .Values.name }}-{{ .Values.railsEnv }}
         - name: "DATABASE_USER"
-          value: "postgres"
+          value: {{.Values.database.user }}
         - name: "DATABASE_PASSWORD"
-          value: {{ .Values.postgresql.postgresqlPassword}}
-        - name: "secret_key_base"
-          value: "value"
+          value: {{ .Values.database.password }}
         - name: "UNSPLASH_ACCES_KEY"
-          value: "value"
+          value: {{ .Values.unsplash.accessKey }}
         - name: "UNSPLASH_SECRET"
-          value: "value"
+          value: {{ .Values.unsplash.secret }}
         - name: "SECRET_KEY_BASE"
-          value: "value"
-
-        
+          value: {{ .Values.secretKeyBase }}
