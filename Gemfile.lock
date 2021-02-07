@@ -112,6 +112,10 @@ GEM
     ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    graphiql-rails (1.7.0)
+      railties
+      sprockets-rails
+    graphql (1.9.18)
     hashie (3.6.0)
     http_parser.rb (0.6.0)
     httparty (0.17.1)
@@ -315,6 +319,8 @@ DEPENDENCIES
   em-http-request
   exception_handler (~> 0.8.0.0)
   factory_bot_rails
+  graphiql-rails
+  graphql (= 1.9.18)
   jquery-rails
   kaminari
   minitest (~> 5.10.0)

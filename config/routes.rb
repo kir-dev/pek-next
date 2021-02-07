@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post '/graphql', to: 'graphql#execute'
   get '/logout', to: 'sessions#destroy', as: :logout
   get '/login', to: 'sessions#new', as: :login
   get '/auth/oauth/callback', to: 'sessions#create'

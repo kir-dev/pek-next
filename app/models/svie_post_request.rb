@@ -5,7 +5,6 @@
 #  id          :integer          not null, primary key
 #  member_type :string
 #  user_id     :integer
-#
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)

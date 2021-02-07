@@ -21,6 +21,8 @@ module PekNext
       }
     }
 
+    require "sprockets/railtie"
+
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths << Rails.root.join('lib')
 

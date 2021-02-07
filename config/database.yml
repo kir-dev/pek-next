@@ -9,8 +9,8 @@ default: &default
   encoding: unicode
   pool: 5
   host: localhost
-  username: pek-next
-  password: pek-next
+  username: postgres
+  password: password
 
 development:
   <<: *default
