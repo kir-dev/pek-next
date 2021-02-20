@@ -18,3 +18,4 @@ unsplash:
   accessKey: CHANGE-ME
   secret: CHANGE-ME
 secretKeyBase: CHANGE-ME
+hostUrl: pek.k8s.sch.bme.hu

@@ -38,3 +38,5 @@ spec:
           value: {{ .Values.unsplash.secret }}
         - name: "SECRET_KEY_BASE"
           value: {{ .Values.secretKeyBase }}
+        - name: "HOST_URL"
+          value: {{ .Values.hostUrl }}
