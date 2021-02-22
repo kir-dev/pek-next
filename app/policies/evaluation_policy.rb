@@ -1,6 +1,6 @@
 class EvaluationPolicy < ApplicationPolicy
   def show?
-    return false if off_season?
+    # return false if off_season?
 
     return true if leader_of_the_group? || evaluation_helper_of_the_group?
     return true if leader_of_the_resort? || leader_in_the_resort?
