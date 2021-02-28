@@ -118,7 +118,7 @@ describe JudgementsController do
 
         context 'accepted evaluation to rejected' do
           let(:params) do
-            { entry_request_status: Evaluation::REJECTED,
+            { point_request_status: Evaluation::REJECTED,
               entry_request_status: Evaluation::REJECTED }
           end
 
