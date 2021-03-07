@@ -11,6 +11,8 @@ class EvaluationPolicy < ApplicationPolicy
 
   alias current? show?
   alias table? show?
+  alias table_data? table?
+  alias table_columns? table?
 
   def edit?
     submit_point_request?

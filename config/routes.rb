@@ -1,3 +1,4 @@
+
 Rails.application.routes.draw do
 
   get '/logout', to: 'sessions#destroy', as: :logout
@@ -60,6 +61,8 @@ Rails.application.routes.draw do
       get '/justifications/edit', to: 'justifications#edit'
       post '/justifications/update', to: 'justifications#update'
       get '/table', to: 'evaluations#table'
+      get '/table-data', to: 'evaluations#table_data'
+      get '/table-columns', to: 'evaluations#table_columns'
       post '/pointrequest', to: 'evaluations#submit_point_request'
       delete '/pointrequest', to: 'evaluations#cancel_point_request', as: :cancel_point_request
     end

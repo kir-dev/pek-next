@@ -32,9 +32,13 @@ class EvaluationsController < ApplicationController
 
   def table
     authorize_evaluation
+  end
+
+  def table_data
+    authorize_evaluation
 
     @point_details = PointDetail.joins(point_request: :evaluation)
-                                .where(evaluations: { id: current_evaluation.id} )
+                                .where(evaluations: { id: current_evaluation.id } )
                                 .includes(:principle)
     @evaluation    = current_evaluation
     @ordered_principles = @evaluation.ordered_principles
@@ -44,12 +48,21 @@ class EvaluationsController < ApplicationController
                                   .includes(:entry_requests,
                                             point_requests: [point_details: [:point_detail_comments, :principle]])
     @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
-    @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
 
-    @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
-    evaluation_policy = policy(@evaluation)
-    @update_point_request = evaluation_policy.update_point_request?
-    @update_entry_request = evaluation_policy.update_entry_request?
+    # @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
+    # evaluation_policy = policy(@evaluation)
+    # @update_point_request = evaluation_policy.update_point_request?
+    # @update_entry_request = evaluation_policy.update_entry_request?
+  end
+
+  def table_columns
+    authorize_evaluation
+    @columns = [{ field: 'userName', title: 'Körtag' }]
+    @principle_columns = current_evaluation.ordered_principles.map do |principle|
+      { field: "principle-#{principle.id}",
+        title: principle.name }
+    end
+    @columns.push(@principle_columns).flatten!
   end
 
   def submit_entry_request
