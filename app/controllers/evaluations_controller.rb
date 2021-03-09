@@ -57,10 +57,14 @@ class EvaluationsController < ApplicationController
 
   def table_columns
     authorize_evaluation
-    @columns = [{ field: 'userName', title: 'Körtag' }]
+    @columns = [
+      {field: "id", frozen:true },
+      { field: 'userName', title: 'Körtag', frozen: true }]
     @principle_columns = current_evaluation.ordered_principles.map do |principle|
       { field: "principle-#{principle.id}",
-        title: principle.name }
+        title: principle.name,
+        topCalc: "avg",
+        editor: "input"}
     end
     @columns.push(@principle_columns).flatten!
   end

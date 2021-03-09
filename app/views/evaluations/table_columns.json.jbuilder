@@ -1,4 +1,5 @@
 json.array! @columns do |column|
-  json.title column[:title]
-  json.field column[:field]
+  column.each do |key, value|
+    json.set! key, value
+  end
 end

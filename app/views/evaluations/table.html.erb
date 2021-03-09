@@ -1,5 +1,4 @@
-<link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
-
-<div id="example-table"></div>
-<div id="evaluation-table-url" style="display: none"><%= "groups/#{current_group.id}/evaluations/#{current_evaluation.id}/table_data.json" %></div>
+<script src="https://cdn.jsdelivr.net/npm/handsontable@8.3.1/dist/handsontable.full.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/handsontable@8.3.1/dist/handsontable.full.min.css" rel="stylesheet" media="screen">
+<%= javascript_include_tag "/javascript/evaluation_table" %>
+<div id="evaluation-table"></div>
