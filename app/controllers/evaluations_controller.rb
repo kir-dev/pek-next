@@ -38,35 +38,20 @@ class EvaluationsController < ApplicationController
     authorize_evaluation
 
     @point_details = PointDetail.joins(point_request: :evaluation)
-                                .where(evaluations: { id: current_evaluation.id } )
+                                .where(evaluations: { id: current_evaluation.id })
                                 .includes(:principle)
-    @evaluation    = current_evaluation
+    @evaluation = current_evaluation
     @ordered_principles = @evaluation.ordered_principles
 
     point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
-    @users                  = User.where(id: point_eligible_user_ids)
-                                  .includes(:entry_requests,
-                                            point_requests: [point_details: [:point_detail_comments, :principle]])
+    @users = User.where(id: point_eligible_user_ids)
+                 .includes(:entry_requests,
+                           point_requests: [point_details: [:point_detail_comments, :principle]])
     @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
-
     # @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
     # evaluation_policy = policy(@evaluation)
     # @update_point_request = evaluation_policy.update_point_request?
     # @update_entry_request = evaluation_policy.update_entry_request?
-  end
-
-  def table_columns
-    authorize_evaluation
-    @columns = [
-      {field: "id", frozen:true },
-      { field: 'userName', title: 'Körtag', frozen: true }]
-    @principle_columns = current_evaluation.ordered_principles.map do |principle|
-      { field: "principle-#{principle.id}",
-        title: principle.name,
-        topCalc: "avg",
-        editor: "input"}
-    end
-    @columns.push(@principle_columns).flatten!
   end
 
   def submit_entry_request
@@ -114,9 +99,9 @@ class EvaluationsController < ApplicationController
   end
 
   def new_evaluation
-    evaluation = Evaluation.new(group_id:        current_group.id,
+    evaluation = Evaluation.new(group_id: current_group.id,
                                 creator_user_id: current_user.id,
-                                semester:        current_semester)
+                                semester: current_semester)
     evaluation.set_default_values
     evaluation.save!
 
