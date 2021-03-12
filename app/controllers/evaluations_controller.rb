@@ -41,7 +41,8 @@ class EvaluationsController < ApplicationController
                                 .where(evaluations: { id: current_evaluation.id })
                                 .includes(:principle)
     @evaluation = current_evaluation
-    @ordered_principles = @evaluation.ordered_principles
+    @principle_groups = @evaluation.ordered_principles.group_by { |principle| principle.type }
+
 
     point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
     @users = User.where(id: point_eligible_user_ids)

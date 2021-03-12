@@ -1,3 +1,4 @@
+// TODO make sure if principles are correctly ordered
 window.addEventListener("load", main)
 
 function main() {
@@ -13,7 +14,8 @@ function EvaluationTable(containerElementId, _input) {
     const principles = input.principles
     const users = input.users
     const nestedColumns = parseColumns(principles)
-    intTable(nestedColumns, null)
+    const tableData = parseUsers(users)
+    intTable(nestedColumns, tableData)
 }
 
 /*
@@ -24,8 +26,8 @@ function EvaluationTable(containerElementId, _input) {
     ]
 * */
 function parseColumns(principles) {
-    const workPrinciples = selectPrinciples(principles, "WORK")
-    const responsiblilityPrinciples = selectPrinciples(principles, "RESPONSIBILITY")
+    const workPrinciples = principles.WORK
+    const responsiblilityPrinciples = principles.RESPONSIBILITY
     const workPrincipleCount = workPrinciples.length
     const responsiblilityPrincipleCount = responsiblilityPrinciples.length
 
@@ -49,7 +51,7 @@ function intTable(columns,data) {
     rowHeight = tableHeight / 15
     const container = document.getElementById("evaluation-table")
     const hot = new Handsontable(container, {
-        data:  Handsontable.helper.createSpreadsheetData(500,15),
+        data: data,
         rowHeaders: true,
         colHeaders: true,
         nestedHeaders: columns,
@@ -62,7 +64,6 @@ function intTable(columns,data) {
         fixedRowsBottom: 1
     });
 }
-
-// key order is arbitrary in json, but array order is relyable
-// use arrays instead of hashes
-// create tests for checking the correct values
+function parseUsers(users){
+    return users.map(user=> [user.name, ...user.pointDetails.map(pd => pd.point)])
+}
