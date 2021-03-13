@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4.4'
+gem 'rails', '6.0.3.5'
 # Use pg as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -41,20 +41,21 @@ gem 'exception_handler', '~> 0.8.0.0'
 # Use unsplash for nice pictures
 gem 'unsplash'
 # use activity_notification as notification system
-gem 'activity_notification', '~> 1.7'
+gem 'activity_notification', '~> 2.2', '>= 2.2.1'
 # use Pundit for authorization
 gem 'pundit', '~> 2.1'
 # use twitter_cldr for localization improvements (sorting strings according to hungarian)
 gem 'twitter_cldr', '~> 6.4'
 gem "bootsnap", ">= 1.1.0", require: false
-
+gem 'railties', '6.0.3.5'
+gem 'listen'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Brakeman: security tool
   gem 'brakeman', require: false
   # RSpec for more modern testing
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 5.0'
 end
 
 group :test do
