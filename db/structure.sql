@@ -32,8 +32,8 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET default_tablespace = '';
 
+-- SET default_table_access_method = heap;
 SET default_with_oids = false;
-
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
@@ -1524,6 +1524,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200722171937'),
 ('20200722172424'),
 ('20200722173131'),
-('20201223070757');
+('20201223070757'),
+('20210307164901');
 
 
