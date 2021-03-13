@@ -2,68 +2,58 @@
 window.addEventListener("load", main)
 
 function main() {
+    const container = document.getElementById("evaluation-table")
     fetch('table-data.json')
         .then(data => data.json())
-        .then(data => EvaluationTable("evaluation_table", data))
+        .then(data => EvaluationTable(container, data))
 }
 
-function EvaluationTable(containerElementId, _input) {
-    const container = document.getElementById(containerElementId)
-    const input = _input
-    const that = this
-    const principles = input.principles
-    const users = input.users
-    const nestedColumns = parseColumns(principles)
-    const tableData = parseUsers(users)
-    intTable(nestedColumns, tableData)
-}
+const EvaluationTable = (container, tableData) => {
+    const principles = {
+        responsibility: tableData.principles["RESPONSIBILITY"],
+        work: tableData.principles["WORK"]
+    }
+    const users = tableData.users
 
-/*
- nestedHeaders: [
-      [{label:''},{label: 'munka', colspan: 4},{label: 'munka', colspan: 4},{label: 'szumma', colspan:2}],
-      ['1','2','3','4','5','6','1','2','3','4','5']
+    intTable()
 
-    ]
-* */
-function parseColumns(principles) {
-    const workPrinciples = principles.WORK
-    const responsiblilityPrinciples = principles.RESPONSIBILITY
-    const workPrincipleCount = workPrinciples.length
-    const responsiblilityPrincipleCount = responsiblilityPrinciples.length
+    function intTable() {
+        tableHeight = window.innerHeight * 0.8;
+        rowHeight = tableHeight / 15
+        const hot = new Handsontable(container, {
+            data: userData(),
+            rowHeaders: true,
+            colHeaders: true,
+            nestedHeaders: nestedHeaders(),
+            width: '100%',
+            colWidths: 100,
+            height: tableHeight * 0.7,
+            rowHeights: rowHeight,
+            autoRowSize: {syncLimit: 300},
+            fixedColumnsLeft: 1,
+            fixedRowsBottom: 1
+        });
+    }
 
-    const nestedColumns = [[
-        {label: '',colspan: 1},
-        {label: 'Felelősség pont', colspan: responsiblilityPrincipleCount},
-        {label: 'Munka pont', colspan: workPrincipleCount},
-        {label: 'Szumma', colspan: 2}
-    ], [
-        'Körtag neve', ...responsiblilityPrinciples.map(p=>p.name), ...workPrinciples.map(p=>p.name),"a","b"
-    ]]
-    return nestedColumns
-}
+    function nestedHeaders() {
+        return [[
+            {label: '', colspan: 1},
+            {label: 'Felelősség pont', colspan: principles.responsibility.length},
+            {label: 'Munka pont', colspan: principles.work.length},
+            {label: 'Szumma', colspan: 2}
+        ], [
+            'Körtag neve', ...principles.responsibility.map(p => p.name), ...principles.work.map(p => p.name), "a", "b"
+        ]]
+    }
 
-function selectPrinciples(principles, type) {
-    return principles.filter(principle => principle.type == type)
-}
+    function userData() {
+        return users.map(user => {
+            return [user.name, ...user.pointDetails.RESPONSIBILITY.map(pd => pd.point), ...user.pointDetails.WORK.map(pd => pd.point)]
+    })
+    }
 
-function intTable(columns,data) {
-    tableHeight = window.innerHeight * 0.8;
-    rowHeight = tableHeight / 15
-    const container = document.getElementById("evaluation-table")
-    const hot = new Handsontable(container, {
-        data: data,
-        rowHeaders: true,
-        colHeaders: true,
-        nestedHeaders: columns,
-        width: '100%',
-        colWidths: 100,
-        height: tableHeight * 0.7,
-        rowHeights: rowHeight,
-        autoRowSize: {syncLimit: 300},
-        fixedColumnsLeft: 1,
-        fixedRowsBottom: 1
-    });
-}
-function parseUsers(users){
-    return users.map(user=> [user.name, ...user.pointDetails.map(pd => pd.point)])
+    function appendSumColumns(rows){
+        return rows.map(row)
+    }
+    return {}
 }
