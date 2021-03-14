@@ -11,11 +11,12 @@ function main() {
 const EvaluationTable = (container, rawData) => {
     const principles = {
         responsibility: rawData.principles["RESPONSIBILITY"],
-        work: rawData.principles["WORK"]
+        work: rawData.principles["WORK"],
+        all: [...rawData.principles["RESPONSIBILITY"], ...rawData.principles["WORK"]]
     }
     const users = rawData.users
     const tableData = appendRowsForAverage(userData())
-    intTable()
+    const table = intTable()
 
     function intTable() {
         tableHeight = window.innerHeight * 0.8;
@@ -32,13 +33,31 @@ const EvaluationTable = (container, rawData) => {
             autoRowSize: {syncLimit: 300},
             fixedColumnsLeft: 1,
             fixedRowsBottom: 2,
+            afterChange: (changes) => console.log(changes),
             columnSummary: [
-                ...[...Array(principles.responsibility.length + principles.work.length + 2)
+                ...[...Array(principles.all.length + 2)
                     .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation)),
-             ...[...Array(principles.responsibility.length + principles.work.length + 2)
+                ...[...Array(principles.all.length + 2)
                     .keys()].map(index => columnCalculation(index + 1, 0, averageWithoutEmptyCalculation))]
 
         });
+        return hot;
+    }
+
+    function calculateRowSums(changes) {
+
+    }
+
+    function sumRow(rowIndex) {
+        const length = principle.responsibility.length + principles.work.length
+        hot.setDataAtCell(rowIndex, lengt, sumRowValues(rowIndex))
+    }
+
+    function sumRowValues(rowIndex, length) {
+        let rowSum = 0;
+        for (let i = 1; i < length; i++) {
+            let rowValue = hot
+        }
     }
 
     function averageCalculation(endpoint) {
@@ -68,11 +87,12 @@ const EvaluationTable = (container, rawData) => {
                 rangeNonEmptyCount += countNonEmptyColumns(endpoint.ranges[r], hotInstance, endpoint)
             }
         }
-        let rangeLength = calculateRangeLength(endpoint.ranges)
-
         let result = rangeSums / rangeNonEmptyCount;
-        if(result) { return result; }
-        else {return 0;}
+        if (result) {
+            return result;
+        } else {
+            return 0;
+        }
     }
 
     function calculateRangeLength(ranges) {
@@ -94,6 +114,7 @@ const EvaluationTable = (container, rawData) => {
         } while (i >= rowRange[0]);
         return sum;
     }
+
     function countNonEmptyColumns(rowRange, hotInstance, endpoint) {
         let i = rowRange[1] || rowRange[0];
         let count = 0;
@@ -111,7 +132,7 @@ const EvaluationTable = (container, rawData) => {
     function columnCalculation(column, destinationRow, calculation) {
         return {
             ranges: [
-                [0, tableData.length - 1 - 2 ]
+                [0, tableData.length - 1 - 2]
             ],
             destinationRow: destinationRow,
             destinationColumn: column,
@@ -131,8 +152,7 @@ const EvaluationTable = (container, rawData) => {
             {label: 'Szumma', colspan: 2}
         ], [
             'Körtag neve',
-            ...principles.responsibility.map(p => p.name),
-            ...principles.work.map(p => p.name),
+            ...principles.all.map(principle => principle.name),
             "Felelősség", "Munka"
         ]]
     }
@@ -148,7 +168,7 @@ const EvaluationTable = (container, rawData) => {
     }
 
     function appendRowsForAverage(rows) {
-        averageRow = new Array(1 + principles.responsibility.length + principles.work.length + 2)
+        averageRow = new Array(1 + principles.all.length + 2)
         averageRow[0] = 'Átlag'
         rows.push([...averageRow])
         averageRow[0] = 'Átlag (0 pont nélkül)'
