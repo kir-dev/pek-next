@@ -33,9 +33,9 @@ const EvaluationTable = (container, rawData) => {
             fixedColumnsLeft: 1,
             fixedRowsBottom: 2,
             columnSummary: [
-                ...[...Array(principles.responsibility.length + principles.work.length)
+                ...[...Array(principles.responsibility.length + principles.work.length + 2)
                     .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation)),
-             ...[...Array(principles.responsibility.length + principles.work.length)
+             ...[...Array(principles.responsibility.length + principles.work.length + 2)
                     .keys()].map(index => columnCalculation(index + 1, 0, averageWithoutEmptyCalculation))]
 
         });
