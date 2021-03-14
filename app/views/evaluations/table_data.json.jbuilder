@@ -7,7 +7,7 @@ json.users @users.each { ||  } do |user|
     group_values = @principle_groups[principle_group].map do |principle|
       point_detail = user.single_detail(principle)
       { principleId: principle.id,
-        point: point_detail&.point || nil }
+        point: point_detail&.point || 0 }
     end
     { "#{principle_group}": group_values }
   end
