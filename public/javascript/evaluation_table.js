@@ -70,7 +70,9 @@ const EvaluationTable = (container, rawData) => {
         }
         let rangeLength = calculateRangeLength(endpoint.ranges)
 
-        return rangeSums / rangeNonEmptyCount;
+        let result = rangeSums / rangeNonEmptyCount;
+        if(result) { return result; }
+        else {return 0;}
     }
 
     function calculateRangeLength(ranges) {
