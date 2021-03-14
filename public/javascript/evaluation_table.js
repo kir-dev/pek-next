@@ -21,7 +21,7 @@ const EvaluationTable = (container, tableData) => {
         tableHeight = window.innerHeight * 0.8;
         rowHeight = tableHeight / 15
         const hot = new Handsontable(container, {
-            data: userData(),
+            data: appendRowsForAverage(userData()),
             rowHeaders: true,
             colHeaders: true,
             nestedHeaders: nestedHeaders(),
@@ -29,9 +29,10 @@ const EvaluationTable = (container, tableData) => {
             colWidths: 100,
             height: tableHeight * 0.7,
             rowHeights: rowHeight,
-            autoRowSize: {syncLimit: 300},
+            autoRowSize: { syncLimit: 300 },
             fixedColumnsLeft: 1,
-            fixedRowsBottom: 1
+            fixedRowsBottom: 2,
+
         });
     }
 
@@ -42,18 +43,30 @@ const EvaluationTable = (container, tableData) => {
             {label: 'Munka pont', colspan: principles.work.length},
             {label: 'Szumma', colspan: 2}
         ], [
-            'Körtag neve', ...principles.responsibility.map(p => p.name), ...principles.work.map(p => p.name), "a", "b"
+            'Körtag neve',
+            ...principles.responsibility.map(p => p.name),
+            ...principles.work.map(p => p.name),
+            "Felelősség", "Munka"
         ]]
     }
 
     function userData() {
         return users.map(user => {
-            return [user.name, ...user.pointDetails.RESPONSIBILITY.map(pd => pd.point), ...user.pointDetails.WORK.map(pd => pd.point)]
+            return [user.name,
+                ...user.pointDetails.RESPONSIBILITY.map(pd => pd.point),
+                ...user.pointDetails.WORK.map(pd => pd.point),
+                1,1
+            ]
     })
     }
 
-    function appendSumColumns(rows){
-        return rows.map(row)
+    function appendRowsForAverage(rows){
+        averageRow = new Array(1 + principles.responsibility.length + principles.work.length + 2)
+        averageRow[0]='Átlag'
+        rows.push([...averageRow])
+        averageRow[0]='Átlag (0 pont nélkül)'
+        rows.push([...averageRow])
+        return rows
     }
     return {}
 }
