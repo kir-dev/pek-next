@@ -43,31 +43,35 @@ const EvaluationTable = (container, rawData) => {
         var rangeSums = 0;
         var hotInstance = this.hot;
 
-        function sumRange(rowRange) {
-            let i = rowRange[1] || rowRange[0];
-            let sum = 0;
-
-            do {
-                let cellNumber = parseInt(hotInstance.getDataAtCell(i, endpoint.sourceColumn), 10);
-                if (!cellNumber) {
-                    cellNumber = 0;
-                }
-                sum += cellNumber
-
-                i--;
-            } while (i >= rowRange[0]);
-            return sum;
-        }
-
         // go through all declared ranges
         for (var r in endpoint.ranges) {
             if (endpoint.ranges.hasOwnProperty(r)) {
-                rangeSums += sumRange(endpoint.ranges[r]);
+                rangeSums += sumRange(endpoint.ranges[r], hotInstance, endpoint);
             }
         }
-        let rangeLength = endpoint.ranges.map(v => v[1] - v[0]).reduce((sum, num) => sum += num)
+        let rangeLength = calculateRangeLength(endpoint.ranges)
 
         return rangeSums / rangeLength;
+    }
+
+    function calculateRangeLength(ranges) {
+        return ranges.map(v => v[1] - v[0]).reduce((sum, num) => sum += num)
+    }
+
+    function sumRange(rowRange, hotInstance, endpoint) {
+        let i = rowRange[1] || rowRange[0];
+        let sum = 0;
+
+        do {
+            let cellNumber = parseInt(hotInstance.getDataAtCell(i, endpoint.sourceColumn), 10);
+            if (!cellNumber) {
+                cellNumber = 0;
+            }
+            sum += cellNumber
+
+            i--;
+        } while (i >= rowRange[0]);
+        return sum;
     }
 
     function columnCalculation(column, destinationRow, calculation) {
