@@ -34,59 +34,46 @@ const EvaluationTable = (container, rawData) => {
             fixedRowsBottom: 2,
             columnSummary: [
                 ...[...Array(principles.responsibility.length + principles.work.length)
-                    .keys()].map( index => columnCalculation(index+1, 1, evenCalc))
+                    .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation))
             ]
         });
     }
 
-    function average(){
-
-    }
-
-    function evenCalc(endpoint) {
-        // this function counts the even values in the column
-        // console.log("evenCalc")
+    function averageCalculation(endpoint) {
         var rangeSums = 0;
         var hotInstance = this.hot;
 
-        // helper function
-        function checkRange(rowRange) {
+        function sumRange(rowRange) {
             let i = rowRange[1] || rowRange[0];
-            let counter = 0;
             let sum = 0;
 
             do {
                 let cellNumber = parseInt(hotInstance.getDataAtCell(i, endpoint.sourceColumn), 10);
-                counter++;
-                if(!cellNumber)
-                {
+                if (!cellNumber) {
                     cellNumber = 0;
                 }
-                sum+=cellNumber
+                sum += cellNumber
 
                 i--;
             } while (i >= rowRange[0]);
-            console.log(sum)
             return sum;
         }
 
         // go through all declared ranges
         for (var r in endpoint.ranges) {
             if (endpoint.ranges.hasOwnProperty(r)) {
-                rangeSums += checkRange(endpoint.ranges[r]);
+                rangeSums += sumRange(endpoint.ranges[r]);
             }
         }
-        let rangeLength = endpoint.ranges.map(v => v[1] - v[0]).reduce((sum,num) =>sum+= num)
-        // console.log(rangeSums)
-        // console.log(rangeLength)
-        // console.log(rangeSums/rangeLength)
+        let rangeLength = endpoint.ranges.map(v => v[1] - v[0]).reduce((sum, num) => sum += num)
+
         return rangeSums / rangeLength;
     }
 
-    function columnCalculation(column, destinationRow,calculation) {
+    function columnCalculation(column, destinationRow, calculation) {
         return {
             ranges: [
-                [0, tableData.length-2]
+                [0, tableData.length - 2]
             ],
             destinationRow: destinationRow,
             destinationColumn: column,
