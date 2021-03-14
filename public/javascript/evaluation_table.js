@@ -17,6 +17,7 @@ const EvaluationTable = (container, rawData) => {
     const users = rawData.users
     const tableData = appendRowsForAverage(userData())
     const table = intTable()
+    table.addHook("afterChange", calculateRowSums)
 
     function intTable() {
         tableHeight = window.innerHeight * 0.8;
@@ -33,7 +34,7 @@ const EvaluationTable = (container, rawData) => {
             autoRowSize: {syncLimit: 300},
             fixedColumnsLeft: 1,
             fixedRowsBottom: 2,
-            afterChange: (changes) => console.log(changes),
+            // afterChange: (changes) => calculateRowSums(changes),
             columnSummary: [
                 ...[...Array(principles.all.length + 2)
                     .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation)),
@@ -41,11 +42,27 @@ const EvaluationTable = (container, rawData) => {
                     .keys()].map(index => columnCalculation(index + 1, 0, averageWithoutEmptyCalculation))]
 
         });
+        // hot.add
         return hot;
     }
 
-    function calculateRowSums(changes) {
+    function calculateRowSums(changesArray) {
+        let changes = changesArray.map(changeArray => changeArrayToHash(changeArray))
+        changes.forEach(change => {
+            if (change.row > users.length || change.column > principles.all.length - 1) {
 
+                console.log(change)
+            }
+        })
+    }
+
+    function changeArrayToHash(changeArray) {
+        return {
+            row: changeArray[0],
+            column: changeArray[1],
+            prevValue: changeArray[2],
+            newValue: changeArray[3]
+        }
     }
 
     function sumRow(rowIndex) {
