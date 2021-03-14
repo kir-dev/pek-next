@@ -34,8 +34,10 @@ const EvaluationTable = (container, rawData) => {
             fixedRowsBottom: 2,
             columnSummary: [
                 ...[...Array(principles.responsibility.length + principles.work.length)
-                    .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation))
-            ]
+                    .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation)),
+             ...[...Array(principles.responsibility.length + principles.work.length)
+                    .keys()].map(index => columnCalculation(index + 1, 0, averageWithoutEmptyCalculation))]
+
         });
     }
 
@@ -54,8 +56,25 @@ const EvaluationTable = (container, rawData) => {
         return rangeSums / rangeLength;
     }
 
+    function averageWithoutEmptyCalculation(endpoint) {
+        let rangeSums = 0;
+        let rangeNonEmptyCount = 0;
+        let hotInstance = this.hot;
+
+        // go through all declared ranges
+        for (var r in endpoint.ranges) {
+            if (endpoint.ranges.hasOwnProperty(r)) {
+                rangeSums += sumRange(endpoint.ranges[r], hotInstance, endpoint);
+                rangeNonEmptyCount += countNonEmptyColumns(endpoint.ranges[r], hotInstance, endpoint)
+            }
+        }
+        let rangeLength = calculateRangeLength(endpoint.ranges)
+
+        return rangeSums / rangeNonEmptyCount;
+    }
+
     function calculateRangeLength(ranges) {
-        return ranges.map(v => v[1] - v[0]).reduce((sum, num) => sum += num)
+        return ranges.map(v => v[1] - v[0]).reduce((sum, num) => sum += num) + 1
     }
 
     function sumRange(rowRange, hotInstance, endpoint) {
@@ -73,11 +92,24 @@ const EvaluationTable = (container, rawData) => {
         } while (i >= rowRange[0]);
         return sum;
     }
+    function countNonEmptyColumns(rowRange, hotInstance, endpoint) {
+        let i = rowRange[1] || rowRange[0];
+        let count = 0;
+        do {
+            let cellNumber = parseInt(hotInstance.getDataAtCell(i, endpoint.sourceColumn), 10);
+            if (cellNumber) {
+                count++;
+            }
+
+            i--;
+        } while (i >= rowRange[0]);
+        return count;
+    }
 
     function columnCalculation(column, destinationRow, calculation) {
         return {
             ranges: [
-                [0, tableData.length - 2]
+                [0, tableData.length - 1 - 2 ]
             ],
             destinationRow: destinationRow,
             destinationColumn: column,
