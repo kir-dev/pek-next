@@ -18,6 +18,7 @@ const EvaluationTable = (container, rawData) => {
     const tableData = appendRowsForAverage(userData())
     const table = intTable()
     table.addHook("afterChange", calculateRowSums)
+    sumRow(2)
 
     function intTable() {
         tableHeight = window.innerHeight * 0.8;
@@ -66,8 +67,13 @@ const EvaluationTable = (container, rawData) => {
     }
 
     function sumRow(rowIndex) {
-        const length = principle.responsibility.length + principles.work.length
-        hot.setDataAtCell(rowIndex, lengt, sumRowValues(rowIndex))
+        const length = principles.responsibility.length + principles.work.length
+        let rowPointSum = 0;
+        for (let i = 1; i < length + 1 ; i++) {
+            rowPointSum += table.getDataAtCell(rowIndex, i)
+        }
+
+        return rowPointSum;
     }
 
     function sumRowValues(rowIndex, length) {
