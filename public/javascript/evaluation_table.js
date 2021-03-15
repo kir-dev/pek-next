@@ -69,7 +69,7 @@ const EvaluationTable = (container, rawData) => {
     function sumRow(rowIndex) {
         const length = principles.responsibility.length + principles.work.length
         let rowPointSum = 0;
-        for (let i = 1; i < length + 1 ; i++) {
+        for (let i = 1; i < length + 1; i++) {
             rowPointSum += table.getDataAtCell(rowIndex, i)
         }
 
@@ -84,11 +84,11 @@ const EvaluationTable = (container, rawData) => {
     }
 
     function averageCalculation(endpoint) {
-        var rangeSums = 0;
-        var hotInstance = this.hot;
+        let rangeSums = 0;
+        let hotInstance = this.hot;
 
         // go through all declared ranges
-        for (var r in endpoint.ranges) {
+        for (let r in endpoint.ranges) {
             if (endpoint.ranges.hasOwnProperty(r)) {
                 rangeSums += sumRange(endpoint.ranges[r], hotInstance, endpoint);
             }
