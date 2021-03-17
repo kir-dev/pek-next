@@ -17,7 +17,7 @@ const EvaluationTable = (container, rawData) => {
     const users = rawData.users
     const tableData = appendRowsForAverage(userData())
     const table = intTable()
-    table.addHook("afterChange", calculateRowSums)
+    table.addHook("afterChange", cellChangeHandler)
     sumRow(2)
 
     function intTable() {
@@ -34,25 +34,23 @@ const EvaluationTable = (container, rawData) => {
             rowHeights: rowHeight,
             autoRowSize: {syncLimit: 300},
             fixedColumnsLeft: 1,
-            fixedRowsBottom: 2,
-            // afterChange: (changes) => calculateRowSums(changes),
+            fixedRowsBottom: 3,
+            afterChange: (changes) => cellChangeHandler(changes),
             columnSummary: [
                 ...[...Array(principles.all.length + 2)
                     .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation)),
                 ...[...Array(principles.all.length + 2)
                     .keys()].map(index => columnCalculation(index + 1, 0, averageWithoutEmptyCalculation))]
-
         });
-        // hot.add
         return hot;
     }
 
-    function calculateRowSums(changesArray) {
+    function cellChangeHandler(changesArray) {
         let changes = changesArray.map(changeArray => changeArrayToHash(changeArray))
         changes.forEach(change => {
             if (change.row > users.length || change.column > principles.all.length - 1) {
+                table.setCellData(change.row, principles.all.length+2, sumRow(change.row))
 
-                console.log(change)
             }
         })
     }
@@ -172,11 +170,11 @@ const EvaluationTable = (container, rawData) => {
             {label: '', colspan: 1},
             {label: 'Felelősség pont', colspan: principles.responsibility.length},
             {label: 'Munka pont', colspan: principles.work.length},
-            {label: 'Szumma', colspan: 2}
+            {label: 'Szumma', colspan: 3}
         ], [
             'Körtag neve',
             ...principles.all.map(principle => principle.name),
-            "Felelősség", "Munka"
+            "Felelősség", "Munka","Összes"
         ]]
     }
 
@@ -185,17 +183,20 @@ const EvaluationTable = (container, rawData) => {
             return [user.name,
                 ...user.pointDetails.RESPONSIBILITY.map(pd => pd.point),
                 ...user.pointDetails.WORK.map(pd => pd.point),
-                1, 1
+                1, 1, 1
             ]
         })
     }
 
     function appendRowsForAverage(rows) {
-        averageRow = new Array(1 + principles.all.length + 2)
+        let averageRow = new Array(1 + principles.all.length + 3)
         averageRow[0] = 'Átlag'
         rows.push([...averageRow])
         averageRow[0] = 'Átlag (0 pont nélkül)'
         rows.push([...averageRow])
+        averageRow[0] = 'Szumma'
+        rows.push([...averageRow])
+
         return rows
     }
 
