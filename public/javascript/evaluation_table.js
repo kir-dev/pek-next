@@ -38,9 +38,9 @@ const EvaluationTable = (container, rawData) => {
             // afterChange: (changes, source) => cellChangeHandler(changes, source),
             columnSummary: [
                 ...[...Array(principles.all.length + 2)
-                    .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation)),
+                    .keys()].map(index => columnCalculation(index + 1, 2, averageCalculation)),
                 ...[...Array(principles.all.length + 2)
-                    .keys()].map(index => columnCalculation(index + 1, 0, averageWithoutEmptyCalculation))]
+                    .keys()].map(index => columnCalculation(index + 1, 1, averageWithoutEmptyCalculation))]
         });
         return hot;
     }
