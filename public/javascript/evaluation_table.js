@@ -14,12 +14,12 @@ const EvaluationTable = (container, rawData) => {
         work: rawData.principles["WORK"],
         all: [...rawData.principles["RESPONSIBILITY"], ...rawData.principles["WORK"]]
     }
+    const columnIndexes = generateColumnIndexes()
     const users = rawData.users
     const tableData = appendRowsForAverage(userData())
     const table = intTable()
-    table.addHook("afterChange", cellChangeHandler)
-    sumRow(2)
 
+    table.addHook('afterChange', cellChangeHandler)
     function intTable() {
         tableHeight = window.innerHeight * 0.8;
         rowHeight = tableHeight / 15
@@ -35,7 +35,7 @@ const EvaluationTable = (container, rawData) => {
             autoRowSize: {syncLimit: 300},
             fixedColumnsLeft: 1,
             fixedRowsBottom: 3,
-            afterChange: (changes) => cellChangeHandler(changes),
+            // afterChange: (changes, source) => cellChangeHandler(changes, source),
             columnSummary: [
                 ...[...Array(principles.all.length + 2)
                     .keys()].map(index => columnCalculation(index + 1, 1, averageCalculation)),
@@ -45,14 +45,53 @@ const EvaluationTable = (container, rawData) => {
         return hot;
     }
 
-    function cellChangeHandler(changesArray) {
-        let changes = changesArray.map(changeArray => changeArrayToHash(changeArray))
-        changes.forEach(change => {
-            if (change.row > users.length || change.column > principles.all.length - 1) {
-                table.setCellData(change.row, principles.all.length+2, sumRow(change.row))
+    function generateColumnIndexes() {
+        let responsibilityIndexes = []
+        for (let i = 1; i < principles.responsibility.length + 1; i++) {
+            responsibilityIndexes.push(i)
+        }
+        let lastPrincipleIndex = principles.responsibility.length + principles.work.length
+        let workIndexes = []
+        for (let i = principles.responsibility.length + 1; i < lastPrincipleIndex + 1; i++) {
+            workIndexes.push(i)
+        }
+        return {
+            name: 0,
+            responsibility: responsibilityIndexes,
+            work: workIndexes,
+            principles: [...responsibilityIndexes, ...workIndexes],
+            sumResponsibility: lastPrincipleIndex + 1,
+            sumWork: lastPrincipleIndex + 2,
+            sumAll: lastPrincipleIndex + 3
+        }
 
+    }
+
+    function cellChangeHandler(changesArray, source) {
+
+        if (!changesArray || source =="loadData") {
+            return
+        }
+        let changes = changesArray.map(changeArray => changeArrayToHash(changeArray))
+        if (!changes) {
+            return
+        }
+        const pointChanges = changes.filter(changes => columnIndexes.principles.includes(changes.column))
+        const changedRows = [... new Set(pointChanges.map(change => change.row))]
+        let newTableData = table.getData();
+        changedRows.forEach(row => {
+            if (row < users.length) {
+                // table.setDataAtCell(row, columnIndexes.sumResponsibility, sumRowColumns(row, columnIndexes.responsibility))
+                // table.setDataAtCell(row, columnIndexes.sumWork, sumRowColumns(row, columnIndexes.work))
+                // table.setDataAtCell(row, columnIndexes.sumAll, sumRowColumns(row, [columnIndexes.sumResponsibility, columnIndexes.sumWork]))
+                const sumResponsibility =sumRowColumns(row, columnIndexes.responsibility)
+                newTableData[row][columnIndexes.sumResponsibility]=sumResponsibility
+                const sumWork = sumRowColumns(row, columnIndexes.work)
+                newTableData[row][columnIndexes.sumWork]=sumWork
+                newTableData[row][columnIndexes.sumAll]= sumResponsibility + sumWork
             }
         })
+        table.loadData(newTableData);
     }
 
     function changeArrayToHash(changeArray) {
@@ -64,14 +103,9 @@ const EvaluationTable = (container, rawData) => {
         }
     }
 
-    function sumRow(rowIndex) {
-        const length = principles.responsibility.length + principles.work.length
-        let rowPointSum = 0;
-        for (let i = 1; i < length + 1; i++) {
-            rowPointSum += table.getDataAtCell(rowIndex, i)
-        }
-
-        return rowPointSum;
+    function sumRowColumns(rowIndex, columns) {
+        const numArray=columns.map(c=> +table.getDataAtCell(rowIndex,c))
+        return numArray.reduce((sum,num) => sum+num,0)
     }
 
     function sumRowValues(rowIndex, length) {
@@ -174,7 +208,7 @@ const EvaluationTable = (container, rawData) => {
         ], [
             'Körtag neve',
             ...principles.all.map(principle => principle.name),
-            "Felelősség", "Munka","Összes"
+            "Felelősség", "Munka", "Összes"
         ]]
     }
 
