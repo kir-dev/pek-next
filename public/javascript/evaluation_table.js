@@ -37,11 +37,14 @@ const EvaluationTable = (container, rawData) => {
             fixedRowsBottom: 3,
             // afterChange: (changes, source) => cellChangeHandler(changes, source),
             columnSummary: [
-                ...[...Array(principles.all.length + 2)
+                ...[...Array(principles.all.length + 3)
                     .keys()].map(index => columnCalculation(index + 1, 2, averageCalculation)),
-                ...[...Array(principles.all.length + 2)
-                    .keys()].map(index => columnCalculation(index + 1, 1, averageWithoutEmptyCalculation))]
-        });
+                ...[...Array(principles.all.length + 3)
+                    .keys()].map(index => columnCalculation(index + 1, 1, averageWithoutEmptyCalculation)),
+                ...[...Array(principles.all.length + 3)
+                    .keys()].map(index => columnCalculation(index + 1, 0,sumCalculation))
+            ]
+    });
         return hot;
     }
 
@@ -68,8 +71,7 @@ const EvaluationTable = (container, rawData) => {
     }
 
     function cellChangeHandler(changesArray, source) {
-
-        if (!changesArray || source =="loadData") {
+        if (!changesArray) {
             return
         }
         let changes = changesArray.map(changeArray => changeArrayToHash(changeArray))
@@ -150,6 +152,22 @@ const EvaluationTable = (container, rawData) => {
         }
     }
 
+    function sumCalculation(endpoint) {
+        let rangeSums = 0;
+        let hotInstance = this.hot;
+
+        // go through all declared ranges
+        for (var r in endpoint.ranges) {
+            if (endpoint.ranges.hasOwnProperty(r)) {
+                rangeSums += sumRange(endpoint.ranges[r], hotInstance, endpoint);
+            }
+        }
+        if (rangeSums) {
+            return rangeSums;
+        } else {
+            return 0;
+        }
+    }
     function calculateRangeLength(ranges) {
         return ranges.map(v => v[1] - v[0]).reduce((sum, num) => sum += num) + 1
     }
@@ -187,7 +205,7 @@ const EvaluationTable = (container, rawData) => {
     function columnCalculation(column, destinationRow, calculation) {
         return {
             ranges: [
-                [0, tableData.length - 1 - 2]
+                [0, users.length -1]
             ],
             destinationRow: destinationRow,
             destinationColumn: column,
@@ -214,10 +232,13 @@ const EvaluationTable = (container, rawData) => {
 
     function userData() {
         return users.map(user => {
+            let sumResponsibility = user.pointDetails.RESPONSIBILITY.reduce((sum,pd) => sum = sum + pd.point,0)
+            let sumWork = user.pointDetails.WORK.reduce((sum,pd) => sum = sum + pd.point,0)
+
             return [user.name,
                 ...user.pointDetails.RESPONSIBILITY.map(pd => pd.point),
                 ...user.pointDetails.WORK.map(pd => pd.point),
-                1, 1, 1
+                sumResponsibility, sumWork, sumResponsibility+sumWork
             ]
         })
     }
