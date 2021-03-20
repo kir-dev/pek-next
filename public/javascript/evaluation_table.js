@@ -52,10 +52,10 @@ const EvaluationTable = (container, rawData) => {
         for (let i = principles.responsibility.length + 1; i < lastPrincipleIndex + 1; i++) {
             workIndexes.push(i)
         }
-        let points = [...Array(lastPrincipleIndex+3+1).keys()]
-        points.splice(0,1)
+        let points = [...Array(lastPrincipleIndex + 3 + 1).keys()]
+        points.splice(0, 1)
 
-        const sumResponsibility= lastPrincipleIndex + 1;
+        const sumResponsibility = lastPrincipleIndex + 1;
         const sumWork = lastPrincipleIndex + 2;
         const sumAll = lastPrincipleIndex + 3;
         return {
@@ -67,7 +67,7 @@ const EvaluationTable = (container, rawData) => {
             sumResponsibility: sumResponsibility,
             sumWork: sumWork,
             sumAll: sumAll,
-            statistics:[sumWork, sumResponsibility, sumAll]
+            statistics: [sumWork, sumResponsibility, sumAll]
         }
     }
 
@@ -81,11 +81,13 @@ const EvaluationTable = (container, rawData) => {
     }
 
     function cellChangeHandler(changesArray, source) {
-        if (!changesArray) { return }
+        if (!changesArray) {
+            return
+        }
         let changes = changesArray.map(changeArray => changeArrayToHash(changeArray))
         const pointChanges = changes.filter(changes => columnIndexes.principles.includes(changes.column))
         const changedRows = [...new Set(pointChanges.map(change => change.row))]
-        const changedColumns =[... new Set(pointChanges.map(change => change.column))]
+        const changedColumns = [...new Set(pointChanges.map(change => change.column))]
         let newTableData = table.getData();
         changedRows.forEach(row => {
             if (row < users.length) {
@@ -93,11 +95,11 @@ const EvaluationTable = (container, rawData) => {
             }
         })
 
-        changedColumns.forEach(column=>{
-            setColumnStatistics(newTableData,column)
+        changedColumns.forEach(column => {
+            setColumnStatistics(newTableData, column)
         })
-        columnIndexes.statistics.forEach(column=>{
-            setColumnStatistics(newTableData,column)
+        columnIndexes.statistics.forEach(column => {
+            setColumnStatistics(newTableData, column)
         })
         table.loadData(newTableData);
     }
@@ -114,18 +116,18 @@ const EvaluationTable = (container, rawData) => {
         const userValues = newTableData.slice(0, users.length).map(values => +values[column]) // COSTLY
         const colSum = userValues.reduce((sum, num) => sum = sum + num, 0)
         let average = colSum / users.length;
-        const nonEmptyCount = userValues.filter((point) => point >0).length
+        const nonEmptyCount = userValues.filter((point) => point > 0).length
         let averageWithoutEmpty = colSum / nonEmptyCount
         newTableData[rowIndexes.average][column] = formatNumber(average);
         newTableData[rowIndexes.averageWithoutEmpty][column] = formatNumber(averageWithoutEmpty);
         newTableData[rowIndexes.sum][column] = formatNumber(colSum);
     }
-    function formatNumber(number){
-       let formatted =  Number(number)
-        if(formatted){
+
+    function formatNumber(number) {
+        let formatted = Number(number)
+        if (formatted) {
             formatted = Math.round(number * 100) / 100
-        }
-        else {
+        } else {
             formatted = 0
         }
         return formatted;
@@ -182,5 +184,6 @@ const EvaluationTable = (container, rawData) => {
 
         return rows
     }
+
     return {}
 }
