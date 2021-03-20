@@ -42,7 +42,7 @@ const EvaluationTable = (container, rawData) => {
                 ...[...Array(principles.all.length + 3)
                     .keys()].map(index => columnCalculation(index + 1, 1, averageWithoutEmptyCalculation)),
                 ...[...Array(principles.all.length + 3)
-                    .keys()].map(index => columnCalculation(index + 1, 0,sumCalculation))
+                    .keys()].map(index => columnCalculation(index + 1, 0, sumCalculation))
             ]
     });
         return hot;
