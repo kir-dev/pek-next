@@ -16,10 +16,14 @@ const EvaluationTable = (container, rawData) => {
     }
     const columnIndexes = generateColumnIndexes()
     const users = rawData.users
-    const tableData = appendRowsForAverage(userData())
+    let tableData = appendRowsForAverage(userData())
+    const rowIndexes = generateRowIndexes()
+    columnIndexes.points.forEach(column => calculateColumn(tableData,column))
     const table = intTable()
 
     table.addHook('afterChange', cellChangeHandler)
+
+
     function intTable() {
         tableHeight = window.innerHeight * 0.8;
         rowHeight = tableHeight / 15
@@ -36,15 +40,15 @@ const EvaluationTable = (container, rawData) => {
             fixedColumnsLeft: 1,
             fixedRowsBottom: 3,
             // afterChange: (changes, source) => cellChangeHandler(changes, source),
-            columnSummary: [
-                ...[...Array(principles.all.length + 3)
-                    .keys()].map(index => columnCalculation(index + 1, 2, averageCalculation)),
-                ...[...Array(principles.all.length + 3)
-                    .keys()].map(index => columnCalculation(index + 1, 1, averageWithoutEmptyCalculation)),
-                ...[...Array(principles.all.length + 3)
-                    .keys()].map(index => columnCalculation(index + 1, 0, sumCalculation))
-            ]
-    });
+            // columnSummary: [
+            //     ...[...Array(principles.all.length + 3)
+            //         .keys()].map(index => columnCalculation(index + 1, 2, averageCalculation)),
+            //     ...[...Array(principles.all.length + 3)
+            //         .keys()].map(index => columnCalculation(index + 1, 1, averageWithoutEmptyCalculation)),
+            //     ...[...Array(principles.all.length + 3)
+            //         .keys()].map(index => columnCalculation(index + 1, 0, sumCalculation))
+            // ]
+        });
         return hot;
     }
 
@@ -58,6 +62,8 @@ const EvaluationTable = (container, rawData) => {
         for (let i = principles.responsibility.length + 1; i < lastPrincipleIndex + 1; i++) {
             workIndexes.push(i)
         }
+        let points = [...Array(lastPrincipleIndex+3+1).keys()]
+        points.splice(0,1)
         return {
             name: 0,
             responsibility: responsibilityIndexes,
@@ -65,9 +71,19 @@ const EvaluationTable = (container, rawData) => {
             principles: [...responsibilityIndexes, ...workIndexes],
             sumResponsibility: lastPrincipleIndex + 1,
             sumWork: lastPrincipleIndex + 2,
-            sumAll: lastPrincipleIndex + 3
+            sumAll: lastPrincipleIndex + 3,
+            points: points
         }
 
+    }
+
+    function generateRowIndexes() {
+        return {
+            user: [...new Array(users.length).keys()],
+            average: users.length,
+            averageWithoutEmpty: users.length + 1,
+            sum: users.length + 2
+        }
     }
 
     function cellChangeHandler(changesArray, source) {
@@ -79,22 +95,53 @@ const EvaluationTable = (container, rawData) => {
             return
         }
         const pointChanges = changes.filter(changes => columnIndexes.principles.includes(changes.column))
-        const changedRows = [... new Set(pointChanges.map(change => change.row))]
+        const changedRows = [...new Set(pointChanges.map(change => change.row))]
+        const changedColumns =[... new Set(pointChanges.map(change => change.column))]
         let newTableData = table.getData();
         changedRows.forEach(row => {
             if (row < users.length) {
                 // table.setDataAtCell(row, columnIndexes.sumResponsibility, sumRowColumns(row, columnIndexes.responsibility))
                 // table.setDataAtCell(row, columnIndexes.sumWork, sumRowColumns(row, columnIndexes.work))
                 // table.setDataAtCell(row, columnIndexes.sumAll, sumRowColumns(row, [columnIndexes.sumResponsibility, columnIndexes.sumWork]))
-                const sumResponsibility =sumRowColumns(row, columnIndexes.responsibility)
-                newTableData[row][columnIndexes.sumResponsibility]=sumResponsibility
-                const sumWork = sumRowColumns(row, columnIndexes.work)
-                newTableData[row][columnIndexes.sumWork]=sumWork
-                newTableData[row][columnIndexes.sumAll]= sumResponsibility + sumWork
+                // const sumResponsibility =sumRowColumns(row, columnIndexes.responsibility)
+                // newTableData[row][columnIndexes.sumResponsibility]=sumResponsibility
+                // const sumWork = sumRowColumns(row, columnIndexes.work)
+                // newTableData[row][columnIndexes.sumWork]=sumWork
+                // newTableData[row][columnIndexes.sumAll]= sumResponsibility + sumWork
+                calculateRow(newTableData, row);
+                // console.log(newTableData)
             }
+         changedColumns.forEach(column=>{
+             calculateColumn(newTableData,column)
+         })
         })
         table.loadData(newTableData);
     }
+
+    function calculateRow(newTableData, row) {
+        const sumResponsibility = sumRowColumns(row, columnIndexes.responsibility)
+        newTableData[row][columnIndexes.sumResponsibility] = sumResponsibility
+        const sumWork = sumRowColumns(row, columnIndexes.work)
+        newTableData[row][columnIndexes.sumWork] = sumWork
+        newTableData[row][columnIndexes.sumAll] = sumResponsibility + sumWork
+    }
+
+    function calculateColumn(newTableData, column) {
+        const userValues = newTableData.slice(0, users.length).map(values => +values[column]) // COSTLY
+        const colSum = userValues.reduce((sum, num) => sum = sum + num, 0)
+        let average = colSum / users.length;
+        if (!average) {
+            average = 0;
+        }
+        newTableData[rowIndexes.average][column] = average;
+        const nonEmptyCount = userValues.filter((point) => point >0).length
+        let averageWithoutEmpty = colSum / nonEmptyCount
+        if(!averageWithoutEmpty){averageWithoutEmpty = 0}
+        newTableData[rowIndexes.averageWithoutEmpty][column] = averageWithoutEmpty;
+        newTableData[rowIndexes.sum][column] = colSum;
+
+    }
+
 
     function changeArrayToHash(changeArray) {
         return {
@@ -106,8 +153,8 @@ const EvaluationTable = (container, rawData) => {
     }
 
     function sumRowColumns(rowIndex, columns) {
-        const numArray=columns.map(c=> +table.getDataAtCell(rowIndex,c))
-        return numArray.reduce((sum,num) => sum+num,0)
+        const numArray = columns.map(c => +table.getDataAtCell(rowIndex, c))
+        return numArray.reduce((sum, num) => sum + num, 0)
     }
 
     function sumRowValues(rowIndex, length) {
@@ -168,6 +215,7 @@ const EvaluationTable = (container, rawData) => {
             return 0;
         }
     }
+
     function calculateRangeLength(ranges) {
         return ranges.map(v => v[1] - v[0]).reduce((sum, num) => sum += num) + 1
     }
@@ -205,7 +253,7 @@ const EvaluationTable = (container, rawData) => {
     function columnCalculation(column, destinationRow, calculation) {
         return {
             ranges: [
-                [0, users.length -1]
+                [0, users.length - 1]
             ],
             destinationRow: destinationRow,
             destinationColumn: column,
@@ -232,13 +280,13 @@ const EvaluationTable = (container, rawData) => {
 
     function userData() {
         return users.map(user => {
-            let sumResponsibility = user.pointDetails.RESPONSIBILITY.reduce((sum,pd) => sum = sum + pd.point,0)
-            let sumWork = user.pointDetails.WORK.reduce((sum,pd) => sum = sum + pd.point,0)
+            let sumResponsibility = user.pointDetails.RESPONSIBILITY.reduce((sum, pd) => sum = sum + pd.point, 0)
+            let sumWork = user.pointDetails.WORK.reduce((sum, pd) => sum = sum + pd.point, 0)
 
             return [user.name,
                 ...user.pointDetails.RESPONSIBILITY.map(pd => pd.point),
                 ...user.pointDetails.WORK.map(pd => pd.point),
-                sumResponsibility, sumWork, sumResponsibility+sumWork
+                sumResponsibility, sumWork, sumResponsibility + sumWork
             ]
         })
     }
