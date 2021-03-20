@@ -16,8 +16,8 @@ const EvaluationTable = (container, rawData) => {
     }
     const columnIndexes = generateColumnIndexes()
     const users = rawData.users
-    let tableData = appendRowsForAverage(userData())
     const rowIndexes = generateRowIndexes()
+    let tableData = appendRowsForAverage(userData())
     columnIndexes.points.forEach(column => calculateColumn(tableData,column))
     const table = intTable()
 
@@ -39,15 +39,6 @@ const EvaluationTable = (container, rawData) => {
             autoRowSize: {syncLimit: 300},
             fixedColumnsLeft: 1,
             fixedRowsBottom: 3,
-            // afterChange: (changes, source) => cellChangeHandler(changes, source),
-            // columnSummary: [
-            //     ...[...Array(principles.all.length + 3)
-            //         .keys()].map(index => columnCalculation(index + 1, 2, averageCalculation)),
-            //     ...[...Array(principles.all.length + 3)
-            //         .keys()].map(index => columnCalculation(index + 1, 1, averageWithoutEmptyCalculation)),
-            //     ...[...Array(principles.all.length + 3)
-            //         .keys()].map(index => columnCalculation(index + 1, 0, sumCalculation))
-            // ]
         });
         return hot;
     }
@@ -64,15 +55,20 @@ const EvaluationTable = (container, rawData) => {
         }
         let points = [...Array(lastPrincipleIndex+3+1).keys()]
         points.splice(0,1)
+
+        const sumResponsibility= lastPrincipleIndex + 1;
+        const sumWork = lastPrincipleIndex + 2;
+        const sumAll = lastPrincipleIndex + 3;
         return {
             name: 0,
             responsibility: responsibilityIndexes,
             work: workIndexes,
             principles: [...responsibilityIndexes, ...workIndexes],
-            sumResponsibility: lastPrincipleIndex + 1,
-            sumWork: lastPrincipleIndex + 2,
-            sumAll: lastPrincipleIndex + 3,
-            points: points
+            points: points,
+            sumResponsibility: sumResponsibility,
+            sumWork: sumWork,
+            sumAll: sumAll,
+            statistics:[sumWork, sumResponsibility, sumAll]
         }
 
     }
@@ -100,20 +96,15 @@ const EvaluationTable = (container, rawData) => {
         let newTableData = table.getData();
         changedRows.forEach(row => {
             if (row < users.length) {
-                // table.setDataAtCell(row, columnIndexes.sumResponsibility, sumRowColumns(row, columnIndexes.responsibility))
-                // table.setDataAtCell(row, columnIndexes.sumWork, sumRowColumns(row, columnIndexes.work))
-                // table.setDataAtCell(row, columnIndexes.sumAll, sumRowColumns(row, [columnIndexes.sumResponsibility, columnIndexes.sumWork]))
-                // const sumResponsibility =sumRowColumns(row, columnIndexes.responsibility)
-                // newTableData[row][columnIndexes.sumResponsibility]=sumResponsibility
-                // const sumWork = sumRowColumns(row, columnIndexes.work)
-                // newTableData[row][columnIndexes.sumWork]=sumWork
-                // newTableData[row][columnIndexes.sumAll]= sumResponsibility + sumWork
                 calculateRow(newTableData, row);
-                // console.log(newTableData)
             }
-         changedColumns.forEach(column=>{
-             calculateColumn(newTableData,column)
-         })
+        })
+
+        changedColumns.forEach(column=>{
+            calculateColumn(newTableData,column)
+        })
+        columnIndexes.statistics.forEach(column=>{
+            calculateColumn(newTableData,column)
         })
         table.loadData(newTableData);
     }
@@ -157,114 +148,6 @@ const EvaluationTable = (container, rawData) => {
         return numArray.reduce((sum, num) => sum + num, 0)
     }
 
-    function sumRowValues(rowIndex, length) {
-        let rowSum = 0;
-        for (let i = 1; i < length; i++) {
-            let rowValue = hot
-        }
-    }
-
-    function averageCalculation(endpoint) {
-        let rangeSums = 0;
-        let hotInstance = this.hot;
-
-        // go through all declared ranges
-        for (let r in endpoint.ranges) {
-            if (endpoint.ranges.hasOwnProperty(r)) {
-                rangeSums += sumRange(endpoint.ranges[r], hotInstance, endpoint);
-            }
-        }
-        let rangeLength = calculateRangeLength(endpoint.ranges)
-
-        return rangeSums / rangeLength;
-    }
-
-    function averageWithoutEmptyCalculation(endpoint) {
-        let rangeSums = 0;
-        let rangeNonEmptyCount = 0;
-        let hotInstance = this.hot;
-
-        // go through all declared ranges
-        for (var r in endpoint.ranges) {
-            if (endpoint.ranges.hasOwnProperty(r)) {
-                rangeSums += sumRange(endpoint.ranges[r], hotInstance, endpoint);
-                rangeNonEmptyCount += countNonEmptyColumns(endpoint.ranges[r], hotInstance, endpoint)
-            }
-        }
-        let result = rangeSums / rangeNonEmptyCount;
-        if (result) {
-            return result;
-        } else {
-            return 0;
-        }
-    }
-
-    function sumCalculation(endpoint) {
-        let rangeSums = 0;
-        let hotInstance = this.hot;
-
-        // go through all declared ranges
-        for (var r in endpoint.ranges) {
-            if (endpoint.ranges.hasOwnProperty(r)) {
-                rangeSums += sumRange(endpoint.ranges[r], hotInstance, endpoint);
-            }
-        }
-        if (rangeSums) {
-            return rangeSums;
-        } else {
-            return 0;
-        }
-    }
-
-    function calculateRangeLength(ranges) {
-        return ranges.map(v => v[1] - v[0]).reduce((sum, num) => sum += num) + 1
-    }
-
-    function sumRange(rowRange, hotInstance, endpoint) {
-        let i = rowRange[1] || rowRange[0];
-        let sum = 0;
-
-        do {
-            let cellNumber = parseInt(hotInstance.getDataAtCell(i, endpoint.sourceColumn), 10);
-            if (!cellNumber) {
-                cellNumber = 0;
-            }
-            sum += cellNumber
-
-            i--;
-        } while (i >= rowRange[0]);
-        return sum;
-    }
-
-    function countNonEmptyColumns(rowRange, hotInstance, endpoint) {
-        let i = rowRange[1] || rowRange[0];
-        let count = 0;
-        do {
-            let cellNumber = parseInt(hotInstance.getDataAtCell(i, endpoint.sourceColumn), 10);
-            if (cellNumber) {
-                count++;
-            }
-
-            i--;
-        } while (i >= rowRange[0]);
-        return count;
-    }
-
-    function columnCalculation(column, destinationRow, calculation) {
-        return {
-            ranges: [
-                [0, users.length - 1]
-            ],
-            destinationRow: destinationRow,
-            destinationColumn: column,
-            reversedRowCoords: true,
-            type: 'custom',
-            customFunction: calculation,
-            forceNumeric: true,
-            roundFloat: 2
-        }
-    }
-
     function nestedHeaders() {
         return [[
             {label: '', colspan: 1},
@@ -302,6 +185,5 @@ const EvaluationTable = (container, rawData) => {
 
         return rows
     }
-
     return {}
 }
