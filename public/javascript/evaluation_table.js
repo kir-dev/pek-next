@@ -18,11 +18,10 @@ const EvaluationTable = (container, rawData) => {
     const users = rawData.users
     const rowIndexes = generateRowIndexes()
     let tableData = appendRowsForAverage(userData())
-    columnIndexes.points.forEach(column => calculateColumn(tableData,column))
+    columnIndexes.points.forEach(column => setColumnStatistics(tableData, column))
+
     const table = intTable()
-
     table.addHook('afterChange', cellChangeHandler)
-
 
     function intTable() {
         tableHeight = window.innerHeight * 0.8;
@@ -70,7 +69,6 @@ const EvaluationTable = (container, rawData) => {
             sumAll: sumAll,
             statistics:[sumWork, sumResponsibility, sumAll]
         }
-
     }
 
     function generateRowIndexes() {
@@ -83,56 +81,55 @@ const EvaluationTable = (container, rawData) => {
     }
 
     function cellChangeHandler(changesArray, source) {
-        if (!changesArray) {
-            return
-        }
+        if (!changesArray) { return }
         let changes = changesArray.map(changeArray => changeArrayToHash(changeArray))
-        if (!changes) {
-            return
-        }
         const pointChanges = changes.filter(changes => columnIndexes.principles.includes(changes.column))
         const changedRows = [...new Set(pointChanges.map(change => change.row))]
         const changedColumns =[... new Set(pointChanges.map(change => change.column))]
         let newTableData = table.getData();
         changedRows.forEach(row => {
             if (row < users.length) {
-                calculateRow(newTableData, row);
+                setRowStatistics(newTableData, row);
             }
         })
 
         changedColumns.forEach(column=>{
-            calculateColumn(newTableData,column)
+            setColumnStatistics(newTableData,column)
         })
         columnIndexes.statistics.forEach(column=>{
-            calculateColumn(newTableData,column)
+            setColumnStatistics(newTableData,column)
         })
         table.loadData(newTableData);
     }
 
-    function calculateRow(newTableData, row) {
-        const sumResponsibility = sumRowColumns(row, columnIndexes.responsibility)
-        newTableData[row][columnIndexes.sumResponsibility] = sumResponsibility
-        const sumWork = sumRowColumns(row, columnIndexes.work)
-        newTableData[row][columnIndexes.sumWork] = sumWork
-        newTableData[row][columnIndexes.sumAll] = sumResponsibility + sumWork
+    function setRowStatistics(newTableData, rowIndex) {
+        const sumResponsibility = sumRowColumns(newTableData[rowIndex], columnIndexes.responsibility)
+        const sumWork = sumRowColumns(newTableData[rowIndex], columnIndexes.work)
+        newTableData[rowIndex][columnIndexes.sumResponsibility] = sumResponsibility
+        newTableData[rowIndex][columnIndexes.sumWork] = sumWork
+        newTableData[rowIndex][columnIndexes.sumAll] = sumResponsibility + sumWork
     }
 
-    function calculateColumn(newTableData, column) {
+    function setColumnStatistics(newTableData, column) {
         const userValues = newTableData.slice(0, users.length).map(values => +values[column]) // COSTLY
         const colSum = userValues.reduce((sum, num) => sum = sum + num, 0)
         let average = colSum / users.length;
-        if (!average) {
-            average = 0;
-        }
-        newTableData[rowIndexes.average][column] = average;
         const nonEmptyCount = userValues.filter((point) => point >0).length
         let averageWithoutEmpty = colSum / nonEmptyCount
-        if(!averageWithoutEmpty){averageWithoutEmpty = 0}
-        newTableData[rowIndexes.averageWithoutEmpty][column] = averageWithoutEmpty;
-        newTableData[rowIndexes.sum][column] = colSum;
-
+        newTableData[rowIndexes.average][column] = formatNumber(average);
+        newTableData[rowIndexes.averageWithoutEmpty][column] = formatNumber(averageWithoutEmpty);
+        newTableData[rowIndexes.sum][column] = formatNumber(colSum);
     }
-
+    function formatNumber(number){
+       let formatted =  Number(number)
+        if(formatted){
+            formatted = Math.round(number * 100) / 100
+        }
+        else {
+            formatted = 0
+        }
+        return formatted;
+    }
 
     function changeArrayToHash(changeArray) {
         return {
@@ -143,8 +140,8 @@ const EvaluationTable = (container, rawData) => {
         }
     }
 
-    function sumRowColumns(rowIndex, columns) {
-        const numArray = columns.map(c => +table.getDataAtCell(rowIndex, c))
+    function sumRowColumns(row, columns) {
+        const numArray = columns.map(column => +row[column])
         return numArray.reduce((sum, num) => sum + num, 0)
     }
 
