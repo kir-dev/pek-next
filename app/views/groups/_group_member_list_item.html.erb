@@ -11,7 +11,7 @@
 
     <div class="uk-text-bold uk-float-left"><%= member.posts %></div>
 
-    <% if @viewmodel.leader? %>
+    <% if @viewmodel.leader? ||  @viewmodel.sssl_evaluation_helper? %>
       <div class="uk-text-right uk-float-right uk-flex uk-text-right">
         <div class="uk-margin-left">
           <%= member.svie_status_icon %>

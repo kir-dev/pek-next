@@ -63,6 +63,8 @@ class MembershipsController < ApplicationController
 
   def leader_or_sssl_evaluation_helper
     membership = current_user.membership_for(current_group)
+    return forbidden_page if membership.nil?
+
     forbidden_page unless membership.leader? || (membership.group.id == Group::SSSL_ID && membership.evaluation_helper?)
   end
 end
