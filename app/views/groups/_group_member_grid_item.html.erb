@@ -26,6 +26,7 @@
       <% if @can_manage_memberships %>
         <div class="uk-flex uk-grid-small uk-width-1-1">
           <%= member.approve_join_button(@viewmodel.group) %>
+          <%= member.reject_join_button(@viewmodel.group) %>
           <%= member.inactivate_user_button(@viewmodel.group) %>
           <%= member.reactivate_user_button(@viewmodel.group) %>
           <%= member.archive_user_button(@viewmodel.group) %>

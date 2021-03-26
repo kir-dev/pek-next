@@ -38,8 +38,8 @@ class MembershipsController < ApplicationController
   def withdraw
     Membership::WithdrawService.call(membership)
 
-    redirect_back(fallback_location: group_path(group))
-  rescue Membership::WithdrawService::MembershipMustHaveDefaultPost
+    redirect_to(group_path(group)) if membership.user == current_user
+  rescue Membership::WithdrawService::WithdrawError
     forbidden_page
   end
 

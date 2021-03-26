@@ -16,6 +16,14 @@ FactoryBot.define do
       end
     end
 
+    trait :with_point_request do
+      after(:create) do |membership|
+        evaluation = create(:evaluation, group: membership.group)
+
+        PointRequest.create!(evaluation: evaluation, user: membership.user)
+      end
+    end
+
     trait :inactive do
       end_date { Time.now }
     end

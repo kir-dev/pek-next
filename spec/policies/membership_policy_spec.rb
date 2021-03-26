@@ -34,11 +34,31 @@ describe MembershipPolicy, type: :policy do
 
   permissions :withdraw? do
     context 'when the memberhsip belong to the user' do
-      let(:membership) { create(:membership) }
+      let(:membership) { create(:membership, :newbie) }
       let(:user)       { membership.user }
 
       it 'permits the action' do
         expect(subject).to permit(user, membership)
+      end
+    end
+
+    context 'when the current user is the group leader' do
+      let(:user) { membership.group.leader.user }
+
+      context 'and the membership is newbie' do
+        let(:membership) { create(:membership, :newbie) }
+
+        it 'permits the action' do
+          expect(subject).to permit(user, membership)
+        end
+      end
+
+      context 'and the membership is not newbie' do
+        let(:membership) { create(:membership) }
+
+        it 'forbids the action' do
+          expect(subject).not_to permit(user, membership)
+        end
       end
     end
   end
