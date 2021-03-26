@@ -16,6 +16,14 @@ describe Membership::WithdrawService do
         described_class.call(membership)
       end.to change { membership.group.leader.user.notifications.count }.by -1
     end
+
+    context 'when the user has PointRequests' do
+      let(:membership) { create(:membership, :with_point_request, :newbie) }
+
+      it "raises MembershipHasPointRequests" do
+        expect { described_class.call(membership) }.to raise_error(Membership::WithdrawService::MembershipHasPointRequests)
+      end
+    end
   end
 
   context 'when the membership has no DEFAULT_POST' do

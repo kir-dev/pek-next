@@ -22,6 +22,7 @@
 
         <div class="uk-margin-small-left uk-grid-small uk-width-auto uk-flex">
           <%= member.approve_join_button(@viewmodel.group) %>
+          <%= member.reject_join_button(@viewmodel.group) %>
           <%= member.inactivate_user_button(@viewmodel.group) %>
           <%= member.reactivate_user_button(@viewmodel.group) %>
           <%= member.archive_user_button(@viewmodel.group) %>

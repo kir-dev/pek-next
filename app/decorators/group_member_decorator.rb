@@ -38,6 +38,16 @@ class GroupMemberDecorator < Draper::Decorator
               id: "approve-button-#{membership_id}"
   end
 
+  def reject_join_button(group)
+    return unless membership.newbie?
+
+    button_to 'Elutasítás',
+              withdraw_group_membership_path(group, membership_id),
+              method: :post, remote: true,
+              class: 'uk-button uk-button-danger uk-button-small uk-width-auto',
+              id: "reject-button-#{membership_id}"
+  end
+
   def inactivate_user_button(group)
     return unless membership.active?
 
@@ -49,12 +59,13 @@ class GroupMemberDecorator < Draper::Decorator
   end
 
   def archive_user_button(group)
-    return if membership.archived?
+    return if membership.archived? || membership.newbie?
 
     button_to 'Archiválás',
               group_membership_archive_path(group.id, membership_id),
               method: :put, remote: true,
-              class: 'uk-button uk-button-danger uk-button-small uk-width-auto',
+              class: 'uk-button uk-button-small uk-button-primary uk-width-auto',
+              style: 'background-color: #ed8d34',
               id: "archive-button-#{membership_id}",
               data: { confirm: "Biztos, hogy archiválni szeretnéd #{user.full_name}-t?" }
   end
