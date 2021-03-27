@@ -51,6 +51,7 @@ class Group < ApplicationRecord
   KIRDEV_ID = 106
   KB_ID = 1
   SIMONYI_ID = 16
+  SSSL_ID = 18
 
   enum type: {
     group: 'group',
@@ -68,6 +69,10 @@ class Group < ApplicationRecord
 
   def self.rvt
     find RVT_ID
+  end
+
+  def self.sssl
+    find SSSL_ID
   end
 
   def inactive_members

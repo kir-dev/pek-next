@@ -58,4 +58,9 @@ FactoryBot.define do
     id { Group::KB_ID }
     name { 'KB' }
   end
+
+  factory :group_sssl, parent: :basic_group do
+    id { Group::SSSL_ID }
+    name { 'Szent Schönherz Senior Lovagrend' }
+  end
 end
