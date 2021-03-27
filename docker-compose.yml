@@ -41,7 +41,7 @@ services:
     env_file:
       - .env
     volumes:
-      - public_folder:/pek-next/public
+      - uploads_folder:/pek-next/public/uploads
     ports:
       - "3443:3000"
     networks:
@@ -54,9 +54,9 @@ networks:
 
 # Add your volumes
 volumes:
-  public_folder:
+  uploads_folder:
     external:
-      name: pek_public
+      name: pek_uploads
   database_folder:
     external:
       name: pek_database
