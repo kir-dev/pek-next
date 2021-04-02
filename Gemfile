@@ -47,7 +47,6 @@ gem 'pundit', '~> 2.1'
 # use twitter_cldr for localization improvements (sorting strings according to hungarian)
 gem 'twitter_cldr', '~> 6.4'
 gem "bootsnap", ">= 1.1.0", require: false
-gem 'railties', '6.0.3.5'
 gem 'listen'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
