@@ -90,7 +90,10 @@ Rails.application.routes.draw do
   end
 
   get '/seasons', to: 'season_admin#index'
-  post '/seasons', to: 'season_admin#update'
+  put '/seasons/next', to: 'season_admin#next'
+  put '/seasons/previous', to: 'season_admin#previous'
+  get '/seasons/isCurrent', to: 'season_admin#isCurrent'
+  post '/seasons/', to: 'season_admin#update'
 
   if Rails.env.development? || Rails.env.staging?
     get '/development', to: 'development#index'

@@ -14,6 +14,10 @@ class SeasonAdminController < ApplicationController
     SystemAttribute.season.previous!
   end
 
+  def isCurrent
+    SystemAttribute.semester.current?
+  end
+
   def update
     SystemAttribute.update_season(params[:season])
     Semester.from_year(params[:semester_year], params[:semester_semester]).save
