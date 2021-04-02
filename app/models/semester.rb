@@ -12,16 +12,16 @@ class Semester
   end
 
   def current?
-    if (2..8).include? Time.now.month
+    if (2..8).include? Time.current.month
       return false if @autumn
       return false unless Time.now.year==@starting_year+1
     else
-      if Time.now.month ==1
+      if Time.current.month ==1
         return false unless @autumn
-        return false unless Time.now.year==@starting_year+1
+        return false unless Time.current.year==@starting_year+1
       else
         return false unless @autumn
-        return false unless Time.now.year==@starting_year
+        return false unless Time.current.year==@starting_year
       end
     end
     true
