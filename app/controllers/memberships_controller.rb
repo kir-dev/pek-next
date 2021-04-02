@@ -11,7 +11,6 @@ class MembershipsController < ApplicationController
   end
 
   def archive
-    membership = Membership.find(params[:membership_id])
     return forbidden_page if membership.archived?
 
     membership.archive!
@@ -19,24 +18,22 @@ class MembershipsController < ApplicationController
   end
 
   def unarchive
-    membership = Membership.find(params[:membership_id])
     return forbidden_page if !membership.archived? || membership.inactive?
 
     membership.unarchive!
   end
 
   def inactivate
-    membership = Membership.find(params[:membership_id])
     membership.inactivate!
     membership.user.svie.try_inactivate!
   end
 
   def reactivate
-    Membership.find(params[:membership_id]).reactivate!
+    membership.reactivate!
   end
 
   def accept
-    Membership.find(params[:membership_id]).accept!
+    membership.accept!
   end
 
   def withdraw
@@ -54,11 +51,8 @@ class MembershipsController < ApplicationController
   end
 
   def membership
-    @membership ||= Membership.find(params[:id])
-  end
-
-  def membership_belongs_to_user?
-    membership.user == current_user
+    membership_id = params[:id] || params[:membership_id]
+    @membership ||= Membership.find(membership_id)
   end
 
   def leader_or_sssl_evaluation_helper
