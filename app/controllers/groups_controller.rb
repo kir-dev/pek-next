@@ -18,6 +18,7 @@ class GroupsController < ApplicationController
   def show
     membership_view_model = MembershipViewModel.new(current_user, params[:id])
     @viewmodel = MembershipViewModelDecorator.decorate(membership_view_model)
+    @can_manage_memberships = policy(@viewmodel.group).manage_memberships?
   end
 
   def edit; end
