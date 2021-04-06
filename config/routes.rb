@@ -89,9 +89,9 @@ Rails.application.routes.draw do
     post '/svie/reject/:id', to: 'svie#reject', as: :svie_reject
   end
 
-  get '/seasons', to: 'season_admin#index'
-  put '/seasons/next', to: 'season_admin#next'
-  put '/seasons/previous', to: 'season_admin#previous'
+  get '/seasons', to: 'season_admin#index', as: :season_index
+  post '/seasons/next', to: 'season_admin#next', as: :next_semester
+  post '/seasons/previous', to: 'season_admin#previous', as: :previous_semester
   get '/seasons/isCurrent', to: 'season_admin#isCurrent'
   post '/seasons/', to: 'season_admin#update'
 

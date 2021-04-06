@@ -4,18 +4,19 @@ class SeasonAdminController < ApplicationController
   def index
     @season = SystemAttribute.season
     @semester = SystemAttribute.semester
+    @isCurrent = SystemAttribute.semester.current?
   end
 
   def next
-    SystemAttribute.season.next!
+    SystemAttribute.update_semester SystemAttribute.semester.next!
+    puts SystemAttribute.semester
+    redirect_to '/seasons'
   end
 
   def previous
-    SystemAttribute.season.previous!
-  end
-
-  def isCurrent
-    SystemAttribute.semester.current?
+    SystemAttribute.update_semester SystemAttribute.semester.previous!
+    puts SystemAttribute.semester
+    redirect_to '/seasons'
   end
 
   def update
