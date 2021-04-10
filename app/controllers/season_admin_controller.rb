@@ -3,8 +3,8 @@ class SeasonAdminController < ApplicationController
 
   def index
     @season = SystemAttribute.season
-    @semester = SystemAttribute.semester.to_readable
-    @isCurrent = SystemAttribute.semester.current?
+    @semester = SystemAttribute.semester
+    @current_semester = Semester.current
   end
 
   def next

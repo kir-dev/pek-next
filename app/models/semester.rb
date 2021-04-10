@@ -21,9 +21,6 @@ class Semester
       return Semester.new((Time.current.year).to_s  + '1')
     end
   end
-  def current?
-    self.to_s == Semester.current.to_s
-  end
 
   def previous
     Semester.new(to_s).previous!
