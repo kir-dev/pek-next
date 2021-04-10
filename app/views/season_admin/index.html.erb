@@ -13,19 +13,17 @@
         </tr>
       </table>
     </div>
-    <%= form_tag(seasons_path, class: 'uk-form') do %>
-      <% if @current_semester.to_s != @semester.to_s %>
-        <div class="uk-alert uk-alert-danger" >
-          <p>Warning: Kiválasztott félév nem aktuális a dátum szerint.</p>
-          <p>Aktuális félév:</p>
-          <%= @current_semester.to_readable  %>
-        </div>
-      <%end%>
-      <div class="uk-margin">
-        <%= label :semester_year, 'Kiválasztott félév : ' %>
-        <%= @semester.to_readable  %>
-      </div>
 
+    <% if !@semester.current? %>
+      <div class="uk-alert uk-alert-danger" >
+        <p>Warning: Kiválasztott félév nem aktuális a dátum szerint.</p>
+      </div>
+    <%end%>
+    <div class="uk-margin">
+      <%= label :semester_year, 'Kiválasztott félév : ' %>
+      <%= @semester.to_readable  %>
+    </div>
+    <%= form_tag(seasons_path, class: 'uk-form') do %>
       <div class="uk-margin">
         <%= label :season, 'Időszak', class: 'uk-label' %>
         <%= select_tag :season, options_for_select(Rails.configuration.x.season_types.invert, @season.value), class: 'uk-select uk-width-auto' %>

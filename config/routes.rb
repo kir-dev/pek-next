@@ -92,6 +92,7 @@ Rails.application.routes.draw do
   get '/seasons', to: 'season_admin#index', as: :seasons
   post '/seasons/next', to: 'season_admin#next', as: :next_semester
   post '/seasons/previous', to: 'season_admin#previous', as: :previous_semester
+  post '/seasons', to: 'season_admin#update'
 
   if Rails.env.development? || Rails.env.staging?
     get '/development', to: 'development#index'
