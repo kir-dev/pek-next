@@ -3,15 +3,27 @@
 <h1>Időszakok állítása</h1>
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
+    <div class="uk-margin">
+      <table>
+        <tr>
+          <td><%= button_to "Elöző félév kiválasztása", {method: :post, action: "previous"},
+                            {class: 'uk-button uk-button-danger uk-margin-small uk-margin-left'} %></td>
+          <td><%= button_to "Következő félév kiválasztása", {method: :post, action: "next"},
+                            {class: 'uk-button uk-button-danger uk-margin-small uk-margin-left'} %></td>
+        </tr>
+      </table>
+    </div>
+
+    <% if !@semester.current? %>
+      <div class="uk-alert uk-alert-danger" >
+        <p>Warning: Kiválasztott félév nem aktuális a dátum szerint.</p>
+      </div>
+    <%end%>
+    <div class="uk-margin">
+      <%= label :semester_year, 'Kiválasztott félév : ' %>
+      <%= @semester.to_readable  %>
+    </div>
     <%= form_tag(seasons_path, class: 'uk-form') do %>
-      <div class="uk-margin">
-        <%= label :semester_year, 'Év' %>
-        <%= text_field_tag :semester_year, @semester.to_s[0, 8], required: true, class: 'uk-input' %>
-      </div>
-      <div class="uk-margin">
-        <%= label :semester_semester, 'Őszi félév?' %>
-        <%= check_box_tag :semester_semester, @semester.autumn, @semester.autumn, class: 'uk-checkbox' %>
-      </div>
       <div class="uk-margin">
         <%= label :season, 'Időszak', class: 'uk-label' %>
         <%= select_tag :season, options_for_select(Rails.configuration.x.season_types.invert, @season.value), class: 'uk-select uk-width-auto' %>

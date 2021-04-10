@@ -11,6 +11,21 @@ class Semester
     Semester.new(year + (autumn ? '1' : '2'))
   end
 
+  def self.current
+    if (1..8).include? Time.current.month
+      if Time.current.month ==1
+        return Semester.new((Time.current.year-1).to_s  + '1')
+      else
+        return Semester.new((Time.current.year-1).to_s + '2')
+      end
+    else
+      return Semester.new((Time.current.year).to_s  + '1')
+    end
+  end
+
+  def current?
+    return Semester.current.to_s==self.to_s
+  end
   def previous
     Semester.new(to_s).previous!
   end
