@@ -8,12 +8,12 @@ class SeasonAdminController < ApplicationController
 
   def next
     SystemAttribute.update_semester SystemAttribute.semester.next!
-    redirect_to seasons_path
+    redirect_to seasons_path, notice: t(:edit_successful)
   end
 
   def previous
     SystemAttribute.update_semester SystemAttribute.semester.previous!
-    redirect_to seasons_path
+    redirect_to seasons_path, notice: t(:edit_successful)
   end
 
   def update
