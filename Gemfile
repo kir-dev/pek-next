@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.0.3.5'
+gem 'rails', '~> 6.0.3.6'
 # Use pg as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -47,7 +47,6 @@ gem 'pundit', '~> 2.1'
 # use twitter_cldr for localization improvements (sorting strings according to hungarian)
 gem 'twitter_cldr', '~> 6.4'
 gem "bootsnap", ">= 1.1.0", require: false
-gem 'railties', '6.0.3.5'
 gem 'listen'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

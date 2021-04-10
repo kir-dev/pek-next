@@ -1,6 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :leader_or_sssl_evaluation_helper, except: %i[create withdraw]
-  before_action :forbidden_page, unless: :membership_belongs_to_user?, only: %i[withdraw]
+  before_action :authorize_membership, except: :create
 
   def create
     Membership::CreateService.call(group, current_user)
@@ -11,7 +10,6 @@ class MembershipsController < ApplicationController
   end
 
   def archive
-    membership = Membership.find(params[:membership_id])
     return forbidden_page if membership.archived?
 
     membership.archive!
@@ -19,24 +17,22 @@ class MembershipsController < ApplicationController
   end
 
   def unarchive
-    membership = Membership.find(params[:membership_id])
     return forbidden_page if !membership.archived? || membership.inactive?
 
     membership.unarchive!
   end
 
   def inactivate
-    membership = Membership.find(params[:membership_id])
     membership.inactivate!
     membership.user.svie.try_inactivate!
   end
 
   def reactivate
-    Membership.find(params[:membership_id]).reactivate!
+    membership.reactivate!
   end
 
   def accept
-    Membership.find(params[:membership_id]).accept!
+    membership.accept!
   end
 
   def withdraw
@@ -54,17 +50,11 @@ class MembershipsController < ApplicationController
   end
 
   def membership
-    @membership ||= Membership.find(params[:id])
+    membership_id = params[:id] || params[:membership_id]
+    @membership ||= Membership.find(membership_id)
   end
 
-  def membership_belongs_to_user?
-    membership.user == current_user
-  end
-
-  def leader_or_sssl_evaluation_helper
-    membership = current_user.membership_for(current_group)
-    return forbidden_page if membership.nil?
-
-    forbidden_page unless membership.leader? || (membership.group.id == Group::SSSL_ID && membership.evaluation_helper?)
+  def authorize_membership
+    authorize membership
   end
 end
