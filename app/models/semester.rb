@@ -10,21 +10,19 @@ class Semester
   def self.from_year(year, autumn)
     Semester.new(year + (autumn ? '1' : '2'))
   end
-
-  def current?
-    if (2..8).include? Time.current.month
-      return false if @autumn
-      return false unless Time.now.year==@starting_year+1
-    else
+  def self.current
+    if (1..8).include? Time.current.month
       if Time.current.month ==1
-        return false unless @autumn
-        return false unless Time.current.year==@starting_year+1
+        return Semester.new((Time.current.year-1).to_s  + '1')
       else
-        return false unless @autumn
-        return false unless Time.current.year==@starting_year
+        return Semester.new((Time.current.year-1).to_s + '2')
       end
+    else
+      return Semester.new((Time.current.year).to_s  + '1')
     end
-    true
+  end
+  def current?
+    self.to_s == Semester.current.to_s
   end
 
   def previous

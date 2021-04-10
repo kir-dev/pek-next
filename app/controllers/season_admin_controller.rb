@@ -3,25 +3,18 @@ class SeasonAdminController < ApplicationController
 
   def index
     @season = SystemAttribute.season
-    @semester = SystemAttribute.semester
+    @semester = SystemAttribute.semester.to_readable
     @isCurrent = SystemAttribute.semester.current?
   end
 
   def next
     SystemAttribute.update_semester SystemAttribute.semester.next!
-    puts SystemAttribute.semester
-    redirect_to '/seasons'
+    redirect_to season_index_path
   end
 
   def previous
     SystemAttribute.update_semester SystemAttribute.semester.previous!
-    puts SystemAttribute.semester
-    redirect_to '/seasons'
+    redirect_to season_index_path
   end
 
-  def update
-    SystemAttribute.update_season(params[:season])
-    Semester.from_year(params[:semester_year], params[:semester_semester]).save
-    redirect_to root_path, notice: t(:edit_successful)
-  end
 end
