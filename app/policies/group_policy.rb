@@ -1,4 +1,17 @@
 class GroupPolicy < ApplicationPolicy
+  def index?
+    true
+  end
+
+  alias all? index?
+  alias show? index?
+
+  def edit?
+    leader?
+  end
+
+  alias update? edit?
+
   def manage_memberships?
     leader? || (group == Group.sssl && evaluation_helper?)
   end

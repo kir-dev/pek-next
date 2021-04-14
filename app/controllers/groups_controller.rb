@@ -1,6 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :require_leader, only: %i[edit update]
-  before_action :require_pek_admin, only: %i[new create]
+  before_action :authorize_group
 
   def index
     active_groups = Group.order(:name).reject(&:inactive?)
@@ -52,5 +51,9 @@ class GroupsController < ApplicationController
 
   def create_params
     params.require(:group).permit(%i[name parent_id issvie type])
+  end
+
+  def authorize_group
+    authorize current_group, policy_class: GroupPolicy
   end
 end
