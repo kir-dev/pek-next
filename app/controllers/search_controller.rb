@@ -1,6 +1,4 @@
 class SearchController < ApplicationController
-  before_action :require_pek_admin, only: :suggest_leader
-
   def search; end
 
   def suggest
@@ -19,6 +17,7 @@ class SearchController < ApplicationController
 
   def suggest_leader
     return unless params.key?(:query)
+    authorize current_group, :create?, policy_class: GroupPolicy
 
     result_per_page = Rails.configuration.x.results_per_page
     offset = result_per_page * params[:page].to_i
