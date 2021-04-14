@@ -12,6 +12,12 @@ class GroupPolicy < ApplicationPolicy
 
   alias update? edit?
 
+  def create?
+    user.roles.rvt_leader? || user.roles.pek_admin?
+  end
+
+  alias new? create?
+
   def manage_memberships?
     leader? || (group == Group.sssl && evaluation_helper?)
   end
