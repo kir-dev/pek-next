@@ -82,7 +82,7 @@ class ApplicationController < ActionController::Base
   def current_group
     return @group ||= Group.find(params[:group_id]) if params[:group_id]
 
-    @group ||= Group.find(params[:id])
+    @group ||= Group.find(params[:id]) if params[:id]
   end
   helper_method :current_group
 
