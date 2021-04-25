@@ -22,6 +22,8 @@ class GroupPolicy < ApplicationPolicy
     leader? || (group == Group.sssl && evaluation_helper?)
   end
 
+  alias manage_posts? manage_memberships?
+
   private
 
   alias group record
