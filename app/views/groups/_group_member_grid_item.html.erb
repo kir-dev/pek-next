@@ -5,7 +5,7 @@
       <div class="uk-padding-remove uk-float-left">
         <%= member.user_link %>
       </div>
-      <% if @viewmodel.leader? %>
+      <% if @can_manage_memberships %>
         <div class="uk-float-right">
           <%= member.svie_status_icon %>
           <div class="uk-padding-remove uk-text-right uk-float-right uk-margin-small-left">
