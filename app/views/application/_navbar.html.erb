@@ -36,7 +36,7 @@
                 <% unless SystemAttribute.offseason? %>
                   <li><%= link_to 'Értékelések', judgements_path %></li>
                 <% end %>
-                <% if GroupPolicy.new(current_user, current_group).new? %>
+                <% if GroupPolicy.new(current_user, nil).new? %>
                   <li><%= link_to 'Kör létrehozása', new_group_path %></li>
                 <% end %>
               </ul>
