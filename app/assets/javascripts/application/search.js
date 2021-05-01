@@ -24,7 +24,7 @@ var search = (function(Helpers, Rx, $) {
 
     $("#show-more").click(showMore);
 
-    document.addEventListener('keyup', focusSearchField);
+    document.addEventListener('keydown', focusSearchField);
   }
 
   function updateSuggestions(query) {
@@ -56,9 +56,10 @@ var search = (function(Helpers, Rx, $) {
   }
 
   function focusSearchField(event) {
-    if (event.key == '/') {
+    if (event.ctrlKey && event.key == 'k') {
       const element = document.getElementById('search-field');
       element.focus();
+      event.preventDefault();
     }
   }
 
