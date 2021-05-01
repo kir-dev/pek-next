@@ -142,3 +142,7 @@ html, body {
 .tm-footer p, .tm-footer ul {
 	margin: 0;
 }
+
+.pre-wrap{
+    white-space: pre-wrap;
+}
