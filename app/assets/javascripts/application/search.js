@@ -55,8 +55,25 @@ var search = (function(Helpers, Rx, $) {
     }
   }
 
-  function focusSearchField(event) {
-    if (event.key == '/') {
+  let pressedKeys = {
+      "Control":false,
+      "/":false
+  }
+
+  function listenForKeyDown(event){
+      pressedKeys[event.key] = true;
+      focusSearchField()
+  }
+
+  function listenForKeyUp(event){
+      pressedKeys[event.key] = false;
+  }
+
+  document.addEventListener("keydown", listenForKeyDown);
+  document.addEventListener("keyup", listenForKeyUp);
+
+  function focusSearchField() {
+    if (pressedKeys["Control"] && pressedKeys["/"]) {
       const element = document.getElementById('search-field');
       element.focus();
     }
