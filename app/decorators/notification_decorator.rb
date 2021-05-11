@@ -20,7 +20,7 @@ class NotificationDecorator < Draper::Decorator
   def mark_as_read_link(options = {})
     return unless unopened?
 
-    options[:method] = :post
+    options[:method] = :put
     options[:remote] = true
     path = open_notification_path_for(self, base_params.merge(reload: false))
     link = link_to('Olvasottnak jelölés', path, options)
@@ -33,7 +33,7 @@ class NotificationDecorator < Draper::Decorator
 
     if unopened?
       path = open_notification_path_for(self, base_params.merge(move: true))
-      options[:method] = :post
+      options[:method] = :put
     else
       path = move_notification_path_for(self, base_params)
     end
