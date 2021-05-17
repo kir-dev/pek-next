@@ -53,7 +53,8 @@ end
     return unless policy(current_evaluation).current?
 
     styled_link_to('Értékelés megtekintése',
-                   group_evaluations_current_path(membership_view_model.group))
+                   group_evaluations_current_path(membership_view_model.group),
+                   'uk-button-success')
   end
 
   def all_members_count
@@ -80,7 +81,7 @@ end
 
   private
 
-  def styled_link_to(name, path)
-    link_to(name, path, class: 'uk-button uk-button-primary uk-width-1-1 uk-margin-top')
+  def styled_link_to(name, path, color = 'uk-button-primary')
+    link_to(name, path, class: "uk-button #{color} uk-width-1-1 uk-margin-top")
   end
 end
