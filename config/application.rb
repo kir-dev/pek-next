@@ -109,6 +109,11 @@ module PekNext
     config.x.neptun_regex = /^[A-Za-z0-9]{6,7}$/
     config.x.uuid_regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
 
+    config.x.hun_alphabet = ['a', 'á', 'b', 'c', 'd', 'e', 'é', 'f', 'g',
+                             'h', 'i', 'í', 'j', 'k', 'l', 'm', 'n', 'o',
+                             'ó', 'ö', 'ő', 'p', 'q', 'r', 's', 't', 'u',
+                             'ú', 'ü', 'ű', 'v', 'w', 'x', 'y', 'z']
+
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
   end

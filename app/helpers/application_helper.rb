@@ -35,6 +35,6 @@ module ApplicationHelper
   end
 
   def hu_compare(a, b)
-    TwitterCldr::Collation::Collator.new(:hu).compare(a, b)
+    HungarianComparator.compare(a, b)
   end
 end
