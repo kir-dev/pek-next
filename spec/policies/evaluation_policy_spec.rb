@@ -88,6 +88,17 @@ RSpec.describe EvaluationPolicy, type: :policy do
       it { is_expected.to permit_actions(evaluation_view_actions) }
       it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
     end
+
+    context 'and the user is an evaluation helper in the group resort' do
+      let(:user) do
+        evaluation.group.parent.children.reject do |group|
+          group == evaluation.group
+        end.first.leader.user
+      end
+
+      it { is_expected.to permit_actions(evaluation_view_actions) }
+      it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
+    end
   end
 
   context 'when evaluation season' do
