@@ -36,8 +36,14 @@
             <%= user.decorate.link class: 'uk-link-muted', 'uk-tooltip': '', title: user.nickname %>
           </li>
         <% end %>
-        <li>Összegzések:</li>
-        <li>Átlagok:</li>
+        <li data-uk-tooltip title="Kiosztott pontok összege.">
+           <i class="uk-icon-info"></i> Összeg:
+        </li>
+        <li data-uk-tooltip title="Pontok átlaga, a körtagok között.">
+          <i class="uk-icon-info"></i> Átlag, tagokra:
+        </li>
+        <li data-uk-tooltip title="Pontok átlaga, a kiosztott pontok között. (Akik nem kaptak pontot nem számítanak bele.)">
+          <i class="uk-icon-info"></i> Átlag, pontokra:</li>
       </ul>
     </div>
     <div class="uk-overflow-container" id="points-table-container">
@@ -110,19 +116,55 @@
             <% @ordered_principles.each do |principle| %>
               <td data-sum-principle="<%= principle.id %>">
                 <b id="sum-of-principle-<%= principle.id %>">
-                  <%= sum_principle_details(@point_details, principle) %>
+                  <%= @evaluation_point_calculator.principle_sum( principle) %>
                 </b>
               </td>
             <% end %>
+            <td>
+              <b><%= @evaluation_point_calculator.responsibility_point_sum %></b>
+            </td>
+             <td>
+              <b><%= @evaluation_point_calculator.work_point_sum %></b>
+            </td>
+             <td>
+              <b><%= @evaluation_point_calculator.all_point_sum %></b>
+            </td>
           </tr>
           <tr>
             <% @ordered_principles.each do |principle| %>
               <td data-avg-principle="<%= principle.id %>">
                 <b id="avg-of-principle-<%= principle.id %>">
-                  <%= average_principle_details(@point_details, principle) %>
+                  <%= @evaluation_point_calculator.principle_average(principle) %>
                 </b>
               </td>
             <% end %>
+            <td>
+              <b><%= @evaluation_point_calculator.responsibility_point_average %></b>
+            </td>
+            <td>
+              <b><%= @evaluation_point_calculator.work_point_average %></b>
+            </td>
+            <td>
+              <b><%= @evaluation_point_calculator.all_point_average %></b>
+            </td>
+          </tr>
+          <tr>
+            <% @ordered_principles.each do |principle| %>
+              <td data-sum-principle="<%= principle.id %>">
+                <b id="sum-of-principle-<%= principle.id %>">
+                  <%= @evaluation_point_calculator.principle_details_average(principle) %>
+                </b>
+              </td>
+            <% end %>
+            <td>
+              <b><%= @evaluation_point_calculator.responsibility_details_average %></b>
+            </td>
+             <td>
+              <b><%= @evaluation_point_calculator.work_details_average %></b>
+            </td>
+             <td>
+              <b><%= @evaluation_point_calculator.all_details_average %></b>
+            </td>
           </tr>
         </tfoot>
       </table>
