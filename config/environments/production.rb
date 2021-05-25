@@ -92,6 +92,9 @@ Rails.application.configure do
   routes.default_url_options[:host] = 'pek.sch.bme.hu'
 
   config.ssl_options = { redirect: { host: 'pek.sch.bme.hu' } }
+
+  # TODO: Change host to the permanent domain when the blod is deployed
+  config.hosts << "kirdev-blog.netlify.app"
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
