@@ -31,7 +31,7 @@ services:
       - pek_network
   web:
     build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       - RAILS_SERVE_STATIC_FILES=true
       - RAILS_ENV=staging
@@ -42,7 +42,7 @@ services:
     env_file:
       - .env
     volumes:
-      - public_folder:/pek-next/public
+      - uploads_folder:/pek-next/public/uploads
     ports:
       - "3444:3000"
     networks:
@@ -55,9 +55,9 @@ networks:
 
 # Add your volumes
 volumes:
-  public_folder:
+  uploads_folder:
     external:
-      name: pek_staging_public
+      name: pek_staging_uploads
   database_folder:
     external:
       name: pek_staging_database
