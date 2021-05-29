@@ -50,7 +50,7 @@
       <table class="uk-table uk-table-striped uk-table-hover uk-table-condensed uk-text-center" id="points-table">
         <thead class="rotated">
           <tr>
-            <% @evaluation.principles.order(:id).each do |principle| %>
+            <% @ordered_principles.each do |principle| %>
               <th class="uk-text-center uk-link uk-link-muted principle" data-id="<%= principle.id %>"
               data-description="<%= principle.description %>">
                 <div>
@@ -76,10 +76,12 @@
                   <div class="uk-form-icon <%= comments_status(point_detail)%>">
                     <i class="uk-icon-comment uk-hidden"></i>
                     <input data-user="<%= user.id %>" data-principle="<%= principle.id %>"
-                    data-user-name="<%= user.full_name %>"
-                    data-principle-type="<%= principle.type %>"
-                    class="uk-input uk-width-auto point-input" type="number"
-                    value="<%= point_detail&.point %>" <%= "readonly" unless @update_point_request %>>
+                           data-user-name="<%= user.full_name %>"
+                           data-principle-type="<%= principle.type %>"
+                           class="uk-input uk-width-auto point-input" type="number"
+                           value="<%= point_detail&.point %>"
+                           style="<%= "background: #ccc" if principle.type == "RESPONSIBILITY"%>"
+                           <%= "readonly" unless @update_point_request %>>
                   </div>
                 </td>
               <% end %>
