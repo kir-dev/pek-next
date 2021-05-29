@@ -69,7 +69,7 @@
         </thead>
         <tbody>
           <%@users.each do |user| %>
-            <tr data-id="<%= user.id %>">
+            <tr data-id="<%= user.id %>" class="tooltip">
               <% @ordered_principles.each do |principle| %>
                 <%point_detail = user.single_detail(principle) %>
                 <td>
@@ -82,6 +82,7 @@
                            value="<%= point_detail&.point %>"
                            style="<%= "background: #ccc" if principle.type == "RESPONSIBILITY"%>"
                            <%= "readonly" unless @update_point_request %>>
+                    <span class="tooltiptext"><%= "(#{principle.max_per_member}) #{principle.name}" %></span>
                   </div>
                 </td>
               <% end %>
