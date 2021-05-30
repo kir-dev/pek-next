@@ -4,7 +4,7 @@ class PostPolicy < ApplicationPolicy
   def create?
     return false unless group&.has_post_type?(post_type.id)
     return true if leader?
-    return true if group == Group.sssl && evaluation_helper? &&
+    return true if evaluation_helper? &&
                    (group.own_post_types.include?(post_type) ||
                     post_type.id == PostType::NEW_MEMBER_ID)
 
