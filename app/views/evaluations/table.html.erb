@@ -105,7 +105,7 @@
                 <%= form_tag(group_evaluation_entryrequests_update_path(@group, @evaluation),
                   mehtod: :post, remote: true, html: { class: 'uk-form' }) do %>
                   <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
-                    user.entry_request),
+                    user.entry_request&.entry_type),
                     onchange: 'javascript: $( this ).trigger("submit.rails")',
                     class: 'uk-select uk-width-auto',disabled: !@update_entry_request%>
                   <%= hidden_field_tag :user_id, user.id %>
