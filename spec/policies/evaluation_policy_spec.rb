@@ -135,8 +135,8 @@ RSpec.describe EvaluationPolicy, type: :policy do
     context "when the user is the resort leader" do
       let(:user) { evaluation.group.parent.leader.user }
 
-      it { is_expected.to permit_actions(update_request_actions + evaluation_view_actions) }
-      it { is_expected.to forbid_actions(all_action - (update_request_actions + evaluation_view_actions)) }
+      it { is_expected.to permit_actions(update_request_actions + evaluation_view_actions + [:edit_justification]) }
+      it { is_expected.to forbid_actions(all_action - (update_request_actions + evaluation_view_actions) - [:edit_justification]) }
 
       context "and the point and entry request is accepted" do
         before do
@@ -151,8 +151,8 @@ RSpec.describe EvaluationPolicy, type: :policy do
     context "when the user is the leader of RVT" do
       let(:user) { Group.rvt.leader.user }
 
-      it { is_expected.to permit_actions(update_request_actions + evaluation_view_actions) }
-      it { is_expected.to forbid_actions(all_action - (update_request_actions + evaluation_view_actions)) }
+      it { is_expected.to permit_actions(update_request_actions + evaluation_view_actions + [:edit_justification]) }
+      it { is_expected.to forbid_actions(all_action - (update_request_actions + evaluation_view_actions) - [:edit_justification]) }
 
       context "and the point and entry request is accepted" do
         before do
