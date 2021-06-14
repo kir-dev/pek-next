@@ -29,12 +29,6 @@ class EvaluationPolicy < ApplicationPolicy
     false
   end
 
-  def edit_justification?
-    return false unless submittable_request?(entry_request_status)
-
-    leader_of_the_group? || evaluation_helper_of_the_group?
-  end
-
   def update_point_request?
     update_request?(point_request_status)
   end
@@ -50,6 +44,7 @@ class EvaluationPolicy < ApplicationPolicy
   def update_entry_request?
     update_request?(entry_request_status)
   end
+  alias edit_justification? update_entry_request?
 
   def submit_entry_request?
     submit_request?(entry_request_status)
