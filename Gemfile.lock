@@ -137,6 +137,8 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    jbuilder (2.11.2)
+      activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -340,6 +342,7 @@ DEPENDENCIES
   em-http-request
   exception_handler (~> 0.8.0.0)
   factory_bot_rails
+  jbuilder (~> 2.11, >= 2.11.2)
   jquery-rails
   kaminari
   listen
