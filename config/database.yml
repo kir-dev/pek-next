@@ -23,6 +23,9 @@ development:
 test:
   <<: *default
   database: pek-next-test
+  host: localhost
+  username: pek-next
+  password: pek-next
 
 production: &production
   <<: *default
