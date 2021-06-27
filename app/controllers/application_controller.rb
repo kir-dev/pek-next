@@ -73,8 +73,12 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    return impersonate_user if ENV['NONAUTH']
+    if Rails.env.development? && ENV['NONAUTH']
+      authorization_header = request.env["HTTP_AUTHORIZATION"]
+      return User.find(authorization_header.split()[1]) if authorization_header
 
+      return impersonate_user
+    end
     @current_user ||= User.includes([{ memberships: [:group] }]).find(session[:user_id])
   end
   helper_method :current_user

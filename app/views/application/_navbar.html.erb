@@ -83,7 +83,7 @@
             <i class="uk-icon-bell"></i>
           </a>
 
-          <% if @notifications.any? %>
+          <% if @notifications&.any? %>
             <div class="uk-dropdown uk-dropdown-navbar uk-overflow-container notification-dropdown">
               <ul class="uk-list uk-nav uk-nav-navbar">
                 <%= render_notifications(@notifications) %>

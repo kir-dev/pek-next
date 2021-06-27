@@ -14,7 +14,7 @@ WORKDIR /pek-next
 # Install dependencies
 COPY Gemfile .
 COPY Gemfile.lock .
-RUN bundle install --deployment --without test development --retry 3
+RUN bundle install --deployment --without test --retry 3
 
 # Copy application
 COPY . .
