@@ -19,7 +19,10 @@ class ProfilesController < ApplicationController
 
   def show_self
     @user_presenter = current_user.decorate
-    render :show
+    @user = current_user
+    @memberships = Membership.includes(:group).where(user: current_user)
+    # render :show
+    render "show_self.json.jbuilder"
   end
 
   def edit; end

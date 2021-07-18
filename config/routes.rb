@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Api => '/'
 
   get '/logout', to: 'sessions#destroy', as: :logout
   get '/login', to: 'sessions#new', as: :login
