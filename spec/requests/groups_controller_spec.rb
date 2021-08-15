@@ -29,6 +29,9 @@ describe GroupsController do
 
       expect(response).to have_http_status :ok
     end
+    it 'makes few queries' do
+      expect {get "/groups/#{group.id}"}.to make_database_queries(count: 1)
+    end
   end
 
   describe '#edit' do

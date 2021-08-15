@@ -53,6 +53,7 @@ group :development, :test do
   gem 'brakeman', require: false
   # RSpec for more modern testing
   gem 'rspec-rails', '~> 5.0'
+  gem 'db-query-matchers'
 end
 
 group :test do
