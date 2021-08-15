@@ -36,21 +36,27 @@
             <%= user.decorate.link class: 'uk-link-muted', 'uk-tooltip': '', title: user.nickname %>
           </li>
         <% end %>
-        <li>Összegzések:</li>
-        <li>Átlagok:</li>
+        <li data-uk-tooltip title="Kiosztott pontok összege.">
+           <i class="uk-icon-info"></i> Összeg:
+        </li>
+        <li data-uk-tooltip title="Pontok átlaga, a körtagok között.">
+          <i class="uk-icon-info"></i> Átlag, tagokra:
+        </li>
+        <li data-uk-tooltip title="Pontok átlaga, a kiosztott pontok között. (Akik nem kaptak pontot nem számítanak bele.)">
+          <i class="uk-icon-info"></i> Átlag, pontokra:</li>
       </ul>
     </div>
     <div class="uk-overflow-container" id="points-table-container">
       <table class="uk-table uk-table-striped uk-table-hover uk-table-condensed uk-text-center" id="points-table">
         <thead class="rotated">
           <tr>
-            <% @evaluation.principles.order(:id).each do |principle| %>
+            <% @ordered_principles.each do |principle| %>
               <th class="uk-text-center uk-link uk-link-muted principle" data-id="<%= principle.id %>"
               data-description="<%= principle.description %>">
                 <div>
                   <span>
                     <i class="uk-icon-info"></i>
-                    <%= principle.name.truncate 20 %>
+                    <%= "(#{principle.max_per_member}) #{principle.name.truncate(20)}" %>
                   </span>
                 </div>
               </th>
@@ -63,17 +69,20 @@
         </thead>
         <tbody>
           <%@users.each do |user| %>
-            <tr data-id="<%= user.id %>">
+            <tr data-id="<%= user.id %>" class="tooltip">
               <% @ordered_principles.each do |principle| %>
                 <%point_detail = user.single_detail(principle) %>
                 <td>
                   <div class="uk-form-icon <%= comments_status(point_detail)%>">
                     <i class="uk-icon-comment uk-hidden"></i>
                     <input data-user="<%= user.id %>" data-principle="<%= principle.id %>"
-                    data-user-name="<%= user.full_name %>"
-                    data-principle-type="<%= principle.type %>"
-                    class="uk-input uk-width-auto point-input" type="number"
-                    value="<%= point_detail&.point %>" <%= "readonly" unless @update_point_request %>>
+                           data-user-name="<%= user.full_name %>"
+                           data-principle-type="<%= principle.type %>"
+                           class="uk-input uk-width-auto point-input" type="number"
+                           value="<%= point_detail&.point %>"
+                           style="<%= "background: #ccc" if principle.type == "RESPONSIBILITY"%>"
+                           <%= "readonly" unless @update_point_request %>>
+                    <span class="tooltiptext"><%= "(#{principle.max_per_member}) #{principle.name}" %></span>
                   </div>
                 </td>
               <% end %>
@@ -96,7 +105,7 @@
                 <%= form_tag(group_evaluation_entryrequests_update_path(@group, @evaluation),
                   mehtod: :post, remote: true, html: { class: 'uk-form' }) do %>
                   <%= select_tag :entry_type, options_for_select(Rails.configuration.x.entry_types.invert,
-                    user.entry_request),
+                    user.entry_request&.entry_type),
                     onchange: 'javascript: $( this ).trigger("submit.rails")',
                     class: 'uk-select uk-width-auto',disabled: !@update_entry_request%>
                   <%= hidden_field_tag :user_id, user.id %>
@@ -110,19 +119,55 @@
             <% @ordered_principles.each do |principle| %>
               <td data-sum-principle="<%= principle.id %>">
                 <b id="sum-of-principle-<%= principle.id %>">
-                  <%= sum_principle_details(@point_details, principle) %>
+                  <%= @evaluation_point_calculator.principle_sum( principle) %>
                 </b>
               </td>
             <% end %>
+            <td>
+              <b><%= @evaluation_point_calculator.responsibility_point_sum %></b>
+            </td>
+             <td>
+              <b><%= @evaluation_point_calculator.work_point_sum %></b>
+            </td>
+             <td>
+              <b><%= @evaluation_point_calculator.all_point_sum %></b>
+            </td>
           </tr>
           <tr>
             <% @ordered_principles.each do |principle| %>
               <td data-avg-principle="<%= principle.id %>">
                 <b id="avg-of-principle-<%= principle.id %>">
-                  <%= average_principle_details(@point_details, principle) %>
+                  <%= @evaluation_point_calculator.principle_average(principle) %>
                 </b>
               </td>
             <% end %>
+            <td>
+              <b><%= @evaluation_point_calculator.responsibility_point_average %></b>
+            </td>
+            <td>
+              <b><%= @evaluation_point_calculator.work_point_average %></b>
+            </td>
+            <td>
+              <b><%= @evaluation_point_calculator.all_point_average %></b>
+            </td>
+          </tr>
+          <tr>
+            <% @ordered_principles.each do |principle| %>
+              <td data-sum-principle="<%= principle.id %>">
+                <b id="sum-of-principle-<%= principle.id %>">
+                  <%= @evaluation_point_calculator.principle_details_average(principle) %>
+                </b>
+              </td>
+            <% end %>
+            <td>
+              <b><%= @evaluation_point_calculator.responsibility_details_average %></b>
+            </td>
+             <td>
+              <b><%= @evaluation_point_calculator.work_details_average %></b>
+            </td>
+             <td>
+              <b><%= @evaluation_point_calculator.all_details_average %></b>
+            </td>
           </tr>
         </tfoot>
       </table>
@@ -145,7 +190,8 @@
     </h3>
     <div class="uk-accordion-content uk-padding-remove uk-overflow-container" id="comment-container">
       <div class="uk-margin-large-top uk-text-center uk-text-bold uk-text-danger">
-        Nincs mező kijelölve!
+        Nincs mező kijelölve! <br>
+        Kattints duplán egy mezőre a kijelőléséhez!
       </div>
     </div>
   </div>

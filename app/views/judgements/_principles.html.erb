@@ -17,7 +17,7 @@
     </div>
   </li>
 
-  <% @evaluation.principles.order(:name).decorate.each do |principle| %>
+  <% @evaluation.principles.order(:type, :id).decorate.each do |principle| %>
     <li class="uk-grid uk-margin-remove">
       <div class="uk-width-2-10">
         <%= principle.name %>

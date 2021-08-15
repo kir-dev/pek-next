@@ -65,8 +65,8 @@ GEM
       jquery-rails (>= 3.1.1)
       railties (>= 5.0.0, < 6.2)
       swagger-blocks (>= 3.0.0)
-    addressable (2.5.2)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     annotate (3.0.3)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
@@ -81,8 +81,6 @@ GEM
     brakeman (4.7.0)
     builder (3.2.4)
     byebug (11.0.1)
-    camertron-eprun (1.1.1)
-    cldr-plurals-runtime-rb (1.1.0)
     coderay (1.1.2)
     concurrent-ruby (1.1.8)
     connection_pool (2.2.2)
@@ -105,7 +103,7 @@ GEM
       activemodel-serializers-xml (>= 1.0)
       activesupport (>= 5.0)
       request_store (>= 1.0)
-    em-http-request (1.1.5)
+    em-http-request (1.1.6)
       addressable (>= 2.3.4)
       cookiejar (!= 0.3.1)
       em-socksify (>= 0.3)
@@ -195,8 +193,8 @@ GEM
       omniauth (~> 1.9)
     pdfkit (0.8.4.1)
     pg (0.21.0)
-    public_suffix (3.0.2)
-    puma (4.3.5)
+    public_suffix (4.0.6)
+    puma (4.3.8)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
@@ -312,10 +310,6 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     timecop (0.9.1)
-    twitter_cldr (6.4.0)
-      camertron-eprun
-      cldr-plurals-runtime-rb (~> 1.1)
-      tzinfo
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
@@ -370,7 +364,6 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   timecop
-  twitter_cldr (~> 6.4)
   uglifier (~> 3.2.0)
   unsplash
   wkhtmltopdf-binary (~> 0.12.3.0)

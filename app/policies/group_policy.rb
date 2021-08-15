@@ -19,7 +19,7 @@ class GroupPolicy < ApplicationPolicy
   alias new? create?
 
   def manage_memberships?
-    leader? || (group == Group.sssl && evaluation_helper?)
+    leader? || evaluation_helper?
   end
 
   alias manage_posts? manage_memberships?

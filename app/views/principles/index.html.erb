@@ -18,7 +18,7 @@
 
     <div class="uk-accordion" data-uk-accordion="{collapse:false, showfirst:false}">
       <div id="principles">
-      <% @evaluation.principles.order(:id).each do |principle| %>
+      <% @evaluation.principles.order(:type, :id).each do |principle| %>
         <%= render 'show', principle: principle, evaluation: @evaluation %>
       <% end %>
      </div>

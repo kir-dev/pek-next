@@ -25,7 +25,7 @@ var evaluationComments = (function($) {
   function loadComments(data) {
     $('#comment-container').html(data);
     $('#comment-textarea').keypress(function(event){
-      if(event.ctrlKey && event.key == 'Enter'){
+      if ((event.ctrlKey || event.metaKey) && (event.keyCode == 13 || event.keyCode == 10)) {
            $(this).closest('form').submit();
        }
     });

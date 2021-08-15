@@ -11,6 +11,7 @@ class JustificationsController < EvaluationsController
     @entry_requests = evaluation.entry_requests
                                 .reject { |er| er.entry_type == EntryRequest::KDO }
                                 .sort_by { |a| a.user.full_name }
+                                .sort_by(&:entry_type)
     redirect_back fallback_location: root_url, alert: t(:no_entry_request) if @entry_requests.empty?
   end
 
