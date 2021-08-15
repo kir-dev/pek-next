@@ -65,7 +65,7 @@ GEM
       jquery-rails (>= 3.1.1)
       railties (>= 5.0.0, < 6.2)
       swagger-blocks (>= 3.0.0)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     annotate (3.0.3)
       activerecord (>= 3.2, < 7.0)
