@@ -13,7 +13,7 @@ module GroupsHelper
                             .per(items_per_page)
 
     @active_users.each do |membership|
-      yield GroupMemberDecorator.decorate(GroupMember.new(membership))
+      yield membership.decorate
     end
   end
 
@@ -29,7 +29,7 @@ module GroupsHelper
                               .per(items_per_page)
 
     @inactive_users.each do |membership|
-      yield GroupMemberDecorator.decorate(GroupMember.new(membership))
+      yield membership.decorate
     end
   end
 
@@ -45,7 +45,7 @@ module GroupsHelper
                               .per(items_per_page)
 
     @archived_users.each do |membership|
-      yield GroupMemberDecorator.decorate(GroupMember.new(membership))
+      yield membership.decorate
     end
   end
 

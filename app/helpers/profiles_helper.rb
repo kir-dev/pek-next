@@ -1,7 +1,7 @@
 module ProfilesHelper
   def own_memberships
     @user_presenter.memberships.sort { |a, b| a && b ? a <=> b : a ? -1 : 1 }.each do |membership|
-      yield GroupMemberDecorator.decorate(GroupMember.new(membership))
+      yield membership.decorate
     end
   end
 

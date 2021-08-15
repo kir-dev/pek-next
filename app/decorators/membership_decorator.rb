@@ -1,4 +1,4 @@
-class GroupMemberDecorator < Draper::Decorator
+class MembershipDecorator < Draper::Decorator
   delegate_all
   include Draper::LazyHelpers
 
@@ -96,5 +96,55 @@ class GroupMemberDecorator < Draper::Decorator
 
   def user_link(options = {})
     membership.user.decorate.link_with_compact_name options
+  end
+
+  def posts
+    return 'öregtag' unless end_date.nil? || archived
+    return 'archivált' if end_date && archived
+    return 'tag' if post_types.empty?
+
+    post_types.map(&:name).join(', ')
+  end
+
+  def membership
+    object
+  end
+
+  def full_name
+    user.full_name
+  end
+
+  def nickname
+    user.nickname
+  end
+
+  def compact_name
+    return full_name if nickname.blank?
+
+    "#{full_name} (#{nickname})"
+  end
+
+  def screen_name
+    user.screen_name
+  end
+
+  def membership_id
+    id
+  end
+
+  def group_id
+    group.id
+  end
+
+  def group_name
+    group.name
+  end
+
+  def primary_member?
+    @membership == user.primary_membership
+  end
+
+  def membership_timer
+    "#{start_date} - #{end_date}"
   end
 end
