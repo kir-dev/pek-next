@@ -6,7 +6,7 @@ class MembershipViewModel
     @group = Group.includes([:members, { memberships: [:post_types] }]).find(group_id)
     @membership = user.membership_for(group)
     @leader = membership&.leader?
-    @sssl_evaluation_helper = (membership&.group == Group.sssl && membership&.evaluation_helper?)
+    @sssl_evaluation_helper = membership&.evaluation_helper?
     @resort_leader = @user&.roles&.resort_leader?(@group)
   end
 

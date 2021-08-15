@@ -25,7 +25,7 @@ class JudgementsController < ApplicationController
     @evaluation_messages =
       EvaluationMessage.where(group: @evaluation.group, semester: current_semester)
                        .order(sent_at: :desc).page(params[:page]).decorate
-    @entry_requests = @evaluation.entry_requests.reject { |er| er.entry_type == EntryRequest::KDO }
+    @entry_requests = @evaluation.entry_requests.order(:entry_type).reject { |er| er.entry_type == EntryRequest::KDO }
     @entry_requests = EntryRequestDecorator.decorate_collection @entry_requests
     @users = User.joins(point_requests: :evaluation)
                  .where(evaluations: { id: params[:evaluation_id] })
