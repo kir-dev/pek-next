@@ -16,6 +16,12 @@ FactoryBot.define do
     after(:create) do |group|
       group.memberships << create(:membership, :leader, group: group)
     end
+
+    after(:create) do |group|
+      user = create(:user)
+      membership = Membership.create!(user: user, group: group)
+      CreatePost.call(group, membership, PostType::EVALUATION_HELPER_ID)
+    end
   end
 
   factory :group_with_parent, parent: :group do
@@ -28,14 +34,6 @@ FactoryBot.define do
     after(:create) do |group|
       sibling_group = create(:group)
       sibling_group.update(parent: group.parent)
-    end
-
-    after(:create) do |group|
-      user = create(:user)
-      Membership::CreateService.call(group, user)
-      membership = user.membership_for(group)
-      CreatePost.call(group, membership, PostType::EVALUATION_HELPER_ID)
-      ActivityNotification::Notification.last.delete
     end
   end
 

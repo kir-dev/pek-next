@@ -4,13 +4,13 @@ describe PostPolicy, type: :policy do
   permissions :create?, :destroy? do
     let(:membership) { create(:membership) }
     let(:post_type) { create(:post_type, group: membership.group) }
-    let(:post) { create(:post, :newbie, membership: membership, post_type: post_type) }
+    let(:post) { create(:post, membership: membership, post_type: post_type) }
 
     context "when the current user is the group leader" do
       let(:user) { membership.group.leader.user }
 
       it "is permitted" do
-        expect(subject).to permit(user, post)
+        expect(subject).to permit(user, post.reload)
       end
     end
 

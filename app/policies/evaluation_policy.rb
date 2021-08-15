@@ -3,7 +3,7 @@ class EvaluationPolicy < ApplicationPolicy
     return false if off_season?
 
     return true if leader_of_the_group? || evaluation_helper_of_the_group?
-    return true if leader_of_the_resort? || leader_in_the_resort?
+    return true if leader_of_the_resort? || leader_in_the_resort? || evaluation_helper_in_the_resort?
     return true if pek_admin? || rvt_member?
 
     false
@@ -23,15 +23,10 @@ class EvaluationPolicy < ApplicationPolicy
 
   def update_comments?
     return true if leader_of_the_group? || evaluation_helper_of_the_group?
+    return true if leader_in_the_resort? || evaluation_helper_in_the_resort?
     return true if rvt_member?
 
     false
-  end
-
-  def edit_justification?
-    return false unless submittable_request?(entry_request_status)
-
-    leader_of_the_group? || evaluation_helper_of_the_group?
   end
 
   def update_point_request?
@@ -49,6 +44,7 @@ class EvaluationPolicy < ApplicationPolicy
   def update_entry_request?
     update_request?(entry_request_status)
   end
+  alias edit_justification? update_entry_request?
 
   def submit_entry_request?
     submit_request?(entry_request_status)
@@ -114,6 +110,15 @@ class EvaluationPolicy < ApplicationPolicy
     return false unless group_is_a_resort_member?
 
     cache { evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) } }
+  end
+
+  def evaluation_helper_in_the_resort?
+    return false unless group_is_a_resort_member?
+
+    resort_groups = evaluation.group.parent&.children
+    resort_memberships = Membership.where(user: user, group: resort_groups)
+    evaluation_helper_posts = Post.where(membership: resort_memberships, post_type_id: PostType::EVALUATION_HELPER_ID)
+    !evaluation_helper_posts.empty?
   end
 
   def group_is_a_resort_member?
