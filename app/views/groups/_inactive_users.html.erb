@@ -1,7 +1,7 @@
 <% if list? %>
 
   <ul class="uk-list uk-list-striped uk-margin-large-bottom uk-width-1-1">
-    <% inactive_users(@viewmodel.group) do |member| %>
+    <% @inactive_memberships.each do |member| %>
       <%= render 'group_member_list_item', member: member %>
     <% end %>
   </ul>
@@ -9,7 +9,7 @@
 <% else %>
 
   <div class="uk-grid uk-width-1-1 uk-margin-large-bottom" id="inactive_users_grid" data-uk-grid="{gutter: 20}">
-    <% inactive_users(@viewmodel.group) do |member| %>
+    <% @inactive_memberships.each do |member| %>
       <%= render 'group_member_grid_item', member: member %>
     <% end %>
   </div>
@@ -17,5 +17,5 @@
 <% end %>
 
 <div id="inactive_users_paginate">
-  <%= paginate @inactive_users, param_name: 'inactive_users_page', remote: true %>
+  <%= paginate @inactive_memberships, param_name: 'inactive_users_page', remote: true %>
 </div>

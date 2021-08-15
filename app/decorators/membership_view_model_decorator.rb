@@ -57,22 +57,6 @@ end
                    'uk-button-success')
   end
 
-  def all_members_count
-    membership_view_model.group.memberships.count
-  end
-
-  def active_members_count
-    acive_users_count(membership_view_model.group)
-  end
-
-  def inactive_members_count
-    inacive_users_count(membership_view_model.group)
-  end
-
-  def archived_members_count
-    archived_users_count(membership_view_model.group)
-  end
-
   def edit_group_post_types_button
     return unless membership_view_model.leader?
 

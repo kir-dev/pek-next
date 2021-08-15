@@ -18,6 +18,13 @@ class GroupsController < ApplicationController
     membership_view_model = MembershipViewModel.new(current_user, params[:id])
     @viewmodel = MembershipViewModelDecorator.decorate(membership_view_model)
     @can_manage_memberships = policy(@viewmodel.group).manage_memberships?
+
+    @memberships = Membership.includes(:post_types)
+                             .includes(user: :svie_post_request, posts: :post_type)
+                             .where(group_id: params[:id])
+    @active_memberships = MembershipCollectionDecorator.new(@memberships.active.page(params[:active_users_page]))
+    @inactive_memberships = MembershipCollectionDecorator.new(@memberships.inactive.page(1))
+    @archived_memberships = MembershipCollectionDecorator.new(@memberships.archived.page(1))
   end
 
   def edit; end

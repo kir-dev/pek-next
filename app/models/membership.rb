@@ -37,6 +37,7 @@ class Membership < ApplicationRecord
   scope :not_newbie, -> { where.not(id: newbie.select(:id)) }
   scope :active, -> { not_newbie.not_archived.where(end_date: nil) }
   scope :not_active, -> { where.not(id: active.select(:id)) }
+  scope :inactive, -> { where.not(end_date:nil ).not_archived}
 
   def leader?
     has_post?(PostType::LEADER_POST_ID)

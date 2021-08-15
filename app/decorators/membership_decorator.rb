@@ -1,5 +1,6 @@
 class MembershipDecorator < Draper::Decorator
   delegate_all
+
   include Draper::LazyHelpers
 
   def svie_status_icon
