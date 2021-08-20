@@ -84,7 +84,8 @@ class UserDecorator < Draper::Decorator
     return if user.webpage.blank?
     return unless Privacy.for(user, 'WEBPAGE').visible
 
-    info_box(user.webpage, 'uk-icon-link')
+    link = link_to(user.webpage, user.webpage)
+    info_box(link, 'uk-icon-link')
   end
 
   private
