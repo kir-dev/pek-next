@@ -76,8 +76,15 @@
       <p>Ha nem tudod vagy nem akarod kinyomtatni, akkor keresd Grétit a Schönherz 1719-es irodájában, ő kinyomtatja helyetted, ekkor viszont ott kell lenned személyesen, hogy alá tudd írni.</p>
 
       <div class="uk-width-1-1 uk-width-medium-1-2 uk-margin uk-align-center">
-        <%= button_to "Kérvény letöltése", svie_pdf_path,
+        <%= button_to "Kitöltött kérvény letöltése", svie_pdf_path,
           method: :get, class: "uk-button uk-button-success uk-width-expand"%>
+      </div>
+      <div class="uk-text-center">
+         <p>vagy</p>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-1-2 uk-margin uk-align-center">
+        <%= button_to "Üres kérvény letöltése", '/downloads/contract_empty.pdf',
+                      method: :get, class: "uk-button uk-button-success uk-width-expand"%>
       </div>
     <% end %>
 

@@ -87,6 +87,11 @@ Rails.application.routes.draw do
     resources :svie, only: [:index]
     post '/svie/approve/:id', to: 'svie#approve', as: :svie_approve
     post '/svie/reject/:id', to: 'svie#reject', as: :svie_reject
+
+    resources :rvt_helpers, only: [:index] do
+      post :add, on: :member
+      post :remove, on: :member
+    end
   end
 
   get '/seasons', to: 'season_admin#index', as: :seasons

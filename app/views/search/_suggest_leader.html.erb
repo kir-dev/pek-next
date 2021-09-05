@@ -9,8 +9,8 @@
       </div>
       <div class="uk-text-break">
         <%= user.room %>
-      <div>
-    </div>
+      </div>
     <%= content_tag(:a, 'Kiválaszt', type: :button, class: 'uk-button uk-button-primary', onClick: "selectUser(#{user.id},'#{user.compact_name}')") %>
+    </div>
   </li>
 <% end %>

@@ -1,0 +1,2 @@
+module Admin::RvtHelpersHelper
+end
