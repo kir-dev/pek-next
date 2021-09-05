@@ -34,10 +34,22 @@ class ApplicationPolicy
     false
   end
 
+  def manage_SVIE?
+    rvt_member? || rvt_helper?
+  end
+
   private
 
   def pek_admin?
     cache { user.roles.pek_admin? }
+  end
+
+  def rvt_member?
+    user.roles.rvt_member?
+  end
+
+  def rvt_helper?
+    user.rvt_helper?
   end
 
   def off_season?

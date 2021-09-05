@@ -13,12 +13,14 @@
       <div class="uk-text-break">
         <%= user.room %>
       </div>
-      <% unless user.rvt_helper? %>
-        <%= button_to('Megbízás', add_admin_rvt_helper_path(user),id:"rvt-helper-suggest-button-user-#{user.id}", class: 'uk-button uk-button-primary',
-                      onClick: "addRvtHelper(#{user.id})") %>
-      <% else %>
-        <%= button_to('Megbízás elvétele', remove_admin_rvt_helper_path(user),id:"rvt-helper-suggest-button-user-#{user.id}", class: 'uk-button uk-button-danger',
-                      onClick: "removeRvtHelper(#{user.id})") %>
+      <% if current_user.roles.rvt_leader? %>
+        <% unless user.rvt_helper? %>
+          <%= button_to('Megbízás', add_admin_rvt_helper_path(user), id: "rvt-helper-suggest-button-user-#{user.id}", class: 'uk-button uk-button-primary',
+                        onClick: "addRvtHelper(#{user.id})") %>
+        <% else %>
+          <%= button_to('Megbízás elvétele', remove_admin_rvt_helper_path(user), id: "rvt-helper-suggest-button-user-#{user.id}", class: 'uk-button uk-button-danger',
+                        onClick: "removeRvtHelper(#{user.id})") %>
+        <% end %>
       <% end %>
     </div>
   </li>
