@@ -1,5 +1,5 @@
 <% groups.each do |group| %>
-    <%= render 'groups/group_list_item', group: group %>
+  <%= render 'groups/group_list_item', group: group %>
 <% end %>
 <% users.each do |user| %>
   <li class="uk-panel-box uk-grid uk-grid-collapse dark user-search user-result hover uk-padding-remove" onclick="window.location='<%= profile_path(user.screen_name) %>'">
@@ -12,7 +12,14 @@
       </div>
       <div class="uk-text-break">
         <%= user.room %>
-      <div>
+      </div>
+      <% unless user.rvt_helper? %>
+        <%= button_to('Megbízás', add_admin_rvt_helper_path(user),id:"rvt-helper-suggest-button-user-#{user.id}", class: 'uk-button uk-button-primary',
+                      onClick: "addRvtHelper(#{user.id})") %>
+      <% else %>
+        <%= button_to('Megbízás elvétele', remove_admin_rvt_helper_path(user),id:"rvt-helper-suggest-button-user-#{user.id}", class: 'uk-button uk-button-danger',
+                      onClick: "removeRvtHelper(#{user.id})") %>
+      <% end %>
     </div>
   </li>
 <% end %>
