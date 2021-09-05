@@ -726,7 +726,8 @@ CREATE TABLE public.users (
     metascore integer,
     place_of_birth character varying,
     birth_name character varying,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    rvt_helper boolean DEFAULT false
 );
 
 
@@ -1525,6 +1526,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200722172424'),
 ('20200722173131'),
 ('20201223070757'),
-('20210307164901');
+('20210307164901'),
+('20210905120558');
 
 

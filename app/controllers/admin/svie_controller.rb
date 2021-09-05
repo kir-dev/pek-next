@@ -1,6 +1,6 @@
 module Admin
   class SvieController < ApplicationController
-    before_action :require_privileges_of_rvt
+    before_action :authorize_user
 
     def index
       @post_requests = SviePostRequest.all
@@ -16,6 +16,12 @@ module Admin
     def reject
       svie_post_request = SviePostRequest.destroy(params[:id])
       @user = svie_post_request.user
+    end
+
+    private
+
+    def authorize_user
+      authorize :application, :manage_SVIE?
     end
   end
 end

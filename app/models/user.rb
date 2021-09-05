@@ -23,6 +23,7 @@
 #  photo_path              :string(255)
 #  place_of_birth          :string
 #  room                    :string(255)
+#  rvt_helper              :boolean          default(FALSE)
 #  salt                    :string(12)
 #  screen_name             :string(50)       not null
 #  show_recommended_photo  :boolean          default(FALSE), not null

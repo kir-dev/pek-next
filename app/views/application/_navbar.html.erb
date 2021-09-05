@@ -1,7 +1,7 @@
 <nav class="uk-navbar uk-hidden-small" data-uk-sticky>
   <div class="uk-container uk-container-center uk-padding-remove">
 
-    <%= link_to image_tag('/img/pek_logo.png', class:'uk-navbar-brand', id: 'pek-logo'), root_url %>
+    <%= link_to image_tag('/img/pek_logo.png', class: 'uk-navbar-brand', id: 'pek-logo'), root_url %>
 
     <div class="uk-navbar-nav uk-padding-remove uk-width-1-2">
       <%= render 'search' %>
@@ -23,14 +23,16 @@
           </li>
         <% end %>
 
-        <% if current_user.roles.rvt_member? %>
+        <% if policy(:application).manage_SVIE? %>
           <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="{pos:'bottom-right'}">
             <a class="nav-button">RVT funkciók</a>
 
             <div class="uk-dropdown uk-dropdown-navbar">
               <ul class="uk-nav uk-nav-navbar">
                 <li><%= link_to 'SVIE-be jelentkezettek', admin_svie_index_path %></li>
-                <li><%= link_to 'Megbizottak', admin_rvt_helpers_path %></li>
+                <% if current_user.roles.rvt_member? %>
+                  <li><%= link_to 'Megbizottak', admin_rvt_helpers_path %></li>
+                <% end %>
                 <% if current_user.roles.rvt_leader? %>
                   <li><%= link_to 'Időszakok állítása', seasons_path %></li>
                 <% end %>
