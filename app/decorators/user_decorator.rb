@@ -85,7 +85,7 @@ class UserDecorator < Draper::Decorator
     return unless Privacy.for(user, 'WEBPAGE').visible
 
     link = link_to(user.webpage, user.webpage)
-    info_box(link, 'uk-icon-link')
+    sanitize info_box(link, 'uk-icon-link')
   end
 
   private
