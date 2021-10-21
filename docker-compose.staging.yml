@@ -44,7 +44,7 @@ services:
     volumes:
       - uploads_folder:/pek-next/public/uploads
     ports:
-      - "3444:3000"
+      - "4443:3000"
     networks:
       - pek_network
     depends_on:
