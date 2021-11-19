@@ -29,7 +29,7 @@ class GroupDecorator < Draper::Decorator
   def webpage_link
     return unless group.webpage
 
-    link_to(group.webpage, group.webpage)
+    link_to group.webpage, group.webpage, target: "_blank", rel: "noreferrer"
   end
 
   def svie_state
