@@ -23,7 +23,7 @@
 #
 #  ert_semester_idx  (semester)
 #  next_version_idx  (next_version)
-#  unique_idx        (group_id,semester,next_version) UNIQUE
+#  unique_idx        (group_id,semester,next_version NULLS FIRST) UNIQUE
 #
 # Foreign Keys
 #
