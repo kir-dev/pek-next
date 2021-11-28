@@ -3,7 +3,6 @@
 <%= button_to "Vissza", group_path(@group.id), method: :get,
               class: "uk-button uk-button-primary uk-button-large uk-margin-bottom" %>
 
-
 <div class="view">
   <div class="wrapper">
     <table id="posts-table" class="table">
@@ -17,7 +16,6 @@
       </thead>
       <tbody>
       <% @memberships.each do |membership| %>
-
         <tr>
           <td class="sticky-col first-col">
             <%= link_to membership.user.full_name, profile_path(membership.user.screen_name), target: :blank, rel: "noreferrer" %>
@@ -29,10 +27,10 @@
             <td class="uk-vertical-align">
               <% if post.present? %>
                 <%= button_tag "#{post_type.name} (Elvesz)", class: "uk-button uk-button-danger uk-width-1-1 uk-align-center",
-                               id: "remove-#{membership.id}-#{post_type_id}", onclick: "removePost(#{@group.id}, #{membership.id},#{post_type_id}, #{post.id})" %>
+                               id: "post-action-button-#{membership.id}-#{post_type_id}", onclick: "removePost(#{@group.id}, #{membership.id},#{post_type_id}, #{post.id})" %>
               <% else %>
                 <%= button_tag "#{post_type.name} (Hozzáad)", class: "uk-button uk-button-success uk-width-1-1 uk-align-center",
-                               id: "add-#{membership.id}-#{post_type_id}", onclick: "addPost(#{@group.id}, #{membership.id},#{post_type_id})" %>
+                               id: "post-action-button-#{membership.id}-#{post_type_id}", onclick: "addPost(#{@group.id}, #{membership.id},#{post_type_id})" %>
               <% end %>
           <% end %>
         </tr>

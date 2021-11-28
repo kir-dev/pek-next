@@ -10,11 +10,12 @@ class PostsController < ApplicationController
     authorize @group, :manage_posts?
 
     @post_type_ids = @group.post_types.map(&:id)
-    @post_type_ids.delete(PostType::LEADER_POST_ID)
-    @group_post_types = {}
-    @group.post_types.each { |post_type| @group_post_types[post_type.id] = post_type }
+                           .reject { |post_type_id| post_type_id.eql? PostType::LEADER_POST_ID }
+    @group_post_types = @group.post_types.reduce({}) do |hash, post_type|
+      hash.merge({ post_type.id => post_type })
+    end
     @memberships = @group.memberships.active.includes(:posts, :user)
-    @memberships = @memberships.sort { |a, b| hu_compare(a.user.full_name, b.user.full_name) }
+                         .sort { |a, b| hu_compare(a.user.full_name, b.user.full_name) }
   end
 
   def create
@@ -46,10 +47,7 @@ class PostsController < ApplicationController
 
         redirect_back fallback_location: group_url, alert: t(:no_leader_error)
       end
-      format.json {
-        return render plain: 'ok', status: :ok
-      }
+      format.json { return render plain: 'ok', status: :ok }
     end
-
   end
 end
