@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       resources :posts, only: [:index, :create, :destroy]
     end
 
+    get '/group_posts', to: "posts#group_posts", as: :posts
     resources :post_types, only: [:index, :create, :destroy]
 
     get '/evaluations/current', to: 'evaluations#current'

@@ -57,6 +57,12 @@ end
                    'uk-button-success')
   end
 
+  def all_posts_button
+    return unless policy(current_group).manage_posts?
+
+    styled_link_to('Posztok kezelése', group_posts_path(current_group), 'uk-button-success')
+  end
+
   def all_members_count
     membership_view_model.group.memberships.count
   end
