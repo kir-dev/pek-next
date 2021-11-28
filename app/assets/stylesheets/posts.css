@@ -2,7 +2,7 @@
 .wrapper {
     position: relative;
     overflow: auto;
-    border: 1px solid black;
+    border: 1px solid lightgray;
     white-space: nowrap;
 }
 
@@ -20,7 +20,11 @@
     white-space: normal;
 }
 
-tr:hover {
+td, thead {
+   background-color: white;
+}
+
+tr:hover > td {
     background-color: #99baca;
 }
 
