@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag params[:controller] %>
+
+<%= button_to "Vissza", group_path(@group.id), method: :get,
+              class: "uk-button uk-button-primary uk-button-large uk-margin-bottom" %>
+
+<div class="view">
+  <div class="wrapper">
+    <table id="posts-table" class="table">
+      <thead>
+      <tr>
+        <th class="sticky-col first-col"></th>
+        <% @post_type_ids.each do |id| %>
+          <th><%= @group_post_types[id].name %></th>
+        <% end %>
+      </tr>
+      </thead>
+      <tbody>
+      <% @memberships.each do |membership| %>
+        <tr>
+          <td class="sticky-col first-col">
+            <%= link_to membership.user.full_name, profile_path(membership.user.screen_name), target: :blank, rel: "noreferrer" %>
+          </td>
+          <% @post_type_ids.each do |post_type_id| %>
+            <% post = membership.posts.to_a.find { |post| post.post_type_id == post_type_id } %>
+            <% post_type = @group_post_types[post_type_id] %>
+
+            <td class="uk-vertical-align">
+              <% if post.present? %>
+                <%= button_tag "#{post_type.name} (Elvesz)", class: "uk-button uk-button-danger uk-width-1-1 uk-align-center",
+                               id: "post-action-button-#{membership.id}-#{post_type_id}", onclick: "removePost(#{@group.id}, #{membership.id},#{post_type_id}, #{post.id})" %>
+              <% else %>
+                <%= button_tag "#{post_type.name} (Hozzáad)", class: "uk-button uk-button-success uk-width-1-1 uk-align-center",
+                               id: "post-action-button-#{membership.id}-#{post_type_id}", onclick: "addPost(#{@group.id}, #{membership.id},#{post_type_id})" %>
+              <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= button_to "Vissza", group_path(@group.id), method: :get,
+              class: "uk-button uk-button-primary uk-button-large uk-margin-top" %>

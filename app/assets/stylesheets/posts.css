@@ -1,0 +1,33 @@
+
+.wrapper {
+    position: relative;
+    overflow: auto;
+    border: 1px solid lightgray;
+    white-space: nowrap;
+}
+
+.sticky-col {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: white;
+}
+
+.first-col {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    left: 0px;
+    white-space: normal;
+}
+
+td, thead {
+   background-color: white;
+}
+
+tr:hover > td {
+    background-color: #99baca;
+}
+
+tr:hover > .first-col {
+    background-color: #99baca;
+}
