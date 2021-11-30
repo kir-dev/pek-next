@@ -3,17 +3,22 @@ module Admin
     before_action :require_svie_admin
 
     def index
-      groups = Group.order(:name)
+      groups = Group.order(:name).reject(&:inactive?)
       @groups_with_delegates, @groups_without_delegates =
         groups.partition { |group| group.delegate_count.positive? }
       @groups_without_delegates = @groups_without_delegates.select(&:issvie)
     end
 
     def export
-      @delegates = User.includes([{ primary_membership: [:group] }])
-                       .where(delegated: true)
-                       .order(:lastname)
-                       .select { |user| user.primary_membership.group.issvie }
+      groups = Group.includes(memberships: [:group, user: :primary_membership, posts: :post_type])
+                    .order(:name).reject(&:inactive?)
+                    .select { |group| group.delegate_count.positive? }
+      group_delegates = groups.map do |group|
+        group.memberships.select do |membership|
+          membership.primary? && membership.user.delegated
+        end.map(&:user)
+      end
+      @delegates = group_delegates.flatten
     end
 
     def update
