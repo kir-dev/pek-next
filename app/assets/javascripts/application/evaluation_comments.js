@@ -3,10 +3,10 @@ var evaluationComments = (function($) {
   var selectedInput = null;
 
   module.init = function() {
-    $('.point-input').on('dblclick', onDoubleClick);
+    $('.point-input').on('click', onClick);
   }
 
-  function onDoubleClick() {
+  function onClick() {
     selectElement(this);
     fetchComments(this);
   }
