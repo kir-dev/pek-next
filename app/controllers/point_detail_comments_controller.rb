@@ -4,6 +4,8 @@ class PointDetailCommentsController < ApplicationController
 
   def index
     comments = comments_by_principle_user_id(params[:principle_id].to_i, params[:user_id].to_i)
+    @user = User.find(params[:user_id])
+    @principle = Principle.find(params[:principle_id])
     @point_detail_comments = PointDetailCommentDecorator.decorate_collection(comments)
     @point_detail_comment = PointDetailComment.new
     render layout: false
