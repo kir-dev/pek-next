@@ -1,3 +1,4 @@
+<div class="uk-padding uk-text-center"><%= @user.full_name %> - <%= @principle.name  %></div>
 <% @point_detail_comments.each do |point_detail_comment| %>
   <%= render 'show', comment: point_detail_comment %>
 <% end %>
