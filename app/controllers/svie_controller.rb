@@ -15,7 +15,7 @@ class SvieController < ApplicationController
     end
 
     current_user.svie.create_request(params[:svie_member_type])
-    redirect_to svie_index_path, notice: t(:applied_succesful)
+    redirect_to svie_edit_path, notice: t(:applied_succesful)
   end
 
   def edit
@@ -38,6 +38,10 @@ class SvieController < ApplicationController
   end
 
   def application_pdf
+    unless current_user.svie_post_request
+      return redirect_to svie_edit_path, notice: t(:svie_post_request_needed_for_pdf)
+    end
+
     pdf    = GenerateMembershipPdf.new(current_user)
     @user  = current_user
     @title = pdf.title
