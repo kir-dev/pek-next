@@ -5,10 +5,11 @@ class JustificationsController < EvaluationsController
   before_action :validate_correct_group
 
   def edit
-    evaluation = Evaluation.find(params[:evaluation_id])
-    authorize evaluation, :edit_justification?
+    @evaluation = Evaluation.find(params[:evaluation_id])
+    authorize @evaluation, :show?
+    @can_edit = policy(@evaluation).edit_justification?
 
-    @entry_requests = evaluation.entry_requests
+    @entry_requests = @evaluation.entry_requests
                                 .reject { |er| er.entry_type == EntryRequest::KDO }
                                 .sort_by { |a| a.user.full_name }
                                 .sort_by(&:entry_type)

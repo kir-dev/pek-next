@@ -17,9 +17,9 @@ class EvaluationsController < ApplicationController
   end
 
   def edit
-    authorize_evaluation
-
-    @evaluation = Evaluation.find_by(group_id: current_group.id, semester: current_semester)
+    @evaluation = current_evaluation
+    authorize(@evaluation, :show?)
+    @can_edit = policy(@evaluation).edit?
   end
 
   def update
