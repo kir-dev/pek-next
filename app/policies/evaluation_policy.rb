@@ -108,9 +108,15 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def leader_in_the_resort?
-    return false unless group_is_a_resort_member?
+    if group_is_a_resort_member? && evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) }
+      return true
+    end
 
-    cache { evaluation.group.parent&.children&.any? { |group| user.leader_of?(group) } }
+    if group_is_a_resort? && evaluation.group&.children&.any? { |group| user.leader_of?(group) }
+      return true
+    end
+
+    false
   end
 
   def evaluation_helper_in_the_resort?
@@ -123,7 +129,11 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def group_is_a_resort_member?
-    cache { Group.resorts.include?(evaluation.group.parent)}
+    cache { Group.resorts.include?(evaluation.group.parent) }
+  end
+
+  def group_is_a_resort?
+    Group.resorts.include?(evaluation.group)
   end
 
   def evaluation_helper_at_resort?
