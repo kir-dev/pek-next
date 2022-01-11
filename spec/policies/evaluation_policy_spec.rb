@@ -109,6 +109,22 @@ RSpec.describe EvaluationPolicy, type: :policy do
 
       it { is_expected.to permit_action(:show) }
     end
+
+    context 'when the user is a leader in the resort' do
+      let(:user) do
+        evaluation.group.leader.user
+      end
+
+      let(:resort_evaluation) do
+        new_evaluation = Evaluation.new.set_default_values
+        new_evaluation.group = evaluation.group.parent
+        new_evaluation.semester = SystemAttribute.semester.to_s
+        new_evaluation.save!
+        new_evaluation
+      end
+
+      it { expect(EvaluationPolicy.new(user, resort_evaluation)).to permit_action(:show) }
+    end
   end
 
   context 'when evaluation season' do
