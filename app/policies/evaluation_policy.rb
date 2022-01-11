@@ -3,7 +3,8 @@ class EvaluationPolicy < ApplicationPolicy
     return false if off_season?
 
     return true if leader_of_the_group? || evaluation_helper_of_the_group?
-    return true if leader_of_the_resort? || leader_in_the_resort? || evaluation_helper_in_the_resort?
+    return true if leader_of_the_resort? || leader_in_the_resort?
+    return true if evaluation_helper_in_the_resort? || evaluation_helper_at_resort?
     return true if pek_admin? || rvt_member?
 
     false
@@ -123,6 +124,19 @@ class EvaluationPolicy < ApplicationPolicy
 
   def group_is_a_resort_member?
     cache { Group.resorts.include?(evaluation.group.parent)}
+  end
+
+  def group_is_a_resort?
+    Group.resorts.include?(evaluation.group.parent)
+  end
+
+  def evaluation_helper_at_resort?
+    return false unless group_is_a_resort?
+
+    membership = Membership.find_by(group: evaluation.group.parent, user: user)
+    return false unless membership
+
+    membership.has_post?(PostType::EVALUATION_HELPER_ID)
   end
 
   def rvt_member?
