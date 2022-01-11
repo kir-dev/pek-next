@@ -126,12 +126,8 @@ class EvaluationPolicy < ApplicationPolicy
     cache { Group.resorts.include?(evaluation.group.parent)}
   end
 
-  def group_is_a_resort?
-    Group.resorts.include?(evaluation.group.parent)
-  end
-
   def evaluation_helper_at_resort?
-    return false unless group_is_a_resort?
+    return false unless group_is_a_resort_member?
 
     membership = Membership.find_by(group: evaluation.group.parent, user: user)
     return false unless membership
