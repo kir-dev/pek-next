@@ -25,13 +25,13 @@
     </div>
 
     <hr/>
-
+<% if @can_edit %>
     <%= form_for [ @evaluation.group, @evaluation, Principle.new ], remote: true,
       authenticity_token: true, html: { class: 'uk-form' } do |f| %>
       <div class="uk-grid uk-grid-small">
 
         <div class="uk-width-medium-2-10 uk-width-1-2 uk-margin-small-top">
-          <%= f.select :type, options_for_select(Rails.configuration.x.principle_types.invert, ""), {},
+          <%= f.select :type, options_for_select(Rails.configuration.x.principle_types.invert, ""), {}, disabled: !@can_edit,
             class: 'uk-select uk-width-1-1' %>
         </div>
 
@@ -55,7 +55,7 @@
           id: 'principle_new_description', placeholder: 'Leírás..'  %>
       </div>
     <% end %>
-
+<% end %>
     <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get,
       class: "uk-button uk-align-center uk-margin-top" %>
 

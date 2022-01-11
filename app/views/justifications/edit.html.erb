@@ -14,16 +14,17 @@
           </label>
           <div class="uk-form-controls">
             <%= fields_for "entry_requests[]", entry_request do |er| %>
-              <%= er.text_area :justification, class: 'uk-textarea uk-width-1-1', rows: 4 %>
+              <%= er.text_area :justification, class: 'uk-textarea uk-width-1-1', rows: 4, readonly: !@can_edit %>
             <% end %>
           </div>
         </div>
 
       <% end %>
 
-      <div class="uk-form-row uk-text-center">
-        <%= submit_tag 'Mentés', class: 'uk-button uk-button-success' %>
-      </div>
+      <%= link_to 'Vissza', group_evaluation_path(@evaluation.group, @evaluation), class: "uk-button uk-margin-top" %>
+      <% if @can_edit %>
+          <%= submit_tag 'Mentés', class: 'uk-button uk-button-success uk-margin-top uk-align-right' %>
+      <% end %>
 
     <% end %>
 

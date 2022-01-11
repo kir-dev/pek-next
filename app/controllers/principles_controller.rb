@@ -3,10 +3,13 @@
 class PrinciplesController < EvaluationsController
   before_action :set_principle, only: %i[update destroy]
   before_action :validate_correct_evaluation, only: %i[update destroy]
-  before_action :authorize_evaluation
+  before_action :authorize_evaluation, except: [:index]
 
   def index
     @evaluation = current_evaluation
+    authorize @evaluation, :show?
+
+    @can_edit = policy(@evaluation).edit?
   end
 
   def update

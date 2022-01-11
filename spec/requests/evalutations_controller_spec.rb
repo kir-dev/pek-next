@@ -141,4 +141,15 @@ describe EvaluationsController do
       expect(response).to have_http_status :ok
     end
   end
+
+  describe "#edit" do
+    include_context "evaluation season"
+    include_context "current user is the group leader"
+
+    it "is ok" do
+      get "/groups/#{group.id}/evaluations/#{evaluation.id}/edit"
+
+      expect(response).to have_http_status :ok
+    end
+  end
 end
