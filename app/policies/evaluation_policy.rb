@@ -22,13 +22,7 @@ class EvaluationPolicy < ApplicationPolicy
   alias create? edit?
   alias destroy? edit?
 
-  def update_comments?
-    return true if leader_of_the_group? || evaluation_helper_of_the_group?
-    return true if leader_in_the_resort? || evaluation_helper_in_the_resort?
-    return true if rvt_member?
-
-    false
-  end
+  alias update_comments? show?
 
   def update_point_request?
     update_request?(point_request_status)
