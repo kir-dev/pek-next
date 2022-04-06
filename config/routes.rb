@@ -107,10 +107,10 @@ Rails.application.routes.draw do
     post '/development/impersonate/role', to: 'development#impersonate_role', as: :impersonate_role
   end
 
-  # get '/services/sync/:id', to: 'auth_sch_services#sync'
-  # get '/services/sync/:id/memberships', to: 'auth_sch_services#memberships'
-  # get '/services/entrants/get/:semester/:id', to: 'auth_sch_services#entrants'
-  # get '/services/entrants/get/:semester/authsch/:id', to: 'auth_sch_services#entrants'
+  get '/services/sync/:id', to: 'auth_sch_services#sync'
+  get '/services/sync/:id/memberships', to: 'auth_sch_services#memberships'
+  get '/services/entrants/get/:semester/:id', to: 'auth_sch_services#entrants'
+  get '/services/entrants/get/:semester/authsch/:id', to: 'auth_sch_services#entrants'
 
   notify_to :users
 
