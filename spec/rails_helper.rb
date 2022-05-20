@@ -49,6 +49,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.create(:post_type_leader)
+    FactoryBot.create(:post_type_financial_officer)
     FactoryBot.create(:post_type_newbie)
     FactoryBot.create(:post_type_evaluation_helper)
     FactoryBot.create(:group_svie)
@@ -63,6 +64,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
+    Post.delete_all
     PostType.delete_all
     Group.delete_all
     User.delete_all
