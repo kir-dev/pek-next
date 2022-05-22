@@ -7,7 +7,15 @@ FactoryBot.define do
     sequence(:id, 150)
   end
 
-  factory :post_type_leader, parent: :post_type do
+  factory :common_post_type, parent: :post_type do
+    group { nil }
+  end
+  factory :post_type_financial_officer, parent: :common_post_type do
+    id { PostType::FINANCIAL_OFFICER_POST_ID }
+    name { 'Gazdasagis' }
+  end
+
+  factory :post_type_leader, parent: :common_post_type do
     id { PostType::LEADER_POST_ID }
     name { 'Korvezeto' }
   end
@@ -17,20 +25,19 @@ FactoryBot.define do
     name { 'Feldolgozas alatt' }
   end
 
-  factory :post_type_pek_admin, parent: :post_type do
+  factory :post_type_pek_admin, parent: :common_post_type do
     group { Group.kirdev }
     id { PostType::PEK_ADMIN_ID }
     name { 'PeK admin' }
   end
 
-  factory :post_type_new_member, parent: :post_type do
+  factory :post_type_new_member, parent: :common_post_type do
     id { PostType::NEW_MEMBER_ID }
     name { 'Ujonc' }
   end
 
-  factory :post_type_evaluation_helper, parent: :post_type do
+  factory :post_type_evaluation_helper, parent: :common_post_type do
     id { PostType::EVALUATION_HELPER_ID }
-    group { nil }
     name { 'Pontozó' }
   end
 end
