@@ -64,7 +64,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    Post.delete_all
+    # Post.delete_all
     PostType.delete_all
     Group.delete_all
     User.delete_all

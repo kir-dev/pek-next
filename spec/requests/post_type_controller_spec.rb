@@ -55,7 +55,7 @@ describe PostTypesController do
       let(:group) { create(:group) }
       let(:user) { group.leader.user }
       before(:each) { login_as(user) }
-      before(:each) { PostType.destroy(PostType::FINANCIAL_OFFICER_POST_ID) }
+      # before(:each) { PostType.destroy(PostType::FINANCIAL_OFFICER_POST_ID) }
 
       it 'redirects back' do
         post "/groups/#{group.id}/post_types", params: {
