@@ -50,5 +50,11 @@ function addPost(group_id, membership_id, post_type_id) {
                 button.disabled = false
             });
         }
+        if(response.status == 403){
+            response.json().then(data => {
+                UIkit.notify({message: data.message, timeout: 3000, status: 'danger'})
+                button.disabled = false
+            })
+        }
     })
 }

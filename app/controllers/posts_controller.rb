@@ -23,15 +23,23 @@ class PostsController < ApplicationController
     membership = Membership.find(params[:membership_id])
     post_type_id = params[:post_type_id].to_i
     authorize Post.new(membership: membership, post_type_id: post_type_id)
-
-    new_post = CreatePost.call(group, membership, post_type_id)
+    begin
+      new_post = CreatePost.call(group, membership, post_type_id)
+    rescue CreatePost::PostAlreadyTaken
+      post_taken = true
+    end
     respond_to do |format|
       format.html do
-        return redirect_to group_path(group) if new_post.leader?
+        flash[:notice] = t('services.create_post.post_already_taken') if post_taken
+        return redirect_to group_path(group) if new_post&.leader?
 
-        redirect_back fallback_location: group_path(group)
+        redirect_to group_membership_posts_path(group, membership)
       end
-      format.json { render json: { post_id: new_post.id } }
+      format.json do
+        return render status: :forbidden, json: { message: t('services.create_post.post_already_taken') } if post_taken
+
+        render json: { post_id: new_post.id }
+      end
     end
   end
 
