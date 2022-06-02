@@ -55,6 +55,15 @@
     </div>
   </div>
 
+  <% if policy(current_group).edit? %>
+    <div class="uk-form-row uk-margin-small-bottom uk-margin-top-remove">
+      <label class="uk-form-label form-label-required uk-margin-remove">Elsődleges tagok száma</label>
+      <div class="uk-form-controls">
+        <%= @viewmodel.primary_members_count %>
+      </div>
+    </div>
+  <% end %>
+
   <% if @viewmodel.group.inactive? %>
     <div class="uk-form-row uk-margin-small-bottom uk-margin-top-remove">
       <label class="uk-form-label uk-text-bold">A kör valószínűleg inaktív!</label>

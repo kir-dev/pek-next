@@ -148,6 +148,14 @@ class Group < ApplicationRecord
     Group.resorts.include?(self)
   end
 
+  def primary_memberships
+    primary_membership_ids = User.joins(:primary_membership).where('memberships.group_id': id)
+                                 .where.not(svie_member_type: SvieUser::NOT_MEMBER)
+                                 .select('memberships.id as primary_membership_id')
+                                 .map(&:primary_membership_id)
+    Membership.where(id: primary_membership_ids).active
+  end
+
   private
 
   def founded_less_than_a_year_ago?
