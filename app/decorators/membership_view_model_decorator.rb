@@ -71,6 +71,10 @@ end
     acive_users_count(membership_view_model.group)
   end
 
+  def primary_members_count
+    group.primary_memberships.count
+  end
+
   def inactive_members_count
     inacive_users_count(membership_view_model.group)
   end
