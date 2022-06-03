@@ -21,6 +21,8 @@ class EvaluationPolicy < ApplicationPolicy
   alias update? edit?
   alias create? edit?
   alias destroy? edit?
+  alias copy_previous_principles? edit?
+
 
   alias update_comments? show?
 

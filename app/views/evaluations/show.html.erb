@@ -18,6 +18,15 @@
       class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>
   <% end %>
 
+  <% if policy(@evaluation).copy_previous_principles? %>
+    <%= button_to 'Előző pontozási elvek importálása',
+                  group_evaluation_copy_previous_principles_path(current_group, @evaluation),
+                  class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center',
+                  style: 'background-color: #ed8d34',
+                  data: { confirm: 'Biztos, hogy be szeretnéd importálni az előző féléves pontozási elveket?'}
+    %>
+  <% end %>
+
   <% if policy(@evaluation).table? %>
     <%= link_to 'Pontozás', group_evaluation_table_path(current_group, @evaluation),
         class: 'uk-button uk-button-primary uk-width-medium-1-3 uk-margin uk-display-block uk-align-center' %>

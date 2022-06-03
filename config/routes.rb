@@ -63,6 +63,7 @@ Rails.application.routes.draw do
       get '/table', to: 'evaluations#table'
       post '/pointrequest', to: 'evaluations#submit_point_request'
       delete '/pointrequest', to: 'evaluations#cancel_point_request', as: :cancel_point_request
+      post :copy_previous_principles
     end
     get '/messages', to: 'messages#index'
     get '/messages/all', to: 'messages#all'

@@ -94,3 +94,5 @@ hu:
   services:
     create_post:
       post_already_taken: 'Ezt a posztot már kiosztottad valakinek! Vissza kell venned a jelenlegi posztot, hogy újra kiosztható legyen.'
+  evaluation:
+    successful_principle_import: 'Sikeres importálás!'
