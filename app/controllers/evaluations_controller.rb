@@ -34,15 +34,15 @@ class EvaluationsController < ApplicationController
     authorize_evaluation
 
     @point_details = PointDetail.joins(point_request: :evaluation)
-                                .where(evaluations: { id: current_evaluation.id} )
+                                .where(evaluations: { id: current_evaluation.id })
                                 .includes(:principle)
-    @evaluation    = current_evaluation
+    @evaluation = current_evaluation
     @ordered_principles = @evaluation.principles.order(:type, :id)
 
     point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
-    @users                  = User.where(id: point_eligible_user_ids)
-                                  .includes(:entry_requests,
-                                            point_requests: [point_details: [:point_detail_comments, :principle]])
+    @users = User.where(id: point_eligible_user_ids)
+                 .includes(:entry_requests,
+                           point_requests: [point_details: [:point_detail_comments, :principle]])
     @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
     @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
 
@@ -86,6 +86,23 @@ class EvaluationsController < ApplicationController
                 notice: t(:cancelled_point_request)
   end
 
+  def copy_previous_principles
+    authorize_evaluation
+
+    previous_evaluation = current_group.evaluations.second_to_last
+    ActiveRecord::Base.transaction do
+      previous_evaluation.principles.find_each do |principle|
+        Principle.create!(evaluation: current_evaluation,
+                          name: principle.name,
+                          description: principle.description,
+                          type: principle.type,
+                          max_per_member: principle.max_per_member)
+      end
+    end
+    flash[:notice] = t('evaluation.successful_principle_import')
+    redirect_to group_evaluation_principles_path(current_group, current_evaluation)
+  end
+
   private
 
   def authorize_evaluation
@@ -97,9 +114,9 @@ class EvaluationsController < ApplicationController
   end
 
   def new_evaluation
-    evaluation = Evaluation.new(group_id:        current_group.id,
+    evaluation = Evaluation.new(group_id: current_group.id,
                                 creator_user_id: current_user.id,
-                                semester:        current_semester)
+                                semester: current_semester)
     evaluation.set_default_values
     evaluation.save!
 

@@ -152,4 +152,26 @@ describe EvaluationsController do
       expect(response).to have_http_status :ok
     end
   end
+
+  describe '#copy_previous_principles' do
+    include_context "application season"
+    include_context "current user is the group leader"
+
+    before(:each) do
+      evaluation.update!(id:2)
+      previous_evaluation = create(:evaluation, group: group, id: 1 )
+      Principle.create!(evaluation: previous_evaluation,
+                        name: 'Previous principle',
+                        type: Principle::WORK,
+                        max_per_member: 10)
+    end
+
+    it 'copies the previous principles' do
+      expect {
+        post "/groups/#{group.id}/evaluations/#{evaluation.id}/copy_previous_principles"
+      }.to change{evaluation.principles.count}.from(0).to(1)
+
+      expect(response).to redirect_to(group_evaluation_principles_path(group, evaluation))
+    end
+  end
 end
