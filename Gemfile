@@ -4,6 +4,9 @@ ruby '2.5.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3.6'
+
+# For parsing excel sheets
+gem 'roo'
 # Use pg as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
