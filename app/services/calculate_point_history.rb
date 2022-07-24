@@ -27,7 +27,7 @@ class CalculatePointHistory
         .select { |r| valid_point_request?(r) }
         .each do |point_request|
       user_points[point_request.evaluation.group.id] ||= 0
-      user_points[point_request.evaluation.group.id] += point_request.point
+      user_points[point_request.evaluation.group.id] += (point_request.point || 0)
     end
     sum = user_points.sum { |_, point| point**2 }
     [Math.sqrt(sum), SystemAttribute.max_point_for_semester].min
