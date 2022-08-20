@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
     redirect_url = session[:redirect_url] || root_path
     user = User.find_by(auth_sch_id: raw_user['internal_id'])
     if user
+      user.update!(neptun: raw_user['niifPersonOrgID']) if user.neptun.blank?
       session[:user_id] = user.id
       user.update_last_login!
       redirect_to redirect_url

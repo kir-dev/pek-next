@@ -11,7 +11,8 @@ class RegistrationController < ApplicationController
       auth_sch_id: oauth_data['internal_id'],
       email: oauth_data['mail'],
       firstname: oauth_data['givenName'],
-      lastname: oauth_data['sn']
+      lastname: oauth_data['sn'],
+      neptun: oauth_data['niifPersonOrgID']
     }
     @user = User.create(create_params.merge(oauth_params))
     if @user.valid?
