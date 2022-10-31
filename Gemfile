@@ -17,7 +17,7 @@ gem 'jquery-rails'
 gem 'omniauth'
 gem 'omniauth-oauth2'
 # Use sidekiq for background workers
-gem 'sidekiq'
+gem 'sidekiq','~> 5.2.0'
 gem 'sidekiq-cron'
 # Use draper for decorating models
 gem 'draper'

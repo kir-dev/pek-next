@@ -357,7 +357,7 @@ DEPENDENCIES
   rspec-rails (~> 5.0)
   sass-rails (~> 5.0)
   shoulda-matchers
-  sidekiq
+  sidekiq (~> 5.2.0)
   sidekiq-cron
   simplecov
   spring
