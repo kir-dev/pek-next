@@ -150,3 +150,29 @@ input[type=number] {
   margin-right: 1px;
   visibility: visible;
 }
+#evaluation-table-filter-options {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 2rem auto;
+  gap: 2rem;
+}
+#evaluation-table-user-search-form {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  margin: 0 auto;
+  gap: 2rem;
+  max-width: 500px;
+}
+#evaluation-table-user-search-form > .input-column {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.input-column > .start-with {
+  display: flex;
+  gap: 1rem;
+  margin-top: .5rem;
+}

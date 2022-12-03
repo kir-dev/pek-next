@@ -53,6 +53,8 @@
 #
 
 class User < ApplicationRecord
+  paginates_per 50
+
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
 
   acts_as_target
@@ -80,6 +82,11 @@ class User < ApplicationRecord
   # Before validation need to fix cell phone numbers
   # validates_format_of :cell_phone, with: %r{\A\+?[0-9x]+$\z}, allow_blank: true
   validates_format_of :screen_name, without: %r{[\\/]+}
+
+  def self.with_full_name
+    full_names = select('*', "lower(concat(lastname,' ',firstname)) as full_name ")
+    from(full_names, :users)
+  end
 
   def full_name
     "#{lastname} #{firstname}"

@@ -1,5 +1,6 @@
 class EvaluationsController < ApplicationController
   before_action :validate_correct_group
+  before_action :set_search, only: :table
 
   def current
     authorize_evaluation
@@ -32,7 +33,6 @@ class EvaluationsController < ApplicationController
 
   def table
     authorize_evaluation
-
     @point_details = PointDetail.joins(point_request: :evaluation)
                                 .where(evaluations: { id: current_evaluation.id })
                                 .includes(:principle)
@@ -40,11 +40,13 @@ class EvaluationsController < ApplicationController
     @ordered_principles = @evaluation.principles.order(:type, :id)
 
     point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
-    @users = User.where(id: point_eligible_user_ids)
+    @users = User.with_full_name.where(id: point_eligible_user_ids)
                  .includes(:entry_requests,
                            point_requests: [point_details: [:point_detail_comments, :principle]])
+    search_users
+    @users = @users.order(:full_name).page(params[:page])
+    @users_for_pagination = @users
     @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
-    @users = @users.sort { |a, b| hu_compare(a.full_name, b.full_name) }
 
     @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
     evaluation_policy = policy(@evaluation)
@@ -121,5 +123,16 @@ class EvaluationsController < ApplicationController
     evaluation.save!
 
     evaluation
+  end
+
+  def set_search
+    @search = OpenStruct.new(term: params[:term]&.downcase, start_with?: !!params[:start_with])
+  end
+
+  def search_users
+    return if @search.term.blank?
+
+    query = @search.start_with? ? "#{@search.term}%" : "%#{@search.term}%"
+    @users = @users.where("full_name like ?", query)
   end
 end
