@@ -1,7 +1,7 @@
 <% stylesheet 'evaluation' %>
 <% stylesheet 'evaluation_table' %>
 
-<h1>Pontozás - <%= @evaluation.group.name %></h1>
+<h1 class="uk-margin-left">Pontozás - <%= @evaluation.group.name %></h1>
 
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-clearfix uk-margin-bottom">
@@ -26,7 +26,25 @@
       <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: 'uk-button uk-button-small' %>
     </div>
   </div>
-
+  <div id='evaluation-table-filter-options'>
+      <%= form_with id: 'evaluation-table-user-search-form',
+                    url: group_evaluation_table_path, method: :get, local: true,
+                    class: 'uk-form' do |form| %>
+        <div class="input-column">
+          <%= form.text_field :term, value: @search.term %>
+          <div class="start-with">
+            <%= form.label :start_with, "Csak a név elején" %>
+            <%= form.check_box :start_with, { checked: @search.start_with? }, true, false %>
+          </div>
+        </div>
+        <div>
+          <%= form.submit "Keresés", class: 'uk-button uk-button-primary' %>
+        </div>
+      <% end %>
+    <div>
+      <%= paginate @users_for_pagination %>
+    </div>
+  </div>
   <div class="uk-grid uk-grid-collapse uk-padding-remove uk-margin-remove">
     <div id="name-list-container">
       <ul class="uk-list uk-list-striped uk-text-bold" id="name-list">
@@ -171,9 +189,12 @@
           </tr>
         </tfoot>
       </table>
-    </div>`
+    </div>
   </div>
   <div id="save-icon"></div>
+</div>
+<div class="uk-margin-large-top">
+  <%= paginate @users_for_pagination %>
 </div>
 
 <div class="dark shadow" id="comment-float">
