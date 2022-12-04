@@ -157,7 +157,7 @@ docker cp ~/db-dumps/pek-next-production-db-2022-12-04.dump pek-next_postgres_1:
 
 # open the postgres container and load the database dump 
 docker-compose exec postgres bash
-pg_restore -d pek-next /tmp/pek-next-production-db-2022-12-04.dump
+pg_restore -U postgres -d pek-next /tmp/pek-next-production-db-2022-12-04.dump
 ```
 
 ## Problems you may encounter and the solutions
