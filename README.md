@@ -114,6 +114,12 @@ docker volume create pek_database
 docker-compose up --build
 ```
 
+To deploy the application in **staging** environment use the following command:
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.staging.yml up -d --build
+```
+
 After creating, while the containers are running run the following commands:
 
 ```bash
@@ -125,6 +131,33 @@ docker-compose run web bash -c "bundle exec rake db:migrate"
 
 # This is required at new setups and after changing in assets
 docker-compose run web bash -c "bundle exec rake assets:precompile"
+```
+
+## Maintenance tasks
+
+Be sure to make regular backups in prod.
+
+To **create a database** dump, use the following commands:
+
+```bash
+# open a session to the postgres container
+docker-compose exec postgres bash
+
+# create the database dump in the postgres container (use your current date),then exit
+pg_dump -U postgres -Fc pek-next > /tmp/pek-next-production-db-2022-12-04.dump
+exit
+
+# copy the database dump from the container to the host machine
+docker cp pek-next_postgres_1:/tmp/pek-next-production-db-2022-12-04.dump ~/db-dumps
+```
+To load a previously created database dump, use the following commands:
+```bash
+# copy the dump from the host to the postgres container
+docker cp ~/db-dumps/pek-next-production-db-2022-12-04.dump pek-next_postgres_1:/tmp
+
+# open the postgres container and load the database dump 
+docker-compose exec postgres bash
+pg_restore -d pek-next /tmp/pek-next-production-db-2022-12-04.dump
 ```
 
 ## Problems you may encounter and the solutions
