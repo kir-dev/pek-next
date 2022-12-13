@@ -75,7 +75,5 @@ group :development do
   # Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-commands-rspec'
-
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  gem 'rack-mini-profiler'
 end

@@ -1,0 +1,7 @@
+setAdminButtonId = "set-admin-button-<%= @sub_group_membership.id%>"
+setAdminButton = document.getElementById(setAdminButtonId)
+setAdminButtonInput = setAdminButton.parentElement.children.admin
+setAdminButton.value = "<%= @sub_group_membership.admin? ? 'Admin jog elvétel':'Admin jog adás' %>"
+setAdminButton.classList.remove('uk-button-success', 'uk-button-danger')
+setAdminButton.classList.add('<%= @sub_group_membership.admin? ? 'uk-button-danger':'uk-button-success' %>')
+setAdminButtonInput.value = <%= !@sub_group_membership.admin? %>

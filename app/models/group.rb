@@ -126,7 +126,9 @@ class Group < ApplicationRecord
 
     !active_in_last_two_semesters?
   end
+
   include ApplicationHelper
+
   def point_eligible_memberships
     memberships.active.includes(:user)
                .sort { |m1, m2| hu_compare(m1.user.full_name, m2.user.full_name) }
@@ -153,6 +155,10 @@ class Group < ApplicationRecord
                                  .where.not(svie_member_type: SvieUser::NOT_MEMBER)
                                  .pluck(:svie_primary_membership)
     Membership.where(id: primary_membership_ids).active
+  end
+
+  def current_evaluation
+    evaluations.find_by(semester: SystemAttribute.semester.to_s)
   end
 
   private

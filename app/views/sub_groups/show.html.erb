@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @sub_group.name %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @sub_group.group_id %>
+</p>
+
+<% @sub_group_memberships.each do |sub_group_membership| %>
+  <div>
+    <span><%= sub_group_membership.membership.user.full_name %></span>
+    <% if sub_group_membership.admin? %>
+      <%= button_to 'Admin jog elvétel', set_admin_group_sub_group_path(@sub_group),
+                    remote: true,
+                    id: "set-admin-button-#{sub_group_membership.id}",
+                    params: { sub_group_membership_id: sub_group_membership.id, admin: false },
+                    class: 'uk-button uk-button-danger', form_class: 'uk-display-inline-block' %>
+    <% else %>
+      <%= button_to 'Admin jog adás', set_admin_group_sub_group_path(@sub_group),
+                    remote: true,
+                    id: "set-admin-button-#{sub_group_membership.id}",
+                    params: { sub_group_membership_id: sub_group_membership.id, admin: true },
+                    class: 'uk-button uk-button-success', form_class: 'uk-display-inline-block'%>
+    <% end %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_group_sub_group_path(current_group, @sub_group) %> |
+<%= link_to 'Back', group_sub_groups_path(current_group) %> |
+<% if SystemAttribute.season.value != SystemAttribute::OFFSEASON && current_group.current_evaluation&.semester == SystemAttribute.semester.to_s %>
+  <%= link_to 'Pontozási elvek', group_sub_group_principles_path(current_group, @sub_group) %> |
+  <%= link_to 'Pontozás', group_sub_group_evaluation_table_path(current_group, @sub_group, current_group.current_evaluation) %>
+<% end %>

@@ -115,6 +115,6 @@ module PekNext
                              'ú', 'ü', 'ű', 'v', 'w', 'x', 'y', 'z']
 
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
-
+    config.i18n.fallbacks = [:en]
   end
 end

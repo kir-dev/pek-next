@@ -28,6 +28,8 @@ class Membership < ApplicationRecord
   belongs_to :user
   has_many :posts
   has_many :post_types, through: :posts
+  has_many :sub_group_memberships
+  has_many :sub_groups, through: :sub_group_memberships
 
   before_create :set_defaults
 

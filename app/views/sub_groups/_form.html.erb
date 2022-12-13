@@ -1,0 +1,24 @@
+<%= form_with(model: sub_group,
+              url: sub_group.new_record? ? group_sub_groups_path(current_group) : group_sub_group_path(current_group, sub_group),
+              local: true) do |form| %>
+  <% if sub_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sub_group.errors.count, "error") %> prohibited this sub_group from being saved:</h2>
+
+      <ul>
+        <% sub_group.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

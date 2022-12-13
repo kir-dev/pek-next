@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -516,7 +509,8 @@ CREATE TABLE public.principles (
     name character varying,
     description character varying,
     type character varying,
-    max_per_member integer
+    max_per_member integer,
+    sub_group_id bigint
 );
 
 
@@ -580,6 +574,71 @@ CREATE TABLE public.spot_images (
     usr_neptun character varying NOT NULL,
     image_path character varying(255) NOT NULL
 );
+
+
+--
+-- Name: sub_group_memberships; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sub_group_memberships (
+    id bigint NOT NULL,
+    sub_group_id bigint NOT NULL,
+    membership_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    admin boolean DEFAULT false
+);
+
+
+--
+-- Name: sub_group_memberships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sub_group_memberships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sub_group_memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sub_group_memberships_id_seq OWNED BY public.sub_group_memberships.id;
+
+
+--
+-- Name: sub_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sub_groups (
+    id bigint NOT NULL,
+    name character varying,
+    group_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: sub_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sub_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sub_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sub_groups_id_seq OWNED BY public.sub_groups.id;
 
 
 --
@@ -792,6 +851,20 @@ ALTER TABLE ONLY public.principles ALTER COLUMN id SET DEFAULT nextval('public.p
 
 
 --
+-- Name: sub_group_memberships id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sub_group_memberships ALTER COLUMN id SET DEFAULT nextval('public.sub_group_memberships_id_seq'::regclass);
+
+
+--
+-- Name: sub_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sub_groups ALTER COLUMN id SET DEFAULT nextval('public.sub_groups_id_seq'::regclass);
+
+
+--
 -- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -970,6 +1043,22 @@ ALTER TABLE ONLY public.privacies
 
 ALTER TABLE ONLY public.spot_images
     ADD CONSTRAINT spot_images_usr_neptun_key UNIQUE (usr_neptun);
+
+
+--
+-- Name: sub_group_memberships sub_group_memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sub_group_memberships
+    ADD CONSTRAINT sub_group_memberships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sub_groups sub_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sub_groups
+    ADD CONSTRAINT sub_groups_pkey PRIMARY KEY (id);
 
 
 --
@@ -1186,6 +1275,41 @@ CREATE UNIQUE INDEX index_posts_on_membership_id_and_post_type_id ON public.post
 
 
 --
+-- Name: index_principles_on_sub_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_principles_on_sub_group_id ON public.principles USING btree (sub_group_id);
+
+
+--
+-- Name: index_sub_group_memberships_on_membership_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sub_group_memberships_on_membership_id ON public.sub_group_memberships USING btree (membership_id);
+
+
+--
+-- Name: index_sub_group_memberships_on_sub_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sub_group_memberships_on_sub_group_id ON public.sub_group_memberships USING btree (sub_group_id);
+
+
+--
+-- Name: index_sub_group_memberships_on_sub_group_id_and_membership_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sub_group_memberships_on_sub_group_id_and_membership_id ON public.sub_group_memberships USING btree (sub_group_id, membership_id);
+
+
+--
+-- Name: index_sub_groups_on_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sub_groups_on_group_id ON public.sub_groups USING btree (group_id);
+
+
+--
 -- Name: index_subscriptions_on_key; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1351,6 +1475,14 @@ ALTER TABLE ONLY public.evaluations
 
 
 --
+-- Name: sub_group_memberships fk_rails_112cf6013e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sub_group_memberships
+    ADD CONSTRAINT fk_rails_112cf6013e FOREIGN KEY (sub_group_id) REFERENCES public.sub_groups(id);
+
+
+--
 -- Name: point_detail_comments fk_rails_14e0ee0629; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1367,6 +1499,22 @@ ALTER TABLE ONLY public.view_settings
 
 
 --
+-- Name: sub_group_memberships fk_rails_56238805e1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sub_group_memberships
+    ADD CONSTRAINT fk_rails_56238805e1 FOREIGN KEY (membership_id) REFERENCES public.memberships(id);
+
+
+--
+-- Name: sub_groups fk_rails_63198f7ca3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sub_groups
+    ADD CONSTRAINT fk_rails_63198f7ca3 FOREIGN KEY (group_id) REFERENCES public.groups(id);
+
+
+--
 -- Name: point_details fk_rails_6ef8df1bae; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1380,6 +1528,22 @@ ALTER TABLE ONLY public.point_details
 
 ALTER TABLE ONLY public.principles
     ADD CONSTRAINT fk_rails_84e8865fd0 FOREIGN KEY (evaluation_id) REFERENCES public.evaluations(id);
+
+
+--
+-- Name: svie_post_requests fk_rails_a0009aa5e4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.svie_post_requests
+    ADD CONSTRAINT fk_rails_a0009aa5e4 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: principles fk_rails_d2d309563f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.principles
+    ADD CONSTRAINT fk_rails_d2d309563f FOREIGN KEY (sub_group_id) REFERENCES public.sub_groups(id);
 
 
 --
@@ -1527,6 +1691,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200722173131'),
 ('20201223070757'),
 ('20210307164901'),
-('20210905120558');
+('20210905120558'),
+('20221206072407'),
+('20221206081834'),
+('20221209072919'),
+('20221209100356');
 
 

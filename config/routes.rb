@@ -37,6 +37,15 @@ Rails.application.routes.draw do
   root to: redirect('/profiles/me')
   get 'groups/all', to: 'groups#all', as: :all_groups
   resources :groups, only: [:show, :index, :edit, :update, :create, :new] do
+    resources :sub_groups do
+      post :join, on: :member
+      delete :leave, on: :member
+      post :set_admin, on: :member
+      resources :sub_group_principles, as: :principles ,only: [:index, :update, :create, :destroy]
+      resources :sub_group_evaluations, as: :evaluation do
+        get :table
+      end
+    end
     resources :memberships, only: [:create, :destroy] do
       post '/inactivate', to: 'memberships#inactivate'
       post '/reactivate', to: 'memberships#reactivate'
