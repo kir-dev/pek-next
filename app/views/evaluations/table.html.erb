@@ -20,10 +20,15 @@
     </div>
     <div class="uk-float-right uk-margin-right">
       <button class="uk-button uk-button-small uk-button-primary" data-uk-modal="{target:'#eval-table-info'}">Help me!</button>
-      <%= render 'table_info' %>
+      <%= render 'evaluations/table_info' %>
     </div>
+
     <div class="uk-float-right uk-margin-right">
-      <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: 'uk-button uk-button-small' %>
+      <% if controller_name == 'sub_group_evaluations' %>
+        <%= link_to 'Vissza', group_sub_group_path(current_group, params[:sub_group_id]), class: 'uk-button uk-button-small' %>
+      <% else %>
+        <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: 'uk-button uk-button-small' %>
+      <% end %>
     </div>
   </div>
   <div id='evaluation-table-filter-options'>

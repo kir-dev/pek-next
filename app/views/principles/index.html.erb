@@ -18,8 +18,8 @@
 
     <div class="uk-accordion" data-uk-accordion="{collapse:false, showfirst:false}">
       <div id="principles">
-      <% @evaluation.principles.order(:type, :id).each do |principle| %>
-        <%= render 'show', principle: principle, evaluation: @evaluation %>
+      <% @principles.each do |principle| %>
+        <%= render 'principles/show', principle: principle, evaluation: @evaluation %>
       <% end %>
      </div>
     </div>
@@ -56,8 +56,6 @@
       </div>
     <% end %>
 <% end %>
-    <%= button_to "Vissza", group_evaluations_current_path(current_group), method: :get,
-      class: "uk-button uk-align-center uk-margin-top" %>
-
+    <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: "uk-button uk-align-center uk-margin-top" %>
   </div>
 </div>
