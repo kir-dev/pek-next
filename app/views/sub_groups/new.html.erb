@@ -1,5 +1,8 @@
-<h1>New Sub Group</h1>
+<h1>Új munkacsoport</h1>
 
-<%= render 'form', sub_group: @sub_group %>
+<div class="uk-panel uk-panel-box" >
+  <%= render 'form', sub_group: @sub_group %>
+<br/>
+  <%= link_to 'Vissza', group_sub_groups_path(current_group), class: 'uk-margin-large-top' %>
+</div>
 
-<%= link_to 'Back', group_sub_groups_path(current_group) %>

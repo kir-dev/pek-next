@@ -4,5 +4,9 @@ FactoryBot.define do
     association :evaluation
     type { Principle::WORK }
     name { 'ha muszáj' }
+
+    factory :sub_group_principle do
+      sub_group { create(:sub_group, group: evaluation.group)}
+    end
   end
 end

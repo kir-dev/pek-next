@@ -1,6 +1,10 @@
 <div id="principle_<%= principle.id %>">
-
-  <%= form_for [ @evaluation.group, @evaluation, principle ], remote: true, html: { class: 'uk-form uk-form-horizontal' } do |f| %>
+  <% if controller_name == 'sub_group_principles' %>
+    <% form_path = group_sub_group_principle_path(@sub_group.group, @sub_group, principle) %>
+  <% else %>
+    <% form_path = group_evaluation_principle_path(@evaluation.group, @evaluation, principle) %>
+  <% end %>
+  <%= form_with model: principle, url: form_path, remote: true, html: { class: 'uk-form uk-form-horizontal' } do |f| %>
 
     <div class="uk-accordion-title">
       <div class="uk-grid uk-grid-small">
@@ -22,7 +26,7 @@
         <div class="uk-form-controls">
           <%= f.select :type,
                        options_for_select(Rails.configuration.x.principle_types.invert, principle.type),
-                       {}, class: 'uk-select uk-width-1-1' , disabled: !@can_edit %>
+                       {}, class: 'uk-select uk-width-1-1', disabled: !@can_edit %>
         </div>
       </div>
 
@@ -43,18 +47,22 @@
       <div class="uk-form-row">
         <%= f.label :description, 'Leírás', class: 'uk-form-label' %>
         <div class="uk-form-controls">
-          <%= f.text_area :description, class: 'uk-input uk-width-1-1' , placeholder: 'Leírás..', readonly: !@can_edit %>
+          <%= f.text_area :description, class: 'uk-input uk-width-1-1', placeholder: 'Leírás..', readonly: !@can_edit %>
         </div>
       </div>
 
       <% if @can_edit %>
-      <div class="uk-form-row">
-        <%= f.submit 'Mentés', class: 'uk-button' %>
-
-        <%= link_to 'Törlés', group_evaluation_principle_path(@evaluation.group, @evaluation, principle),
-                    method: :delete, class: 'uk-button uk-button-danger', remote: true,
-                    data: { confirm: 'Biztosan törlöd?' }%>
-      </div>
+        <div class="uk-form-row">
+          <%= f.submit 'Mentés', class: 'uk-button' %>
+          <% if controller_name == 'sub_group_principles' %>
+            <% delete_path = group_sub_group_principle_path(@sub_group.group, @sub_group, principle) %>
+          <% else %>
+            <% delete_path = group_evaluation_principle_path(@evaluation.group, @evaluation, principle) %>
+          <% end %>
+          <%= link_to 'Törlés', delete_path,
+                      method: :delete, class: 'uk-button uk-button-danger', remote: true,
+                      data: { confirm: 'Biztosan törlöd?' } %>
+        </div>
       <% end %>
     </div>
   <% end %>

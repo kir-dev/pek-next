@@ -63,6 +63,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_url if current_user.leader_of?(current_group) && !SystemAttribute.application_season?
   end
 
+  def require_sssl
+    unless current_group.id == Group::SSSL_ID
+      forbidden_page
+    end
+  end
+
   def require_leader_or_rvt_member
     membership = current_user.membership_for(current_group)
     forbidden_page unless membership&.leader? || current_user.roles.rvt_member?

@@ -1,37 +1,56 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @sub_group.name %>
-</p>
+</h1>
 
-<p>
-  <strong>Group:</strong>
-  <%= @sub_group.group_id %>
-</p>
-
-<% @sub_group_memberships.each do |sub_group_membership| %>
-  <div>
-    <span><%= sub_group_membership.membership.user.full_name %></span>
-    <% if sub_group_membership.admin? %>
-      <%= button_to 'Admin jog elvétel', set_admin_group_sub_group_path(@sub_group),
-                    remote: true,
-                    id: "set-admin-button-#{sub_group_membership.id}",
-                    params: { sub_group_membership_id: sub_group_membership.id, admin: false },
-                    class: 'uk-button uk-button-danger', form_class: 'uk-display-inline-block' %>
-    <% else %>
-      <%= button_to 'Admin jog adás', set_admin_group_sub_group_path(@sub_group),
-                    remote: true,
-                    id: "set-admin-button-#{sub_group_membership.id}",
-                    params: { sub_group_membership_id: sub_group_membership.id, admin: true },
-                    class: 'uk-button uk-button-success', form_class: 'uk-display-inline-block'%>
+<div class="uk-panel uk-panel-box">
+  <h3>Tagok</h3>
+  <table class="uk-table uk-table-striped uk-table-condensed">
+    <thead>
+    <th></th>
+    <th></th>
+    </thead>
+    <tbody>
+    <% if @sub_group_memberships.empty? %>
+      <p> Ennek a munkacsoportnak még nincsenek tagjai!"</p>
     <% end %>
-  </div>
-<% end %>
+    <% @sub_group_memberships.each do |sub_group_membership| %>
+      <tr>
+        <td>
+          <%= link_to sub_group_membership.membership.user.full_name, profile_path(sub_group_membership.membership.user.screen_name) %>
+        </td>
+        <td>
+          <% if @policy.set_admin? %>
+            <% if sub_group_membership.admin? %>
+              <%= button_to 'Admin jog elvétel', set_admin_group_sub_group_path(current_group, @sub_group),
+                            remote: true,
+                            id: "set-admin-button-#{sub_group_membership.id}",
+                            params: { sub_group_membership_id: sub_group_membership.id, admin: false },
+                            class: 'uk-button uk-button-danger', form_class: 'uk-display-inline-block' %>
+            <% else %>
+              <%= button_to 'Admin jog adás', set_admin_group_sub_group_path(current_group, @sub_group),
+                            remote: true,
+                            id: "set-admin-button-#{sub_group_membership.id}",
+                            params: { sub_group_membership_id: sub_group_membership.id, admin: true },
+                            class: 'uk-button uk-button-success', form_class: 'uk-display-inline-block' %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'Edit', edit_group_sub_group_path(current_group, @sub_group) %> |
-<%= link_to 'Back', group_sub_groups_path(current_group) %> |
-<% if SystemAttribute.season.value != SystemAttribute::OFFSEASON && current_group.current_evaluation&.semester == SystemAttribute.semester.to_s %>
-  <%= link_to 'Pontozási elvek', group_sub_group_principles_path(current_group, @sub_group) %> |
-  <%= link_to 'Pontozás', group_sub_group_evaluation_table_path(current_group, @sub_group, current_group.current_evaluation) %>
-<% end %>
+  <% if @policy.edit? %>
+    <%= link_to 'Szerkesztés', edit_group_sub_group_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
+  <% end %>
+  <% if @sub_group_principle_policy.index? &&
+    SystemAttribute.season.value != SystemAttribute::OFFSEASON &&
+    current_group.current_evaluation&.semester == SystemAttribute.semester.to_s %>
+    <%= link_to 'Pontozási elvek', group_sub_group_principles_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
+    <%= link_to 'Pontozás', group_sub_group_evaluation_table_path(current_group, @sub_group, current_group.current_evaluation), class: 'uk-button uk-button-primary' %>
+  <% end %>
+  <br/>
+  <%= link_to 'Vissza', group_sub_groups_path(current_group), class: 'uk-button uk-margin-top' %>
+</div>

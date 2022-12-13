@@ -12,10 +12,9 @@ var evaluationComments = (function($) {
   }
 
   function fetchComments(input) {
-    const currentUrl = window.location.href;
     const principle = input.getAttribute('data-principle');
     const user = input.getAttribute('data-user');
-    const commentUrl = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1) + 'point_detail_comments?principle_id=' + principle + '&user_id=' + user;
+    const commentUrl = evaluationURL + '/point_detail_comments?principle_id=' + principle + '&user_id=' + user;
     $.ajax({
       url: commentUrl,
       success: loadComments

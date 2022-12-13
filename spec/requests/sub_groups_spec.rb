@@ -25,10 +25,11 @@ RSpec.describe "/sub_groups", type: :request do
   }
 
   let(:group) {
-    create(:group)
+    Group.find(Group::SSSL_ID).update!(id: 1000)
+    create(:group, id: Group::SSSL_ID)
   }
 
-  let(:user) { create(:user) }
+  let(:user) { group.leader.user }
 
   before(:each) do
     login_as(user)
