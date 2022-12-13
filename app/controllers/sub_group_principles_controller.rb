@@ -3,32 +3,38 @@ class SubGroupPrinciplesController < ApplicationController
   before_action :validate_correct_evaluation, only: %i[update destroy]
   # before_action :authorize_evaluation, except: [:index]
   before_action :set_sub_group, only: [:index, :create, :update]
+  before_action :require_sssl
 
   def index
+    authorize Principle.new(sub_group: @sub_group), policy_class: SubGroupPrinciplePolicy
     @evaluation = current_evaluation
-    authorize @evaluation, :show?
-
     @principles = @evaluation.principles.where(sub_group: @sub_group).order(:type, :id)
     @can_edit = true
   end
 
   def update
-    @principle.update(principle_params)
-
+    @principle.attributes = principle_params
+    authorize @principle, policy_class: SubGroupPrinciplePolicy
+    @principle.save!
     render 'principles/update'
   end
 
   def create
     @principle = Principle.new(principle_params)
+
     @evaluation = current_evaluation
     @principle.evaluation = @evaluation
     @principle.sub_group = @sub_group
-    @principle.save
 
+    authorize @principle, policy_class: SubGroupPrinciplePolicy
+    # Todo add error handling
+    @principle.save
+    @can_edit = true
     render 'principles/create'
   end
 
   def destroy
+    authorize @principle, policy_class: SubGroupPrinciplePolicy
     @principle.destroy
 
     render 'principles/destroy'

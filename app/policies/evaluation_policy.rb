@@ -2,7 +2,7 @@ class EvaluationPolicy < ApplicationPolicy
   def show?
     return false if off_season?
 
-    return true if leader_of_the_group? || evaluation_helper_of_the_group?
+    return true if can_update_active_request?
     return true if leader_of_the_resort? || leader_in_the_resort?
     return true if evaluation_helper_in_the_resort? || evaluation_helper_at_resort?
     return true if pek_admin? || rvt_member?
@@ -58,7 +58,7 @@ class EvaluationPolicy < ApplicationPolicy
     return false if request_status == Evaluation::ACCEPTED
 
     unless request_status == Evaluation::NOT_YET_ASSESSED
-      return true if leader_of_the_group? || evaluation_helper_of_the_group? || pek_admin?
+      return true if can_update_active_request?
     end
 
     if evaluation_season?
@@ -159,5 +159,9 @@ class EvaluationPolicy < ApplicationPolicy
 
   def evaluation
     record
+  end
+
+  def can_update_active_request?
+    leader_of_the_group? || evaluation_helper_of_the_group? || pek_admin?
   end
 end

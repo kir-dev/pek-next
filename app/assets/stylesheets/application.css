@@ -146,3 +146,8 @@ html, body {
 .pre-wrap{
     white-space: pre-wrap;
 }
+
+.button-warn {
+	background-color: #ed8d34;
+	color: white;
+}

@@ -1,6 +1,9 @@
-<h1>Editing Sub Group</h1>
-
+<h1>Munkacsoport szerkesztése</h1>
+<div class="uk-panel uk-panel-box">
 <%= render 'form', sub_group: @sub_group %>
 
-<%= link_to 'Show', group_sub_group_path(current_group,@sub_group) %> |
-<%= link_to 'Back', group_sub_groups_path(current_group) %>
+<div class="uk-margin-top">
+  <%= link_to 'Vissza', group_sub_groups_path(current_group), class: 'uk-button uk-margin-right' %>
+  <%= link_to 'Megtekintés', group_sub_group_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
+</div>
+</div>

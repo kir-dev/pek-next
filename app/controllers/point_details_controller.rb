@@ -3,11 +3,13 @@ class PointDetailsController < ApplicationController
   before_action :validate_correct_group
 
   def update
-    authorize @evaluation, :update_point_request?
+    unless PointDetailPolicy.new(current_user, @evaluation, @principle).update_point_request?
+      raise NotAuthorizedError
+    end
 
     begin
       ActiveRecord::Base.transaction do
-        point_detail_service          = CreateOrUpdatePointDetail.new(@user, @principle, @evaluation)
+        point_detail_service = CreateOrUpdatePointDetail.new(@user, @principle, @evaluation)
         @point_detail, @point_details = point_detail_service.call(params[:point])
       end
     rescue ActiveRecord::RecordNotUnique, ActiveRecord::StatementInvalid

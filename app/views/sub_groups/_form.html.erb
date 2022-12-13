@@ -1,6 +1,6 @@
-<%= form_with(model: sub_group,
+<%= form_with model: sub_group,
               url: sub_group.new_record? ? group_sub_groups_path(current_group) : group_sub_group_path(current_group, sub_group),
-              local: true) do |form| %>
+              local: true, class: 'uk-form' do |form| %>
   <% if sub_group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(sub_group.errors.count, "error") %> prohibited this sub_group from being saved:</h2>
@@ -14,11 +14,12 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+
+    <%= form.label 'Név' %> <br/>
+    <%= form.text_field :name, class: 'uk-margin-bottom uk-margin-top' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Mentés', class: 'uk-button uk-button-success', style: 'color: white' %>
   </div>
 <% end %>

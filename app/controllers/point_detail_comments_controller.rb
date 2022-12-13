@@ -59,6 +59,8 @@ class PointDetailCommentsController < ApplicationController
     principle ||= Principle.find params[:principle_id]
 
     @evaluation = principle.evaluation
-    authorize @evaluation, :update_comments?
+    unless PointDetailPolicy.new(current_user, @evaluation, principle).update_comments?
+      raise NotAuthorizedError
+    end
   end
 end

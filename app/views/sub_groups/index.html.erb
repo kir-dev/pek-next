@@ -1,34 +1,54 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Sub Groups</h1>
-
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Group</th>
-    <th colspan="4"></th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @sub_groups.each do |sub_group| %>
+<h1>Munkacsoportok</h1>
+<div class="uk-panel uk-panel-box">
+  <table class="uk-table" style="max-width: 800px">
+    <thead>
     <tr>
-      <td><%= sub_group.name %></td>
-      <td><%= sub_group.group_id %></td>
-      <td><%= link_to 'Show', group_sub_group_path(current_group, sub_group) %></td>
-      <td><%= link_to 'Edit', edit_group_sub_group_path(current_group, sub_group) %></td>
-      <td><%= link_to 'Destroy', group_sub_group_path(current_group, sub_group), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% unless @current_user_subgroup_ids.include?(sub_group.id) %>
-        <td><%= button_to 'Csatlakozás', join_group_sub_group_path(current_group, sub_group) %></td>
-      <% else %>
-        <td><%= button_to 'Kilépés', leave_group_sub_group_path(current_group, sub_group), method: :delete %></td>
-      <% end %>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
+    </thead>
+
+    <tbody>
+    <% @sub_groups.each do |sub_group| %>
+      <tr>
+        <td style="min-width: 300px">
+          <% admin = @sub_group_memberships.to_a.find { |sub_group_membership|
+            sub_group_membership.sub_group == sub_group }&.admin? %>
+          <% link_text = sub_group.name %>
+          <% link_text.concat(' (Admin)') if admin %>
+
+          <%= link_to link_text, group_sub_group_path(current_group, sub_group), class: 'uk-button uk-button-link uk-text-bold' %>
+        </td>
+        <td>
+          <% unless @current_user_subgroup_ids.include?(sub_group.id) %>
+            <%= button_to 'Csatlakozás', join_group_sub_group_path(current_group, sub_group), class: 'uk-button uk-button-success' %>
+          <% else %>
+            <%= button_to 'Kilépés', leave_group_sub_group_path(current_group, sub_group), method: :delete, class: 'uk-button button-warn' %>
+          <% end %>
+        </td>
+        <td>
+          <% if @policy.edit? %>
+            <%= link_to 'Szerkesztés', edit_group_sub_group_path(current_group, sub_group), class: 'uk-button uk-button-primary' %>
+          <% end %>
+        </td>
+        <td>
+          <% if @policy.destroy? %>
+            <%= link_to 'Törlés', group_sub_group_path(current_group, sub_group), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <br>
+  <% if @policy.create? %>
+    <%= link_to 'Új munkacsoport', new_group_sub_group_path(current_group), class: 'uk-button uk-button-success' %>
   <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Sub Group', new_group_sub_group_path(current_group) %>
+  <br/>
+  <%= link_to 'Vissza', group_path(current_group),class:'uk-button uk-margin-top' %>
+</div>
