@@ -34,6 +34,7 @@ class Group < ApplicationRecord
 
   alias_attribute :parent, :group
 
+  has_many :sub_groups
   has_many :memberships
   has_many :members, through: :memberships, source: :user
   has_many :post_types

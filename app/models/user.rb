@@ -61,6 +61,7 @@ class User < ApplicationRecord
 
   has_many :memberships
   has_many :groups, through: :memberships
+  has_many :sub_groups, through: :memberships
   has_many :entry_requests
   has_many :point_requests
   has_many :im_accounts
