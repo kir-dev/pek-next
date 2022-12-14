@@ -18,6 +18,7 @@ class SubGroupEvaluationsController < ApplicationController
                  .includes(:entry_requests,
                            point_requests: [point_details: [:point_detail_comments, :principle]])
     search_users
+    @users = @users.joins(:sub_groups).where(sub_groups: {id: params[:sub_group_id]})
     @users = @users.order(:full_name).page(params[:page])
     @users_for_pagination = @users
     @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })

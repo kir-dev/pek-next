@@ -32,20 +32,32 @@
     </div>
   </div>
   <div id='evaluation-table-filter-options'>
-      <%= form_with id: 'evaluation-table-user-search-form',
-                    url: group_evaluation_table_path, method: :get, local: true,
-                    class: 'uk-form' do |form| %>
-        <div class="input-column">
-          <%= form.text_field :term, value: @search.term %>
-          <div class="start-with">
-            <%= form.label :start_with, "Csak a név elején" %>
-            <%= form.check_box :start_with, { checked: @search.start_with? }, true, false %>
-          </div>
+    <%= form_with scope: :search,
+                  url:   group_evaluation_table_path, method: :get, local: true,
+                  model: @search,
+                  class: 'uk-form' do |form| %>
+      <div class="input-column">
+        <%= form.text_field :term %>
+        <div class="start-with">
+          <%= form.label :start_with, "Csak a név elején" %>
+          <%= form.check_box :start_with, {}, true, false %>
         </div>
         <div>
-          <%= form.submit "Keresés", class: 'uk-button uk-button-primary' %>
+          <% if @sub_groups.present? &&  !@sub_groups.empty? %>
+            <%= form.label :start_with, "Munkacsoportok" %>
+            <% @sub_groups.each do |sg| %>
+              <div class="input-column">
+                <%= form.check_box :sub_groups, { multiple: true, checked: @search.sub_groups.include?(sg.id.to_s) }, sg.id, nil %>
+                <span><%= sg.name %></span>
+              </div>
+            <% end %>
+          <% end %>
         </div>
-      <% end %>
+      </div>
+      <div>
+        <%= form.submit "Keresés", class: 'uk-button uk-button-primary' %>
+      </div>
+    <% end %>
     <div>
       <%= paginate @users_for_pagination %>
     </div>

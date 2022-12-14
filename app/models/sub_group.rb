@@ -21,6 +21,7 @@ class SubGroup < ApplicationRecord
   belongs_to :group
   has_many :sub_group_memberships
   has_many :memberships, through: :sub_group_memberships
+  has_many :users, through: :memberships
   has_many :principles
   validates :name, presence: true
   validates :group_id, presence: true

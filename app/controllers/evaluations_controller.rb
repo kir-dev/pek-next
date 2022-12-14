@@ -38,17 +38,22 @@ class EvaluationsController < ApplicationController
                                 .where(evaluations: { id: current_evaluation.id })
                                 .includes(:principle)
     @evaluation = current_evaluation
+    @sub_groups = @evaluation.group.sub_groups
     @ordered_principles = @evaluation.principles.order(:type, :id)
-
+    #filter_principles
     point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
     @users = User.with_full_name.where(id: point_eligible_user_ids)
                  .includes(:entry_requests,
                            point_requests: [point_details: [:point_detail_comments, :principle]])
+
+
+    filter_users
     search_users
-    @users = @users.order(:full_name).page(params[:page])
+    @users = @users.order(:full_name).page(params[:page]).distinct
+
     @users_for_pagination = @users
     @users = EvaluationUserDecorator.decorate_collection(@users, context: { evaluation: @evaluation })
-
+    asd = @users.first.single_detail(@ordered_principles.first)
     @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
     evaluation_policy = policy(@evaluation)
     @update_point_request = evaluation_policy.update_point_request?
