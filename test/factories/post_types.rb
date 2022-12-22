@@ -20,6 +20,11 @@ FactoryBot.define do
     name { 'Korvezeto' }
   end
 
+  factory :post_type_leader_assistant, parent: :common_post_type do
+    id { PostType::LEADER_ASSISTANT_ID }
+    name { 'Korvezeto helyettes' }
+  end
+
   factory :post_type_newbie, parent: :post_type do
     id { PostType::DEFAULT_POST_ID }
     name { 'Feldolgozas alatt' }

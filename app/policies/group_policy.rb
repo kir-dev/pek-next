@@ -19,7 +19,7 @@ class GroupPolicy < ApplicationPolicy
   alias new? create?
 
   def manage_memberships?
-    leader? || evaluation_helper?
+    leader? || leader_assistant? || evaluation_helper?
   end
 
   alias manage_posts? manage_memberships?
@@ -30,6 +30,10 @@ class GroupPolicy < ApplicationPolicy
 
   def leader?
     user.leader_of?(group)
+  end
+
+  def leader_assistant?
+    user.leader_assistant_of?(group)
   end
 
   def evaluation_helper?

@@ -11,6 +11,17 @@ describe GroupPolicy, type: :policy do
         expect(subject).to permit(user, group)
       end
     end
+
+    context 'when the user is the group leader assistant' do
+      let(:membership) { create(:membership, :leader) }
+      let(:user)       { membership.user }
+      let(:group)      { membership.group }
+
+      it 'grants access' do
+        expect(subject).to permit(user, group)
+      end
+    end
+
     context 'when the user is not the group leader' do
       let(:membership) { create(:membership) }
       let(:user)  { membership.user }

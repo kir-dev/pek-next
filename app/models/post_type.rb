@@ -26,6 +26,7 @@ class PostType < ApplicationRecord
   PEK_ADMIN_ID = 66
   NEW_MEMBER_ID = 104
   EVALUATION_HELPER_ID = 1188
+  LEADER_ASSISTANT_ID = 1460
 
   COMMON_TYPES = [
     FINANCIAL_OFFICER_POST_ID,
@@ -34,7 +35,8 @@ class PostType < ApplicationRecord
     DEFAULT_POST_ID,
     PEK_ADMIN_ID,
     NEW_MEMBER_ID,
-    EVALUATION_HELPER_ID
+    EVALUATION_HELPER_ID,
+    LEADER_ASSISTANT_ID
   ].freeze
   scope :without_common, -> { where.not(id: COMMON_TYPES) }
 end

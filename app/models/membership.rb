@@ -44,6 +44,10 @@ class Membership < ApplicationRecord
     has_post?(PostType::LEADER_POST_ID)
   end
 
+  def leader_assistant?
+    has_post?(PostType::LEADER_ASSISTANT_ID)
+  end
+
   def newbie?
     has_post?(PostType::DEFAULT_POST_ID) && end_date.nil? && !archived?
   end

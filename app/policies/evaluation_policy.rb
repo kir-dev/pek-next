@@ -23,7 +23,6 @@ class EvaluationPolicy < ApplicationPolicy
   alias destroy? edit?
   alias copy_previous_principles? edit?
 
-
   alias update_comments? show?
 
   def update_point_request?
@@ -41,6 +40,7 @@ class EvaluationPolicy < ApplicationPolicy
   def update_entry_request?
     update_request?(entry_request_status)
   end
+
   alias edit_justification? update_entry_request?
 
   def submit_entry_request?
@@ -71,7 +71,7 @@ class EvaluationPolicy < ApplicationPolicy
   def submit_request?(request_status)
     return false unless submittable_request?(request_status)
 
-    leader_of_the_group? || pek_admin?
+    leader_of_the_group? || leader_assistant_of_the_group? || pek_admin?
   end
 
   def submittable_request?(request_status)
@@ -86,21 +86,25 @@ class EvaluationPolicy < ApplicationPolicy
     return false unless application_season?
     return false unless request_status == Evaluation::NOT_YET_ASSESSED
 
-    leader_of_the_group? || pek_admin?
+    leader_of_the_group? || leader_assistant_of_the_group? || pek_admin?
   end
 
   def leader_of_the_group?
-    cache { user.leader_of?(evaluation.group) }
+    user.leader_of?(evaluation.group)
+  end
+
+  def leader_assistant_of_the_group?
+    user.leader_assistant_of?(evaluation.group)
   end
 
   def evaluation_helper_of_the_group?
-    cache { user.evaluation_helper_of?(evaluation.group) }
+    user.evaluation_helper_of?(evaluation.group)
   end
 
   def leader_of_the_resort?
     return false unless group_is_a_resort_member?
 
-    cache { user.leader_of?(evaluation.group.parent) }
+    user.leader_of?(evaluation.group.parent)
   end
 
   def leader_in_the_resort?
@@ -125,7 +129,7 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def group_is_a_resort_member?
-    cache { Group.resorts.include?(evaluation.group.parent) }
+    Group.resorts.include?(evaluation.group.parent)
   end
 
   def group_is_a_resort?
@@ -142,19 +146,19 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def rvt_member?
-    cache { user.roles.rvt_member? }
+    user.roles.rvt_member?
   end
 
   def rvt_leader?
-    cache { user.roles.rvt_leader? }
+    user.roles.rvt_leader?
   end
 
   def point_request_status
-    cache { evaluation.point_request_status }
+    evaluation.point_request_status
   end
 
   def entry_request_status
-    cache { evaluation.entry_request_status }
+    evaluation.entry_request_status
   end
 
   def evaluation
@@ -162,6 +166,6 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def can_update_active_request?
-    leader_of_the_group? || evaluation_helper_of_the_group? || pek_admin?
+    leader_of_the_group? || leader_assistant_of_the_group? || evaluation_helper_of_the_group? || pek_admin?
   end
 end

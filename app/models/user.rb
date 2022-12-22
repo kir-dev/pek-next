@@ -106,6 +106,11 @@ class User < ApplicationRecord
     membership&.leader?
   end
 
+  def leader_assistant_of?(group)
+    membership = membership_for(group)
+    membership&.leader_assistant?
+  end
+
   def member_of?(group)
     membership = membership_for(group)
     membership&.active?

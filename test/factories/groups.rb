@@ -22,6 +22,12 @@ FactoryBot.define do
       membership = Membership.create!(user: user, group: group)
       CreatePost.call(group, membership, PostType::EVALUATION_HELPER_ID)
     end
+
+    after(:create) do |group|
+      user = create(:user)
+      membership = Membership.create!(user: user, group: group)
+      CreatePost.call(group, membership, PostType::LEADER_ASSISTANT_ID)
+    end
   end
 
   factory :group_with_parent, parent: :group do

@@ -2,6 +2,10 @@ leader:
   id: 3
   name: körvezető
 
+leader_assistant:
+  id: 1460
+  name: körvezető helyettes
+
 newbie:
   id: 6
   name: feldolgozás alatt
