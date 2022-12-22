@@ -10,6 +10,12 @@ FactoryBot.define do
       end
     end
 
+    trait :leader_assistant do
+      after(:create) do |membership|
+        membership.posts << build(:post, :leader_assistant)
+      end
+    end
+
     trait :newbie do
       after(:create) do |membership|
         membership.posts << build(:post, :newbie)

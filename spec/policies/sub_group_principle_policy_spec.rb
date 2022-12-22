@@ -13,6 +13,12 @@ RSpec.describe SubGroupPrinciplePolicy, type: :policy do
     it { is_expected.to permit_actions(all_action) }
   end
 
+  context 'when the user is the group leader assistant' do
+    let(:user) { group.memberships.first(&:leader_assistant?).user }
+
+    it { is_expected.to permit_actions(all_action) }
+  end
+
   context 'when the user is the sub group admin' do
     let(:user) { create(:sub_group_membership,
                         sub_group: sub_group_principle.sub_group,

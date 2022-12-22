@@ -49,6 +49,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.create(:post_type_leader)
+    FactoryBot.create(:post_type_leader_assistant)
     FactoryBot.create(:post_type_financial_officer)
     FactoryBot.create(:post_type_newbie)
     FactoryBot.create(:post_type_evaluation_helper)

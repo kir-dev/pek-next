@@ -2,7 +2,7 @@ class SubGroupPrinciplePolicy < ApplicationPolicy
   alias principle record
 
   def index?
-    leader_of_the_group? || admin_of_the_sub_group?
+    leader_of_the_group? || leader_assistant_of_the_group? || admin_of_the_sub_group?
   end
 
   alias create? index?
@@ -11,6 +11,10 @@ class SubGroupPrinciplePolicy < ApplicationPolicy
 
   def leader_of_the_group?
     membership.present? && membership.has_post?(PostType::LEADER_POST_ID)
+  end
+
+  def leader_assistant_of_the_group?
+    membership.present? && membership.has_post?(PostType::LEADER_ASSISTANT_ID)
   end
 
   def admin_of_the_sub_group?

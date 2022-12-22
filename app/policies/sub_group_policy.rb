@@ -8,7 +8,7 @@ class SubGroupPolicy < ApplicationPolicy
   alias show? index?
 
   def create?
-    return true if leader_of_the_group?
+    return true if leader_of_the_group? || leader_assistant_of_the_group?
   end
 
   alias edit? create?
@@ -31,6 +31,10 @@ class SubGroupPolicy < ApplicationPolicy
 
   def leader_of_the_group?
     membership.present? && membership.has_post?(PostType::LEADER_POST_ID)
+  end
+
+  def leader_assistant_of_the_group?
+    membership.present? && membership.has_post?(PostType::LEADER_ASSISTANT_ID)
   end
 
   def membership

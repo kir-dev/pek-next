@@ -14,6 +14,14 @@ describe PostPolicy, type: :policy do
       end
     end
 
+    context "when the current user is the group leader assistant" do
+      let(:user) { membership.group.memberships.first(&:leader_assistant?).user }
+
+      it "is permitted" do
+        expect(subject).to permit(user, post.reload)
+      end
+    end
+
     context "when the user is not a member" do
       let(:user) { create(:user) }
       it "is forbidden" do
