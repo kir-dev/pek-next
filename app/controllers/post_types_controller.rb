@@ -4,7 +4,7 @@ class PostTypesController < ApplicationController
 
   def create
     post_type_params = params.require(:post_type).permit(:name, :group_id)
-    post_type = PostType.create(post_type_params)
+    post_type        = PostType.create(post_type_params)
 
     group_url = group_path(params[:group_id])
     return redirect_back fallback_location: group_url unless post_type.errors.any?
@@ -18,14 +18,12 @@ class PostTypesController < ApplicationController
 
   def destroy
     post_type = PostType.find(params[:id])
-    can_be_deleted =
-      post_type.posts.empty? &&
-      !PostType::COMMON_TYPES.include?(post_type.id) &&
-      post_type.group.id == @group.id
 
-    return redirect_back fallback_location: group_url, alert: 'A poszt nem törölhető, mert használatban van!' unless can_be_deleted
-    post_type.destroy
-    redirect_back fallback_location: group_url
+    if DestroyPostType.call(@group, post_type)
+      redirect_back fallback_location: group_url, notice: 'Poszt törlése sikeres volt'
+    else
+      redirect_back fallback_location: group_url, alert: 'Alapvető posztokat nem lehet törölni'
+    end
   end
 
   private
