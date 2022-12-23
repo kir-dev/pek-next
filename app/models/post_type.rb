@@ -39,4 +39,5 @@ class PostType < ApplicationRecord
     LEADER_ASSISTANT_ID
   ].freeze
   scope :without_common, -> { where.not(id: COMMON_TYPES) }
+  scope :with_users, -> {includes(posts:{membership: :user})}
 end

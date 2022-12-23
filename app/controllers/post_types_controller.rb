@@ -13,7 +13,7 @@ class PostTypesController < ApplicationController
   end
 
   def index
-    @post_types = PostType.where(group_id: @group.id).without_common
+    @post_types = PostType.where(group_id: @group.id).without_common.with_users
   end
 
   def destroy
