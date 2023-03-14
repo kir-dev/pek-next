@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 3000
+        command: ["bin/rails"]
+        args: ["server", "-b","0.0.0.0"]
+        env:
+        - name: "RAILS_ENV"
+          value: {{ .Values.railsEnv }}
+        - name: "DATABASE_HOST"
+          value: "postgres-service"
+        - name: "DATABASE_NAME"
+          value: {{ .Values.name }}-{{ .Values.railsEnv }}
+        - name: "DATABASE_USER"
+          value: {{.Values.database.user }}
+        - name: "DATABASE_PASSWORD"
+          value: {{ .Values.database.password }}
+        - name: "UNSPLASH_ACCES_KEY"
+          value: {{ .Values.unsplash.accessKey }}
+        - name: "UNSPLASH_SECRET"
+          value: {{ .Values.unsplash.secret }}
+        - name: "SECRET_KEY_BASE"
+          value: {{ .Values.secretKeyBase }}
+        - name: "HOST_URL"
+          value: {{ .Values.hostUrl }}
