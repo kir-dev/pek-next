@@ -11,7 +11,7 @@ module OmniAuth
       option :provider_ignores_state, true
 
       def request_phase
-        super
+        redirect client.auth_code.authorize_url(authorize_params)
       end
 
       def authorize_params
