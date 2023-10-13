@@ -4,7 +4,7 @@ services:
     image: redis:5
     restart: always
     networks:
-      - pek_network
+      - pek_staging_network
   postgres:
     build:
       context: .
@@ -17,7 +17,7 @@ services:
       - database_folder:/var/lib/postgresql/data/pgdata
     restart: always
     networks:
-      - pek_network
+      - pek_staging_network
   sidekiq:
     build: .
     command: bundle exec sidekiq
@@ -30,7 +30,7 @@ services:
       - postgres
       - redis
     networks:
-      - pek_network
+      - pek_staging_network
   web:
     build: .
     command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -48,19 +48,19 @@ services:
     ports:
       - "4443:3000"
     networks:
-      - pek_network
+      - pek_staging_network
     depends_on:
       - postgres
       - redis
 networks:
-  pek_network:
+  pek_staging_network:
 
 # Add your volumes
 
 volumes:
   uploads_folder:
     external:
-      name: pek_staging_uploads
+      name: pek_staging_uploads_2
   database_folder:
     external:
-      name: pek_staging_database
+      name: pek_staging_database_2
