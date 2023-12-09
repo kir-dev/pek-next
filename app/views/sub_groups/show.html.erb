@@ -10,13 +10,15 @@
     <thead>
     <th></th>
     <th></th>
+    <th></th>
     </thead>
     <tbody>
     <% if @sub_group_memberships.empty? %>
       <p> Ennek a munkacsoportnak még nincsenek tagjai!"</p>
     <% end %>
     <% @sub_group_memberships.each do |sub_group_membership| %>
-      <tr>
+      <% sub_group_membership_row_id = "sub-group-membership-row-#{sub_group_membership.id}" %>
+      <tr id="<%= sub_group_membership_row_id %>">
         <td>
           <%= link_to sub_group_membership.membership.user.full_name, profile_path(sub_group_membership.membership.user.screen_name) %>
         </td>
@@ -35,6 +37,15 @@
                             params: { sub_group_membership_id: sub_group_membership.id, admin: true },
                             class: 'uk-button uk-button-success', form_class: 'uk-display-inline-block' %>
             <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if @sub_group_membership_policy.destroy? %>
+            <%= button_to 'Csoport tagság megszüntetése', sub_group_membership_path(sub_group_membership),
+                          remote: true,
+                          params: {sub_group_membership_row_id: sub_group_membership_row_id},
+                          class: 'uk-button uk-button-danger',
+                          form_class: 'uk-display-inline-block', method: :delete %>
           <% end %>
         </td>
       </tr>

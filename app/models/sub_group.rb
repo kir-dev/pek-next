@@ -25,4 +25,8 @@ class SubGroup < ApplicationRecord
   has_many :principles
   validates :name, presence: true
   validates :group_id, presence: true
+
+  def membership_for(user:)
+    memberships.find_by(user: user)
+  end
 end

@@ -82,6 +82,7 @@ Rails.application.routes.draw do
     delete '/delegate', to: 'delegates#destroy'
     get '/history', to: 'group_history#show'
   end
+  resources :sub_group_memberships, only: :destroy
 
   get '/korok/showgroup/id/:id', to: redirect('/groups/%{id}')
 
