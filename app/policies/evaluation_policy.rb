@@ -6,6 +6,7 @@ class EvaluationPolicy < ApplicationPolicy
     return true if leader_of_the_resort? || leader_in_the_resort?
     return true if evaluation_helper_in_the_resort? || evaluation_helper_at_resort?
     return true if pek_admin? || rvt_member?
+    return true if sub_group_admin?
 
     false
   end
@@ -91,6 +92,10 @@ class EvaluationPolicy < ApplicationPolicy
 
   def leader_of_the_group?
     user.leader_of?(evaluation.group)
+  end
+
+  def sub_group_admin?
+    user.sub_group_admin_of?(evaluation.group)
   end
 
   def leader_assistant_of_the_group?

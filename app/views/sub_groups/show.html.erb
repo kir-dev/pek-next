@@ -43,7 +43,7 @@
           <% if @sub_group_membership_policy.destroy? %>
             <%= button_to 'Csoport tagság megszüntetése', sub_group_membership_path(sub_group_membership),
                           remote: true,
-                          params: {sub_group_membership_row_id: sub_group_membership_row_id},
+                          params: { sub_group_membership_row_id: sub_group_membership_row_id },
                           class: 'uk-button uk-button-danger',
                           form_class: 'uk-display-inline-block', method: :delete %>
           <% end %>
@@ -56,10 +56,10 @@
   <% if @policy.edit? %>
     <%= link_to 'Szerkesztés', edit_group_sub_group_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
   <% end %>
-  <% if @sub_group_principle_policy.index? &&
-    SystemAttribute.season.value != SystemAttribute::OFFSEASON &&
-    current_group.current_evaluation&.semester == SystemAttribute.semester.to_s %>
+  <% if @sub_group_principle_policy.index? %>
     <%= link_to 'Pontozási elvek', group_sub_group_principles_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
+  <% end %>
+  <% if @sub_group_evaluation_policy.table? %>
     <%= link_to 'Pontozás', group_sub_group_evaluation_table_path(current_group, @sub_group, current_group.current_evaluation), class: 'uk-button uk-button-primary' %>
   <% end %>
   <br/>

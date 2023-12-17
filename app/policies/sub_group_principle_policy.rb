@@ -2,6 +2,9 @@ class SubGroupPrinciplePolicy < ApplicationPolicy
   alias principle record
 
   def index?
+    return if SystemAttribute.season.value == SystemAttribute::OFFSEASON
+    # return if principle.evaluation&.semester == SystemAttribute.semester.to_s
+
     leader_of_the_group? || leader_assistant_of_the_group? || admin_of_the_sub_group?
   end
 

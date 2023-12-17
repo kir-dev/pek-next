@@ -26,7 +26,12 @@ class SubGroup < ApplicationRecord
   validates :name, presence: true
   validates :group_id, presence: true
 
-  def membership_for(user:)
-    memberships.find_by(user: user)
+  def sub_group_memberships_for(user:)
+    sub_group_memberships.joins(:membership).find_by(memberships: { user: user })
+  end
+
+  def admins
+    User.joins(memberships: :sub_group_memberships)
+        .where('sub_group_memberships.sub_group_id': id, 'sub_group_memberships.admin': true)
   end
 end
