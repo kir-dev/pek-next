@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe SubGroupPrinciplePolicy, type: :policy do
+  include_context 'application season'
+
   subject { described_class.new(user, sub_group_principle) }
 
   let(:all_action) { [:index, :create, :update, :destroy] }

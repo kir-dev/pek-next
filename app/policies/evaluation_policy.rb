@@ -6,12 +6,14 @@ class EvaluationPolicy < ApplicationPolicy
     return true if leader_of_the_resort? || leader_in_the_resort?
     return true if evaluation_helper_in_the_resort? || evaluation_helper_at_resort?
     return true if pek_admin? || rvt_member?
+    return true if sub_group_admin?
 
     false
   end
 
   alias current? show?
   alias table? show?
+  alias previous? show?
 
   def edit?
     submit_point_request?
@@ -55,6 +57,7 @@ class EvaluationPolicy < ApplicationPolicy
 
   def update_request?(request_status)
     return false if off_season?
+    return false unless SystemAttribute.semester.to_s == evaluation.semester
     return false if request_status == Evaluation::ACCEPTED
 
     unless request_status == Evaluation::NOT_YET_ASSESSED
@@ -91,6 +94,10 @@ class EvaluationPolicy < ApplicationPolicy
 
   def leader_of_the_group?
     user.leader_of?(evaluation.group)
+  end
+
+  def sub_group_admin?
+    user.sub_group_admin_of?(evaluation.group)
   end
 
   def leader_assistant_of_the_group?

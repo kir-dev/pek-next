@@ -6,6 +6,7 @@ FactoryBot.define do
     justification { 'Lyo lesz' }
     entry_request_status { Evaluation::NON_EXISTENT }
     point_request_status { Evaluation::NON_EXISTENT }
+    semester { SystemAttribute.semester}
 
     factory :babhamozo_2018_evaluation do
       entry_request_status { Evaluation::ACCEPTED }

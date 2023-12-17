@@ -69,11 +69,11 @@ class User < ApplicationRecord
   has_many :privacies
 
   has_one :primary_membership, class_name: :Membership, foreign_key: :id,
-                               primary_key: :svie_primary_membership
+          primary_key: :svie_primary_membership
   has_one :svie_post_request
   has_one :view_setting
 
-  validates :screen_name, uniqueness: {case_sensitive: false}
+  validates :screen_name, uniqueness: { case_sensitive: false }
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
 
@@ -109,6 +109,12 @@ class User < ApplicationRecord
   def leader_assistant_of?(group)
     membership = membership_for(group)
     membership&.leader_assistant?
+  end
+
+  def sub_group_admin_of?(group)
+    membership = membership_for(group)
+    SubGroupMembership.joins(:sub_group).where('sub_groups.group_id': group.id,
+                                               membership: membership, admin: true).any?
   end
 
   def member_of?(group)

@@ -17,6 +17,8 @@ class SubGroupsController < ApplicationController
     @policy = policy(@sub_group)
     @sub_group_memberships = @sub_group.sub_group_memberships.includes(membership: :user)
     @sub_group_principle_policy =  SubGroupPrinciplePolicy.new(current_user, Principle.new(sub_group: @sub_group))
+    @sub_group_membership_policy = SubGroupMembershipPolicy.new(current_user, SubGroupMembership.new(sub_group: @sub_group))
+    @sub_group_evaluation_policy = SubGroupEvaluationPolicy.new(current_user, @sub_group)
   end
 
   # GET /sub_groups/new
