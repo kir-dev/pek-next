@@ -34,17 +34,17 @@ class EvaluationsController < ApplicationController
 
   def table
     authorize_evaluation
-    @point_details      = PointDetail.joins(point_request: :evaluation)
-                                     .where(evaluations: { id: current_evaluation.id })
-                                     .includes(:principle)
-    @evaluation         = current_evaluation
-    @sub_groups         = @evaluation.group.sub_groups
+    @point_details = PointDetail.joins(point_request: :evaluation)
+                                .where(evaluations: { id: current_evaluation.id })
+                                .includes(:principle)
+    @evaluation = current_evaluation
+    @sub_groups = @evaluation.group.sub_groups
     @ordered_principles = @evaluation.principles.order(:type, :id)
     filter_principles
     point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
-    @users                  = User.with_full_name.where(id: point_eligible_user_ids)
-                                  .includes(:entry_requests,
-                                            point_requests: [point_details: %i[
+    @users = User.with_full_name.where(id: point_eligible_user_ids)
+                 .includes(:entry_requests,
+                           point_requests: [point_details: %i[
                                               point_detail_comments principle
                                             ]])
 
@@ -52,14 +52,14 @@ class EvaluationsController < ApplicationController
     search_users
     @users = @users.order(:full_name).page(params[:page]).distinct
 
-    @users_for_pagination        = @users
-    @users                       = EvaluationUserDecorator.decorate_collection(@users,
-                                                                               context: { evaluation: @evaluation })
+    @users_for_pagination = @users
+    @users = EvaluationUserDecorator.decorate_collection(@users,
+                                                         context: { evaluation: @evaluation })
 
     @evaluation_point_calculator = EvaluationPointCalculator.new(@users)
-    evaluation_policy            = policy(@evaluation)
-    @update_point_request        = evaluation_policy.update_point_request?
-    @update_entry_request        = evaluation_policy.update_entry_request?
+    evaluation_policy = policy(@evaluation)
+    @update_point_request = evaluation_policy.update_point_request?
+    @update_entry_request = evaluation_policy.update_entry_request?
   end
 
   def submit_entry_request
@@ -111,6 +111,12 @@ class EvaluationsController < ApplicationController
     end
     flash[:notice] = t('evaluation.successful_principle_import')
     redirect_to group_evaluation_principles_path(current_group, current_evaluation)
+  end
+
+  def previous
+    @evaluations = current_evaluation.group.evaluations.order(id: :desc).reject do |evaluation|
+      evaluation.semester == current_semester
+    end
   end
 
   private

@@ -13,6 +13,7 @@ class EvaluationPolicy < ApplicationPolicy
 
   alias current? show?
   alias table? show?
+  alias previous? show?
 
   def edit?
     submit_point_request?
@@ -56,6 +57,7 @@ class EvaluationPolicy < ApplicationPolicy
 
   def update_request?(request_status)
     return false if off_season?
+    return false unless SystemAttribute.semester.to_s == evaluation.semester
     return false if request_status == Evaluation::ACCEPTED
 
     unless request_status == Evaluation::NOT_YET_ASSESSED
