@@ -1,5 +1,6 @@
 class AuthSchServicesController < ApplicationController
   skip_before_action :require_login
+  before_action :validate_authsc_ip
 
   def sync
     user = get_user(params[:id], [])
@@ -17,6 +18,11 @@ class AuthSchServicesController < ApplicationController
   end
 
   private
+
+  def validate_authsc_ip
+    valid_authsc_ips = ENV["VALID_AUTHSCH_IPS"].split(',')
+    render status: :forbidden, plain: 'Forbidden' unless valid_authsc_ips.include?(request.remote_ip)
+  end
 
   def entrants_json(user, semester)
     entrants = user.entry_requests.select do |er|
