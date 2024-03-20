@@ -68,7 +68,7 @@ class SvieController < ApplicationController
     return forbidden_page unless current_user.svie.can_join_to?(member_type)
 
     current_user.svie.create_request(member_type)
-    redirect_to profiles_me_path, notice: t(:edit_successful)
+    redirect_to svie_edit_path, notice: t(:edit_successful)
   end
 
   def update_params
