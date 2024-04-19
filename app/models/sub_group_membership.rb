@@ -22,6 +22,7 @@
 #
 
 class SubGroupMembership < ApplicationRecord
+  has_paper_trail
   belongs_to :sub_group
   belongs_to :membership
 

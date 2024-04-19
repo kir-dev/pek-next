@@ -18,6 +18,7 @@
 #
 
 class SubGroup < ApplicationRecord
+  has_paper_trail
   belongs_to :group
   has_many :sub_group_memberships
   has_many :memberships, through: :sub_group_memberships

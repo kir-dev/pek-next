@@ -18,6 +18,7 @@
 #
 
 class Post < ApplicationRecord
+  has_paper_trail
   belongs_to :post_type
   belongs_to :membership
 

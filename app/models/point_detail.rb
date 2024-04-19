@@ -18,6 +18,7 @@
 #
 
 class PointDetail < ApplicationRecord
+  has_paper_trail
   belongs_to :principle
   belongs_to :point_request
   has_many :point_detail_comments, dependent: :destroy
