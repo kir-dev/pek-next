@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   include Pundit
+
+  before_action :set_paper_trail_whodunnit
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -111,5 +113,9 @@ class ApplicationController < ActionController::Base
 
   def forbidden_page
     render 'application/403', status: :forbidden
+  end
+
+  def user_for_paper_trail
+    session[:user_id].present? ? current_user.id : 'system'  # or whatever
   end
 end

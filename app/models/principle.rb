@@ -22,6 +22,7 @@
 
 class Principle < ApplicationRecord
   self.inheritance_column = nil # So it won't try to interpret the type column as STI
+  has_paper_trail
 
   belongs_to :evaluation
   belongs_to :sub_group, optional: true

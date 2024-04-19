@@ -18,6 +18,8 @@
 #
 
 class PointRequest < ApplicationRecord
+  has_paper_trail
+
   belongs_to :evaluation
   belongs_to :user
   has_many :point_details

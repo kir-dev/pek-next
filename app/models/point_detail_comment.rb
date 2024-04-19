@@ -22,6 +22,7 @@
 #
 
 class PointDetailComment < ApplicationRecord
+  has_paper_trail
   belongs_to :user
   belongs_to :point_detail
 

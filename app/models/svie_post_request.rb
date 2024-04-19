@@ -12,6 +12,8 @@
 #
 
 class SviePostRequest < ApplicationRecord
+  has_paper_trail
+
   belongs_to :user
 
   def inside_member?

@@ -31,6 +31,7 @@
 
 class Group < ApplicationRecord
   self.inheritance_column = nil
+  has_paper_trail
 
   alias_attribute :parent, :group
 

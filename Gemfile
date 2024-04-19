@@ -46,6 +46,9 @@ gem 'activity_notification', '~> 2.2', '>= 2.2.1'
 # use Pundit for authorization
 gem 'pundit', '~> 2.1'
 gem "bootsnap", ">= 1.1.0", require: false
+
+gem 'paper_trail'
+
 gem 'listen'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

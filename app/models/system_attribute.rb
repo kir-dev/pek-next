@@ -8,6 +8,8 @@
 #
 
 class SystemAttribute < ApplicationRecord
+  has_paper_trail
+
   def self.semester
     Semester.new(find_by(name: 'szemeszter').value)
   end
