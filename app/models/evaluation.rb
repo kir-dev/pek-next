@@ -35,7 +35,7 @@
 
 class Evaluation < ApplicationRecord
   alias_attribute :date, :semester
-  has_paper_trail ignore: [:last_modification]
+  has_paper_trail skip: [:last_modification]
 
   belongs_to :group
   has_many :point_requests

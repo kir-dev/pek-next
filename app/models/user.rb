@@ -58,7 +58,7 @@ class User < ApplicationRecord
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
 
   acts_as_target
-  has_paper_trail ignore: [:last_login]
+  has_paper_trail skip: [:last_login, :metascore]
 
   has_many :memberships
   has_many :groups, through: :memberships
