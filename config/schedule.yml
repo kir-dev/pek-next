@@ -1,3 +1,9 @@
 metascore:
   cron: "00 04 * * *"
   class: "MetascoreEveryone"
+
+audit_clean:
+  cron: "0 0 * * *"
+  class: "AuditCleanerWorker"
+  description: "Cleans up audit log table so its not bloating the database"
+  enabled: true
