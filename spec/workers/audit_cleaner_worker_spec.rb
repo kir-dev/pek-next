@@ -5,7 +5,7 @@ RSpec.describe AuditCleanerWorker, type: :worker do
       Timecop.travel '2024-04-19'
       user = create(:user)
       user.update(nickname: 'asd')
-      expect(PaperTrail::Version.count).to be > 2
+      expect(PaperTrail::Version.count).to be 2
 
       Timecop.travel '2024-08-19'
       AuditCleanerWorker.new.perform
@@ -18,7 +18,7 @@ RSpec.describe AuditCleanerWorker, type: :worker do
       Timecop.travel '2024-04-19'
       user = create(:user)
       user.update(nickname: 'asd')
-      expect(PaperTrail::Version.count).to be > 2
+      expect(PaperTrail::Version.count).to be  2
 
       Timecop.travel '2024-05-19'
       expect { AuditCleanerWorker.new.perform }.not_to change { PaperTrail::Version.count }
