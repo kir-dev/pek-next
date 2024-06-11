@@ -186,7 +186,7 @@ source ~/.bashrc
 
 _Restart your terminal_
 
-by [Kir-Dev Team](https://kir-dev.sch.bme.hu/)
+by [Kir-Dev Team](https://kir-dev.hu/)
 
 ### Special thanks for
 

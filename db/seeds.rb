@@ -24,7 +24,7 @@ Group.create([
   { id: Group::SIMONYI_ID, name: 'Simonyi Károly Szakkollégium', type: :team, parent_id: Group::RVT_ID },
   { id: Group::KIRDEV_ID, name: 'KIR fejlesztők és üzemeltetők', type: :group, parent_id: Group::SIMONYI_ID,
     description: 'A Villanykari Információs Rendszer fejlesztésével és üzemeltetésével foglalkozó kör.',
-    webpage: 'https://kir-dev.sch.bme.hu', maillist: 'hello@kir-dev.hu', founded: 2001, issvie: true,
+    webpage: 'https://kir-dev.hu', maillist: 'hello@kir-dev.hu', founded: 2001, issvie: true,
     delegate_count: 1, users_can_apply: true }
   ])
 

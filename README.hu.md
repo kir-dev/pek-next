@@ -153,7 +153,7 @@ source ~/.bashrc
 
 _Indítsd újra a terminálod_
 
-Készítette: [Kir-Dev Team](https://kir-dev.sch.bme.hu/)
+Készítette: [Kir-Dev Team](https://kir-dev.hu/)
 
 ### Külön köszönet
 
