@@ -1,0 +1,11 @@
+<div class="uk-container-center uk-panel uk-panel-box">
+  <h1>Korábbi pontozások</h1>
+  <ul class="uk-list uk-list-line">
+    <% @evaluations.each do |evaluation| %>
+      <% semester = Semester.new(evaluation.semester) %>
+      <li>
+        <%= link_to semester.to_readable, group_evaluation_table_path(current_group, evaluation) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

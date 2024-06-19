@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     get '/group_posts', to: "posts#group_posts", as: :posts
     resources :post_types, only: [:index, :create, :destroy]
 
+    get '/evaluations/previous', to: 'evaluations#previous'
     get '/evaluations/current', to: 'evaluations#current'
     resources :evaluations, only: [:show, :edit, :update] do
       resources :principles, only: [:index, :update, :create, :destroy]
@@ -82,6 +83,7 @@ Rails.application.routes.draw do
     delete '/delegate', to: 'delegates#destroy'
     get '/history', to: 'group_history#show'
   end
+  resources :sub_group_memberships, only: :destroy
 
   get '/korok/showgroup/id/:id', to: redirect('/groups/%{id}')
 

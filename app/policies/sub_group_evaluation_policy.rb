@@ -6,17 +6,25 @@ class SubGroupEvaluationPolicy < ApplicationPolicy
   def table?
     return false if off_season?
 
-    EvaluationPolicy.new(user, evaluation).table? || admin_of_the_sub_group?
+    EvaluationPolicy.new(user, evaluation).table? || admin_of_the_sub_group? || sub_group_admin?
   end
 
-  alias update_point_request? table?
+  def update_point_request?
+    return false if off_season?
+
+    EvaluationPolicy.new(user, evaluation).table? || admin_of_the_sub_group?
+  end
 
   def update_entry_request?
     EvaluationPolicy.new(user, evaluation).update_entry_request?
   end
 
   private
-
+  def sub_group_admin?
+    sub_group.group.sub_groups.any? do |sub_group_in_group|
+      sub_group_in_group.sub_group_memberships_for(user: user)&.admin?
+    end
+  end
   def off_season?
     SystemAttribute.offseason?
   end
