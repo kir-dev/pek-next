@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
 class SubGroupEvaluationPolicy < ApplicationPolicy
+  include SubGroupPolicyHelper
+
   alias sub_group record
 
   def table?
     return false if off_season?
 
-    EvaluationPolicy.new(user, evaluation).table? || admin_of_the_sub_group?
+    EvaluationPolicy.new(user, evaluation).table? || admin_of_the_sub_group? || admin_for_any_sub_group?
   end
 
-  alias update_point_request? table?
+  def update_point_request?
+    return false if off_season?
+
+    EvaluationPolicy.new(user, evaluation).edit? || admin_of_the_sub_group?
+  end
 
   def update_entry_request?
     EvaluationPolicy.new(user, evaluation).update_entry_request?

@@ -6,10 +6,10 @@ class SubGroupPrinciplesController < ApplicationController
   before_action :require_sssl
 
   def index
-    authorize Principle.new(sub_group: @sub_group), policy_class: SubGroupPrinciplePolicy
+    authorize @sub_group, policy_class: SubGroupPrinciplePolicy
     @evaluation = current_evaluation
     @principles = @evaluation.principles.where(sub_group: @sub_group).order(:type, :id)
-    @can_edit = true
+    @can_edit = SubGroupPrinciplePolicy.new(current_user, @sub_group).edit?
   end
 
   def update
@@ -26,7 +26,7 @@ class SubGroupPrinciplesController < ApplicationController
     @principle.evaluation = @evaluation
     @principle.sub_group = @sub_group
 
-    authorize @principle, policy_class: SubGroupPrinciplePolicy
+    authorize @sub_group, policy_class: SubGroupPrinciplePolicy
     # Todo add error handling
     @principle.save
     @can_edit = true
