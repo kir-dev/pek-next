@@ -1,13 +1,19 @@
 class SubGroupPrinciplePolicy < ApplicationPolicy
-  alias principle record
+  include SubGroupPolicyHelper
+
+  alias sub_group record
 
   def index?
+    leader_of_the_group? || leader_assistant_of_the_group? || admin_of_the_sub_group? || admin_for_any_sub_group?
+  end
+
+  def edit?
     leader_of_the_group? || leader_assistant_of_the_group? || admin_of_the_sub_group?
   end
 
-  alias create? index?
-  alias update? create?
-  alias destroy? create?
+  alias create? edit?
+  alias update? edit?
+  alias destroy? edit?
 
   def leader_of_the_group?
     membership.present? && membership.has_post?(PostType::LEADER_POST_ID)
@@ -19,10 +25,6 @@ class SubGroupPrinciplePolicy < ApplicationPolicy
 
   def admin_of_the_sub_group?
     sub_group_membership.present? && sub_group_membership.admin?
-  end
-
-  def sub_group
-    @sub_group ||= principle.sub_group
   end
 
   def membership

@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe SubGroupPrinciplePolicy, type: :policy do
-  subject { described_class.new(user, sub_group_principle) }
+  subject { described_class.new(user, sub_group) }
 
   let(:all_action) { [:index, :create, :update, :destroy] }
 
-  let(:sub_group_principle) { create(:sub_group_principle) }
-  let(:group) { sub_group_principle.sub_group.group }
+  let(:sub_group_principle) { create(:sub_group_principle)}
+  let(:sub_group) { sub_group_principle.sub_group}
+  let(:group) { sub_group.group }
   context 'when the user is the group leader' do
     let(:user) { group.leader.user }
 

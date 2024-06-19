@@ -6,6 +6,17 @@
 
 <div class="uk-panel uk-panel-box">
   <h3>Tagok</h3>
+  <% if @policy.edit? %>
+    <%= link_to 'Szerkesztés', edit_group_sub_group_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
+  <% end %>
+  <% if @sub_group_principle_policy.index?  %>
+    <%= link_to 'Pontozási elvek', group_sub_group_principles_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
+  <% end %>
+  <%  if @sub_group_evaluation_policy.table?  %>
+    <%= link_to 'Pontozás', group_sub_group_evaluation_table_path(current_group, @sub_group, current_group.current_evaluation), class: 'uk-button uk-button-primary' %>
+  <% end %>
+  <br/>
+  <%= link_to 'Vissza', group_sub_groups_path(current_group), class: 'uk-button uk-margin-top' %>
   <table class="uk-table uk-table-striped uk-table-condensed">
     <thead>
     <th></th>
@@ -41,16 +52,5 @@
     <% end %>
     </tbody>
   </table>
-
-  <% if @policy.edit? %>
-    <%= link_to 'Szerkesztés', edit_group_sub_group_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
-  <% end %>
-  <% if @sub_group_principle_policy.index? &&
-    SystemAttribute.season.value != SystemAttribute::OFFSEASON &&
-    current_group.current_evaluation&.semester == SystemAttribute.semester.to_s %>
-    <%= link_to 'Pontozási elvek', group_sub_group_principles_path(current_group, @sub_group), class: 'uk-button uk-button-primary' %>
-    <%= link_to 'Pontozás', group_sub_group_evaluation_table_path(current_group, @sub_group, current_group.current_evaluation), class: 'uk-button uk-button-primary' %>
-  <% end %>
-  <br/>
   <%= link_to 'Vissza', group_sub_groups_path(current_group), class: 'uk-button uk-margin-top' %>
 </div>
