@@ -14,7 +14,7 @@ class SubGroupPrinciplesController < ApplicationController
 
   def update
     @principle.attributes = principle_params
-    authorize @principle, policy_class: SubGroupPrinciplePolicy
+    authorize @principle.sub_group, policy_class: SubGroupPrinciplePolicy
     @principle.save!
     render 'principles/update'
   end
@@ -34,8 +34,8 @@ class SubGroupPrinciplesController < ApplicationController
   end
 
   def destroy
-    authorize @principle, policy_class: SubGroupPrinciplePolicy
-    @principle.destroy
+    authorize @principle.sub_group, policy_class: SubGroupPrinciplePolicy
+    @principle.destroy!
 
     render 'principles/destroy'
   end
