@@ -57,6 +57,8 @@ group :development, :test do
   gem 'brakeman', require: false
   # RSpec for more modern testing
   gem 'rspec-rails', '~> 5.0'
+  gem "roo", "~> 2.8"
+  gem "pry", "~> 0.14.2"
 end
 
 group :test do
