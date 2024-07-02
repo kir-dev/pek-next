@@ -48,7 +48,7 @@
               <%= user.sum_all_details %>
             </td>
             <td class="col-vertical-border uk-text-bold">
-              <%= Rails.configuration.x.entry_types[user.entry_request.entry_type] %>
+              <%= Rails.configuration.x.entry_types[user.entry_request&.entry_type] %>
             </td>
           </tr>
         <% end %>
