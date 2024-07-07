@@ -159,7 +159,7 @@ describe EvaluationsController do
 
     before(:each) do
       evaluation.update!(id:2)
-      previous_evaluation = create(:evaluation, group: group, id: 1 )
+      previous_evaluation = create(:evaluation, group: group, id: 1, semester: '201720182')
       Principle.create!(evaluation: previous_evaluation,
                         name: 'Previous principle',
                         type: Principle::WORK,

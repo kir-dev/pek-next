@@ -134,7 +134,8 @@ CREATE TABLE public.evaluations (
     next_version bigint,
     explanation text,
     optlock integer DEFAULT 0 NOT NULL,
-    is_considered boolean DEFAULT false NOT NULL
+    is_considered boolean DEFAULT false NOT NULL,
+    idx_in_semester integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1249,6 +1250,13 @@ CREATE UNIQUE INDEX index_entry_requests_on_evaluation_id_and_user_id ON public.
 
 
 --
+-- Name: index_evaluations_on_group_id_and_semester_and_idx_in_semester; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_evaluations_on_group_id_and_semester_and_idx_in_semester ON public.evaluations USING btree (group_id, semester, idx_in_semester);
+
+
+--
 -- Name: index_notifications_on_group_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1754,6 +1762,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221206081834'),
 ('20221209072919'),
 ('20221209100356'),
-('20240419155504');
+('20240419155504'),
+('20240707094123');
 
 
