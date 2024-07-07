@@ -5,6 +5,7 @@
 #  id                   :bigint           not null, primary key
 #  entry_request_status :string(255)
 #  explanation          :text
+#  idx_in_semester      :integer          default(0), not null
 #  is_considered        :boolean          default(FALSE), not null
 #  justification        :text             not null
 #  last_evaulation      :datetime
@@ -21,9 +22,10 @@
 #
 # Indexes
 #
-#  ert_semester_idx  (semester)
-#  next_version_idx  (next_version)
-#  unique_idx        (group_id,semester,next_version NULLS FIRST) UNIQUE
+#  ert_semester_idx                                                (semester)
+#  index_evaluations_on_group_id_and_semester_and_idx_in_semester  (group_id,semester,idx_in_semester) UNIQUE
+#  next_version_idx                                                (next_version)
+#  unique_idx                                                      (group_id,semester,next_version NULLS FIRST) UNIQUE
 #
 # Foreign Keys
 #
