@@ -18,6 +18,17 @@ class SeasonAdminController < ApplicationController
 
   def update
     SystemAttribute.update_season(params[:season])
-    redirect_to root_path, notice: t(:edit_successful)
+    redirect_to seasons_path, notice: t(:edit_successful)
+  end
+
+  def export
+    semester = SystemAttribute.semester
+    export = ExportPointHistory.call(semester.to_s)
+    csv = CSV.generate do |lines|
+      export.each do |line|
+        lines << line
+      end
+    end
+    send_data(csv, filename: "kozossegi-pont-expot-#{semester}.csv", type: "text/csv")
   end
 end
