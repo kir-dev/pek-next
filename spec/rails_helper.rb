@@ -64,6 +64,7 @@ RSpec.configure do |config|
     FactoryBot.create(:post_type_new_member)
     FactoryBot.create(:system_attribute_semester)
     FactoryBot.create(:system_attribute_app_season)
+    FactoryBot.create(:system_attribute_max_point_for_semester)
     SystemAttribute.update_season(SystemAttribute::OFFSEASON)
   end
 

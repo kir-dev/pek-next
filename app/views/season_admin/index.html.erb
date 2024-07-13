@@ -23,13 +23,21 @@
       <%= label :semester_year, 'Kiválasztott félév : ' %>
       <%= @semester.to_readable  %>
     </div>
+
+    <% if SystemAttribute.offseason? && PointHistory.exists?(semester: @semester.to_s) %>
+    <div class="uk-text-center">
+      <%= link_to "Közösségi pontok exportálása", export_point_history_path,
+                  {class: 'uk-button uk-button-danger uk-margin-small uk-margin-left'} %>
+    </div>
+    <% end %>
+
     <%= form_tag(seasons_path, class: 'uk-form') do %>
       <div class="uk-margin">
         <%= label :season, 'Időszak', class: 'uk-label' %>
         <%= select_tag :season, options_for_select(Rails.configuration.x.season_types.invert, @season.value), class: 'uk-select uk-width-auto' %>
       </div>
       <div class="uk-text-center uk-margin">
-        <%= submit_tag "Save", class: 'uk-button uk-button-danger uk-margin-small uk-margin-left' %>
+        <%= submit_tag "Mentés", class: 'uk-text-white uk-button uk-button-danger uk-margin-small uk-margin-left' %>
       </div>
     <% end %>
   </div>
