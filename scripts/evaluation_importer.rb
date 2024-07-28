@@ -40,5 +40,6 @@ class EvaluationImporter
         end
       end
     end
+    evaluation.point_requests.reload.each(&:recalculate!)
   end
 end
