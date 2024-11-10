@@ -54,7 +54,14 @@ class Group < ApplicationRecord
   KB_ID = 1
   SIMONYI_ID = 16
   SSSL_ID = 18
+  KSZK_ID = 47
+  FALATOZO_ID = 235
+  BULIS_ID = 144
+  SPORT_ID = 12
+  KULTUR_ID = 58
+  ERDEKVEDELMI_ID = 427
 
+  RESORTS = [ SIMONYI_ID, SSSL_ID, KSZK_ID, FALATOZO_ID, BULIS_ID, SPORT_ID, KULTUR_ID, ERDEKVEDELMI_ID ]
   enum type: {
     group: 'group',
     resort: 'resort',

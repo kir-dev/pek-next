@@ -24,6 +24,7 @@ class EntryRequest < ApplicationRecord
 
   belongs_to :evaluation
   belongs_to :user
+  has_one :group, through: :evaluation
 
   validates :evaluation_id, uniqueness: { scope: :user_id }
   validate :correct_user
