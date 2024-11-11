@@ -16,7 +16,12 @@ class EntryRequestsController < ApplicationController
     head :unprocessable_entity
   end
 
+  def update_review
+    head :ok
+  end
+
   def review
+    authorize :entry_request, :review?
     @resorts = Group.where(id: Group::RESORTS).order(:name)
     @entry_requests = EntryRequest.joins(:evaluation).includes(:group, :user).where('evaluations.semester': SystemAttribute.semester.to_s)
                                   .where("entry_requests.entry_type != 'KDO' OR entry_requests.justification != NULL")

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   root to: redirect('/profiles/me')
   resources :entry_requests do
     get :review, on: :collection
+    put :update_review, on: :member
   end
   get 'groups/all', to: 'groups#all', as: :all_groups
   resources :groups, only: [:show, :index, :edit, :update, :create, :new] do
