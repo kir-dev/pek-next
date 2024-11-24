@@ -12,6 +12,7 @@
         <div class="uk-form-row">
           <%= link_to entry_request.user.full_name, profile_path(entry_request.user) %>
           (<%= link_to entry_request.group.name, group_path(entry_request.group) %>)
+          <i id="<%="entry-request-#{entry_request.id}-status-indicator" %>"></i>
         </div>
         <div class="uk-form-row">
           <%= form.label :entry_type, "Ajánlások", class: "uk-form-label uk-text-bold" %>

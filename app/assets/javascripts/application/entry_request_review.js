@@ -2,6 +2,8 @@ const entryRequestReviewUpdateSubjects = {}
 
 async function submitEntryRequestReview(id) {
     console.log(id + " " + event);
+    const statusIndicator = document.getElementById(`entry-request-${id}-status-indicator`)
+    statusIndicator.className = "uk-icon-cog uk-float-right"
     if(!entryRequestReviewUpdateSubjects[id]){
         const { Subject, debounceTime } = rxjs;
         const subject = new Subject();
@@ -21,8 +23,9 @@ async function updateEntryRequestReview(id){
     const finalized = document.getElementById(`entry-request-${id}-finalized`).value
     const justification = document.getElementById(`entry-request-${id}-justification`).value
     console.log(entryType + finalized + justification)
+    const statusIndicator = document.getElementById(`entry-request-${id}-status-indicator`)
     try {
-        await fetch(`/entry_requests/${id}/update_review`, {
+        const response = await fetch(`/entry_requests/${id}/update_review`, {
             method: 'put',
             body: JSON.stringify({
                 "entry_type": entryType,
@@ -34,7 +37,13 @@ async function updateEntryRequestReview(id){
                 'Content-Type': 'application/json'
             }
         })
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        statusIndicator.className = "uk-icon-check uk-float-right"
     }
     catch(error) {
+        statusIndicator.className = "uk-icon-close uk-float-right"
+
     }
 }
