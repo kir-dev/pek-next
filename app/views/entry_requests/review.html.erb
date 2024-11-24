@@ -38,7 +38,7 @@
           <%= form.select :entry_type,  Rails.configuration.x.entry_types.map { |k, v| [v, k] }, {},
                           id: "entry-request-#{entry_request.id}-entry-type" %>
           <%= form.label :entry_type, "Végleges", class: "uk-form-label uk-text-bold uk-margin-left" %>
-          <%= form.check_box :finalized, id: "entry-request-#{entry_request.id}-finalized" %>
+          <%= form.check_box :finalized,  id: "entry-request-#{entry_request.id}-finalized" %>
         </div>
         <div class="uk-form-row uk-form-stacked">
           <%= form.label :justification, "Indoklás", class: "uk-form-label" %>

@@ -20,7 +20,7 @@ async function submitEntryRequestReview(id) {
 
 async function updateEntryRequestReview(id){
     const entryType = document.getElementById(`entry-request-${id}-entry-type`).value
-    const finalized = document.getElementById(`entry-request-${id}-finalized`).value
+    const finalized = document.getElementById(`entry-request-${id}-finalized`).checked
     const justification = document.getElementById(`entry-request-${id}-justification`).value
     console.log(entryType + finalized + justification)
     const statusIndicator = document.getElementById(`entry-request-${id}-status-indicator`)
