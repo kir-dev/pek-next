@@ -1,27 +1,40 @@
-const entryRequestReview = (function() {
-    const module = {};
+const entryRequestReviewUpdateSubjects = {}
 
-    module.init = function() {
-        console.log('review init')
-        const justifications = document.querySelectorAll("[data-type='entry-request-justification']");
-
-        console.log(justifications)
-        for (let justification of justifications) {
-            justification.addEventListener("input", handleChange)
-        }
+async function submitEntryRequestReview(id) {
+    console.log(id + " " + event);
+    if(!entryRequestReviewUpdateSubjects[id]){
+        const { Subject, debounceTime } = rxjs;
+        const subject = new Subject();
+        const result = subject.pipe(debounceTime(1000))
+        result.subscribe({
+            next: async () => await updateEntryRequestReview(id),
+            // next: () => { console.log(Math.random())}
+        });
+        entryRequestReviewUpdateSubjects[id] = result
     }
-    async function handleChange(event)
-    {
-        console.log('event ' + event.target.value )
-        await fetch( '/entry_requests/272883/update_review', {method: 'put',
+    const subject = entryRequestReviewUpdateSubjects[id]
+    subject.next()
+}
+
+async function updateEntryRequestReview(id){
+    const entryType = document.getElementById(`entry-request-${id}-entry-type`).value
+    const finalized = document.getElementById(`entry-request-${id}-finalized`).value
+    const justification = document.getElementById(`entry-request-${id}-justification`).value
+    console.log(entryType + finalized + justification)
+    try {
+        await fetch(`/entry_requests/${id}/update_review`, {
+            method: 'put',
+            body: JSON.stringify({
+                "entry_type": entryType,
+                "finalized": finalized,
+                "justification": justification,
+            }),
             headers: {
                 'X-CSRF-TOKEN': getCsrfToken(),
                 'Content-Type': 'application/json'
-            }})
+            }
+        })
     }
-
-    return module;
-}());
-
-$(document).ready(entryRequestReview.init);
-
+    catch(error) {
+    }
+}

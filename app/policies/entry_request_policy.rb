@@ -1,6 +1,6 @@
 class EntryRequestPolicy < ApplicationPolicy
   def review?
-    rvt_leader? || resort_leader?
+    pek_admin? || rvt_leader? || resort_leader?
   end
 
   private

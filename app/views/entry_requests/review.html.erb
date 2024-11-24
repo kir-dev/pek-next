@@ -1,10 +1,14 @@
 
+<script src="https://unpkg.com/rxjs@7.8.1/dist/bundles/rxjs.umd.min.js"></script>
 <div id="review-page" class="profile-container">
   <div class="uk-height-viewport uk-responsive-width">
     <h1 class="uk-h1">Színes belépő bírálás</h1>
 
     <% @entry_requests.each do |entry_request| %>
-      <%= form_with model: entry_request, data:{ id: entry_request.id}, class: "entry-request-review uk-form uk-container-center uk-panel uk-panel-box uk-margin-bottom" do |form| %>
+      <%= form_with model: entry_request, id: "entry-request-#{entry_request.id}",
+                    html: {onload: "initEntryRequestReview(#{entry_request.id})", oninput: "submitEntryRequestReview(#{entry_request.id})"},
+                    data:{ id: entry_request.id},
+                    class: "entry-request-review uk-form uk-container-center uk-panel uk-panel-box uk-margin-bottom" do |form| %>
         <div class="uk-form-row">
           <%= link_to entry_request.user.full_name, profile_path(entry_request.user) %>
           (<%= link_to entry_request.group.name, group_path(entry_request.group) %>)
@@ -30,13 +34,14 @@
 
         <div class="uk-form-row">
           <%= form.label :entry_type, "Belépő", class: "uk-form-label uk-text-bold" %>
-          <%= form.select :entry_type, Rails.configuration.x.entry_types.map { |k, v| [v, k] } %>
+          <%= form.select :entry_type,  Rails.configuration.x.entry_types.map { |k, v| [v, k] }, {},
+                          id: "entry-request-#{entry_request.id}-entry-type" %>
           <%= form.label :entry_type, "Végleges", class: "uk-form-label uk-text-bold uk-margin-left" %>
-          <%= form.check_box :finalized %>
+          <%= form.check_box :finalized, id: "entry-request-#{entry_request.id}-finalized" %>
         </div>
         <div class="uk-form-row uk-form-stacked">
           <%= form.label :justification, "Indoklás", class: "uk-form-label" %>
-          <%= form.text_area :justification, class: "uk-width-1-1", style: "field-sizing: content;",
+          <%= form.text_area :justification, id: "entry-request-#{entry_request.id}-justification" ,class: "uk-width-1-1", style: "field-sizing: content;",
                              data: { id: entry_request.id,type: 'entry-request-justification'} %>
         </div>
       <% end %>
