@@ -28,7 +28,9 @@
           <% if current_user.leader_of?(resort) %>
             <div class="uk-form-row">
               <%= form.label :recommendation, "Ajánlás (#{resort.name} Vezető)", class: "uk-form-label uk-text-bold" %>
-              <%= form.select :entry_type, Rails.configuration.x.entry_types.map { |k, v| [v, k] },{}, class: "uk-form-width-small" %>
+              <%= form.select :entry_type, Rails.configuration.x.entry_types.map { |k, v| [v, k] },{},
+                              class: "uk-form-width-small entry-request-#{entry_request.id}-recommendation",
+                              data: {"resort-id" => resort.id} %>
             </div>
           <% end %>
         <% end %>
