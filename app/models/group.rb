@@ -46,14 +46,21 @@ class Group < ApplicationRecord
   belongs_to :group, foreign_key: :parent_id, optional: true
   alias own_post_types post_types
 
-  scope :resorts, -> { where(parent_id: Group::RVT_ID) }
-
   SVIE_ID = 369
   RVT_ID = 146
   KIRDEV_ID = 106
   KB_ID = 1
   SIMONYI_ID = 16
   SSSL_ID = 18
+  KSZK_ID = 47
+  FALATOZO_ID = 235
+  BULIS_ID = 144
+  SPORT_ID = 12
+  KULTUR_ID = 58
+  ERDEKVEDELMI_ID = 427
+
+  RESORTS = [ SIMONYI_ID, SSSL_ID, KSZK_ID, FALATOZO_ID, BULIS_ID, SPORT_ID, KULTUR_ID, ERDEKVEDELMI_ID ]
+  scope :resorts, -> { where(id: RESORTS) }
 
   enum type: {
     group: 'group',
