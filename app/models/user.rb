@@ -53,7 +53,7 @@
 #
 
 class User < ApplicationRecord
-  paginates_per 50
+  paginates_per 100
 
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
 
