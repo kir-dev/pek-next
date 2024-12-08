@@ -25,6 +25,16 @@ class PointDetailCommentDecorator < Draper::Decorator
     end
   end
 
+  def delete_button
+    return unless user == h.current_user
+
+    h.link_to h.point_detail_comment_path(id),remote: true, method: :delete, data: {confirm: "Biztos törlöd a megjegyzést?"},
+                class: 'uk-button-link uk-link-muted uk-button uk-padding-remove uk-margin-small-left uk-margin-small-right',
+              'uk-tooltip': '', title: 'Törlés' do
+      h.tag(:i, class: 'uk-icon-trash')
+    end
+  end
+
   def closing_status
     return unless closing
 

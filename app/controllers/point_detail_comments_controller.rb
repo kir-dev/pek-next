@@ -1,5 +1,5 @@
 class PointDetailCommentsController < ApplicationController
-  before_action :set_point_detail_comment, only: %i[edit update]
+  before_action :set_point_detail_comment, only: %i[edit update destroy]
   before_action :authorize_comment
 
   def index
@@ -34,6 +34,16 @@ class PointDetailCommentsController < ApplicationController
   end
 
   def edit; end
+
+  def destroy
+    return unless @point_detail_comment.user == current_user
+
+    @point_detail_comment.destroy!
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_url }
+      format.js
+    end
+  end
 
   private
 
