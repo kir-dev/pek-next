@@ -7,15 +7,23 @@
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-grid uk-margin-remove uk-width-medium-1-2">
     <% @post_types.each do |post_type| %>
-    <div class="uk-width-1-1 uk-grid  uk-margin-remove uk-padding-remove">
-      <div class="uk-width-1-2 uk-text-left uk-text-bold">
-        <%= post_type.name %>
+      <div class="uk-width-1-1 uk-grid  uk-margin-remove uk-padding-remove">
+        <div class="uk-width-1-2 uk-text-left uk-text-bold">
+          <%= post_type.name %>
+        </div>
+        <div class="uk-width-1-2">
+          <% if post_type.posts.any? %>
+            <div class="button_to">
+              <button data-uk-modal="{target:'#delete_modal_<%= post_type.id %>'}" class="uk-button uk-button-danger uk-button-mini uk-width-1-2 uk-align-center">
+                Poszt törlese
+              </button>
+            </div>
+          <% else %>
+            <%= button_to "Poszt törlese", group_post_type_path(@group.id, post_type),
+                          action: :destroy, method: :delete, class: "uk-button uk-button-danger uk-button-mini uk-width-1-2 uk-align-center" %>
+          <% end %>
+        </div>
       </div>
-      <div class="uk-width-1-2">
-          <%= button_to "Poszt törlese", group_post_type_path(@group.id, post_type),
-            action: :destroy, method: :delete, class: "uk-button uk-button-danger uk-button-mini uk-width-1-2 uk-align-center" %>
-      </div>
-    </div>
     <% end %>
   </div>
 
@@ -39,6 +47,10 @@
 
   <div class="uk-margin-large-top uk-margin" id="back-button-container">
     <%= button_to "Vissza", group_path(@group.id), method: :get,
-      class: "uk-button uk-button-primary uk-button-large uk-align-center" %>
+                  class:                                   "uk-button uk-button-primary uk-button-large uk-align-center" %>
   </div>
 </div>
+
+<% @post_types.each do |post_type| %>
+  <%= render 'confirm_modal', post_type: post_type %>
+<% end %>
