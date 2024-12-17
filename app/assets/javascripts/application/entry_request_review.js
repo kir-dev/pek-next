@@ -31,9 +31,11 @@ async function updateEntryRequestReview(id) {
         const response = await fetch(`/entry_requests/${id}/update_review`, {
             method: 'put',
             body: JSON.stringify({
-                "entry_type": entryType,
-                "finalized": finalized,
-                "justification": justification,
+                "entry_request": {
+                    "entry_type": entryType,
+                    "finalized": finalized,
+                    "justification": justification,
+                },
                 "recommendations": recommendations
             }),
             headers: {

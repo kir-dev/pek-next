@@ -17,7 +17,23 @@ class EntryRequestsController < ApplicationController
   end
 
   def update_review
-    head :ok
+    entry_request = EntryRequest.find(params[:id])
+    if current_user.roles.rvt_leader?
+      entry_request.assign_attributes(entry_request_params.except(:finalized))
+      entry_request.save! if entry_request.changed?
+    end
+    resorts = Group.resorts
+    group_ids_where_the_user_the_leader = Membership.joins(:posts)
+                                                    .where(user: current_user,
+                                                           'posts.post_type_id': PostType::LEADER_POST_ID)
+                                                    .pluck(:group_id)
+    results = {}
+    recommendations = params[:recommendations]
+    resorts.each do |resort|
+      recommendation = recommendations.find {|recommendation| recommendation["resort_id"].to_i == resort.id }
+      results[resort.id] = recommendation['value'] if group_ids_where_the_user_the_leader.include?(resort.id)
+    end
+    render json: results, status: :ok
   end
 
   def review
@@ -29,8 +45,12 @@ class EntryRequestsController < ApplicationController
 
   private
 
+  def entry_request_params
+    params.require(:entry_request).permit(:entry_type, :justification, :finalized)
+  end
+
   def create_or_update_entry_request
-    user       = User.find(params[:user_id])
+    user = User.find(params[:user_id])
     entry_type = params[:entry_type]
 
     entry_request = EntryRequest.find_or_create_by!(evaluation: @evaluation, user: user)
