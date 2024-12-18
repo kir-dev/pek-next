@@ -13,7 +13,7 @@
           (<%= link_to entry_request.group.name, group_path(entry_request.group) %>)
           <i id="<%= "entry-request-#{entry_request.id}-status-indicator" %>"></i>
         </div>
-        <div class="uk-form-row">
+        <div class="uk-form-row"  data-uk-tooltip title="<%= resort_recommendations_tooltip(entry_request.recommendations) %>">
           <%= form.label :entry_type, "Ajánlások", class: "uk-form-label uk-text-bold" %>
           <span>
               <% Rails.configuration.x.entry_types.each_with_index do |(key, value), index| %>
