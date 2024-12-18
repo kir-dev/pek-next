@@ -10,27 +10,39 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+-- *not* creating schema, since initdb creates it
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+-- Name: random_string(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+CREATE FUNCTION public.random_string(length integer) RETURNS text
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    effective_length NUMERIC:= COALESCE(length, 1);
+    result TEXT := '';
+    chars TEXT := 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+BEGIN
+    FOR i IN 1..effective_length LOOP
+            result := result || substr(chars, floor(random() * length(chars) + 1)::INT, 1);
+        END LOOP;
+    RETURN result;
+END;
+$$;
 
 
 SET default_tablespace = '';
 
--- SET default_table_access_method = heap;
-SET default_with_oids = false;
+SET default_table_access_method = heap;
+
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
-
 
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
@@ -61,7 +73,9 @@ CREATE TABLE public.entry_requests (
     entry_type character varying(255),
     justification text,
     evaluation_id bigint NOT NULL,
-    user_id bigint
+    user_id bigint,
+    finalized boolean DEFAULT false NOT NULL,
+    recommendations jsonb
 );
 
 
@@ -1250,6 +1264,13 @@ CREATE UNIQUE INDEX index_entry_requests_on_evaluation_id_and_user_id ON public.
 
 
 --
+-- Name: index_entry_requests_on_finalized; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entry_requests_on_finalized ON public.entry_requests USING btree (finalized);
+
+
+--
 -- Name: index_evaluations_on_group_id_and_semester_and_idx_in_semester; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1763,6 +1784,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209072919'),
 ('20221209100356'),
 ('20240419155504'),
-('20240707094123');
+('20240707094123'),
+('20241218093607');
 
 

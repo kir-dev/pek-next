@@ -2,16 +2,19 @@
 #
 # Table name: entry_requests
 #
-#  id            :bigint           not null, primary key
-#  entry_type    :string(255)
-#  justification :text
-#  evaluation_id :bigint           not null
-#  user_id       :bigint
+#  id              :bigint           not null, primary key
+#  entry_type      :string(255)
+#  finalized       :boolean          default(FALSE), not null
+#  justification   :text
+#  recommendations :jsonb
+#  evaluation_id   :bigint           not null
+#  user_id         :bigint
 #
 # Indexes
 #
 #  bel_tipus_idx                                      (entry_type)
 #  index_entry_requests_on_evaluation_id_and_user_id  (evaluation_id,user_id) UNIQUE
+#  index_entry_requests_on_finalized                  (finalized)
 #
 # Foreign Keys
 #
