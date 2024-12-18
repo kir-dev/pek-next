@@ -19,8 +19,10 @@ class DevelopmentController < ApplicationController
       impersonate(User.first)
     when 'group_leader'
       impersonate(Group.kirdev.leader.user)
-    when 'rvt_member'
+    when 'rvt_leader'
       impersonate(Group.rvt.leader.user)
+    when 'rvt_member'
+      impersonate(Group.sssl.leader.user)
     when 'svie_admin'
       impersonate(Group.svie.leader.user)
     when 'pek_admin'
