@@ -6,7 +6,7 @@
 #  entry_type      :string(255)
 #  finalized       :boolean          default(FALSE), not null
 #  justification   :text
-#  recommendations :jsonb
+#  recommendations :jsonb            not null
 #  evaluation_id   :bigint           not null
 #  user_id         :bigint
 #

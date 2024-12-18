@@ -75,7 +75,7 @@ CREATE TABLE public.entry_requests (
     evaluation_id bigint NOT NULL,
     user_id bigint,
     finalized boolean DEFAULT false NOT NULL,
-    recommendations jsonb
+    recommendations jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
