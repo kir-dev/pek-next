@@ -1,5 +1,6 @@
 class SeasonAdminController < ApplicationController
   before_action :require_rvt_leader
+  before_action :require_off_season, only: [:export_point_history, :export_active_users, :export_users_with_ab]
 
   def index
     @season = SystemAttribute.season
@@ -21,14 +22,24 @@ class SeasonAdminController < ApplicationController
     redirect_to seasons_path, notice: t(:edit_successful)
   end
 
-  def export
+  def export_point_history
     semester = SystemAttribute.semester
     export = ExportPointHistory.call(semester.to_s)
-    csv = CSV.generate do |lines|
-      export.each do |line|
-        lines << line
-      end
-    end
+    csv = array_to_csv(export)
     send_data(csv, filename: "kozossegi-pont-expot-#{semester}.csv", type: "text/csv")
+  end
+
+  def export_users_with_ab
+    semester = SystemAttribute.semester
+    export = ExportUsersWithAb.call(semester.to_s)
+    csv = array_to_csv(export)
+    send_data(csv, filename: "ab-nevsor-export-#{semester}.csv", type: "text/csv")
+  end
+
+  def export_active_users
+    semester = SystemAttribute.semester
+    export = ExportActiveUsers.call(semester.to_s)
+    csv = array_to_csv(export)
+    send_data(csv, filename: "aktiv-kozelok-export-#{semester}.csv", type: "text/csv")
   end
 end

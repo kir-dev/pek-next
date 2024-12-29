@@ -61,7 +61,9 @@ CREATE TABLE public.entry_requests (
     entry_type character varying(255),
     justification text,
     evaluation_id bigint NOT NULL,
-    user_id bigint
+    user_id bigint,
+    finalized boolean DEFAULT false NOT NULL,
+    recommendations jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -1250,6 +1252,13 @@ CREATE UNIQUE INDEX index_entry_requests_on_evaluation_id_and_user_id ON public.
 
 
 --
+-- Name: index_entry_requests_on_finalized; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entry_requests_on_finalized ON public.entry_requests USING btree (finalized);
+
+
+--
 -- Name: index_evaluations_on_group_id_and_semester_and_idx_in_semester; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1763,6 +1772,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209072919'),
 ('20221209100356'),
 ('20240419155504'),
-('20240707094123');
+('20240707094123'),
+('20241218093607');
 
 

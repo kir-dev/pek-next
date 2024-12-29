@@ -65,7 +65,7 @@ module PekNext
       'FEMALE'       => 'Nő',
       'UNKNOWN'      => 'Egyéb'
     }
-    config.x.roles = ['mezei_user', 'group_leader', 'rvt_member', 'svie_admin', 'pek_admin']
+    config.x.roles = ['mezei_user', 'group_leader', 'rvt_member','rvt_leader', 'svie_admin', 'pek_admin']
     config.x.im_accounts = {
       'call_sign'    => 'Hívójel',
       'gtalk'        => 'Google Hangouts',

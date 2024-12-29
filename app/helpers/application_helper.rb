@@ -37,4 +37,12 @@ module ApplicationHelper
   def hu_compare(a, b)
     HungarianComparator.compare(a, b)
   end
+
+  def array_to_csv(array)
+    CSV.generate do |lines|
+      array.each do |line|
+        lines << line
+      end
+    end
+  end
 end

@@ -22,6 +22,7 @@ Group.create([
   { id: Group::KB_ID, name: 'Kollégiumi bizottság', type: :group },
   { id: Group::RVT_ID, name: 'Reszortvezetők Tanácsa', type: :group, parent_id: Group::SVIE_ID },
   { id: Group::SIMONYI_ID, name: 'Simonyi Károly Szakkollégium', type: :team, parent_id: Group::RVT_ID },
+  { id: Group::SSSL_ID, name: 'Szent Schönherz Senior Lovagrend', type: :team, parent_id: Group::RVT_ID },
   { id: Group::KIRDEV_ID, name: 'KIR fejlesztők és üzemeltetők', type: :group, parent_id: Group::SIMONYI_ID,
     description: 'A Villanykari Információs Rendszer fejlesztésével és üzemeltetésével foglalkozó kör.',
     webpage: 'https://kir-dev.hu', maillist: 'hello@kir-dev.hu', founded: 2001, issvie: true,
@@ -36,7 +37,8 @@ User.create({ firstname: 'Júzer', lastname: 'Mezei', screen_name: 'mezei123' })
   { firstname: 'Elnok', lastname: 'Rvt', screen_name: 'rvt_elnok', group_id: Group::RVT_ID },
   { firstname: 'Elnok', lastname: 'Svie', screen_name: 'svie_elnok', group_id: Group::SVIE_ID },
   { firstname: 'Körvez', lastname: 'KirDev', screen_name: 'kir_dev_korvez', group_id: Group::KIRDEV_ID },
-  { firstname: 'Elnök', lastname: 'Simonyi', screen_name: 'elnokiugy', group_id: Group::SIMONYI_ID}
+  { firstname: 'Elnök', lastname: 'Simonyi', screen_name: 'elnokiugy', group_id: Group::SIMONYI_ID},
+  { firstname: 'Nagymester', lastname: 'SSSL', screen_name: 'mester', group_id: Group::SSSL_ID}
 ].each do |item|
   leader_user = User.create(firstname: item[:firstname], lastname: item[:lastname], screen_name: item[:screen_name])
   leader_membership = Membership.create(group_id: item[:group_id], user_id: leader_user.id)
@@ -57,6 +59,11 @@ end
 kb_user = User.create(firstname: 'Masik Srác', lastname: 'KBs', screen_name: 'kbs123')
 Membership.create(group_id: Group::KB_ID, user_id: kb_user.id)
 
+ssl_user = User.create(firstname: 'Tag', lastname: 'SSSL', screen_name: 'sssl123')
+Membership.create(group_id: Group::SSSL_ID, user_id: ssl_user.id)
+
 # Maybe it is better to use sequence for id
 SystemAttribute.create(id: 1, name: 'szemeszter', value: '201720182')
 SystemAttribute.create(id: 2, name: 'ertekeles_idoszak', value: 'NINCSERTEKELES')
+SystemAttribute.create(id: 3, name: 'max_point_for_semester', value: 99)
+
