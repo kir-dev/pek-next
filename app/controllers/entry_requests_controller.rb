@@ -26,7 +26,7 @@ class EntryRequestsController < ApplicationController
       @entry_requests = @entry_requests.where(finalized: false)
     end
     @order = params[:order] || 'id'
-    @entry_requests = @entry_requests.order(@order)
+    @entry_requests = @entry_requests.order(ActiveRecord::Base.sanitize_sql_for_order(@order))
   end
 
   def update_review
