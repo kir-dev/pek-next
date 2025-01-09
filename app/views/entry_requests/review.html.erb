@@ -1,0 +1,70 @@
+<script src="https://unpkg.com/rxjs@7.8.1/dist/bundles/rxjs.umd.min.js"></script>
+<div id="review-page" class="profile-container">
+  <div class="uk-height-viewport uk-responsive-width">
+    <h1 class="uk-h1">Színes belépő bírálás</h1>
+
+    <%= form_with url: review_entry_requests_path, method: :get, local: true,
+                  class: "entry-request-review uk-form uk-container-center uk-panel uk-panel-box uk-margin-bottom" do |form| %>
+      <div class="uk-form-row">
+        <%= form.label :unfinalized, "Nem véglegesek" %>
+        <%= form.check_box :unfinalized, checked: params[:unfinalized] == '1', include_hidden: false %>
+        <%= form.label :order, "Rendezés", class: 'uk-margin-left' %>
+        <%= form.select :order, [["---", "id"],["Kör", 'evaluations.group_id' ], ["Belépő", 'entry_type']], selected: @order%>
+      </div>
+      <div class="uk-form-row">
+        <%= form.submit "Szűrés", class: 'uk-button'%>
+      </div>
+    <% end %>
+
+    <% @entry_requests.each do |entry_request| %>
+      <%= form_with model: entry_request, id: "entry-request-#{entry_request.id}",
+                    html: { onload: "initEntryRequestReview(#{entry_request.id})", oninput: "submitEntryRequestReview(#{entry_request.id})" },
+                    data: { id: entry_request.id },
+                    class: "entry-request-review uk-form uk-container-center uk-panel uk-panel-box uk-margin-bottom" do |form| %>
+        <div class="uk-form-row">
+          <%= link_to entry_request.user.full_name, profile_path(entry_request.user) %>
+          (<%= link_to entry_request.group.name, group_path(entry_request.group) %>)
+          <i id="<%= "entry-request-#{entry_request.id}-status-indicator" %>"></i>
+        </div>
+        <div class="uk-form-row"  data-uk-tooltip title="<%= resort_recommendations_tooltip(entry_request.recommendations) %>">
+          <%= form.label :entry_type, "Ajánlások", class: "uk-form-label uk-text-bold" %>
+          <span>
+              <% Rails.configuration.x.entry_types.each_with_index do |(key, value), index| %>
+              <span>
+                <%= value %> - <%= entry_request.recommendations.count { |resort_id, recommendation| recommendation == key  } %>
+              </span>
+              <%= ',' unless index == Rails.configuration.x.entry_types.length - 1 %>
+            <% end %>
+            </span>
+        </div>
+
+        <% @resorts.each do |resort| %>
+          <% if current_user.leader_of?(resort) %>
+            <div class="uk-form-row">
+              <%= form.label :recommendation, "Ajánlás (#{resort.name} Vezető)", class: "uk-form-label uk-text-bold" %>
+              <%= form.select :entry_type, Rails.configuration.x.entry_types.map { |k, v| [v, k] },
+                              { selected: entry_request.recommendations[resort.id.to_s],
+                                include_blank: '---' },
+                              class: "uk-form-width-small entry-request-#{entry_request.id}-recommendation",
+                              data: { "resort-id" => resort.id } %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <div class="uk-form-row">
+          <%= form.label :entry_type, "Belépő", class: "uk-form-label uk-text-bold" %>
+          <%= form.select :entry_type, Rails.configuration.x.entry_types.map { |k, v| [v, k] }, {},
+                          id: "entry-request-#{entry_request.id}-entry-type",
+                          disabled: !@rvt_leader %>
+          <%= form.label :entry_type, "Végleges", class: "uk-form-label uk-text-bold uk-margin-left" %>
+          <%= form.check_box :finalized, id: "entry-request-#{entry_request.id}-finalized", disabled: !@rvt_leader %>
+        </div>
+        <div class="uk-form-row uk-form-stacked">
+          <%= form.label :justification, "Indoklás", class: "uk-form-label" %>
+          <%= form.text_area :justification, id: "entry-request-#{entry_request.id}-justification", class: "uk-width-1-1", style: "field-sizing: content;",
+                             disabled: !@rvt_leader, data: { id: entry_request.id, type: 'entry-request-justification' } %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

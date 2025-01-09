@@ -48,6 +48,9 @@ describe EvaluationsController do
     context 'when the user is the resort leader' do
       include_context "application season"
       let(:user) { group.parent.leader.user }
+      before do
+        evaluation.group.parent.update!(id: Group::SIMONYI_ID)
+      end
       before(:each) { login_as(user) }
 
       it 'creates new evaluation' do

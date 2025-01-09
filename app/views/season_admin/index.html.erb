@@ -1,35 +1,49 @@
 <% stylesheet 'admin' %>
 
-<h1>Időszakok állítása</h1>
+<h1>Időszakok állítása és Exportok</h1>
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
     <div class="uk-margin">
+      <div class="uk-alert">
+        <div><i class="uk-icon-question-circle"></i> Mikor melyik időszak következik?</div>
+        <ul class="uk-list uk-list-striped">
+          <li>Félév végén Nyugalmi Időszakból átállítja az RVT Elnök a rendszert Pontozási Időszakba.</li>
+          <li>A körök elkészítik a pontozásokat, színes belépőket, majd ezeket leadják.</li>
+          <li>Az Elnök átteszi Bírálási Időszakba a rendszert és az RVT elbírálja a közösségi pontokat.</li>
+          <li>A pontok elbírálása után az Elnök Nyugalmi Időszakot állít be, ekkor megjelennek a közösségi pontok a
+            felhasználók profiljában
+            és elkészíti a közösségi pont exportot.
+          </li>
+          <li>A közösségi pont export után ismét Bírálási Időszakot állít be és az RVT elbírálja a színes belépőket.
+          </li>
+          <li>A színes belépők elbírálása (és elfogadása) után az Elnök Nyugalmi Időszakot állít be, elkészíti az ÁB
+            osztó és
+            aktív tagok exportot.
+          </li>
+          <li>Miután a pontok és színes belépők el lettek bírálva és az összes export letöltésre került, az Elnök
+            beállítja a következő félévet.
+          </li>
+        </ul>
+      </div>
       <table>
         <tr>
-          <td><%= button_to "Elöző félév kiválasztása", {method: :post, action: "previous"},
-                            {class: 'uk-button uk-button-danger uk-margin-small uk-margin-left'} %></td>
-          <td><%= button_to "Következő félév kiválasztása", {method: :post, action: "next"},
-                            {class: 'uk-button uk-button-danger uk-margin-small uk-margin-left'} %></td>
+          <td><%= button_to "Elöző félév kiválasztása", { method: :post, action: "previous" },
+                            { class: 'uk-button uk-button-danger uk-margin-small uk-margin-left' } %></td>
+          <td><%= button_to "Következő félév kiválasztása", { method: :post, action: "next" },
+                            { class: 'uk-button uk-button-danger uk-margin-small uk-margin-left' } %></td>
         </tr>
       </table>
     </div>
 
     <% if !@semester.current? %>
-      <div class="uk-alert uk-alert-danger" >
+      <div class="uk-alert uk-alert-danger">
         <p>Warning: Kiválasztott félév nem aktuális a dátum szerint.</p>
       </div>
-    <%end%>
+    <% end %>
     <div class="uk-margin">
       <%= label :semester_year, 'Kiválasztott félév : ' %>
-      <%= @semester.to_readable  %>
+      <%= @semester.to_readable %>
     </div>
-
-    <% if SystemAttribute.offseason? && PointHistory.exists?(semester: @semester.to_s) %>
-    <div class="uk-text-center">
-      <%= link_to "Közösségi pontok exportálása", export_point_history_path,
-                  {class: 'uk-button uk-button-danger uk-margin-small uk-margin-left'} %>
-    </div>
-    <% end %>
 
     <%= form_tag(seasons_path, class: 'uk-form') do %>
       <div class="uk-margin">
@@ -40,5 +54,57 @@
         <%= submit_tag "Mentés", class: 'uk-text-white uk-button uk-button-danger uk-margin-small uk-margin-left' %>
       </div>
     <% end %>
+  </div>
+</div>
+<br>
+<div id="content-main" class="uk-panel uk-panel-box">
+  <div class="uk-width-medium-1-2 uk-container-center uk-overflow-container">
+    <div class="uk-margin">
+      <div>
+        <h2>Közösségi Pont Export </h2>
+        <ul class="uk-list uk-list-striped">
+          <li>Ez a lehetőség csak Nyugalmi Időszakban érhető el, amikor a pontozások nem szerkeszthetőek.</li>
+          <li>Az aktuálisan kiválasztott félévre vonatkozik.</li>
+          <li>Csak az elfogadott pontozásokból származó pontok kerülnek figyelembevételre.</li>
+          <li>Az exportban szereplő felvételi pont megegyezik a felhasználó profiljában szereplő felvételi ponttal.</li>
+        </ul>
+        <% if SystemAttribute.offseason? && PointHistory.exists?(semester: @semester.to_s) %>
+          <div class="uk-text-center">
+            <%= link_to "Közösségi pontok exportálása", export_point_history_path,
+                        { class: 'uk-button uk-button-danger uk-margin-small uk-margin-left' } %>
+          </div>
+        <% end %>
+      </div>
+      <div class="uk-margin-large-top">
+        <h2>Általános Belépőt Kapott Felhasználók Export</h2>
+        <ul class="uk-list uk-list-striped">
+          <li>Ez a lehetőség csak Nyugalmi Időszakban érhető el, amikor a belépők már elbírálásra kerültek.</li>
+          <li>Az aktuálisan kiválasztott félévre vonatkozik.</li>
+          <li>Ha egy felhasználó több körből is kapott színes belépőt, akkor több sorban is megjelenik.</li>
+          <li>Az ÁB Osztó meghívó email-ek kiküldésekor hasznos.</li>
+        </ul>
+        <% if SystemAttribute.offseason? && PointHistory.exists?(semester: @semester.to_s) %>
+          <div class="uk-text-center">
+            <%= link_to "ÁB osztó névsor exportálása", export_users_with_ab_path,
+                        { class: 'uk-button uk-button-danger uk-margin-small uk-margin-left' } %>
+          </div>
+        <% end %>
+      </div>
+      <div class="uk-margin-large-top">
+        <h2>Aktív Felhasználók Export</h2>
+        <ul class="uk-list uk-list-striped">
+          <li>Ez a lehetőség csak Nyugalmi Időszakban érhető el, amikor a pontozások már véglegesek.</li>
+          <li>Az aktuális és előző félév valamelyikében közösségi pontot szerző felhasználók exportja.</li>
+          <li>A színes belépők véglegesítése után és a következő félév beállítása előtt célszerű elkészíteni.</li>
+          <li>A kozelet@sch.bme.hu levelező lista frissen tartásához készült.</li>
+        </ul>
+        <% if SystemAttribute.offseason? && PointHistory.exists?(semester: @semester.to_s) %>
+          <div class="uk-text-center">
+            <%= link_to "Aktív közélők exportálása", export_active_users_path,
+                        { class: 'uk-button uk-button-danger uk-margin-small uk-margin-left' } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

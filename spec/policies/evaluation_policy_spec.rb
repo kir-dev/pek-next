@@ -76,6 +76,9 @@ RSpec.describe EvaluationPolicy, type: :policy do
 
     context 'and the user is a leader of another group in the resort' do
       let(:user) { evaluation.group.parent.children.select { |g| g != evaluation.group }.first.leader.user }
+      before do
+        evaluation.group.parent.update!(id: Group::SIMONYI_ID)
+      end
 
       it { is_expected.to permit_actions(evaluation_view_actions) }
       it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
@@ -93,6 +96,9 @@ RSpec.describe EvaluationPolicy, type: :policy do
 
     context 'and the user is the leader of the group resort' do
       let(:user) { evaluation.group.parent.leader.user }
+      before do
+        evaluation.group.parent.update!(id: Group::SIMONYI_ID)
+      end
 
       it { is_expected.to permit_actions(evaluation_view_actions) }
       it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
@@ -120,6 +126,9 @@ RSpec.describe EvaluationPolicy, type: :policy do
           group == evaluation.group
         end.first.leader.user
       end
+      before do
+        evaluation.group.parent.update!(id: Group::SIMONYI_ID)
+      end
 
       it { is_expected.to permit_actions(evaluation_view_actions) }
       it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
@@ -129,6 +138,9 @@ RSpec.describe EvaluationPolicy, type: :policy do
       let(:user) do
         evaluation.group.parent.memberships.select(&:evaluation_helper?).first.user
       end
+      before do
+        evaluation.group.parent.update!(id: Group::SIMONYI_ID)
+      end
 
       it { is_expected.to permit_action(:show) }
     end
@@ -136,6 +148,10 @@ RSpec.describe EvaluationPolicy, type: :policy do
     context 'when the user is a leader in the resort' do
       let(:user) do
         evaluation.group.leader.user
+      end
+
+      before do
+        evaluation.group.parent.update!(id: Group::SIMONYI_ID)
       end
 
       let(:resort_evaluation) do
@@ -209,7 +225,9 @@ RSpec.describe EvaluationPolicy, type: :policy do
 
     context "when the user is the resort leader" do
       let(:user) { evaluation.group.parent.leader.user }
-
+      before do
+        evaluation.group.parent.update!(id: Group::SIMONYI_ID)
+      end
       it { is_expected.to permit_actions(update_request_actions + evaluation_view_actions + [:edit_justification]) }
       it { is_expected.to forbid_actions(all_action - (update_request_actions + evaluation_view_actions) - [:edit_justification]) }
 

@@ -35,6 +35,10 @@ Rails.application.routes.draw do
   post '/judgement/:evaluation_id/update', to: 'judgements#update', as: :update_judgement
 
   root to: redirect('/profiles/me')
+  resources :entry_requests do
+    get :review, on: :collection
+    put :update_review, on: :member
+  end
   get 'groups/all', to: 'groups#all', as: :all_groups
   resources :groups, only: [:show, :index, :edit, :update, :create, :new] do
     resources :sub_groups do
@@ -74,6 +78,7 @@ Rails.application.routes.draw do
       delete '/pointrequest', to: 'evaluations#cancel_point_request', as: :cancel_point_request
       post :copy_previous_principles
     end
+
     get '/messages', to: 'messages#index'
     get '/messages/all', to: 'messages#all'
     post '/messages', to: 'messages#create'
@@ -106,7 +111,9 @@ Rails.application.routes.draw do
   end
 
   get '/seasons', to: 'season_admin#index', as: :seasons
-  get '/seasons/export', to: 'season_admin#export', as: :export_point_history
+  get '/seasons/export_point_history', to: 'season_admin#export_point_history', as: :export_point_history
+  get '/seasons/export_users_with_ab', to: 'season_admin#export_users_with_ab', as: :export_users_with_ab
+  get '/seasons/export_active_users', to: 'season_admin#export_active_users', as: :export_active_users
   post '/seasons/next', to: 'season_admin#next', as: :next_semester
   post '/seasons/previous', to: 'season_admin#previous', as: :previous_semester
   post '/seasons', to: 'season_admin#update'

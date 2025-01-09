@@ -1,6 +1,7 @@
 class SubGroupsController < ApplicationController
   before_action :set_sub_group, only: [:show, :edit, :update, :destroy, :join, :leave]
   before_action :require_sssl
+  before_action :create_evaluation_if_not_present, only: [:index]
   # GET /sub_groups
   def index
     @sub_group = SubGroup.new(group: current_group)
@@ -16,7 +17,7 @@ class SubGroupsController < ApplicationController
     authorize @sub_group
     @policy = policy(@sub_group)
     @sub_group_memberships = @sub_group.sub_group_memberships.includes(membership: :user)
-    @sub_group_principle_policy =  SubGroupPrinciplePolicy.new(current_user, @sub_group)
+    @sub_group_principle_policy = SubGroupPrinciplePolicy.new(current_user, @sub_group)
     @sub_group_evaluation_policy = SubGroupEvaluationPolicy.new(current_user, @sub_group)
   end
 
@@ -104,5 +105,16 @@ class SubGroupsController < ApplicationController
 
   def current_membership
     @current_membership ||= current_user.membership_for(current_group)
+  end
+
+  def create_evaluation_if_not_present
+    evaluation = Evaluation.find_by(group_id: current_group.id, semester: current_semester)
+    return if evaluation.present?
+
+    evaluation = Evaluation.new(group_id: current_group.id,
+                                creator_user_id: current_user.id,
+                                semester: current_semester)
+    evaluation.set_default_values
+    evaluation.save!
   end
 end

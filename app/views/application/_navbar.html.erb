@@ -23,21 +23,26 @@
           </li>
         <% end %>
 
-        <% if policy(:application).manage_SVIE? %>
+        <% if policy(:application).manage_SVIE? || policy(:entry_request).review? %>
           <li aria-expanded="false" aria-haspopup="true" class="uk-parent navbar-item" data-uk-dropdown="{pos:'bottom-right'}">
             <a class="nav-button">RVT funkciók</a>
 
             <div class="uk-dropdown uk-dropdown-navbar">
               <ul class="uk-nav uk-nav-navbar">
-                <li><%= link_to 'SVIE-be jelentkezettek', admin_svie_index_path %></li>
+                <% if policy(:application).manage_SVIE? %>
+                  <li><%= link_to 'SVIE-be jelentkezettek', admin_svie_index_path %></li>
+                <% end %>
                 <% if current_user.roles.rvt_member? %>
                   <li><%= link_to 'Megbizottak', admin_rvt_helpers_path %></li>
                 <% end %>
                 <% if current_user.roles.rvt_leader? %>
-                  <li><%= link_to 'Időszakok állítása', seasons_path %></li>
+                  <li><%= link_to 'Időszakok állítása és Exportok', seasons_path %></li>
                 <% end %>
-                <% unless SystemAttribute.offseason? %>
+                <% if policy(:application).manage_SVIE? && !  SystemAttribute.offseason? %>
                   <li><%= link_to 'Értékelések', judgements_path %></li>
+                <% end %>
+                <% if policy(:entry_request).review? %>
+                  <li><%= link_to 'Színes belépő bírálás', review_entry_requests_path %></li>
                 <% end %>
                 <% if GroupPolicy.new(current_user, nil).new? %>
                   <li><%= link_to 'Kör létrehozása', new_group_path %></li>
@@ -135,7 +140,7 @@
         <li><%= link_to 'SVIE-be jelentkezettek', admin_svie_index_path %></li>
         <li><%= link_to 'Megbizottak', admin_rvt_helpers_path %></li>
         <% if current_user.roles.rvt_leader? %>
-          <li><%= link_to 'Időszakok állítása', seasons_path %></li>
+          <li><%= link_to 'Időszakok állítása és Exportok', seasons_path %></li>
         <% end %>
         <% unless SystemAttribute.offseason? %>
           <li><%= link_to 'Értékelések', judgements_path %></li>

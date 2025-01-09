@@ -57,6 +57,10 @@ class ApplicationController < ActionController::Base
     forbidden_page unless current_user.roles.pek_admin?
   end
 
+  def require_off_season
+    forbidden_page unless SystemAttribute.offseason?
+  end
+
   def require_application_or_evaluation_season
     redirect_to root_url if SystemAttribute.offseason?
   end
