@@ -1,6 +1,8 @@
 class EntryRequestsController < ApplicationController
   before_action :set_evaluation, only: [:update]
 
+  ALLOWED_ORDERS = ['id', 'entry_type', 'evaluations.group_id']
+
   def update
     authorize @evaluation, :update_entry_request?
     begin
@@ -26,7 +28,9 @@ class EntryRequestsController < ApplicationController
       @entry_requests = @entry_requests.where(finalized: false)
     end
     @order = params[:order] || 'id'
-    @entry_requests = @entry_requests.order(ActiveRecord::Base.sanitize_sql_for_order(@order))
+    raise "unallowed order in EntryRequestsController#review action" if ALLOWED_ORDERS.exclude?(@order)
+
+    @entry_requests = @entry_requests.order(@order)
   end
 
   def update_review
