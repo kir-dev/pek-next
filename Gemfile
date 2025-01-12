@@ -50,6 +50,9 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem 'paper_trail'
 
 gem 'listen'
+
+gem "roo", "~> 2.8"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -57,7 +60,6 @@ group :development, :test do
   gem 'brakeman', require: false
   # RSpec for more modern testing
   gem 'rspec-rails', '~> 5.0'
-  gem "roo", "~> 2.8"
   gem "pry", "~> 0.14.2"
 end
 
