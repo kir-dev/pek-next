@@ -58,10 +58,7 @@ class PointDetailCommentsController < ApplicationController
   def comments_by_principle_user_id(principle_id, user_id)
     PointDetailComment.includes([{ point_detail: [:point_request] }])
                       .order(:created_at)
-                      .select do |comment|
-      comment.point_detail.principle_id == principle_id &&
-        comment.point_detail.point_request.user_id == user_id
-    end
+                      .where('point_details.principle_id': principle_id, 'point_requests.user_id': user_id)
   end
 
   def authorize_comment
