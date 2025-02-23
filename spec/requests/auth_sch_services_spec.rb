@@ -77,7 +77,7 @@ describe AuthSchServicesController do
         user          = create(:user)
         group         = create(:group)
         membership    = create(:membership, group: group, user: user)
-        evaluation    = create(:evaluation, :accepted, group: group)
+        evaluation    = create(:evaluation, :accepted, group: group, entry_request_status:  Evaluation::ACCEPTED)
         entry_request = EntryRequest.create(user: user, evaluation: evaluation)
 
         expected_response = [

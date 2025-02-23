@@ -20,7 +20,7 @@ class AuthSchServicesController < ApplicationController
 
   def entrants_json(user, semester)
     entrants = user.entry_requests.select do |er|
-      er.evaluation.accepted && er.evaluation.semester == semester
+      er.evaluation.accepted && er.evaluation.entry_request_accepted? && er.evaluation.semester == semester
     end
     entrant_array = []
     entrants.each do |entrant|
