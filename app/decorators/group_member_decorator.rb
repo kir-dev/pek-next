@@ -55,7 +55,8 @@ class GroupMemberDecorator < Draper::Decorator
               group_membership_inactivate_path(group.id, membership_id),
               method: :post, remote: true,
               class: 'uk-button uk-button-primary uk-button-small uk-width-auto',
-              id: "inactive-button-#{membership_id}"
+              id: "inactive-button-#{membership_id}",
+              data: { confirm: "Biztos, hogy öreggé szeretnéd avatni #{user.full_name}-t?" }
   end
 
   def archive_user_button(group)
