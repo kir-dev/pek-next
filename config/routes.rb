@@ -112,7 +112,7 @@ Rails.application.routes.draw do
 
   get '/seasons', to: 'season_admin#index', as: :seasons
   get '/seasons/export_point_history', to: 'season_admin#export_point_history', as: :export_point_history
-  get '/seasons/export_users_with_ab', to: 'season_admin#export_users_with_ab', as: :export_users_with_ab
+  get '/seasons/export_entry_requests', to: 'season_admin#export_entry_requests', as: :export_entry_requests
   get '/seasons/export_active_users', to: 'season_admin#export_active_users', as: :export_active_users
   post '/seasons/next', to: 'season_admin#next', as: :next_semester
   post '/seasons/previous', to: 'season_admin#previous', as: :previous_semester

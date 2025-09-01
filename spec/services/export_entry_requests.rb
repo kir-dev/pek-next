@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-describe ExportUsersWithAb do
-  subject(:export) { ExportUsersWithAb.call(semester.to_s) }
+describe ExportEntryRequests do
+  subject(:export) { ExportEntryRequests.call(semester.to_s) }
   let(:semester) {"202020211"}
   let(:user) { create(:user, firstname:'Active', lastname: 'User', email: 'active@user.com') }
 
