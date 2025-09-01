@@ -29,11 +29,11 @@ class SeasonAdminController < ApplicationController
     send_data(csv, filename: "kozossegi-pont-expot-#{semester}.csv", type: "text/csv")
   end
 
-  def export_users_with_ab
+  def export_entry_requests
     semester = SystemAttribute.semester
-    export = ExportUsersWithAb.call(semester.to_s)
+    export = ExportEntryRequests.call(semester.to_s)
     csv = array_to_csv(export)
-    send_data(csv, filename: "ab-nevsor-export-#{semester}.csv", type: "text/csv")
+    send_data(csv, filename: "szinesbelepo-export-#{semester}.csv", type: "text/csv")
   end
 
   def export_active_users

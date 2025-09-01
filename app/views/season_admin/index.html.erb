@@ -76,16 +76,17 @@
         <% end %>
       </div>
       <div class="uk-margin-large-top">
-        <h2>Általános Belépőt Kapott Felhasználók Export</h2>
+        <h2>Színesbelépő Export</h2>
         <ul class="uk-list uk-list-striped">
           <li>Ez a lehetőség csak Nyugalmi Időszakban érhető el, amikor a belépők már elbírálásra kerültek.</li>
           <li>Az aktuálisan kiválasztott félévre vonatkozik.</li>
+          <li>ÁB és KB belépőket is tartalmaz.</li>
           <li>Ha egy felhasználó több körből is kapott színes belépőt, akkor több sorban is megjelenik.</li>
           <li>Az ÁB Osztó meghívó email-ek kiküldésekor hasznos.</li>
         </ul>
         <% if SystemAttribute.offseason? && PointHistory.exists?(semester: @semester.to_s) %>
           <div class="uk-text-center">
-            <%= link_to "ÁB osztó névsor exportálása", export_users_with_ab_path,
+            <%= link_to "Színesbelépők exportálása", export_entry_requests_path,
                         { class: 'uk-button uk-button-danger uk-margin-small uk-margin-left' } %>
           </div>
         <% end %>
