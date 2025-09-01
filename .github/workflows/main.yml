@@ -41,13 +41,8 @@ jobs:
       run: RAILS_ENV=test bundle exec rake db:create
     - name: Load database structure
       run: PGPASSWORD=pek-next psql -v ON_ERROR_STOP=1 -q -U pek-next -h localhost -f /home/runner/work/pek-next/pek-next/db/structure.sql pek-next-test
-    - name: Run rspec and report to Code Climate
-      uses: paambaati/codeclimate-action@v2.6.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        GENERATE_TEST_COVERAGE: true
-      with:
-        coverageCommand: bundle exec rspec
+    - name: Run rspec
+      run: bundle exec rspec
     - name: Run Minitest
       env:
         GENERATE_TEST_COVERAGE: true
