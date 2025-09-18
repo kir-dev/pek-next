@@ -160,10 +160,7 @@ class Group < ApplicationRecord
   end
 
   def primary_memberships
-    primary_membership_ids = User.joins(:primary_membership).where('memberships.group_id': id)
-                                 .where.not(svie_member_type: SvieUser::NOT_MEMBER)
-                                 .pluck(:svie_primary_membership)
-    Membership.where(id: primary_membership_ids).active
+    memberships.active.includes(posts: :post_type, user: :primary_membership).select(&:primary?)
   end
 
   def current_evaluation
