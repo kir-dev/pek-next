@@ -1,0 +1,5 @@
+[env]
+PGHOST = 'localhost'
+PGPORT = '5432'
+PGDATABASE = 'pek-next'
+PGUSER = 'pek-next'
