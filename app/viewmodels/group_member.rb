@@ -52,7 +52,7 @@ class GroupMember
   end
 
   def primary_member?
-    @membership == @membership.user.primary_membership
+    @membership.primary?
   end
 
   def user
