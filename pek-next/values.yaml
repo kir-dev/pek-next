@@ -1,0 +1,21 @@
+# Default values for pek-next.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+name: pek-next
+image:
+  repository: kirdev/pek-next
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 0.0.1
+railsEnv: staging
+database:
+  host: postgres-service
+  user: postgres
+  password: example
+unsplash:
+  accessKey: CHANGE-ME
+  secret: CHANGE-ME
+secretKeyBase: CHANGE-ME
+hostUrl: pek.k8s.sch.bme.hu
