@@ -133,6 +133,16 @@ docker-compose run web bash -c "bundle exec rake db:migrate"
 docker-compose run web bash -c "bundle exec rake assets:precompile"
 ```
 
+### In Production
+
+Add the following Nginx configuration setting for the server block.
+This enables the rails server to see the clients original ip, not just the reverse proxy's ip.
+The client's ip is required to authenticate users for the AuthSchServicesController.
+
+```shell
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+```
+
 ## Maintenance tasks
 
 Be sure to make regular backups in prod.
