@@ -61,6 +61,7 @@ group :development, :test do
   # RSpec for more modern testing
   gem 'rspec-rails', '~> 5.0'
   gem "pry", "~> 0.14.2"
+  gem "rubocop"
 end
 
 group :test do
