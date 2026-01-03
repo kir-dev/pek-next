@@ -9,6 +9,15 @@ describe EvaluationsController do
   let(:group) { evaluation.group }
   let(:evaluation) { create(:evaluation) }
 
+  describe "#index" do
+      include_context "current user is the group leader"
+      it "lists evaluations" do
+        get "/groups/#{group.id}/evaluations"
+
+        expect(response).to have_http_status :ok
+      end
+  end
+
   describe '#current' do
     context 'when the user is not the group leader' do
       let(:user) { create(:user) }
@@ -82,7 +91,19 @@ describe EvaluationsController do
       it "shows the evaluation" do
         get "/groups/#{group.id}/evaluations/#{evaluation.id}"
 
-        expect(response).to have_http_status(:forbidden)
+        expect(response).to have_http_status(:ok)
+      end
+
+      context "when the evaluation is for the previous semester" do
+        let(:previous_semester) { SystemAttribute.semester.previous }
+        let(:evaluation) { create(:evaluation, semester: previous_semester.to_s) }
+
+        it "shows the evaluation for the correct semester" do
+          get "/groups/#{group.id}/evaluations/#{evaluation.id}"
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(previous_semester.to_readable)
+        end
       end
     end
 

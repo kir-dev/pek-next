@@ -3,6 +3,11 @@ class EvaluationsController < ApplicationController
   before_action :validate_correct_group
   before_action :set_search, only: :table
 
+  def index
+    authorize(current_group.evaluations.last, :show?)
+    @evaluations = current_group.evaluations.order(id: :desc)
+  end
+
   def current
     authorize_evaluation
 

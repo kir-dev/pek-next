@@ -1,7 +1,5 @@
 class EvaluationPolicy < ApplicationPolicy
   def show?
-    return false if off_season?
-
     return true if can_update_active_request?
     return true if leader_of_the_resort? || leader_in_the_resort?
     return true if evaluation_helper_in_the_resort? || evaluation_helper_at_resort?
@@ -23,7 +21,12 @@ class EvaluationPolicy < ApplicationPolicy
   alias destroy? edit?
   alias copy_previous_principles? edit?
 
-  alias update_comments? show?
+  def update_comments?
+    return false if off_season?
+    return false unless evalutation_is_for_the_current_semester?
+
+    show?
+  end
 
   def update_point_request?
     update_request?(point_request_status)
@@ -56,6 +59,8 @@ class EvaluationPolicy < ApplicationPolicy
   def update_request?(request_status)
     return false if off_season?
     return false if request_status == Evaluation::ACCEPTED
+    return false unless evalutation_is_for_the_current_semester?
+
 
     unless request_status == Evaluation::NOT_YET_ASSESSED
       return true if can_update_active_request?
@@ -69,6 +74,7 @@ class EvaluationPolicy < ApplicationPolicy
   end
 
   def submit_request?(request_status)
+    return false unless evalutation_is_for_the_current_semester?
     return false unless submittable_request?(request_status)
 
     leader_of_the_group? || leader_assistant_of_the_group? || pek_admin?
@@ -167,5 +173,9 @@ class EvaluationPolicy < ApplicationPolicy
 
   def can_update_active_request?
     leader_of_the_group? || leader_assistant_of_the_group? || evaluation_helper_of_the_group? || pek_admin?
+  end
+
+  def evalutation_is_for_the_current_semester?
+    evaluation.semester.to_s == SystemAttribute.semester.to_s
   end
 end
