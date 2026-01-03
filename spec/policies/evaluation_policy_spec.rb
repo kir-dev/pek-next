@@ -1,7 +1,8 @@
 RSpec.describe EvaluationPolicy, type: :policy do
   subject { described_class.new(user, evaluation) }
 
-  let(:evaluation) { create(:evaluation) }
+  let(:evaluation) { create(:evaluation, semester: semester.to_s) }
+  let(:semester) {  SystemAttribute.semester }
   let(:evaluation_actions) { %i[show current table edit update edit_justification] }
   let(:evaluation_view_actions) { evaluation_actions - %i[edit update edit_justification] }
   let(:point_request_actions) { %i[submit_point_request cancel_point_request update_point_request] }
@@ -33,6 +34,14 @@ RSpec.describe EvaluationPolicy, type: :policy do
 
         it { is_expected.to permit_actions(evaluation_view_actions) }
         it { is_expected.to forbid_actions(update_request_actions) }
+      end
+
+
+      context "when the evaluation was created in a previous semester" do
+          let(:semester) { SystemAttribute.semester.previous }
+
+          it { is_expected.to permit_actions(evaluation_view_actions) }
+          it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
       end
     end
 
@@ -262,6 +271,7 @@ RSpec.describe EvaluationPolicy, type: :policy do
     include_context 'off season'
     let(:user) { evaluation.group.leader.user }
 
-    it { is_expected.to forbid_actions(all_action) }
+    it { is_expected.to permit_actions(evaluation_view_actions) }
+    it { is_expected.to forbid_actions(all_action - evaluation_view_actions) }
   end
 end

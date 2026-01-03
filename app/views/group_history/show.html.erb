@@ -12,6 +12,11 @@
             class: 'uk-width-1-1 uk-width-large-1-4 uk-select',
             id: 'point-history-select' %>
         </div>
+        <% if policy(@evaluation).show? %>
+          <div class="uk-form-row uk-text-center">
+            <%= link_to "Értékelés részleteinek megtekitntése", group_evaluation_path(@group,@evaluation), class: "uk-button uk-button-primary uk-margin" %>
+          </div>
+        <% end %>
       <% end %>
       <ul class="uk-list uk-list-line">
         <% group_detailed_point_history(@evaluation) do |point_history_presenter| %>

@@ -1,0 +1,16 @@
+<h1 class="uk-h1">Korábbi értékelések</h1>
+<div id="content-main" class="uk-panel uk-panel-box">
+  <ul class="uk-list uk-list-divider">
+    <% @evaluations.each do |evaluation| %>
+      <li>
+        <%= link_to evaluation.date_as_semester.to_readable,
+                    group_evaluation_path(current_group, evaluation),
+                    class: 'uk-button uk-button-link uk-text-bold' %>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="uk-margin-large-top uk-margin">
+    <%= link_to 'Vissza', :back, class: 'uk-button uk-align-center' %>
+  </div>
+</div>

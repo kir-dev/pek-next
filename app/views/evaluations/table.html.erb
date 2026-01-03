@@ -1,7 +1,7 @@
 <% stylesheet 'evaluation' %>
 <% stylesheet 'evaluation_table' %>
 
-<h1 class="uk-margin-left">Pontozás - <%= @evaluation.group.name %></h1>
+<h1 class="uk-margin-left">Pontozás - <%= @evaluation.group.name %> (<%= @evaluation.date_as_semester.to_readable %>)</h1>
 
 <div id="content-main" class="uk-panel uk-panel-box">
   <div class="uk-clearfix uk-margin-bottom">
@@ -27,7 +27,7 @@
       <% if controller_name == 'sub_group_evaluations' %>
         <%= link_to 'Vissza', group_sub_group_path(current_group, params[:sub_group_id]), class: 'uk-button uk-button-small' %>
       <% else %>
-        <%= link_to 'Vissza', group_evaluations_current_path(current_group), class: 'uk-button uk-button-small' %>
+        <%= link_to 'Vissza', group_evaluation_path(current_group, @evaluation), class: 'uk-button uk-button-small' %>
       <% end %>
     </div>
   </div>

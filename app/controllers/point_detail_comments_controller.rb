@@ -1,11 +1,15 @@
 class PointDetailCommentsController < ApplicationController
   before_action :set_point_detail_comment, only: %i[edit update destroy]
-  before_action :authorize_comment
+  before_action :authorize_comment, except: :index
 
   def index
+    @principle = Principle.find(params[:principle_id])
+    @evaluation = @principle.evaluation
+    unless PointDetailPolicy.new(current_user, @evaluation, @principle).show?
+      raise NotAuthorizedError
+    end
     comments = comments_by_principle_user_id(params[:principle_id].to_i, params[:user_id].to_i)
     @user = User.find(params[:user_id])
-    @principle = Principle.find(params[:principle_id])
     @point_detail_comments = PointDetailCommentDecorator.decorate_collection(comments)
     @point_detail_comment = PointDetailComment.new
     render layout: false

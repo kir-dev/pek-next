@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     resources :post_types, only: [:index, :create, :destroy]
 
     get '/evaluations/current', to: 'evaluations#current'
-    resources :evaluations, only: [:show, :edit, :update] do
+    resources :evaluations, only: [:index, :show, :edit, :update] do
       resources :principles, only: [:index, :update, :create, :destroy]
       post '/pointdetails/update', to: 'point_details#update'
       resources :point_detail_comments, shallow: true, only: %i[index create update edit destroy]
