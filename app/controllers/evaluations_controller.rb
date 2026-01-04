@@ -46,12 +46,24 @@ class EvaluationsController < ApplicationController
     @sub_groups         = @evaluation.group.sub_groups
     @ordered_principles = @evaluation.principles.order(:type, :id)
     filter_principles
-    point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
-    @users                  = User.with_full_name.where(id: point_eligible_user_ids)
-                                  .includes(:entry_requests,
+    if @evaluation.semester == current_semester
+      point_eligible_user_ids = @evaluation.group.point_eligible_memberships.map(&:user_id)
+      @users                  = User.with_full_name.where(id: point_eligible_user_ids)
+                                    .includes(:entry_requests,
+                                              point_requests: [point_details: %i[
+                                                point_detail_comments principle
+                                              ]])
+    else
+      evaluated_user_ids = @evaluation.point_requests.map(&:user_id)
+      evaluated_user_ids += @evaluation.entry_requests.map(&:user_id)
+      evaluated_user_ids.uniq!
+
+      @users = User.with_full_name.where(id: evaluated_user_ids)
+                    .includes(:entry_requests,
                                             point_requests: [point_details: %i[
                                               point_detail_comments principle
                                             ]])
+    end
 
     filter_users
     search_users
