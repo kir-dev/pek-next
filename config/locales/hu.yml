@@ -1,4 +1,8 @@
 hu:
+  statuses:
+    inactive: "Öregtag"
+    active: "Aktív"
+    archived: "Archivált"
   date:
     formats:
       default: "%Y.%m.%d."
