@@ -9,7 +9,7 @@
         <label class="uk-float-left">SVIE köreid:</label>
         <div class="uk-float-right">
           <%= select :svie, :primary_membership, @svie_memberships.map { |m| [m.group.name, m.id] },
-          selected: current_user.svie_primary_membership %>
+          selected: current_user.svie_primary_membership, include_blank: "Nincs kiválasztva" %>
         </div>
       </div>
 
