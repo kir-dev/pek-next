@@ -46,6 +46,13 @@ class GroupDecorator < Draper::Decorator
     link_to group.name, group_path(group.id), options
   end
 
+  def link_with_status(options = {})
+    link_title = group.name
+    link_title += " (Inaktív)" if group.inactive?
+
+    link_to link_title, group_path(group.id), options
+  end
+
   private
 
   def format_description
