@@ -175,9 +175,14 @@ class Group < ApplicationRecord
 
   def active_in_last_two_semesters?
     previous_semester = SystemAttribute.semester.previous
-    return true if Evaluation.exists?(group_id: id, date: previous_semester.to_s)
+
+    previous_evaluation = Evaluation.find_by(group_id: id, date: previous_semester.to_s)
+    return true if previous_evaluation.present? && previous_evaluation.point_request_status == Evaluation::ACCEPTED
 
     pre_previous_semester = previous_semester.previous
-    Evaluation.exists?(group_id: id, date: pre_previous_semester.to_s)
+    pre_previous_evaluation = Evaluation.find_by(group_id: id, date: pre_previous_semester.to_s)
+    return true if pre_previous_evaluation.present? && pre_previous_evaluation.point_request_status == Evaluation::ACCEPTED
+
+    false
   end
 end
