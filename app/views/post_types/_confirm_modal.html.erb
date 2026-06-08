@@ -1,0 +1,28 @@
+<div id="delete_modal_<%= post_type.id %>" class="uk-modal">
+  <div class="uk-modal-dialog uk-margin-auto-vertical">
+    <a class="uk-modal-close uk-close"></a>
+    <h1>Jelenlegi felhasználók (<%= post_type.name %>)</h1>
+
+    <%= button_to "Poszt törlese", group_post_type_path(@group.id, post_type),
+                  action: :destroy, method: :delete, class: "uk-button uk-button-danger uk-align-center",
+                  data:   { confirm: 'Biztos hogy törlöd a posztot? Ez a művelet elveszi a posztot a jelenlegi tulajdonosaitól' } %>
+
+    <table class="uk-table uk-table-striped">
+      <thead>
+      <tr>
+        <th>Név</th>
+        <th>Státusz</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% post_type.posts.sort_by { |p| p.membership.status }.each do |post| %>
+        <tr class="<%= 'uk-text-bold' if post.membership.status == 'active' %>">
+          <td><%= post.membership.user.full_name %></td>
+          <td><%= I18n.t post.membership.status, scope: 'statuses' %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

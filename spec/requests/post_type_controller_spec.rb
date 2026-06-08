@@ -148,14 +148,14 @@ describe PostTypesController do
       end
 
       context 'when the post type is in use' do
-        it 'does not delete the post type' do
+        it 'does delete the post type and associated posts' do
           post = build(:post, post_type_id: post_type.id)
           post_type.posts << post
 
           delete "/groups/#{group.id}/post_types/#{post_type.id}"
 
-          expect(PostType.where(id: post_type.id)).to exist
-          expect(flash[:alert]).to be_present
+          expect(PostType.where(id: post_type.id)).not_to exist
+          expect(flash[:alert]).not_to be_present
         end
       end
     end
