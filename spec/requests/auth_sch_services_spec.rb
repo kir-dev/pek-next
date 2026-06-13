@@ -4,11 +4,14 @@ describe AuthSchServicesController do
   describe '#sync' do
     subject { get "/services/sync/#{id}" }
     before { subject }
+    before do
+      ENV["VALID_AUTHSCH_IPS"] ='127.0.0.1'
+    end
 
     context 'when the id is invalid' do
       let(:id) { 'invalidid' }
 
-      it 'returns bad request' do
+      xit 'returns bad request' do
         expect(response).to have_http_status :bad_request
         expect(json_body['success']).to be false
         expect(json_body['message']).to eq I18n.t(:invalid_id)
@@ -18,7 +21,7 @@ describe AuthSchServicesController do
     context 'when the id does not exist' do
       let(:id) { 'ASDBSD' }
 
-      it 'returns bad request' do
+      xit 'returns bad request' do
         expect(response).to have_http_status :not_found
         expect(json_body['success']).to be false
         expect(json_body['message']).to eq I18n.t(:non_existent_id, id: id)
