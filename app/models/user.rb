@@ -53,7 +53,7 @@
 #
 
 class User < ApplicationRecord
-  NICKNAME_MAX_LENGTH = 30
+  NAME_MAX_LENGTH = 30
 
   paginates_per 100
 
@@ -79,7 +79,10 @@ class User < ApplicationRecord
   validates :screen_name, uniqueness: {case_sensitive: false}
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
-  validates :nickname, length: { maximum: NICKNAME_MAX_LENGTH }, allow_blank: true
+
+  validates :firstname, length: { maximum: NAME_MAX_LENGTH }
+  validates :lastname, length: { maximum: NAME_MAX_LENGTH }
+  validates :nickname, length: { maximum: NAME_MAX_LENGTH }, allow_blank: true
 
   # If primary group is not SVIE
   # validates_with PrimaryMembershipValidator

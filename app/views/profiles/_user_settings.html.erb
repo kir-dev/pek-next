@@ -11,17 +11,17 @@
       </tr>
       <tr>
         <td><%= f.label :lastname, class: "form-label-required" %></td>
-        <td><%= f.text_field :lastname, class: 'uk-input uk-width-1-1', required: true %></td>
+        <td><%= f.text_field :lastname, class: 'uk-input uk-width-1-1', maxlength: User::NAME_MAX_LENGTH, required: true %></td>
       </tr>
 
       <tr>
         <td><%= f.label :firstname, class: "form-label-required" %></td>
-        <td><%= f.text_field :firstname, class: 'uk-input uk-width-1-1', required: true %></td>
+        <td><%= f.text_field :firstname, class: 'uk-input uk-width-1-1', maxlength: User::NAME_MAX_LENGTH, required: true %></td>
       </tr>
 
       <tr>
         <td><%= f.label :nickname %></td>
-        <td><%= f.text_field :nickname, class: 'uk-input uk-width-1-1', maxlength: User::NICKNAME_MAX_LENGTH %></td>
+        <td><%= f.text_field :nickname, class: 'uk-input uk-width-1-1', maxlength: User::NAME_MAX_LENGTH %></td>
       </tr>
 
       <tr>

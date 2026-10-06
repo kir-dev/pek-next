@@ -37,7 +37,7 @@ class UserTest < ActionDispatch::IntegrationTest
 
   test 'nickname of 30 characters is valid' do
     user = create(:user)
-    user.nickname = 'á' * User::NICKNAME_MAX_LENGTH
+    user.nickname = 'á' * User::NAME_MAX_LENGTH
 
     assert user.valid?
     assert_empty user.errors[:nickname]
@@ -45,7 +45,7 @@ class UserTest < ActionDispatch::IntegrationTest
 
   test 'nickname longer than 30 characters is invalid' do
     user = create(:user)
-    user.nickname = 'a' * (User::NICKNAME_MAX_LENGTH + 1)
+    user.nickname = 'a' * (User::NAME_MAX_LENGTH + 1)
 
     refute user.valid?
     assert_includes user.errors[:nickname], 'legfeljebb 30 karakter lehet!'
