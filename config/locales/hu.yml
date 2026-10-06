@@ -72,7 +72,7 @@ hu:
     errors:
       messages:
         blank: nem lehet üres!
-        too_long: legfeljebb 30 karakter lehet!
+        too_long: "legfeljebb %{count} karakter lehet!"
       models:
         user:
           attributes:
