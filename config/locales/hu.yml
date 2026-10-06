@@ -77,6 +77,8 @@ hu:
           attributes:
             cell_phone:
               invalid: formátuma hibás. Ellenőrizd, hogy +36201234567 formátumú legyen!
+            nickname:
+              too_long: legfeljebb 30 karakter lehet!
             screen_name:
               taken: már foglalt!
               invalid: nem tartalmazhat '/' és '\\'-t!
