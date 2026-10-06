@@ -20,7 +20,7 @@ class GroupTest < ActionDispatch::IntegrationTest
   end
 
   test 'group with evaluation in last semester is active' do
-    evaluation = create(:evaluation)
+    evaluation = create(:evaluation, :accepted)
     group = evaluation.group
 
     next_semester = Semester.new(evaluation.semester).next!
