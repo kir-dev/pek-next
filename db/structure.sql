@@ -760,9 +760,9 @@ CREATE TABLE public.users (
     id bigint DEFAULT nextval('public.users_usr_id_seq'::regclass) NOT NULL,
     email character varying(64),
     neptun character varying,
-    firstname text NOT NULL,
-    lastname text NOT NULL,
-    nickname text,
+    firstname character varying(30) NOT NULL,
+    lastname character varying(30) NOT NULL,
+    nickname character varying(30),
     svie_member_type character varying(255) DEFAULT 'NEMTAG'::character varying NOT NULL,
     svie_primary_membership bigint,
     delegated boolean DEFAULT false NOT NULL,
@@ -1773,6 +1773,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209100356'),
 ('20240419155504'),
 ('20240707094123'),
-('20241218093607');
+('20241218093607'),
+('20261006120000');
 
 

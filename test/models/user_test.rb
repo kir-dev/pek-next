@@ -34,4 +34,28 @@ class UserTest < ActionDispatch::IntegrationTest
     membership = create(:user).primary_membership
     assert_nil membership
   end
+
+  test 'nickname of 30 characters is valid' do
+    user = create(:user)
+    user.nickname = 'á' * User::NAME_MAX_LENGTH
+
+    assert user.valid?
+    assert_empty user.errors[:nickname]
+  end
+
+  test 'nickname longer than 30 characters is invalid' do
+    user = create(:user)
+    user.nickname = 'a' * (User::NAME_MAX_LENGTH + 1)
+
+    refute user.valid?
+    assert_includes user.errors[:nickname], 'legfeljebb 30 karakter lehet!'
+  end
+
+  test 'blank nickname is valid' do
+    user = create(:user)
+    user.nickname = ''
+
+    assert user.valid?
+    assert_empty user.errors[:nickname]
+  end
 end

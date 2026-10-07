@@ -18,7 +18,7 @@
 #  metascore               :integer
 #  mother_name             :string(100)
 #  neptun                  :string
-#  nickname                :text
+#  nickname                :string(30)
 #  password                :string(28)
 #  photo_path              :string(255)
 #  place_of_birth          :string
@@ -53,6 +53,8 @@
 #
 
 class User < ApplicationRecord
+  NAME_MAX_LENGTH = 30
+
   paginates_per 100
 
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
@@ -77,6 +79,10 @@ class User < ApplicationRecord
   validates :screen_name, uniqueness: {case_sensitive: false}
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
+
+  validates :firstname, length: { maximum: NAME_MAX_LENGTH }
+  validates :lastname, length: { maximum: NAME_MAX_LENGTH }
+  validates :nickname, length: { maximum: NAME_MAX_LENGTH }, allow_blank: true
 
   # If primary group is not SVIE
   # validates_with PrimaryMembershipValidator
