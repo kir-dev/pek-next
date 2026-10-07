@@ -53,6 +53,8 @@
 #
 
 class User < ApplicationRecord
+  NICKNAME_MAX_LENGTH = 50
+
   paginates_per 100
 
   scope :primary_svie_members, -> { where.not(svie_primary_membership: nil) }
@@ -77,6 +79,7 @@ class User < ApplicationRecord
   validates :screen_name, uniqueness: {case_sensitive: false}
   validates :auth_sch_id, uniqueness: true, allow_nil: true
   validates :bme_id, uniqueness: true, allow_nil: true
+  validates :nickname, length: {maximum: NICKNAME_MAX_LENGTH}
 
   # If primary group is not SVIE
   # validates_with PrimaryMembershipValidator

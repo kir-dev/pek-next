@@ -34,4 +34,20 @@ class UserTest < ActionDispatch::IntegrationTest
     membership = create(:user).primary_membership
     assert_nil membership
   end
+
+  test 'nickname can be at maximum length' do
+    user = create(:user)
+    user.nickname = 'a' * User::NICKNAME_MAX_LENGTH
+
+    assert user.valid?
+    assert_empty user.errors[:nickname]
+  end
+
+  test 'nickname cannot be longer than maximum length' do
+    user = create(:user)
+    user.nickname = 'a' * (User::NICKNAME_MAX_LENGTH + 1)
+
+    refute user.valid?
+    refute_empty user.errors[:nickname]
+  end
 end
