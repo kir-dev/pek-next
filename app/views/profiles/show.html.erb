@@ -31,6 +31,12 @@
             <%= im_account.account %>
           <% end %>
           <%= @user_presenter.delegated_for %>
+          <% if Rails.env.development?  && current_user.id != @user_presenter.id %>
+            <%= form_tag(impersonate_user_path) do %>
+              <%= hidden_field_tag :user_id, @user_presenter.id %>
+              <%= submit_tag "Impersonate this user", class: 'uk-button uk-button-primary uk-margin-small uk-margin-left' %>
+            <% end %>
+          <% end %>
         </div>
 
         <div class="uk-width-1-1 uk-margin-top">
