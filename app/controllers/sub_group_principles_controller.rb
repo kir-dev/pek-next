@@ -1,9 +1,9 @@
 class SubGroupPrinciplesController < ApplicationController
+  before_action :authorize_sub_groups
+  before_action :set_sub_group
   before_action :set_principle, only: %i[update destroy]
   before_action :validate_correct_evaluation, only: %i[update destroy]
   # before_action :authorize_evaluation, except: [:index]
-  before_action :set_sub_group, only: [:index, :create, :update]
-  before_action :require_sssl
 
   def index
     authorize @sub_group, policy_class: SubGroupPrinciplePolicy
@@ -43,11 +43,11 @@ class SubGroupPrinciplesController < ApplicationController
   private
 
   def set_principle
-    @principle = Principle.find(params[:id])
+    @principle = @sub_group.principles.find(params[:id])
   end
 
   def validate_correct_evaluation
-    render forbidden_page unless current_evaluation == @principle.evaluation
+    forbidden_page unless current_evaluation == @principle.evaluation
   end
 
   def principle_params
@@ -59,6 +59,6 @@ class SubGroupPrinciplesController < ApplicationController
   end
 
   def set_sub_group
-    @sub_group = SubGroup.find(params[:sub_group_id])
+    @sub_group = current_group.sub_groups.find(params[:sub_group_id])
   end
 end

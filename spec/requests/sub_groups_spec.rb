@@ -24,10 +24,7 @@ RSpec.describe "/sub_groups", type: :request do
     { name: 'SubGroup', group_id: group.id + 1 }
   }
 
-  let(:group) {
-    Group.find(Group::SSSL_ID).update!(id: 1000)
-    create(:group, id: Group::SSSL_ID)
-  }
+  let(:group) { create(:group, id: Group::SZITA_ID) }
 
   let(:user) { group.leader.user }
 
@@ -114,6 +111,139 @@ RSpec.describe "/sub_groups", type: :request do
       sub_group = SubGroup.create! valid_attributes
       delete group_sub_group_url(group, sub_group)
       expect(response).to redirect_to(group_sub_groups_url)
+    end
+  end
+
+  describe 'POST /join' do
+    it 'joins the subgroup' do
+      sub_group = create(:sub_group, group: group)
+
+      expect {
+        post join_group_sub_group_path(group, sub_group)
+      }.to change(SubGroupMembership, :count).by(1)
+
+      expect(response).to redirect_to(group_sub_groups_path(group))
+    end
+  end
+
+  describe 'DELETE /leave' do
+    it 'leaves the subgroup' do
+      sub_group = create(:sub_group, group: group)
+      SubGroupMembership.create!(sub_group: sub_group, membership: group.leader)
+
+      expect {
+        delete leave_group_sub_group_path(group, sub_group)
+      }.to change(SubGroupMembership, :count).by(-1)
+
+      expect(response).to redirect_to(group_sub_groups_path(group))
+    end
+  end
+
+  describe 'POST /set_admin' do
+    it 'updates the subgroup membership' do
+      sub_group_membership = create(:sub_group_membership, sub_group: create(:sub_group, group: group))
+
+      post set_admin_group_sub_group_path(group, sub_group_membership.sub_group, format: :js),
+           params: { sub_group_membership_id: sub_group_membership.id, admin: true }
+
+      expect(response).to have_http_status(:ok)
+      expect(sub_group_membership.reload).to be_admin
+    end
+
+    it 'rejects a membership belonging to another subgroup' do
+      sub_group = create(:sub_group, group: group)
+      other_membership = create(:sub_group_membership, sub_group: create(:sub_group, group: group))
+
+      expect {
+        post set_admin_group_sub_group_path(group, sub_group, format: :js),
+             params: { sub_group_membership_id: other_membership.id, admin: true }
+      }.to raise_error(ActiveRecord::RecordNotFound)
+
+      expect(other_membership.reload).not_to be_admin
+    end
+  end
+
+  context 'when the group is SSSL' do
+    let(:group) { Group.sssl }
+
+    it 'still allows access to subgroups' do
+      get group_sub_groups_path(group)
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
+  context 'when the group is not enabled' do
+    let(:group) { create(:group) }
+
+    it 'forbids access without creating an evaluation' do
+      expect {
+        get group_sub_groups_path(group)
+      }.not_to change(Evaluation, :count)
+
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'forbids creating a subgroup' do
+      expect {
+        post group_sub_groups_path(group), params: { sub_group: { name: 'Not allowed' } }
+      }.not_to change(SubGroup, :count)
+
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
+
+  context 'when the user is not a group member' do
+    let(:user) { create(:user) }
+
+    it 'forbids access without creating an evaluation' do
+      expect {
+        get group_sub_groups_path(group)
+      }.not_to change(Evaluation, :count)
+
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
+
+  context 'when the user is a regular group member' do
+    let(:user) { create(:membership, group: group).user }
+
+    it 'allows viewing subgroups' do
+      get group_sub_groups_path(group)
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'forbids creating a subgroup' do
+      expect {
+        post group_sub_groups_path(group), params: { sub_group: { name: 'Not allowed' } }
+      }.not_to change(SubGroup, :count)
+
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
+
+  context 'when the subgroup belongs to another enabled group' do
+    let(:sub_group) { create(:sub_group, group: Group.sssl) }
+
+    it 'rejects viewing it under the wrong group' do
+      expect {
+        get group_sub_group_path(group, sub_group)
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'rejects editing it under the wrong group' do
+      expect {
+        get edit_group_sub_group_path(group, sub_group)
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'rejects updating it under the wrong group without changing its name' do
+      expect {
+        patch group_sub_group_path(group, sub_group), params: { sub_group: { name: 'Wrong group' } }
+      }.to raise_error(ActiveRecord::RecordNotFound)
+
+      expect(sub_group.reload.name).to eq('Sub Group')
     end
   end
 end

@@ -58,8 +58,10 @@ class Group < ApplicationRecord
   SPORT_ID = 12
   KULTUR_ID = 58
   ERDEKVEDELMI_ID = 427
+  SZITA_ID = 147
 
   RESORTS = [ SIMONYI_ID, SSSL_ID, KSZK_ID, FALATOZO_ID, BULIS_ID, SPORT_ID, KULTUR_ID, ERDEKVEDELMI_ID ]
+  SUB_GROUP_ENABLED_GROUPS = [SSSL_ID, SZITA_ID]
   scope :resorts, -> { where(id: RESORTS) }
 
   enum type: {

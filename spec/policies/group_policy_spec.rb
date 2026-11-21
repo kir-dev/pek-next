@@ -1,6 +1,20 @@
 describe GroupPolicy, type: :policy do
   subject { described_class }
 
+  permissions :sub_groups? do
+    let(:user) { build(:user) }
+
+    Group::SUB_GROUP_ENABLED_GROUPS.each do |group_id|
+      it "allows subgroups for group #{group_id}" do
+        expect(subject).to permit(user, build(:basic_group, id: group_id))
+      end
+    end
+
+    it 'denies subgroups for an unlisted group' do
+      expect(subject).not_to permit(user, build(:basic_group, id: Group::KIRDEV_ID))
+    end
+  end
+
   permissions :manage_memberships? do
     context 'when the user is the group leader' do
       let(:membership) { create(:membership, :leader) }

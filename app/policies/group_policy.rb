@@ -24,6 +24,10 @@ class GroupPolicy < ApplicationPolicy
 
   alias manage_posts? manage_memberships?
 
+  def sub_groups?
+    Group::SUB_GROUP_ENABLED_GROUPS.include?(group.id)
+  end
+
   private
 
   alias group record
