@@ -28,6 +28,20 @@ describe GroupsController do
       get "/groups/#{group.id}"
 
       expect(response).to have_http_status :ok
+      assert_select "a[href='#{group_sub_groups_path(group)}']", count: 0
+    end
+
+    Group::SUB_GROUP_ENABLED_GROUPS.each do |group_id|
+      context "when subgroups are enabled for group #{group_id}" do
+        let(:group) { Group.find_by(id: group_id) || create(:group, id: group_id) }
+
+        it 'shows the subgroups link' do
+          get group_path(group)
+
+          expect(response).to have_http_status :ok
+          assert_select "a[href='#{group_sub_groups_path(group)}']", text: 'Munkacsoportok'
+        end
+      end
     end
   end
 

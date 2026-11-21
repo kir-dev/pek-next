@@ -69,10 +69,8 @@ class ApplicationController < ActionController::Base
     redirect_to root_url if current_user.leader_of?(current_group) && !SystemAttribute.application_season?
   end
 
-  def require_sssl
-    unless current_group.id == Group::SSSL_ID
-      forbidden_page
-    end
+  def authorize_sub_groups
+    authorize current_group, :sub_groups?
   end
 
   def require_leader_or_rvt_member

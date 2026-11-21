@@ -1,14 +1,14 @@
 class SubGroupEvaluationsController < ApplicationController
   include EvaluationsControllerHelper
+  before_action :authorize_sub_groups
   before_action :set_search, only: :table
-  before_action :require_sssl
   def table
-    @sub_group = SubGroup.find(params[:sub_group_id])
+    @sub_group = current_group.sub_groups.find(params[:sub_group_id])
     authorize @sub_group, policy_class: SubGroupEvaluationPolicy
+    @evaluation = current_group.evaluations.includes(:principles).find(params[:evaluation_id])
     @point_details = PointDetail.joins(point_request: :evaluation)
-                                .where(evaluations: { id: current_evaluation.id })
+                                .where(evaluations: { id: @evaluation.id })
                                 .includes(:principle)
-    @evaluation = current_evaluation
     @group = @evaluation.group
 
     @ordered_principles = @evaluation.principles

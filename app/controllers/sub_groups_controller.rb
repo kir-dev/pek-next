@@ -1,11 +1,11 @@
 class SubGroupsController < ApplicationController
-  before_action :set_sub_group, only: [:show, :edit, :update, :destroy, :join, :leave]
-  before_action :require_sssl
-  before_action :create_evaluation_if_not_present, only: [:index]
+  before_action :authorize_sub_groups
+  before_action :set_sub_group, only: [:show, :edit, :update, :destroy, :join, :leave, :set_admin]
   # GET /sub_groups
   def index
     @sub_group = SubGroup.new(group: current_group)
     authorize @sub_group
+    create_evaluation_if_not_present
     @policy = policy(@sub_group)
     @sub_groups = SubGroup.where(group: current_group)
     @sub_group_memberships = SubGroupMembership.where(membership: current_membership)
@@ -85,8 +85,8 @@ class SubGroupsController < ApplicationController
   end
 
   def set_admin
-    @sub_group_membership = SubGroupMembership.find(params[:sub_group_membership_id])
-    authorize @sub_group_membership.sub_group
+    authorize @sub_group
+    @sub_group_membership = @sub_group.sub_group_memberships.find(params[:sub_group_membership_id])
 
     @sub_group_membership.update!(admin: params[:admin])
   end
@@ -95,7 +95,7 @@ class SubGroupsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_sub_group
-    @sub_group = SubGroup.find(params[:id])
+    @sub_group = current_group.sub_groups.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
